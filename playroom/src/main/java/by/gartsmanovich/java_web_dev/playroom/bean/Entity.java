@@ -3,6 +3,11 @@ package by.gartsmanovich.java_web_dev.playroom.bean;
 public class Entity {
 
     /**
+     * The prime number for hashcode.
+     */
+    protected static final int PRIME = 31;
+
+    /**
      * The number for shifting double value to int value.
      */
     protected static final int SHIFT = 32;
