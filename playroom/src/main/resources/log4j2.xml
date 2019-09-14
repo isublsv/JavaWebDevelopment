@@ -19,7 +19,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="by.gartsmanovich.java_web_dev.helloworld" level="trace" additivity="true">
+        <Logger name="by.gartsmanovich.java_web_dev.playroom" level="trace" additivity="true">
             <appender-ref ref="fileLogger" level="error" />
         </Logger>
         <Root level="trace" additivity="false">

@@ -1,24 +1,24 @@
 package by.gartsmanovich.java_web_dev.playroom.bean.param;
 
-public enum Material {
+public enum BlockType {
 
     /**
-     * The singleton instance for the plastic material of a toy.
+     * The singleton instance for the Lego toy block.
      * This has the numeric value of {@code 1}.
      */
-    PLASTIC,
+    LEGO,
 
     /**
-     * The singleton instance for the wood material of a toy.
+     * The singleton instance for the Unit toy block.
      * This has the numeric value of {@code 2}.
      */
-    WOOD,
+    UNIT,
 
     /**
-     * The singleton instance for the rubber material of a toy.
+     * The singleton instance for the Kapla toy block.
      * This has the numeric value of {@code 3}.
      */
-    RUBBER;
+    KAPLA;
 
     @Override
     public String toString() {

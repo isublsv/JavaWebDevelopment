@@ -1,6 +1,7 @@
 package by.gartsmanovich.java_web_dev.playroom.bean.param;
 
 public enum Color {
+
     /**
      * The singleton instance for the blue color of a toy.
      * This has the numeric value of {@code 1}.
@@ -41,5 +42,16 @@ public enum Color {
      * The singleton instance for the yellow color of a toy.
      * This has the numeric value of {@code 7}.
      */
-    YELLOW
+    YELLOW,
+
+    /**
+     * The singleton instance for the multicoloured type of a toy.
+     * This has the numeric value of {@code 8}.
+     */
+    MULTICOLORED;
+
+    @Override
+    public String toString() {
+        return this.name().toLowerCase();
+    }
 }
