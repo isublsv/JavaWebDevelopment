@@ -6,11 +6,6 @@ import by.gartsmanovich.java_web_dev.playroom.bean.param.Color;
 public class Toy extends Entity {
 
     /**
-     * The prime number for hashcode.
-     */
-    static final int PRIME = 31;
-
-    /**
      * The title of a toy.
      */
     private String title;
