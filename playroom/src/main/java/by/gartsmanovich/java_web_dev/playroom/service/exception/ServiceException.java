@@ -1,11 +1,16 @@
 package by.gartsmanovich.java_web_dev.playroom.service.exception;
 
+/**
+ * The ServiceException class indicates that abnormal condition had occurred in
+ * the Service application layer.
+ */
 public class ServiceException extends Exception {
 
     /**
      * Constructs a new exception with {@code null} as its detail message.
      */
     public ServiceException() {
+        super();
     }
 
     /**
