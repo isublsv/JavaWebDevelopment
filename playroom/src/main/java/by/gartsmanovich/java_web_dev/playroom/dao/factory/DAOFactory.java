@@ -13,9 +13,9 @@ public final class DAOFactory {
     }
 
     /**
-     * Global point for access for factory methods.
+     * Global point for access to factory methods.
      *
-     * @return the intstance of Data Access Object factory.
+     * @return the instance of Data Access Object factory.
      */
     public static DAOFactory getInstance() {
         return INSTANCE;

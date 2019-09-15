@@ -1,4 +1,4 @@
 /**
- * Package contains Data Access Object factory.
+ * Package contains the class factory for Data Access Object application layer.
  */
 package by.gartsmanovich.java_web_dev.playroom.dao.factory;
