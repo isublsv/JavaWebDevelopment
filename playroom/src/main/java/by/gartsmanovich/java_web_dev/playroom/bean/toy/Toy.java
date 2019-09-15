@@ -16,6 +16,11 @@ public class Toy extends Entity {
     private Color color;
 
     /**
+     * The age of a kid.
+     */
+    private int age;
+
+    /**
      * The price of a toy.
      */
     private double price;
@@ -33,13 +38,15 @@ public class Toy extends Entity {
      * @param idValue    the id of a toy.
      * @param titleValue the title of a toy.
      * @param colorValue the color of a toy.
+     * @param ageValue   the age of a kid.
      * @param priceValue the price of a toy.
      */
     public Toy(final long idValue, final String titleValue, final Color
-            colorValue, final double priceValue) {
+            colorValue, final int ageValue, final double priceValue) {
         super(idValue);
         this.title = titleValue;
         this.color = colorValue;
+        this.age = ageValue;
         this.price = priceValue;
     }
 
@@ -77,6 +84,24 @@ public class Toy extends Entity {
      */
     public void setColor(final Color colorValue) {
         this.color = colorValue;
+    }
+
+    /**
+     * Gets age.
+     *
+     * @return value of age.
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * Sets age.
+     *
+     * @param ageValue value of age.
+     */
+    public void setAge(final int ageValue) {
+        this.age = ageValue;
     }
 
     /**
@@ -118,6 +143,9 @@ public class Toy extends Entity {
 
         Toy toy = (Toy) o;
 
+        if (age != toy.age) {
+            return false;
+        }
         if (Double.compare(toy.price, price) != 0) {
             return false;
         }
@@ -134,11 +162,11 @@ public class Toy extends Entity {
      */
     @Override
     public int hashCode() {
-        int result;
+        int result = super.hashCode();
         long temp;
-        result = super.hashCode();
         result = PRIME * result + (title != null ? title.hashCode() : 0);
         result = PRIME * result + (color != null ? color.hashCode() : 0);
+        result = PRIME * result + age;
         temp = Double.doubleToLongBits(price);
         result = PRIME * result + (int) (temp ^ (temp >>> SHIFT));
         return result;
@@ -152,6 +180,6 @@ public class Toy extends Entity {
     @Override
     public String toString() {
         return "Toy{" + "id=" + getId() + "title=" + title + ", color="
-                + color + ", price=" + price + '}';
+                + color + ", age=" + age + ", price=" + price + '}';
     }
 }

@@ -22,12 +22,14 @@ public class ToyCar extends Toy {
      * @param idValue    the id of a toy car.
      * @param titleValue the title of a toy car.
      * @param colorValue the color of a toy car.
+     * @param ageValue   the age of a kid.
      * @param priceValue the price of a toy car.
      * @param sizeValue  the size of a toy car.
      */
     public ToyCar(final long idValue, final String titleValue, final Color
-            colorValue, final double priceValue, final Size sizeValue) {
-        super(idValue, titleValue, colorValue, priceValue);
+            colorValue, final int ageValue, final double priceValue, final
+    Size sizeValue) {
+        super(idValue, titleValue, colorValue, ageValue, priceValue);
         this.size = sizeValue;
     }
 
@@ -92,8 +94,8 @@ public class ToyCar extends Toy {
      */
     @Override
     public String toString() {
-        return "ToyBlock{" + "id=" + getId() + "title=" + getTitle()
-                + ", color=" + getColor() + ", price=" + getPrice()
-                + ", size=" + size + '}';
+        return "ToyBlock{" + "id=" + getId() + "title=" + getTitle() + ", "
+                + "color=" + getColor() + ", age=" + getAge() + ", price="
+                + getPrice() + ", " + "size=" + size + '}';
     }
 }

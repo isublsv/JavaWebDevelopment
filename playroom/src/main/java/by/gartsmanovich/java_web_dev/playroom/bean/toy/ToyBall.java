@@ -21,12 +21,14 @@ public class ToyBall extends Toy {
      * @param idValue       the id of a toy ball.
      * @param titleValue    the title of a toy ball.
      * @param colorValue    the color of a toy ball.
+     * @param ageValue      the age of a kid.
      * @param priceValue    the price of a toy ball.
      * @param diameterValue the diameter of a toy ball.
      */
     public ToyBall(final long idValue, final String titleValue, final Color
-            colorValue, final double priceValue, final double diameterValue) {
-        super(idValue, titleValue, colorValue, priceValue);
+            colorValue, final int ageValue, final double priceValue, final
+    double diameterValue) {
+        super(idValue, titleValue, colorValue, ageValue, priceValue);
         this.diameter = diameterValue;
     }
 
@@ -93,8 +95,8 @@ public class ToyBall extends Toy {
      */
     @Override
     public String toString() {
-        return "ToyBlock{" + "id=" + getId() + "title=" + getTitle()
-                + ", color=" + getColor() + ", price=" + getPrice()
-                + ", diameter=" + diameter + '}';
+        return "ToyBlock{" + "id=" + getId() + "title=" + getTitle() + ", "
+                + "color=" + getColor() + ", age=" + getAge() + ", price="
+                + getPrice() + ", " + "diameter=" + diameter + '}';
     }
 }
