@@ -1,5 +1,8 @@
 package by.gartsmanovich.java_web_dev.playroom.dao.factory;
 
+import by.gartsmanovich.java_web_dev.playroom.dao.ToyDAO;
+import by.gartsmanovich.java_web_dev.playroom.dao.impl.ToyDAOImpl;
+
 public final class DAOFactory {
 
     /**
@@ -7,6 +10,11 @@ public final class DAOFactory {
      * DAOFactory class.
      */
     private static final DAOFactory INSTANCE = new DAOFactory();
+
+    /**
+     * The variable provides the access to ToyDAO class methods.
+     */
+    private final ToyDAO toyDAO = new ToyDAOImpl();
 
     private DAOFactory() {
 
@@ -21,5 +29,14 @@ public final class DAOFactory {
         return INSTANCE;
     }
 
-
+    /**
+     * Returns the implementation of the ToyDAO interface.
+     * An instance provide the access to Data Access Object application
+     * layer methods.
+     *
+     * @return an instance of ToyDAO implementation.
+     */
+    public ToyDAO getToyDAO() {
+        return toyDAO;
+    }
 }
