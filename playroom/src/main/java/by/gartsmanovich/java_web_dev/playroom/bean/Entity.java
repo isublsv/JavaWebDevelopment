@@ -13,6 +13,11 @@ public class Entity {
     protected static final int SHIFT = 32;
 
     /**
+     * Generates ID value.
+     */
+    private static int genID = 1;
+
+    /**
      * The ID of an entity.
      */
     private long id;
@@ -21,10 +26,11 @@ public class Entity {
      * Default constructor.
      */
     public Entity() {
+        id  = genID++;
     }
 
     /**
-     * Constructs an entity with id.
+     * Constructs an entity with ID.
      *
      * @param idValue the identifier of an entity.
      */
@@ -33,18 +39,18 @@ public class Entity {
     }
 
     /**
-     * Gets id.
+     * Gets ID.
      *
-     * @return value of id.
+     * @return value of ID.
      */
     public long getId() {
         return id;
     }
 
     /**
-     * Sets id.
+     * Sets ID.
      *
-     * @param idValue value of id.
+     * @param idValue value of ID.
      */
     public void setId(final long idValue) {
         this.id = idValue;

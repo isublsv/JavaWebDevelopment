@@ -20,6 +20,25 @@ public class ToyBlock extends Toy {
      * Default toy block constructor.
      */
     public ToyBlock() {
+        super();
+    }
+
+    /**
+     * Constructs an instance of a toy block with several parameters.
+     *
+     * @param titleValue     the title of a toy block.
+     * @param colorValue     the color of a toy block.
+     * @param ageValue       the age of a kid.
+     * @param priceValue     the price of a toy block.
+     * @param blockTypeValue the type of a toy block.
+     * @param materialValue  the material of a toy block.
+     */
+    public ToyBlock(final String titleValue, final Color colorValue,
+            final int ageValue, final double priceValue, final
+            BlockType blockTypeValue, final Material materialValue) {
+        super(titleValue, colorValue, ageValue, priceValue);
+        this.blockType = blockTypeValue;
+        this.material = materialValue;
     }
 
     /**
@@ -35,7 +54,7 @@ public class ToyBlock extends Toy {
      */
     public ToyBlock(final long idValue, final String titleValue, final Color
             colorValue, final int ageValue, final double priceValue, final
-    BlockType blockTypeValue, final Material materialValue) {
+            BlockType blockTypeValue, final Material materialValue) {
         super(idValue, titleValue, colorValue, ageValue, priceValue);
         this.blockType = blockTypeValue;
         this.material = materialValue;

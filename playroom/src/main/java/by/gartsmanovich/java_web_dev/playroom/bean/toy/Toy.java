@@ -26,16 +26,24 @@ public class Toy extends Entity {
     private double price;
 
     /**
-     * Default Toy constructor.
+     * Default constructor.
      */
     public Toy() {
-        super();
+    }
+
+    /**
+     * Constructs an instance of an entity with only ID parameter.
+     *
+     * @param idValue the ID value of a toy.
+     */
+    public Toy(final long idValue) {
+        super(idValue);
     }
 
     /**
      * Constructs an instance of an entity with several parameters.
      *
-     * @param idValue    the id of a toy.
+     * @param idValue the ID value of a toy.
      * @param titleValue the title of a toy.
      * @param colorValue the color of a toy.
      * @param ageValue   the age of a kid.
@@ -44,6 +52,23 @@ public class Toy extends Entity {
     public Toy(final long idValue, final String titleValue, final Color
             colorValue, final int ageValue, final double priceValue) {
         super(idValue);
+        this.title = titleValue;
+        this.color = colorValue;
+        this.age = ageValue;
+        this.price = priceValue;
+    }
+
+    /**
+     * Constructs an instance of an entity with several parameters.
+     *
+     * @param titleValue the title of a toy.
+     * @param colorValue the color of a toy.
+     * @param ageValue   the age of a kid.
+     * @param priceValue the price of a toy.
+     */
+    public Toy(final String titleValue, final Color
+            colorValue, final int ageValue, final double priceValue) {
+        super();
         this.title = titleValue;
         this.color = colorValue;
         this.age = ageValue;

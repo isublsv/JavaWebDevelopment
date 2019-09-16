@@ -14,6 +14,23 @@ public class ToyCar extends Toy {
      * Default Toy car constructor.
      */
     public ToyCar() {
+        super();
+    }
+
+    /**
+     * Constructs an instance of a toy car with several parameters.
+     *
+     * @param titleValue the title of a toy car.
+     * @param colorValue the color of a toy car.
+     * @param ageValue   the age of a kid.
+     * @param priceValue the price of a toy car.
+     * @param sizeValue  the size of a toy car.
+     */
+    public ToyCar(final String titleValue, final Color colorValue,
+            final int ageValue, final double priceValue, final
+            Size sizeValue) {
+        super(titleValue, colorValue, ageValue, priceValue);
+        this.size = sizeValue;
     }
 
     /**
@@ -28,7 +45,7 @@ public class ToyCar extends Toy {
      */
     public ToyCar(final long idValue, final String titleValue, final Color
             colorValue, final int ageValue, final double priceValue, final
-    Size sizeValue) {
+            Size sizeValue) {
         super(idValue, titleValue, colorValue, ageValue, priceValue);
         this.size = sizeValue;
     }

@@ -20,12 +20,31 @@ public class Doll extends Toy {
      * Default Doll constructor.
      */
     public Doll() {
+        super();
     }
 
     /**
      * Constructs an instance of a doll with several parameters.
      *
-     * @param idValue       the id of a doll.
+     * @param titleValue    the title of a doll.
+     * @param colorValue    the color of a doll.
+     * @param ageValue      the age of a kid.
+     * @param priceValue    the price of a doll.
+     * @param materialValue the material of a doll.
+     * @param weightValue   the weight of a doll.
+     */
+    public Doll(final String titleValue, final Color
+            colorValue, final int ageValue, final double priceValue, final
+                Material materialValue, final double weightValue) {
+        super(titleValue, colorValue, ageValue, priceValue);
+        this.material = materialValue;
+        this.weight = weightValue;
+    }
+
+    /**
+     * Constructs an instance of a doll with several parameters.
+     *
+     * @param idValue       the ID of a doll.
      * @param titleValue    the title of a doll.
      * @param colorValue    the color of a doll.
      * @param ageValue      the age of a kid.

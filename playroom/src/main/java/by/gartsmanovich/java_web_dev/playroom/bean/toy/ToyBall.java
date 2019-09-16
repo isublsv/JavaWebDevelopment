@@ -13,6 +13,23 @@ public class ToyBall extends Toy {
      * Default Toy ball constructor.
      */
     public ToyBall() {
+        super();
+    }
+
+    /**
+     * Constructs an instance of a toy ball with several parameters.
+     *
+     * @param titleValue    the title of a toy ball.
+     * @param colorValue    the color of a toy ball.
+     * @param ageValue      the age of a kid.
+     * @param priceValue    the price of a toy ball.
+     * @param diameterValue the diameter of a toy ball.
+     */
+    public ToyBall(final String titleValue, final Color
+            colorValue, final int ageValue, final double priceValue, final
+            double diameterValue) {
+        super(titleValue, colorValue, ageValue, priceValue);
+        this.diameter = diameterValue;
     }
 
     /**
@@ -27,7 +44,7 @@ public class ToyBall extends Toy {
      */
     public ToyBall(final long idValue, final String titleValue, final Color
             colorValue, final int ageValue, final double priceValue, final
-    double diameterValue) {
+            double diameterValue) {
         super(idValue, titleValue, colorValue, ageValue, priceValue);
         this.diameter = diameterValue;
     }
