@@ -1,6 +1,16 @@
 package by.gartsmanovich.java_web_dev.playroom.bean;
 
-public class PlayRoom extends Entity {
+import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public final class PlayRoom {
+
+    /**
+     * Lazy initialisation of the Play Room Storage instance.
+     */
+    private static PlayRoom instance;
 
     /**
      * The title of a play room.
@@ -13,17 +23,35 @@ public class PlayRoom extends Entity {
     private double budget;
 
     /**
+     * The storage that contains an list of entities.
+     */
+    private List<Toy> toyStorage;
+
+    /**
      * Constructs an instance of an entity with several parameters.
      *
-     * @param idValue the identifier of a play room.
-     * @param titleValue the title of a play room.
+     * @param titleValue  the title of a play room.
      * @param budgetValue the budget of a play room.
      */
-    public PlayRoom(final long idValue, final String titleValue, final double
-            budgetValue) {
-        super(idValue);
+    private PlayRoom(final String titleValue, final double budgetValue) {
         this.title = titleValue;
         this.budget = budgetValue;
+        this.toyStorage = new ArrayList<>();
+    }
+
+    /**
+     * Global point to create an instance of the storage.
+     *
+     * @param titleValue the title of a play room.
+     * @param budgetValue the budget of a play room.
+     * @return the instance of Play Room storage.
+     */
+    public static PlayRoom getInstance(final String titleValue, final double
+            budgetValue) {
+        if (instance == null) {
+            return new PlayRoom(titleValue, budgetValue);
+        }
+        return instance;
     }
 
     /**
@@ -63,46 +91,12 @@ public class PlayRoom extends Entity {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this one.
+     * Gets toyStorage.
      *
-     * @param o the reference object with which to compare.
-     * @return {@code true} if this object is the same as the obj
-     * argument; {@code false} otherwise.
+     * @return value of toyStorage.
      */
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-
-        PlayRoom playRoom = (PlayRoom) o;
-
-        if (Double.compare(playRoom.budget, budget) != 0) {
-            return false;
-        }
-        return title != null ? title.equals(playRoom.title) : playRoom.title
-                == null;
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     *
-     * @return a hash code value for this object.
-     */
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        long temp;
-        result = PRIME * result + (title != null ? title.hashCode() : 0);
-        temp = Double.doubleToLongBits(budget);
-        result = PRIME * result + (int) (temp ^ (temp >>> SHIFT));
-        return result;
+    public List<Toy> getToyStorage() {
+        return toyStorage;
     }
 
     /**
@@ -112,7 +106,7 @@ public class PlayRoom extends Entity {
      */
     @Override
     public String toString() {
-        return "PlayRoom{" + "id=" + getId() + "title='" + title
-                + ", budget=" + budget + '}';
+        return "PlayRoom{" + "title='" + title + ", " + "budget=" + budget
+               + '}';
     }
 }
