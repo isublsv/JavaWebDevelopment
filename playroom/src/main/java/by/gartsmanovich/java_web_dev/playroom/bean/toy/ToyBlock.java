@@ -144,9 +144,8 @@ public class ToyBlock extends Toy {
      */
     @Override
     public String toString() {
-        return "ToyBlock{" + "id=" + getId() + "title=" + getTitle() + ", "
-                + "color=" + getColor() + ", age=" + getAge() + ", price="
-                + getPrice() + ", " + "blockType=" + blockType + ", material="
-                + material + '}';
+        return String.format("%d, %s, %s, %d, %.2f, %s, %s", getId(),
+                getTitle(), getColor(), getAge(), getPrice(),
+                blockType, material);
     }
 }

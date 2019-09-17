@@ -111,8 +111,7 @@ public class ToyCar extends Toy {
      */
     @Override
     public String toString() {
-        return "ToyBlock{" + "id=" + getId() + "title=" + getTitle() + ", "
-                + "color=" + getColor() + ", age=" + getAge() + ", price="
-                + getPrice() + ", " + "size=" + size + '}';
+        return String.format("%d, %s, %s, %d, %.2f, %s", getId(), getTitle(),
+                getColor(), getAge(), getPrice(), size);
     }
 }

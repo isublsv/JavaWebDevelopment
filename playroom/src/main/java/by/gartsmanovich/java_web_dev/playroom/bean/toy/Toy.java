@@ -204,7 +204,7 @@ public class Toy extends Entity {
      */
     @Override
     public String toString() {
-        return "Toy{" + "id=" + getId() + "title=" + title + ", color="
-                + color + ", age=" + age + ", price=" + price + '}';
+        return getId() + ", " + title + ", " + color + ", " + age + ", "
+                + price;
     }
 }

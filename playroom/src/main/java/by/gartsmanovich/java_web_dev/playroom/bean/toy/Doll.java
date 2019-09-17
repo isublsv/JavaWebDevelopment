@@ -33,9 +33,9 @@ public class Doll extends Toy {
      * @param materialValue the material of a doll.
      * @param weightValue   the weight of a doll.
      */
-    public Doll(final String titleValue, final Color
-            colorValue, final int ageValue, final double priceValue, final
-                Material materialValue, final double weightValue) {
+    public Doll(final String titleValue, final Color colorValue, final int
+            ageValue, final double priceValue, final Material materialValue,
+                final double weightValue) {
         super(titleValue, colorValue, ageValue, priceValue);
         this.material = materialValue;
         this.weight = weightValue;
@@ -145,9 +145,8 @@ public class Doll extends Toy {
      */
     @Override
     public String toString() {
-        return "ToyBlock{" + "id=" + getId() + "title=" + getTitle() + ", "
-                + "color=" + getColor() + ", age=" + getAge() + ", price="
-                + getPrice() + ", " + "material=" + material + ", weight="
-                + weight + '}';
+        return String.format("%d, %s, %s, %d, %.2f, %s, %.2f", getId(),
+                getTitle(), getColor(), getAge(), getPrice(),
+                material, weight);
     }
 }
