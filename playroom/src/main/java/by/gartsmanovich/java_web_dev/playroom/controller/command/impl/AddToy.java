@@ -12,12 +12,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class AddNewToy implements Command {
+public class AddToy implements Command {
 
     /**
-     * The logger for AddNewToy class.
+     * The logger for AddToy class.
      */
-    private static final Logger LOGGER = LogManager.getLogger(AddNewToy.class);
+    private static final Logger LOGGER = LogManager.getLogger(AddToy.class);
 
     /**
      * Handles the request parameters and adds entity to the specific
