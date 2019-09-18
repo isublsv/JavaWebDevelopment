@@ -10,17 +10,12 @@ import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class UpdateToy implements Command {
+public class RemoveToy implements Command {
 
     /**
-     * The logger for UpdateToy class.
+     * The logger for RemoveToy class.
      */
-    private static final Logger LOGGER = LogManager.getLogger(UpdateToy.class);
-
-    /**
-     * The valid number of arguments.
-     */
-    private static final int ARGS_NUMBER = 4;
+    private static final Logger LOGGER = LogManager.getLogger(RemoveToy.class);
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -39,20 +34,23 @@ public class UpdateToy implements Command {
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
-        String[] args = request.split(" ");
-
-        if (args.length < ARGS_NUMBER) {
+        if (request.isEmpty()) {
             LOGGER.trace("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
-                playRoomService.updateEntity(args);
+                long id = Long.parseLong(request.trim());
+                playRoomService.removeEntity(id);
                 response = MessageManager
-                        .getProperty("message.update.correct");
+                        .getProperty("message.remove.correct");
+            } catch (NumberFormatException e) {
+                LOGGER.trace("Invalid parameter format was passed!");
+                response = MessageManager
+                        .getProperty("message.incorrect.args.format");
             } catch (ServiceException e) {
-                LOGGER.error("Failed to update the toy data!");
+                LOGGER.error("Failed to remove the toy!");
                 response = MessageManager
-                        .getProperty("message.update.failed");
+                        .getProperty("message.remove.failed");
             }
             return response;
         }

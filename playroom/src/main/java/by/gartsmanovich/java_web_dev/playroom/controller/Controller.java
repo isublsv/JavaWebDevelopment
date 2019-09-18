@@ -32,7 +32,8 @@ public class Controller {
         executionCommand = provider.getCommand(commandName);
 
         String response;
-        response = executionCommand.execute(request);
+        String params = request.substring(request.indexOf(PARAM_DELIMITER));
+        response = executionCommand.execute(params);
 
         return response;
     }

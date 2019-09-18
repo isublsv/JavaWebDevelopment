@@ -11,7 +11,6 @@ import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 public class AddToy implements Command {
 
     /**
@@ -20,8 +19,13 @@ public class AddToy implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AddToy.class);
 
     /**
-     * Handles the request parameters and adds entity to the specific
-     * repository.
+     * The valid number of arguments.
+     */
+    private static final int ARGS_NUMBER = 3;
+
+    /**
+     * Handles the request parameters and passes its to the Service application
+     * layer.
      *
      * @param request the provided string for processing.
      * @return the result string of correct or incorrect execution of the
@@ -35,15 +39,23 @@ public class AddToy implements Command {
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
-        try {
-            playRoomService.addNewEntity(new Toy());
-            response = MessageManager.getProperty("message.addnewtoy.correct");
-        } catch (ServiceException e) {
-            LOGGER.error("The toy cannot be added!");
-            response = MessageManager.getProperty("message.addnewtoy"
-                    + ".incorrect");
-        }
+        String[] args = request.split(" ");
 
-        return response;
+        if (args.length < ARGS_NUMBER) {
+            LOGGER.trace("Incorrect parameters number!");
+            return MessageManager
+                    .getProperty("message.incorrect.args.number");
+        } else {
+            try {
+                playRoomService.addEntity(args);
+                response = MessageManager
+                        .getProperty("message.add.correct");
+            } catch (ServiceException e) {
+                LOGGER.error("Failed to add the toy!");
+                response = MessageManager
+                        .getProperty("message.add.failed");
+            }
+            return response;
+        }
     }
 }

@@ -1,19 +1,49 @@
 package by.gartsmanovich.java_web_dev.playroom.controller.command.impl;
 
+import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
 import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
+import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
+        .MessageManager;
+import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
+import by.gartsmanovich.java_web_dev.playroom.service.exception
+        .ServiceException;
+import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-/**
- * Class description goes here.
- */
 public class SortByAge implements Command {
+
     /**
-     * The main method that changes its behavior depends on request parameter.
+     * The logger for SortByAge class.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(SortByAge.class);
+
+    /**
+     * Handles the request parameters and passes its to the Service application
+     * layer.
      *
      * @param request the provided string for processing.
-     * @return a result string value of the provided request.
+     * @return the result string of correct or incorrect execution of the
+     * command.
      */
-    @Override
     public String execute(final String request) {
-        return null;
+
+        String response;
+
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        PlayRoomService<Toy> playRoomService = serviceFactory
+                .getPlayRoomService();
+
+        try {
+            playRoomService.sortByAge();
+            response = MessageManager
+                    .getProperty("message.sort.by.age.correct");
+        } catch (ServiceException e) {
+            LOGGER.error("Failed to sort play room storage by age!");
+            response = MessageManager
+                    .getProperty("message.sort.by.age.failed");
+        }
+        return response;
+
     }
 }

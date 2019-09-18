@@ -4,7 +4,8 @@ import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
 import by.gartsmanovich.java_web_dev.playroom.repository.Repository;
 import by.gartsmanovich.java_web_dev.playroom.repository.specification.Specification;
 
-import java.util.List;
+
+import java.util.*;
 
 public class ToyRepository implements Repository {
 
@@ -50,6 +51,6 @@ public class ToyRepository implements Repository {
      */
     @Override
     public List query(final Specification specification) {
-        return null;
+        return Collections.emptyList();
     }
 }

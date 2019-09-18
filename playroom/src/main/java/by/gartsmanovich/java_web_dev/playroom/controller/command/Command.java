@@ -6,10 +6,12 @@ package by.gartsmanovich.java_web_dev.playroom.controller.command;
 public interface Command {
 
     /**
-     * The main method that changes its behavior depends on request parameter.
+     * Handles the request parameters and passes its to the Service application
+     * layer.
      *
      * @param request the provided string for processing.
-     * @return a result string value of the provided request.
+     * @return the result string of correct or incorrect execution of the
+     * command.
      */
     String execute(String request);
 }

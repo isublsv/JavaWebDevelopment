@@ -5,22 +5,21 @@ import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
 import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
         .MessageManager;
 import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
-import by.gartsmanovich.java_web_dev.playroom.service.exception.ServiceException;
+import by.gartsmanovich.java_web_dev.playroom.service.exception
+        .ServiceException;
 import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class UpdateToy implements Command {
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class PrintAll implements Command {
 
     /**
-     * The logger for UpdateToy class.
+     * The logger for PrintAll class.
      */
-    private static final Logger LOGGER = LogManager.getLogger(UpdateToy.class);
-
-    /**
-     * The valid number of arguments.
-     */
-    private static final int ARGS_NUMBER = 4;
+    private static final Logger LOGGER = LogManager.getLogger(PrintAll.class);
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -33,28 +32,27 @@ public class UpdateToy implements Command {
     @Override
     public String execute(final String request) {
 
-        String response;
+        StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
-        String[] args = request.split(" ");
-
-        if (args.length < ARGS_NUMBER) {
-            LOGGER.trace("Incorrect parameters number!");
-            return MessageManager.getProperty("message.incorrect.args.number");
-        } else {
-            try {
-                playRoomService.updateEntity(args);
-                response = MessageManager
-                        .getProperty("message.update.correct");
-            } catch (ServiceException e) {
-                LOGGER.error("Failed to update the toy data!");
-                response = MessageManager
-                        .getProperty("message.update.failed");
-            }
-            return response;
+        try {
+            List<Toy> toys = playRoomService.findAll();
+            response.append(MessageManager
+                    .getProperty("message.find.all.correct"));
+            response.append("\n");
+            String s = toys.stream()
+                           .map(Object::toString)
+                           .collect(Collectors.joining("\n"));
+            response.append(s);
+        } catch (ServiceException e) {
+            LOGGER.error("Failed to find the toys!");
+            response.append(MessageManager
+                    .getProperty("message.find.all.failed"));
         }
+        return response.toString();
+
     }
 }

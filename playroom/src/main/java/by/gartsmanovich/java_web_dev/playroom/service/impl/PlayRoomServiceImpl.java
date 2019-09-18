@@ -18,35 +18,58 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     private static final Logger LOGGER = LogManager
             .getLogger(PlayRoomServiceImpl.class);
 
+
     /**
-     * Adds new entity in the repository. If the entity with current ID is
-     * present, than replace it.
+     * Creates play room instance and fill the storage by provided budget
+     * amount.
      *
-     * @param entity the entity to add or replace.
-     * @throws ServiceException if entity ID has incorrect format.
+     * @param budget the total price of all toys in the play room.
+     * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void addNewEntity(final Toy entity) throws ServiceException {
+    public void createPlayRoom(final double budget) throws ServiceException {
 
     }
 
     /**
-     * Deletes entity with provided ID from the repository.
+     * Adds new entity in the end of the storage.
      *
-     * @param id the ID of an entity to delete.
-     * @throws ServiceException if entity ID has incorrect format.
+     * @param entity the string representation of the entity to add.
+     * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void deleteEntityByID(final long id) throws ServiceException {
+    public void addEntity(final String... entity) throws ServiceException {
 
     }
 
     /**
-     * Finds an entity by ID in the repository.
+     * Update entity in the repository by ID.
      *
-     * @param id the provided entity's ID.
-     * @return an entity if present.
-     * @throws ServiceException if entity Id has incorrect format.
+     * @param entity the string representation of the entity to update.
+     * @throws ServiceException if error happens during execution.
+     */
+    @Override
+    public void updateEntity(final String... entity) throws ServiceException {
+
+    }
+
+    /**
+     * Removes entity with provided ID from the storage.
+     *
+     * @param id the ID of the entity to remove.
+     * @throws ServiceException if error happens during execution.
+     */
+    @Override
+    public void removeEntity(final long id) throws ServiceException {
+
+    }
+
+    /**
+     * Finds an entity by ID in the storage.
+     *
+     * @param id the provided ID.
+     * @return an entity if is present.
+     * @throws ServiceException if error happens during execution.
      */
     @Override
     public Toy findEntityByID(final long id) throws ServiceException {
@@ -56,13 +79,14 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     /**
      * Finds an entity by provided title.
      *
-     * @param title the provided title of an entity.
-     * @return an entity if present.
-     * @throws ServiceException if title parameter has incorrect format.
+     * @param title the provided title of the entity.
+     * @return the list of all founded entities.
+     * @throws ServiceException if error happens during execution.
      */
     @Override
-    public Toy findEntityByTitle(final String title) throws ServiceException {
-        return null;
+    public List<Toy> findEntityByTitle(final String title) throws
+            ServiceException {
+        return Collections.emptyList();
     }
 
     /**
@@ -71,7 +95,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      *
      * @param c the provided character symbol.
      * @return the list of all founded entities.
-     * @throws ServiceException if input parameter has incorrect format.
+     * @throws ServiceException if error happens during execution.
      */
     @Override
     public List<Toy> findEntityByFirstTitleLetter(final char c) throws
@@ -80,32 +104,47 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     }
 
     /**
-     * Finds all the entities in the given Id range.
+     * Finds all the entities in the given ID range.
      *
-     * @param startId the starting Id value.
-     * @param endId   the final Id value.
+     * @param startId the starting ID value.
+     * @param endId   the final ID value.
      * @return the list of all founded entities.
-     * @throws ServiceException if input parameters has incorrect format.
+     * @throws ServiceException if error happens during execution.
      */
     @Override
-    public List<Toy> findEntityByRangeID(final int startId, final int endId)
-            throws ServiceException {
+    public List<Toy> findEntityByRangeID(final long startId, final long
+            endId) throws ServiceException {
         return Collections.emptyList();
     }
 
     /**
-     * Sorts repository by age.
+     * Finds all the entities in the storage.
+     *
+     * @return the list of all founded entities.
+     * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void sortByAge() {
+    public List<Toy> findAll() throws ServiceException {
+        return Collections.emptyList();
+    }
+
+    /**
+     * Sorts the storage by age.
+     *
+     * @throws ServiceException if error happens during execution.
+     */
+    @Override
+    public void sortByAge() throws ServiceException {
 
     }
 
     /**
      * Sorts the repository by Color, than by price.
+     *
+     * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void sortByColorAndPrice() {
+    public void sortByColorAndPrice() throws ServiceException {
 
     }
 }
