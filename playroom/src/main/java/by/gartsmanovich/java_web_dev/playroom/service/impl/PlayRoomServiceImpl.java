@@ -147,4 +147,14 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     public void sortByColorAndPrice() throws ServiceException {
 
     }
+
+    /**
+     * Save storage to the file before exit.
+     *
+     * @throws ServiceException if error happens during execution.
+     */
+    @Override
+    public void saveAll() throws ServiceException {
+
+    }
 }

@@ -53,6 +53,5 @@ public class PrintAll implements Command {
                     .getProperty("message.find.all.failed"));
         }
         return response.toString();
-
     }
 }

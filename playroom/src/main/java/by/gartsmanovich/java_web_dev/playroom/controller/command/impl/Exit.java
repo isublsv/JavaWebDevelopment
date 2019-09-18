@@ -1,8 +1,23 @@
 package by.gartsmanovich.java_web_dev.playroom.controller.command.impl;
 
+import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
 import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
+import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
+        .MessageManager;
+import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
+import by.gartsmanovich.java_web_dev.playroom.service.exception
+        .ServiceException;
+import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Exit implements Command {
+
+    /**
+     * The logger for Exit class.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(Exit.class);
+
     /**
      * The main method that changes its behavior depends on request parameter.
      *
@@ -11,6 +26,20 @@ public class Exit implements Command {
      */
     @Override
     public String execute(final String request) {
-        return null;
+
+        String response;
+
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        PlayRoomService<Toy> playRoomService = serviceFactory
+                .getPlayRoomService();
+
+        try {
+            playRoomService.saveAll();
+            response = MessageManager.getProperty("message.save.correct");
+        } catch (ServiceException e) {
+            LOGGER.error("Failed to save storage!");
+            response = MessageManager.getProperty("message.save.failed");
+        }
+        return response;
     }
 }

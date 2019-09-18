@@ -101,4 +101,11 @@ public interface PlayRoomService<T extends Entity> {
      * @throws ServiceException if error happens during execution.
      */
     void sortByColorAndPrice() throws ServiceException;
+
+    /**
+     * Save storage to the file before exit.
+     *
+     * @throws ServiceException if error happens during execution.
+     */
+    void saveAll()throws ServiceException;
 }
