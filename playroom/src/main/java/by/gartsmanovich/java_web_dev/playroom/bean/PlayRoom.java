@@ -40,7 +40,7 @@ public final class PlayRoom {
     }
 
     /**
-     * Global point to create an instance of the storage.
+     * Global point to createPlayRoom an instance of the storage.
      *
      * @param titleValue the title of a play room.
      * @param budgetValue the budget of a play room.

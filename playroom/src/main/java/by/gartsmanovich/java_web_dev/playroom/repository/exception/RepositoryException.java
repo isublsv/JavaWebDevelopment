@@ -1,15 +1,15 @@
-package by.gartsmanovich.java_web_dev.playroom.dao.exception;
+package by.gartsmanovich.java_web_dev.playroom.repository.exception;
 
 /**
- * The DAOException class indicates that abnormal condition had occurred in
- * the Data Access Object application layer.
+ * The Repository Exception class indicates that abnormal condition had
+ * occurred in the Data Access Object application layer.
  */
-public class DAOException extends Exception {
+public class RepositoryException extends Exception {
 
     /**
      * Constructs a new exception with {@code null} as its detail message.
      */
-    public DAOException() {
+    public RepositoryException() {
         super();
     }
 
@@ -18,7 +18,7 @@ public class DAOException extends Exception {
      *
      * @param message the detail message.
      */
-    public DAOException(final String message) {
+    public RepositoryException(final String message) {
         super(message);
     }
 
@@ -31,7 +31,7 @@ public class DAOException extends Exception {
      * @param cause   the cause (which is saved for later retrieval by the
      *                {@link #getCause()} method).
      */
-    public DAOException(final String message, final Throwable cause) {
+    public RepositoryException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
@@ -42,7 +42,7 @@ public class DAOException extends Exception {
      * @param cause the cause (which is saved for later retrieval by the
      *              {@link #getCause()} method).
      */
-    public DAOException(final Throwable cause) {
+    public RepositoryException(final Throwable cause) {
         super(cause);
     }
 }
