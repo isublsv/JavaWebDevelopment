@@ -61,17 +61,15 @@ public class CommandProvider {
      * Returns the command instance for which the specified name is mapped
      * in the repository.
      *
-     * @param name the key whose associated value is to be returned.
+     * @param code the key whose associated value is to be returned.
      * @return the command instance.
      */
-    public Command getCommand(final String name) {
-        CommandName commandName;
+    public Command getCommand(final int code) {
         Command command;
 
         try {
-            commandName = CommandName.valueOf(name.toUpperCase());
-            command = repository.get(commandName);
-        } catch (IllegalArgumentException | NullPointerException e) {
+            command = repository.get(CommandName.values()[code]);
+        } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
             command = repository.get(CommandName.WRONG_REQUEST);
         }
         return command;
