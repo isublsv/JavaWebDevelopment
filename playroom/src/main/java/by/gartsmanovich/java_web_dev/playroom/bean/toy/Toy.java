@@ -3,7 +3,7 @@ package by.gartsmanovich.java_web_dev.playroom.bean.toy;
 import by.gartsmanovich.java_web_dev.playroom.bean.Entity;
 import by.gartsmanovich.java_web_dev.playroom.bean.param.Color;
 
-public class Toy extends Entity {
+public abstract class Toy extends Entity {
 
     /**
      * The title of a toy.

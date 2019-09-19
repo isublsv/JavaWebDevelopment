@@ -40,9 +40,14 @@ public class RemoveToy implements Command {
         } else {
             try {
                 long id = Long.parseLong(request.trim());
-                playRoomService.removeEntity(id);
-                response = MessageManager
-                        .getProperty("message.remove.correct");
+
+                if (playRoomService.removeEntity(id)) {
+                    response = MessageManager
+                            .getProperty("message.remove.correct");
+                } else {
+                    return MessageManager
+                            .getProperty("message.remove.not.found");
+                }
             } catch (NumberFormatException e) {
                 LOGGER.trace("Invalid parameter format was passed!");
                 response = MessageManager

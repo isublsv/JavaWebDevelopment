@@ -47,9 +47,13 @@ public class AddToy implements Command {
                     .getProperty("message.incorrect.args.number");
         } else {
             try {
-                playRoomService.addEntity(args);
-                response = MessageManager
-                        .getProperty("message.add.correct");
+                if (playRoomService.addEntity(args)) {
+                    response = MessageManager
+                            .getProperty("message.add.correct");
+                } else {
+                    return MessageManager
+                            .getProperty("message.add.failed");
+                }
             } catch (ServiceException e) {
                 LOGGER.error("Failed to add the toy!");
                 response = MessageManager

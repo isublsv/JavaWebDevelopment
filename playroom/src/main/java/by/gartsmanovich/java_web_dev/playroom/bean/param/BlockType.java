@@ -4,19 +4,19 @@ public enum BlockType {
 
     /**
      * The singleton instance for the Lego toy block.
-     * This has the numeric value of {@code 1}.
+     * This has the numeric value of {@code 0}.
      */
     LEGO,
 
     /**
      * The singleton instance for the Unit toy block.
-     * This has the numeric value of {@code 2}.
+     * This has the numeric value of {@code 1}.
      */
     UNIT,
 
     /**
      * The singleton instance for the Kapla toy block.
-     * This has the numeric value of {@code 3}.
+     * This has the numeric value of {@code 2}.
      */
     KAPLA;
 

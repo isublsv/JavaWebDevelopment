@@ -1,7 +1,8 @@
 package by.gartsmanovich.java_web_dev.playroom.repository.factory;
 
+import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
 import by.gartsmanovich.java_web_dev.playroom.repository.Repository;
-import by.gartsmanovich.java_web_dev.playroom.repository.impl.ToyRepository;
+import by.gartsmanovich.java_web_dev.playroom.repository.impl.ToyFindRepository;
 
 public final class RepositoryFactory {
 
@@ -12,9 +13,9 @@ public final class RepositoryFactory {
     private static final RepositoryFactory INSTANCE = new RepositoryFactory();
 
     /**
-     * Provides the access to Repository class methods.
+     * Provides the access to Find Repository class methods.
      */
-    private final Repository repository = new ToyRepository();
+    private final Repository<Toy> toyFindRepository = new ToyFindRepository();
 
     private RepositoryFactory() {
 
@@ -36,7 +37,7 @@ public final class RepositoryFactory {
      *
      * @return an instance of Toy Repository implementation.
      */
-    public Repository getRepository() {
-        return repository;
+    public Repository<Toy> getToyFindRepository() {
+        return toyFindRepository;
     }
 }

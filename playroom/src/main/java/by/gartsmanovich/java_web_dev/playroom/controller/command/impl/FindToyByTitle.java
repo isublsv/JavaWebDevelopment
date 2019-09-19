@@ -46,12 +46,18 @@ public class FindToyByTitle implements Command {
             try {
                 List<Toy> toys = playRoomService
                         .findEntityByTitle(request.trim());
-                response.append(MessageManager
-                        .getProperty("message.find.by.title.correct"));
-                response.append("\n");
-                String s = toys.stream().map(Object::toString)
-                              .collect(Collectors.joining("\n"));
-                response.append(s);
+
+                if (!toys.isEmpty()) {
+                    response.append(MessageManager
+                            .getProperty("message.find.by.title.correct"));
+                    response.append("\n");
+                    String s = toys.stream().map(Object::toString)
+                                .collect(Collectors.joining("\n"));
+                    response.append(s);
+                } else {
+                    return MessageManager
+                            .getProperty("message.entities.not.found");
+                }
             } catch (ServiceException e) {
                 LOGGER.error("Failed to find the toys by title!");
                 response.append(MessageManager

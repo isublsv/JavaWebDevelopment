@@ -5,18 +5,22 @@ import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
 import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
         .MessageManager;
 import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
-import by.gartsmanovich.java_web_dev.playroom.service.exception.ServiceException;
+import by.gartsmanovich.java_web_dev.playroom.service.exception
+        .ServiceException;
 import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FindToyByID implements Command {
 
     /**
      * The logger for FindToyByID class.
      */
-    private static final Logger LOGGER = LogManager
-            .getLogger(FindToyByID.class);
+    private static final Logger LOGGER = LogManager.getLogger(FindToyByID
+            .class);
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -41,11 +45,19 @@ public class FindToyByID implements Command {
         } else {
             try {
                 long id = Long.parseLong(request.trim());
-                Toy toy = playRoomService.findEntityByID(id);
-                response.append(MessageManager
-                        .getProperty("message.find.by.id.correct"));
-                response.append("\n");
-                response.append(toy.toString());
+                List<Toy> toys = playRoomService.findEntityByID(id);
+
+                if (!toys.isEmpty()) {
+                    response.append(MessageManager
+                            .getProperty("message.find.by.id.correct"));
+                    response.append("\n");
+                    String s = toys.stream().map(Object::toString)
+                                   .collect(Collectors.joining("\n"));
+                    response.append(s);
+                } else {
+                    return MessageManager
+                            .getProperty("message.entity.not.found");
+                }
             } catch (NumberFormatException e) {
                 LOGGER.trace("Invalid parameter format passed!");
                 response.append(MessageManager

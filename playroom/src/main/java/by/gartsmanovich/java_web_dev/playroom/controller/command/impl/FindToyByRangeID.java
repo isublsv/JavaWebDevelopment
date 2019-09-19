@@ -53,13 +53,19 @@ public class FindToyByRangeID implements Command {
                 long start = Long.parseLong(args[0]);
                 long end = Long.parseLong(args[1]);
                 List<Toy> toys = playRoomService
-                        .findEntityByRangeID(start, end);
-                response.append(MessageManager
-                        .getProperty("message.find.by.range.id.correct"));
-                response.append("\n");
-                String s = toys.stream().map(Object::toString)
-                               .collect(Collectors.joining("\n"));
-                response.append(s);
+                        .findEntityByRangeId(start, end);
+
+                if (!toys.isEmpty()) {
+                    response.append(MessageManager
+                            .getProperty("message.find.by.range.id.correct"));
+                    response.append("\n");
+                    String s = toys.stream().map(Object::toString)
+                                   .collect(Collectors.joining("\n"));
+                    response.append(s);
+                } else {
+                    return MessageManager
+                            .getProperty("message.entities.not.found");
+                }
             } catch (NumberFormatException e) {
                 LOGGER.trace("Invalid parameter format passed!");
                 response.append(MessageManager

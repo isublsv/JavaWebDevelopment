@@ -1,6 +1,6 @@
 package by.gartsmanovich.java_web_dev.playroom.bean;
 
-public class Entity {
+public abstract class Entity {
 
     /**
      * The prime number for hashcode.

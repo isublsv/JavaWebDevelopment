@@ -40,13 +40,19 @@ public class PrintAll implements Command {
 
         try {
             List<Toy> toys = playRoomService.findAll();
-            response.append(MessageManager
-                    .getProperty("message.find.all.correct"));
-            response.append("\n");
-            String s = toys.stream()
-                           .map(Object::toString)
-                           .collect(Collectors.joining("\n"));
-            response.append(s);
+
+            if (!toys.isEmpty()) {
+                response.append(MessageManager
+                        .getProperty("message.find.all.correct"));
+                response.append("\n");
+                String s = toys.stream()
+                               .map(Object::toString)
+                               .collect(Collectors.joining("\n"));
+                response.append(s);
+            } else {
+                return MessageManager
+                        .getProperty("message.entities.not.found");
+            }
         } catch (ServiceException e) {
             LOGGER.error("Failed to find the toys!");
             response.append(MessageManager

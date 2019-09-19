@@ -46,9 +46,13 @@ public class UpdateToy implements Command {
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
-                playRoomService.updateEntity(args);
-                response = MessageManager
-                        .getProperty("message.update.correct");
+                if (playRoomService.updateEntity(args)) {
+                    response = MessageManager
+                            .getProperty("message.update.correct");
+                } else {
+                    return MessageManager
+                            .getProperty("message.update.not.found");
+                }
             } catch (ServiceException e) {
                 LOGGER.error("Failed to update the toy data!");
                 response = MessageManager
