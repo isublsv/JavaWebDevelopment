@@ -14,15 +14,25 @@ public class SortByColorAndPriceSpecification implements Specification<Toy> {
      * A comparison function, which imposes a total ordering on provided
      * storage of entities.
      */
-    private Comparator<Toy> comparator;
+    private Comparator<Toy> firstComp;
 
     /**
-     * Construct Sort Specification with provided comparator.
-     *
-     * @param comp the provided comparator.
+     * A comparison function, which imposes a total ordering on provided
+     * storage of entities.
      */
-    public SortByColorAndPriceSpecification(final Comparator<Toy> comp) {
-        this.comparator = comp;
+    private Comparator<Toy> secondComp;
+
+    /**
+     * Construct Sort Specification with provided comparators.
+     *
+     * @param firstCompValue the first provided comparator.
+     * @param secondCompValue the second provided comparator.
+     */
+    public SortByColorAndPriceSpecification(
+            final Comparator<Toy> firstCompValue,
+            final Comparator<Toy> secondCompValue) {
+        this.firstComp = firstCompValue;
+        this.secondComp = secondCompValue;
     }
 
     /**
@@ -34,6 +44,7 @@ public class SortByColorAndPriceSpecification implements Specification<Toy> {
      */
     @Override
     public List<Toy> specified(final List<Toy> storage) {
-        return storage.stream().sorted(comparator).collect(Collectors.toList());
+        return storage.stream().sorted(firstComp.thenComparing(secondComp))
+                      .collect(Collectors.toList());
     }
 }
