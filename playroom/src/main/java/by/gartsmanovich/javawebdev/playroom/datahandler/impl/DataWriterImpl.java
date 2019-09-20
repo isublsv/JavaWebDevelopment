@@ -35,14 +35,16 @@ public class DataWriterImpl implements DataWriter<Toy> {
 
         //Convert list of object to list of strings
         Stream<String> stream = entities.stream().map(Object::toString);
+
         try {
             Files.write(Paths.get(path), (Iterable<String>) stream::iterator);
         } catch (FileNotFoundException e) {
             LOGGER.error("File not found.");
             throw new DataHandlerException("File not found.", e);
         } catch (IOException e) {
-            LOGGER.error("Error during reading the file.");
-            throw new DataHandlerException("Error during reading the file.", e);
+            LOGGER.error("Error during writing to the file.");
+            throw new DataHandlerException("Error during writing"
+                                           + " to the file.", e);
         }
 
     }
