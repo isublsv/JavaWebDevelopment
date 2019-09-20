@@ -1,6 +1,6 @@
-package by.gartsmanovich.java_web_dev.playroom.repository.specification;
+package by.gartsmanovich.javawebdev.playroom.repository.specification;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.Entity;
+import by.gartsmanovich.javawebdev.playroom.bean.Entity;
 
 import java.util.List;
 
