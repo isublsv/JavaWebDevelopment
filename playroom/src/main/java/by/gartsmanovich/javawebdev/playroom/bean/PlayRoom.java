@@ -1,21 +1,21 @@
-package by.gartsmanovich.java_web_dev.playroom.bean;
+package by.gartsmanovich.javawebdev.playroom.bean;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class PlayRoom {
-
-    /**
-     * Lazy initialisation of the Play Room Storage instance.
-     */
-    private static PlayRoom instance;
+public class PlayRoom {
 
     /**
      * The budget of a play room.
      */
     private double budget;
+
+    /**
+     * The path to file storage.
+     */
+    private String path;
 
     /**
      * The storage that contains an list of entities.
@@ -26,24 +26,12 @@ public final class PlayRoom {
      * Constructs an instance of an entity with several parameters.
      *
      * @param budgetValue the budget of a play room.
+     * @param pathValue the path to the file storage.
      */
-    private PlayRoom(final double budgetValue) {
+    public PlayRoom(final double budgetValue, final String pathValue) {
         this.budget = budgetValue;
+        this.path = pathValue;
         this.toyStorage = new ArrayList<>();
-    }
-
-    /**
-     * Global point to createPlayRoom an instance of the storage.
-     *
-     * @param budgetValue the budget of a play room.
-     * @return the instance of Play Room storage.
-     */
-    public static PlayRoom getInstance(final double
-            budgetValue) {
-        if (instance == null) {
-            return new PlayRoom(budgetValue);
-        }
-        return instance;
     }
 
     /**
@@ -62,6 +50,24 @@ public final class PlayRoom {
      */
     public void setBudget(final double budgetValue) {
         this.budget = budgetValue;
+    }
+
+    /**
+     * Gets path.
+     *
+     * @return value of path.
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * Sets path.
+     *
+     * @param pathValue value of path.
+     */
+    public void setPath(final String pathValue) {
+        path = pathValue;
     }
 
     /**
