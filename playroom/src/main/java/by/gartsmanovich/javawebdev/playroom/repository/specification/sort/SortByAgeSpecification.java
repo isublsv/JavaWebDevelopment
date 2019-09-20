@@ -1,7 +1,7 @@
-package by.gartsmanovich.java_web_dev.playroom.repository.specification.sort;
+package by.gartsmanovich.javawebdev.playroom.repository.specification.sort;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.repository.specification
         .Specification;
 
 import java.util.Comparator;
@@ -10,8 +10,17 @@ import java.util.stream.Collectors;
 
 public class SortByAgeSpecification implements Specification<Toy> {
 
+    /**
+     * A comparison function, which imposes a total ordering on provided
+     * storage of entities.
+     */
     private Comparator<Toy> comparator;
 
+    /**
+     * Construct Sort Specification with provided comparator.
+     *
+     * @param comp the provided comparator.
+     */
     public SortByAgeSpecification(final Comparator<Toy> comp) {
         this.comparator = comp;
     }
