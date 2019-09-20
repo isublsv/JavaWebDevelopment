@@ -1,4 +1,4 @@
 /**
  * Package contains the implementations of Data Reader and Writer classes.
  */
-package by.gartsmanovich.java_web_dev.playroom.data_handler.impl;
+package by.gartsmanovich.javawebdev.playroom.datahandler.impl;

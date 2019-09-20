@@ -1,6 +1,6 @@
-package by.gartsmanovich.java_web_dev.playroom.data_handler.impl;
+package by.gartsmanovich.javawebdev.playroom.datahandler.impl;
 
-import by.gartsmanovich.java_web_dev.playroom.data_handler.DataReader;
+import by.gartsmanovich.javawebdev.playroom.datahandler.DataReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
