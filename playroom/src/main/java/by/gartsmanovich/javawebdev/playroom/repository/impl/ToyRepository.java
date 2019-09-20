@@ -36,8 +36,8 @@ public class ToyRepository implements Repository<Toy> {
     /**
      * Creates the play room storage.
      *
-     * @param budget the budget of play room.
-     * @param path the path to storage file.
+     * @param budget    the budget of play room.
+     * @param path      the path to storage file.
      * @param delimiter the delimiter to parse the data from file.
      * @throws RepositoryException if error happens during execution.
      */
@@ -51,12 +51,12 @@ public class ToyRepository implements Repository<Toy> {
         List<Toy> toys;
 
         try {
-            toys = new DataParser()
-                    .parseData(budget, reader.readFile(path), delimiter);
+            toys = new DataParser().parseData(budget, reader.readFile(path),
+                    delimiter);
         } catch (DataHandlerException e) {
             LOGGER.error("Error during creating the storage!");
-            throw new RepositoryException("Error during creating "
-                                          + "the storage!", e);
+            throw new RepositoryException("Error during creating the "
+                                          + "storage!", e);
         }
 
         storage = new PlayRoom(budget, toys);
@@ -67,40 +67,68 @@ public class ToyRepository implements Repository<Toy> {
      *
      * @param entity the entity to add.
      * @return true if operation was completed successful, false - otherwise.
+     * @throws RepositoryException if error happens during execution.
      */
     @Override
-    public boolean add(final Toy entity) {
-        return storage.getToyStorage().add(entity);
+    public boolean add(final Toy entity) throws RepositoryException {
+        if (storage != null) {
+            return storage.getToyStorage().add(entity);
+        } else {
+            LOGGER.error("Error during add operation! The storage does "
+                         + "not exist!");
+            throw new RepositoryException(
+                    "Error during add operation! The storage does not exist!");
+        }
     }
 
     /**
      * Updates an entity by ID in the storage.
      *
      * @param entity the entity to update.
-     * @return true if operation was completed successful, false - otherwise.
+     * @return true if operation was completed successful, false -
+     * otherwise.
+     * @throws RepositoryException if error happens during execution.
      */
     @Override
-    public boolean update(final Toy entity) {
+    public boolean update(final Toy entity) throws RepositoryException {
 
-        for (Toy toy : storage.getToyStorage()) {
-            if (toy.getId() == entity.getId()) {
-                int index = storage.getToyStorage().indexOf(toy);
-                return storage.getToyStorage().set(index, entity) != null;
+        if (storage != null) {
+            for (Toy toy : storage.getToyStorage()) {
+                if (toy.getId() == entity.getId()) {
+                    int index = storage.getToyStorage().indexOf(toy);
+                    return storage.getToyStorage().set(index, entity) != null;
+                }
             }
+        } else {
+            LOGGER.error("Error during update operation!"
+                         + " The storage not exist!");
+            throw new RepositoryException(
+                    "Error during update operation! The storage not exist!");
         }
         return false;
     }
 
     /**
-     * Removes the first occurrence of the specified element from the storage,
+     * Removes the first occurrence of the specified element from the
+     * storage,
      * if it is present.
      *
      * @param entity the entity to remove.
-     * @return true if operation was completed successful, false - otherwise.
+     * @return true if operation was completed successful, false -
+     * otherwise.
+     * @throws RepositoryException if error happens during execution.
      */
     @Override
-    public boolean remove(final Toy entity) {
-        return storage.getToyStorage().remove(entity);
+    public boolean remove(final Toy entity) throws RepositoryException {
+        if (storage != null) {
+            return storage.getToyStorage().remove(entity);
+        } else {
+            LOGGER.error("Error during remove operation! The storage"
+                         + " does not exist!");
+            throw new RepositoryException(
+                    "Error during remove operation! The storage does not "
+                    + "exist!");
+        }
     }
 
     /**
@@ -118,6 +146,11 @@ public class ToyRepository implements Repository<Toy> {
             LOGGER.error("Error during saving in the storage file!");
             throw new RepositoryException("Error during saving in the "
                                           + "storage file!", e);
+        } catch (NullPointerException e) {
+            LOGGER.error("Error during saving in the storage file!"
+                         + " The storage does not exist!");
+            throw new RepositoryException("Error during saving in the storage"
+                         + " file! The storage does not exist!", e);
         }
     }
 
@@ -127,10 +160,22 @@ public class ToyRepository implements Repository<Toy> {
      * @param specification the concrete specification that query different
      *                      types of actions.
      * @return the specified list of entities or empty list.
+     * @throws RepositoryException if error happens during execution.
      */
     @Override
-    public List<Toy> query(final Specification<Toy> specification) {
-        List<Toy> toys = specification.specified(storage.getToyStorage());
+    public List<Toy> query(final Specification<Toy> specification) throws
+            RepositoryException {
+
+        List<Toy> toys;
+
+        if (storage != null) {
+            toys = specification.specified(storage.getToyStorage());
+        } else {
+            LOGGER.error("Error during query execution! The storage "
+                         + "does not exist");
+            throw new RepositoryException("Error during query execution!"
+                                          + " The storage does not exist");
+        }
 
         if (!toys.isEmpty()) {
             return toys;
