@@ -26,16 +26,18 @@ public interface Repository<T extends Entity> {
      *
      * @param entity the entity to add.
      * @return true if operation was completed successful, false - otherwise.
+     * @throws RepositoryException if error happens during execution.
      */
-    boolean add(T entity);
+    boolean add(T entity) throws RepositoryException;
 
     /**
      * Updates an entity by ID from the storage.
      *
      * @param entity the entity to update.
      * @return true if operation was completed successful, false - otherwise.
+     * @throws RepositoryException if error happens during execution.
      */
-    boolean update(T entity);
+    boolean update(T entity) throws RepositoryException;
 
     /**
      * Removes the first occurrence of the specified element from the storage,
@@ -43,8 +45,9 @@ public interface Repository<T extends Entity> {
      *
      * @param entity the entity to remove.
      * @return true if operation was completed successful, false - otherwise.
+     * @throws RepositoryException if error happens during execution.
      */
-    boolean remove(T entity);
+    boolean remove(T entity) throws RepositoryException;
 
     /**
      * Saves repository storage to file.
@@ -60,6 +63,7 @@ public interface Repository<T extends Entity> {
      * @param specification the concrete specification that query different
      *                      types of actions.
      * @return the specified list of entities or empty list.
+     * @throws RepositoryException if error happens during execution.
      */
-    List<T> query(Specification<T> specification);
+    List<T> query(Specification<T> specification) throws RepositoryException;
 }
