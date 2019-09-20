@@ -1,4 +1,4 @@
-package by.gartsmanovich.java_web_dev.playroom.bean.param;
+package by.gartsmanovich.javawebdev.playroom.bean.param;
 
 public enum BlockType {
 
