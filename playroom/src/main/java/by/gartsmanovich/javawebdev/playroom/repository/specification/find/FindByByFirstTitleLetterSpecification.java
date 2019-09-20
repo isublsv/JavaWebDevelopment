@@ -1,10 +1,11 @@
-package by.gartsmanovich.java_web_dev.playroom.repository.specification.find;
+package by.gartsmanovich.javawebdev.playroom.repository.specification.find;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.repository.specification
         .Specification;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FindByByFirstTitleLetterSpecification
         implements Specification<Toy> {
@@ -33,6 +34,9 @@ public class FindByByFirstTitleLetterSpecification
      */
     @Override
     public List<Toy> specified(final List<Toy> storage) {
-        return null;
+        return storage.stream()
+                      .filter(toy -> toy.getTitle()
+                                        .startsWith(Character.toString(letter)))
+                      .collect(Collectors.toList());
     }
 }

@@ -1,9 +1,11 @@
-package by.gartsmanovich.java_web_dev.playroom.repository.specification.find;
+package by.gartsmanovich.javawebdev.playroom.repository.specification.find;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification.Specification;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.repository.specification
+        .Specification;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FindByByRangeIdSpecification implements Specification<Toy> {
 
@@ -21,7 +23,7 @@ public class FindByByRangeIdSpecification implements Specification<Toy> {
      * Construct Find Specification with ID criteria.
      *
      * @param start the start of the ID range.
-     * @param end the end of the ID range.
+     * @param end   the end of the ID range.
      */
     public FindByByRangeIdSpecification(final long start, final long end) {
         this.startId = start;
@@ -37,6 +39,9 @@ public class FindByByRangeIdSpecification implements Specification<Toy> {
      */
     @Override
     public List<Toy> specified(final List<Toy> storage) {
-        return null;
+        return storage.stream()
+                      .filter(toy -> toy.getId() >= startId
+                              && toy.getId()  <= endId)
+                      .collect(Collectors.toList());
     }
 }
