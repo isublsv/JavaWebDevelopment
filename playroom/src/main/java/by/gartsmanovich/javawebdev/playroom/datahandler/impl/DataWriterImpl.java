@@ -2,6 +2,8 @@ package by.gartsmanovich.javawebdev.playroom.datahandler.impl;
 
 import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
 import by.gartsmanovich.javawebdev.playroom.datahandler.DataWriter;
+import by.gartsmanovich.javawebdev.playroom.datahandler.exception
+        .DataHandlerException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,9 +27,11 @@ public class DataWriterImpl implements DataWriter<Toy> {
      *
      * @param entities the provided list od entities.
      * @param path     the path to file.
+     * @throws DataHandlerException if error happens during execution.
      */
     @Override
-    public void writeFile(final List<Toy> entities, final String path) {
+    public void writeFile(final List<Toy> entities, final String path)
+            throws DataHandlerException {
 
         //Convert list of object to list of strings
         Stream<String> stream = entities.stream().map(Object::toString);
@@ -35,8 +39,10 @@ public class DataWriterImpl implements DataWriter<Toy> {
             Files.write(Paths.get(path), (Iterable<String>) stream::iterator);
         } catch (FileNotFoundException e) {
             LOGGER.error("File not found.");
+            throw new DataHandlerException("File not found.", e);
         } catch (IOException e) {
             LOGGER.error("Error during reading the file.");
+            throw new DataHandlerException("Error during reading the file.", e);
         }
 
     }
