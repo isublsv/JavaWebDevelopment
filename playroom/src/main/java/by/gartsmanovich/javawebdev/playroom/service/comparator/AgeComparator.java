@@ -1,6 +1,6 @@
-package by.gartsmanovich.java_web_dev.playroom.service.comparator;
+package by.gartsmanovich.javawebdev.playroom.service.comparator;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
 
 import java.util.Comparator;
 
