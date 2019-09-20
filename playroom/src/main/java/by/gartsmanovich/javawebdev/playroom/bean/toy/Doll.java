@@ -1,8 +1,8 @@
-package by.gartsmanovich.java_web_dev.playroom.bean.toy;
+package by.gartsmanovich.javawebdev.playroom.bean.toy;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.Entity;
-import by.gartsmanovich.java_web_dev.playroom.bean.param.Color;
-import by.gartsmanovich.java_web_dev.playroom.bean.param.Material;
+import by.gartsmanovich.javawebdev.playroom.bean.Entity;
+import by.gartsmanovich.javawebdev.playroom.bean.param.Color;
+import by.gartsmanovich.javawebdev.playroom.bean.param.Material;
 
 public class Doll extends Toy {
 

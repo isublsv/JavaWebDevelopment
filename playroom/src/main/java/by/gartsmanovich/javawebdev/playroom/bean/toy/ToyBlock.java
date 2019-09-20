@@ -1,8 +1,8 @@
-package by.gartsmanovich.java_web_dev.playroom.bean.toy;
+package by.gartsmanovich.javawebdev.playroom.bean.toy;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.param.BlockType;
-import by.gartsmanovich.java_web_dev.playroom.bean.param.Color;
-import by.gartsmanovich.java_web_dev.playroom.bean.param.Material;
+import by.gartsmanovich.javawebdev.playroom.bean.param.BlockType;
+import by.gartsmanovich.javawebdev.playroom.bean.param.Color;
+import by.gartsmanovich.javawebdev.playroom.bean.param.Material;
 
 public class ToyBlock extends Toy {
 
