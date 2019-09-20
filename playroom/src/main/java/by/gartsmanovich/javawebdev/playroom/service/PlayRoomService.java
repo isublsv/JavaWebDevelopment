@@ -1,7 +1,7 @@
-package by.gartsmanovich.java_web_dev.playroom.service;
+package by.gartsmanovich.javawebdev.playroom.service;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.Entity;
-import by.gartsmanovich.java_web_dev.playroom.service.exception
+import by.gartsmanovich.javawebdev.playroom.bean.Entity;
+import by.gartsmanovich.javawebdev.playroom.service.exception
         .ServiceException;
 
 import java.util.List;
