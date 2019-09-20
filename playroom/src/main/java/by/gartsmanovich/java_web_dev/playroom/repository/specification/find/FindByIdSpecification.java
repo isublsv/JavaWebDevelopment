@@ -3,8 +3,11 @@ package by.gartsmanovich.java_web_dev.playroom.repository.specification.find;
 import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
 import by.gartsmanovich.java_web_dev.playroom.repository.specification
         .FindSpecification;
+import by.gartsmanovich.java_web_dev.playroom.repository.specification.Specification;
 
-public class FindByIdSpecification implements FindSpecification {
+import java.util.List;
+
+public class FindByIdSpecification implements Specification<Toy> {
 
     /**
      * The ID value.
@@ -20,14 +23,16 @@ public class FindByIdSpecification implements FindSpecification {
         this.id = idValue;
     }
 
+
     /**
-     * Checks if provided entity ID is equals to current.
+     * Applies specified criteria to the provided storage.
      *
-     * @param entity the provided entity.
-     * @return true if IDs are equal, false - otherwise.
+     * @param storage with provided entities.
+     * @return the list of entities that correspond to specified criteria,
+     * false - otherwise.
      */
     @Override
-    public boolean specified(final Toy entity) {
-        return entity.getId() == id;
+    public List<Toy> specified(final List<Toy> storage) {
+        return null;
     }
 }

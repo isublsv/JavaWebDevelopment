@@ -29,6 +29,7 @@ public abstract class Toy extends Entity {
      * Default constructor.
      */
     public Toy() {
+        super();
     }
 
     /**

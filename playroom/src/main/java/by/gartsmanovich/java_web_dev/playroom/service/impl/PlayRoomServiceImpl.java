@@ -5,15 +5,10 @@ import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
 import by.gartsmanovich.java_web_dev.playroom.repository.Repository;
 import by.gartsmanovich.java_web_dev.playroom.repository.factory
         .RepositoryFactory;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification.find
-        .FindByByFirstTitleLetterSpecification;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification.find
-        .FindByByRangeIdSpecification;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification.find
-        .FindByIdSpecification;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification.find
-        .FindByTitleSpecification;
+import by.gartsmanovich.java_web_dev.playroom.repository.specification.find.*;
+import by.gartsmanovich.java_web_dev.playroom.repository.specification.sort.SortByAgeSpecification;
 import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
+import by.gartsmanovich.java_web_dev.playroom.service.comparator.AgeComparator;
 import by.gartsmanovich.java_web_dev.playroom.service.exception
         .ServiceException;
 import by.gartsmanovich.java_web_dev.playroom.service.validator.Validator;
@@ -52,7 +47,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     public PlayRoomServiceImpl() {
         factory = RepositoryFactory.getInstance();
-        toyFindRepository = factory.getToyFindRepository();
+        toyFindRepository = factory.getToyRepository();
         validator = Validator.getInstance();
     }
 
@@ -194,7 +189,14 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public List<Toy> findAll() throws ServiceException {
-        return Collections.emptyList();
+        List<Toy> toys = toyFindRepository
+                    .query(new FindAllSpecification());
+
+        if (!toys.isEmpty()) {
+            return toys;
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     /**
@@ -204,7 +206,8 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public void sortByAge() throws ServiceException {
-
+        toyFindRepository
+                .query(new SortByAgeSpecification(new AgeComparator()));
     }
 
     /**

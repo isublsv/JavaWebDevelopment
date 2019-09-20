@@ -1,6 +1,8 @@
 package by.gartsmanovich.java_web_dev.playroom.data_handler.parser;
 
 import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
+import by.gartsmanovich.java_web_dev.playroom.service.factory.ToyFactory;
+import by.gartsmanovich.java_web_dev.playroom.service.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,12 @@ public final class DataParser {
      */
     private static final DataParser INSTANCE = new DataParser();
 
+    private Validator validator;
+    private ToyFactory toyFactory;
+
     private DataParser() {
+        validator = Validator.getInstance();
+        toyFactory = ToyFactory.getInstance();
     }
 
     /**
@@ -32,7 +39,13 @@ public final class DataParser {
      */
     public List<Toy> parseData(final List<String> data) {
         List<Toy> toys = new ArrayList<>();
-
+        for (String s : data) {
+            String[] strings = s.split(",");
+            if (validator.isValidEntityParams(strings)) {
+                Toy toy = toyFactory.createToy(strings);
+                toys.add(toy);
+            }
+        }
 
         return toys;
     }

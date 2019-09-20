@@ -1,27 +1,20 @@
-package by.gartsmanovich.java_web_dev.playroom.repository.specification.find;
+package by.gartsmanovich.java_web_dev.playroom.repository.specification.sort;
 
 import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
 import by.gartsmanovich.java_web_dev.playroom.repository.specification
         .Specification;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class FindByTitleSpecification implements Specification<Toy> {
+public class SortByAgeSpecification implements Specification<Toy> {
 
-    /**
-     * The title value.
-     */
-    private String title;
+    private Comparator<Toy> comparator;
 
-    /**
-     * Construct Find Specification with title criteria.
-     *
-     * @param titleValue the title value
-     */
-    public FindByTitleSpecification(final String titleValue) {
-        this.title = titleValue;
+    public SortByAgeSpecification(final Comparator<Toy> comp) {
+        this.comparator = comp;
     }
-
 
     /**
      * Applies specified criteria to the provided storage.
@@ -32,6 +25,6 @@ public class FindByTitleSpecification implements Specification<Toy> {
      */
     @Override
     public List<Toy> specified(final List<Toy> storage) {
-        return null;
+        return storage.stream().sorted(comparator).collect(Collectors.toList());
     }
 }

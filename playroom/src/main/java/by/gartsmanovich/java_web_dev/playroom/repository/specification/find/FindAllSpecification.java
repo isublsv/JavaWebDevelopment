@@ -6,23 +6,7 @@ import by.gartsmanovich.java_web_dev.playroom.repository.specification
 
 import java.util.List;
 
-public class FindByByFirstTitleLetterSpecification
-        implements Specification<Toy> {
-
-    /**
-     * The first letter of the title.
-     */
-    private char letter;
-
-    /**
-     * Construct Find Specification with first title letter criteria.
-     *
-     * @param letterValue the first letter value
-     */
-    public FindByByFirstTitleLetterSpecification(final char letterValue) {
-        this.letter = letterValue;
-    }
-
+public class FindAllSpecification implements Specification<Toy> {
 
     /**
      * Applies specified criteria to the provided storage.
@@ -33,6 +17,6 @@ public class FindByByFirstTitleLetterSpecification
      */
     @Override
     public List<Toy> specified(final List<Toy> storage) {
-        return null;
+        return storage;
     }
 }

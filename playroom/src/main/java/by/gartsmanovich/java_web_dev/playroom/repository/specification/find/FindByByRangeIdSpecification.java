@@ -1,10 +1,11 @@
 package by.gartsmanovich.java_web_dev.playroom.repository.specification.find;
 
 import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification
-        .FindSpecification;
+import by.gartsmanovich.java_web_dev.playroom.repository.specification.Specification;
 
-public class FindByByRangeIdSpecification implements FindSpecification {
+import java.util.List;
+
+public class FindByByRangeIdSpecification implements Specification<Toy> {
 
     /**
      * The start of the ID range.
@@ -30,12 +31,12 @@ public class FindByByRangeIdSpecification implements FindSpecification {
     /**
      * Checks if the provided entity corresponds to specified criteria.
      *
-     * @param entity the provided entity.
+     * @param storage the lisprovided entity.
      * @return true if data entity corresponds to specified criteria, false -
      * otherwise.
      */
     @Override
-    public boolean specified(final Toy entity) {
-        return entity.getId() >= startId && entity.getId() <= endId;
+    public List<Toy> specified(final List<Toy> storage) {
+        return null;
     }
 }

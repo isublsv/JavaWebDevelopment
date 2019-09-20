@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ToyFindRepository implements Repository<Toy> {
+public class ToyRepository implements Repository<Toy> {
 
     /**
      * The storage that contains entities to handle.
@@ -70,17 +70,9 @@ public class ToyFindRepository implements Repository<Toy> {
      * @return the specified list of entities.
      */
     @Override
-    public List<Toy> query(final Specification specification) {
-        List<Toy> toys = new ArrayList<>();
+    public List<Toy> query(final Specification<Toy> specification) {
+        List<Toy> toys = specification.specified(storage.getToyStorage());
 
-        final FindSpecification findSpecification =
-                (FindSpecification) specification;
-
-        for (Toy toy : storage.getToyStorage()) {
-            if (findSpecification.specified(toy)) {
-                toys.add(toy);
-            }
-        }
         if (!toys.isEmpty()) {
             return toys;
         } else {

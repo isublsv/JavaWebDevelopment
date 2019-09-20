@@ -43,5 +43,5 @@ public interface Repository<T extends Entity> {
      *                      types of actions.
      * @return the specified list of entities.
      */
-    List<T> query(Specification specification);
+    List<T> query(Specification<T> specification);
 }

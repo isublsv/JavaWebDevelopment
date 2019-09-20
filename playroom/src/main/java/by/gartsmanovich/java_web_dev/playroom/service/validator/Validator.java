@@ -67,6 +67,7 @@ public final class Validator {
      * @return true if values are valid, false - otherwise.
      */
     public boolean isValidEntityParams(final String[] strings) {
+
         return false;
     }
 
