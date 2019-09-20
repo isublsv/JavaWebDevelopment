@@ -71,6 +71,15 @@ public class PlayRoom {
     }
 
     /**
+     * Sets toyStorage.
+     *
+     * @param toyStorageValue value of toyStorage.
+     */
+    public void setToyStorage(final List<Toy> toyStorageValue) {
+        toyStorage = toyStorageValue;
+    }
+
+    /**
      * Gets toyStorage.
      *
      * @return value of toyStorage.
