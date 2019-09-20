@@ -1,17 +1,32 @@
-package by.gartsmanovich.java_web_dev.playroom.service.impl;
+package by.gartsmanovich.javawebdev.playroom.service.impl;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Doll;
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.repository.Repository;
-import by.gartsmanovich.java_web_dev.playroom.repository.factory
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Doll;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.repository.Repository;
+import by.gartsmanovich.javawebdev.playroom.repository.factory
         .RepositoryFactory;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification.find.*;
-import by.gartsmanovich.java_web_dev.playroom.repository.specification.sort.SortByAgeSpecification;
-import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
-import by.gartsmanovich.java_web_dev.playroom.service.comparator.AgeComparator;
-import by.gartsmanovich.java_web_dev.playroom.service.exception
+import by.gartsmanovich.javawebdev.playroom.repository.specification.find
+        .FindAllSpecification;
+import by.gartsmanovich.javawebdev.playroom.repository.specification.find
+        .FindByByFirstTitleLetterSpecification;
+import by.gartsmanovich.javawebdev.playroom.repository.specification.find
+        .FindByByRangeIdSpecification;
+import by.gartsmanovich.javawebdev.playroom.repository.specification.find
+        .FindByIdSpecification;
+import by.gartsmanovich.javawebdev.playroom.repository.specification.find
+        .FindByTitleSpecification;
+import by.gartsmanovich.javawebdev.playroom.repository.specification.sort
+        .SortByAgeSpecification;
+
+import by.gartsmanovich.javawebdev.playroom.repository.specification.sort
+        .SortByColorAndPriceSpecification;
+import by.gartsmanovich.javawebdev.playroom.service.PlayRoomService;
+import by.gartsmanovich.javawebdev.playroom.service.comparator.AgeComparator;
+import by.gartsmanovich.javawebdev.playroom.service.comparator
+        .ColorAndPriceComparator;
+import by.gartsmanovich.javawebdev.playroom.service.exception
         .ServiceException;
-import by.gartsmanovich.java_web_dev.playroom.service.validator.Validator;
+import by.gartsmanovich.javawebdev.playroom.service.validator.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,7 +49,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     /**
      * Provides the access to Find repository class methods.
      */
-    private Repository<Toy> toyFindRepository;
+    private Repository<Toy> toyRepository;
 
     /**
      *
@@ -47,7 +62,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     public PlayRoomServiceImpl() {
         factory = RepositoryFactory.getInstance();
-        toyFindRepository = factory.getToyRepository();
+        toyRepository = factory.getToyRepository();
         validator = Validator.getInstance();
     }
 
@@ -61,7 +76,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     @Override
     public boolean createPlayRoom(final double budget) throws ServiceException {
         if (validator.isValidValue(budget)) {
-            toyFindRepository.createStorage(budget);
+            toyRepository.createStorage(budget);
             return true;
         } else {
             return false;
@@ -78,7 +93,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     @Override
     public boolean addEntity(final String... entity) throws ServiceException {
         if (validator.isValidEntityParams(entity)) {
-            toyFindRepository.add(new Doll());
+            toyRepository.add(new Doll());
             return true;
         } else {
             return false;
@@ -120,7 +135,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     public List<Toy> findEntityByID(final long id) throws ServiceException {
 
         if (validator.isValidValue(id)) {
-            return toyFindRepository.query(new FindByIdSpecification(id));
+            return toyRepository.query(new FindByIdSpecification(id));
         } else {
             return Collections.emptyList();
         }
@@ -137,7 +152,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     public List<Toy> findEntityByTitle(final String title) throws
             ServiceException {
         if (validator.isValidValue(title)) {
-            return toyFindRepository.query(new FindByTitleSpecification(title));
+            return toyRepository.query(new FindByTitleSpecification(title));
         } else {
             return Collections.emptyList();
         }
@@ -155,7 +170,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     public List<Toy> findEntityByFirstTitleLetter(final char c) throws
             ServiceException {
         if (validator.isValidValue(c)) {
-            return toyFindRepository
+            return toyRepository
                     .query(new FindByByFirstTitleLetterSpecification(c));
         } else {
             return Collections.emptyList();
@@ -174,7 +189,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     public List<Toy> findEntityByRangeId(final long startId, final long
             endId) throws ServiceException {
         if (validator.isValidValue(startId, endId)) {
-            return toyFindRepository
+            return toyRepository
                     .query(new FindByByRangeIdSpecification(startId, endId));
         } else {
             return Collections.emptyList();
@@ -189,7 +204,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public List<Toy> findAll() throws ServiceException {
-        List<Toy> toys = toyFindRepository
+        List<Toy> toys = toyRepository
                     .query(new FindAllSpecification());
 
         if (!toys.isEmpty()) {
@@ -206,18 +221,20 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public void sortByAge() throws ServiceException {
-        toyFindRepository
+        toyRepository
                 .query(new SortByAgeSpecification(new AgeComparator()));
     }
 
     /**
-     * Sorts the repository by Color, than by price.
+     * Sorts the storage by Color, than by price.
      *
      * @throws ServiceException if error happens during execution.
      */
     @Override
     public void sortByColorAndPrice() throws ServiceException {
-
+        toyRepository
+                .query(new SortByColorAndPriceSpecification(
+                        new ColorAndPriceComparator()));
     }
 
     /**
