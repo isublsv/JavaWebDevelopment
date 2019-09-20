@@ -7,53 +7,48 @@ import by.gartsmanovich.javawebdev.playroom.service.validator.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DataParser {
+public class DataParser {
 
     /**
-     * The DataParser instance will be created at the start of the execution.
-     */
-    private static final DataParser INSTANCE = new DataParser();
-
-    /**
-     * The validator provides the different types of check for a given
+     * The validator provides the different types of checks for a given
      * parameters.
      */
     private Validator validator;
 
     /**
-     * The class for creating the entities.
+     * The class factory for creating the entities.
      */
     private ToyFactory toyFactory;
 
-    private DataParser() {
+    /**
+     * Constructs an instance of data parser.
+     */
+    public DataParser() {
         validator = new Validator();
         toyFactory = ToyFactory.getInstance();
     }
 
     /**
-     * Global point for access to parser methods.
-     *
-     * @return the instance of Data Parser.
-     */
-    public static DataParser getInstance() {
-        return INSTANCE;
-    }
-
-    /**
      * Returns the list of valid entities from data string.
      *
+     * @param limit the limit of reading.
      * @param data the list of strings.
-     * @param delimiter the delimiter that splits the string if matches
+     * @param delimiter the delimiter that splits the string if matches.
      * @return the list of valid entities.
      */
-    public List<Toy> parseData(final List<String> data,
+    public List<Toy> parseData(final double limit, final List<String> data,
                                final String delimiter) {
         List<Toy> toys = new ArrayList<>();
+        double current = 0;
+
         for (String s : data) {
             String[] strings = s.split(delimiter);
             if (validator.isValidEntityParams(strings)) {
                 Toy toy = toyFactory.createToy(strings);
-                toys.add(toy);
+                current += toy.getPrice();
+                if (current <= limit) {
+                    toys.add(toy);
+                }
             }
         }
 
