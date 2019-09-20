@@ -1,12 +1,12 @@
-package by.gartsmanovich.java_web_dev.playroom.controller.command.impl;
+package by.gartsmanovich.javawebdev.playroom.controller.command.impl;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.controller.command.Command;
+import by.gartsmanovich.javawebdev.playroom.controller.command.manager
         .MessageManager;
-import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
-import by.gartsmanovich.java_web_dev.playroom.service.exception.ServiceException;
-import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
+import by.gartsmanovich.javawebdev.playroom.service.PlayRoomService;
+import by.gartsmanovich.javawebdev.playroom.service.exception.ServiceException;
+import by.gartsmanovich.javawebdev.playroom.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,25 +1,30 @@
-package by.gartsmanovich.java_web_dev.playroom.controller.command.impl;
+package by.gartsmanovich.javawebdev.playroom.controller.command.impl;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.controller.command.Command;
+import by.gartsmanovich.javawebdev.playroom.controller.command.manager
         .MessageManager;
-import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
-import by.gartsmanovich.java_web_dev.playroom.service.exception.ServiceException;
-import by.gartsmanovich.java_web_dev.playroom.service.factory.ServiceFactory;
+import by.gartsmanovich.javawebdev.playroom.service.PlayRoomService;
+import by.gartsmanovich.javawebdev.playroom.service.exception.ServiceException;
+import by.gartsmanovich.javawebdev.playroom.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FindToyByFirstLetter implements Command {
+public class FindToyByRangeID implements Command {
 
     /**
-     * The logger for FindToyByFirstLetter class.
+     * The logger for FindToyByRangeID class.
      */
     private static final Logger LOGGER = LogManager
-            .getLogger(FindToyByFirstLetter.class);
+            .getLogger(FindToyByRangeID.class);
+
+    /**
+     * The valid number of arguments.
+     */
+    private static final int ARGS_NUMBER = 1;
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -38,18 +43,21 @@ public class FindToyByFirstLetter implements Command {
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
-        if (request.isEmpty()) {
+        String[] args = request.split(" ");
+
+        if (args.length <= ARGS_NUMBER) {
             LOGGER.trace("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
+                long start = Long.parseLong(args[0]);
+                long end = Long.parseLong(args[1]);
                 List<Toy> toys = playRoomService
-                        .findEntityByFirstTitleLetter(request
-                        .trim().charAt(0));
+                        .findEntityByRangeId(start, end);
 
                 if (!toys.isEmpty()) {
                     response.append(MessageManager
-                        .getProperty("message.find.by.first.letter.correct"));
+                            .getProperty("message.find.by.range.id.correct"));
                     response.append("\n");
                     String s = toys.stream().map(Object::toString)
                                    .collect(Collectors.joining("\n"));
@@ -58,10 +66,15 @@ public class FindToyByFirstLetter implements Command {
                     return MessageManager
                             .getProperty("message.entities.not.found");
                 }
-            } catch (ServiceException e) {
-                LOGGER.error("Failed to find the toys by first letter!");
+            } catch (NumberFormatException e) {
+                LOGGER.trace("Invalid parameter format passed!");
                 response.append(MessageManager
-                        .getProperty("message.find.by.first.letter.failed"));
+                        .getProperty("message.incorrect.args.format"));
+            } catch (ServiceException e) {
+                LOGGER.error("Failed to find the toys in the provided"
+                        + " ID range!");
+                response.append(MessageManager
+                        .getProperty("message.find.by.range.id.failed"));
             }
             return response.toString();
         }

@@ -1,9 +1,9 @@
-package by.gartsmanovich.java_web_dev.playroom.controller;
+package by.gartsmanovich.javawebdev.playroom.controller;
 
-import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
-import by.gartsmanovich.java_web_dev.playroom.controller.command
+import by.gartsmanovich.javawebdev.playroom.controller.command.Command;
+import by.gartsmanovich.javawebdev.playroom.controller.command
         .CommandProvider;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
+import by.gartsmanovich.javawebdev.playroom.controller.command.manager
         .MessageManager;
 
 public class Controller {

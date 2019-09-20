@@ -1,4 +1,4 @@
-package by.gartsmanovich.java_web_dev.playroom.controller.command.manager;
+package by.gartsmanovich.javawebdev.playroom.controller.command.manager;
 
 import java.util.ResourceBundle;
 

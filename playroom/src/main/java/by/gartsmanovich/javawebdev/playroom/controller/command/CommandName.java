@@ -1,4 +1,4 @@
-package by.gartsmanovich.java_web_dev.playroom.controller.command;
+package by.gartsmanovich.javawebdev.playroom.controller.command;
 
 public enum CommandName {
 

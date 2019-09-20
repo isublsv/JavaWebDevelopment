@@ -1,7 +1,7 @@
-package by.gartsmanovich.java_web_dev.playroom.controller.command.impl;
+package by.gartsmanovich.javawebdev.playroom.controller.command.impl;
 
-import by.gartsmanovich.java_web_dev.playroom.controller.command.Command;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.manager
+import by.gartsmanovich.javawebdev.playroom.controller.command.Command;
+import by.gartsmanovich.javawebdev.playroom.controller.command.manager
         .MessageManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

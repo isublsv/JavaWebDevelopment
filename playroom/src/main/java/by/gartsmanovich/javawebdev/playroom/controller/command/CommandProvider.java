@@ -1,28 +1,28 @@
-package by.gartsmanovich.java_web_dev.playroom.controller.command;
+package by.gartsmanovich.javawebdev.playroom.controller.command;
 
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl.AddToy;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.AddToy;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .CreatePlayRoom;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl.Exit;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.Exit;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .FindToyByFirstLetter;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .FindToyByID;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .FindToyByRangeID;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .FindToyByTitle;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .PrintAll;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .RemoveToy;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .SortByAge;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .SortByColorAndPrice;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .UpdateToy;
-import by.gartsmanovich.java_web_dev.playroom.controller.command.impl
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .WrongRequest;
 
 import java.util.HashMap;
