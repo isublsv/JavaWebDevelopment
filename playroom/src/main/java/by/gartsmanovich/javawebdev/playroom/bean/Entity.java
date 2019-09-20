@@ -1,4 +1,4 @@
-package by.gartsmanovich.java_web_dev.playroom.bean;
+package by.gartsmanovich.javawebdev.playroom.bean;
 
 public abstract class Entity {
 
