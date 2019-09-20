@@ -1,8 +1,8 @@
-package by.gartsmanovich.java_web_dev.playroom.service.factory;
+package by.gartsmanovich.javawebdev.playroom.service.factory;
 
-import by.gartsmanovich.java_web_dev.playroom.bean.toy.Toy;
-import by.gartsmanovich.java_web_dev.playroom.service.PlayRoomService;
-import by.gartsmanovich.java_web_dev.playroom.service.impl.PlayRoomServiceImpl;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.service.PlayRoomService;
+import by.gartsmanovich.javawebdev.playroom.service.impl.PlayRoomServiceImpl;
 
 public final class ServiceFactory {
 
