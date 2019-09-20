@@ -1,4 +1,4 @@
 /**
- * The package contains exception class for Date Access Object layer.
+ * Package contains exception class for Data Access Object layer.
  */
 package by.gartsmanovich.javawebdev.playroom.repository.exception;
