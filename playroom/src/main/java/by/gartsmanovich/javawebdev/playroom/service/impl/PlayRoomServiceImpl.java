@@ -91,7 +91,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                 toyRepository.createStorage(budget, path, delimiter);
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
 
         return true;
@@ -119,7 +119,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                                                    .createToy(entity));
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -145,7 +145,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                                                    .createToy(entity));
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -166,7 +166,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                 return toyRepository.remove(id);
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -189,7 +189,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                 return toyRepository.query(new FindByIdSpecification(id));
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -214,7 +214,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                 return toyRepository.query(new FindByTitleSpecification(title));
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -241,7 +241,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                         .query(new FindByByFirstTitleLetterSpecification(c));
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -269,7 +269,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                        .query(new FindByByRangeIdSpecification(startId, endId));
             }
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -285,7 +285,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
         try {
             return toyRepository.query(new FindAllSpecification());
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -301,7 +301,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
             toyRepository
                     .query(new SortByAgeSpecification(new AgeComparator()));
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -318,7 +318,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                     .query(new SortByColorAndPriceSpecification(
                             new ColorComparator(), new PriceComparator()));
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -341,7 +341,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
                 toyRepository.saveStorage(path);
             }
         } catch (RepositoryException e) {
-                throw new ServiceException(e);
+                throw new ServiceException(e.getMessage(), e);
         }
     }
 }
