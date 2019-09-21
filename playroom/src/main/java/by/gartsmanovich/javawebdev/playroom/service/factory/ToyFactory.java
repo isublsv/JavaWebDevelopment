@@ -9,38 +9,9 @@ import by.gartsmanovich.javawebdev.playroom.bean.param.Color;
 import by.gartsmanovich.javawebdev.playroom.bean.param.Material;
 import by.gartsmanovich.javawebdev.playroom.bean.param.Size;
 import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.service.factory.param.IndexParam;
 
 public final class ToyFactory {
-
-    /**
-     * Describes index for the title parameter.
-     */
-    private static final int PARAM_TITLE = 0;
-
-    /**
-     * Describes index for the color parameter.
-     */
-    private static final int PARAM_COLOR = 1;
-
-    /**
-     * Describes index for the age parameter.
-     */
-    private static final int PARAM_AGE = 2;
-
-    /**
-     * Describes index for the price parameter.
-     */
-    private static final int PARAM_PRICE = 3;
-
-    /**
-     * Describes index for the first additional parameter.
-     */
-    private static final int PARAM_ADD_1 = 4;
-
-    /**
-     * Describes index for the second additional parameter.
-     */
-    private static final int PARAM_ADD_2 = 5;
 
     /**
      * Creates a Factory instance at the start of the class initialisation.
@@ -71,28 +42,35 @@ public final class ToyFactory {
 
         if ("doll".equalsIgnoreCase(code)) {
             toy = new DollBuilder()
-                    .setMaterial(Material.valueOf(param[PARAM_ADD_1]))
-                    .setWeight(Double.parseDouble(param[PARAM_ADD_2]))
+                    .setMaterial(Material.valueOf(
+                            param[IndexParam.PARAM_ADD_1.ordinal()]))
+                    .setWeight(Double.parseDouble(
+                            param[IndexParam.PARAM_ADD_2.ordinal()]))
                     .build();
         } else if ("ball".equalsIgnoreCase(code)) {
             toy = new ToyBallBuilder()
-                    .setDiameter(Double.parseDouble(param[PARAM_ADD_1]))
+                    .setDiameter(Double.parseDouble(
+                            param[IndexParam.PARAM_ADD_1.ordinal()]))
                     .build();
         } else if ("car".equalsIgnoreCase(code)) {
             toy = new ToyCarBuilder()
-                    .setSize(Size.valueOf(param[PARAM_ADD_1]))
+                    .setSize(Size.valueOf(param[
+                            IndexParam.PARAM_ADD_1.ordinal()]))
                     .build();
         } else {
             toy = new ToyBlockBuilder()
-                    .setBlockType(BlockType.valueOf(param[PARAM_ADD_1]))
-                    .setMaterial(Material.valueOf(param[PARAM_ADD_2]))
+                    .setBlockType(BlockType.valueOf(
+                            param[IndexParam.PARAM_ADD_1.ordinal()]))
+                    .setMaterial(Material.valueOf(
+                            param[IndexParam.PARAM_ADD_2.ordinal()]))
                     .build();
         }
 
-        toy.setTitle(param[PARAM_TITLE]);
-        toy.setColor(Color.valueOf(param[PARAM_COLOR]));
-        toy.setAge(Integer.parseInt(param[PARAM_AGE]));
-        toy.setPrice(Double.parseDouble(param[PARAM_PRICE]));
+        toy.setTitle(param[IndexParam.PARAM_TITLE.ordinal()]);
+        toy.setColor(Color.valueOf(param[IndexParam.PARAM_COLOR.ordinal()]));
+        toy.setAge(Integer.parseInt(param[IndexParam.PARAM_AGE.ordinal()]));
+        toy.setPrice(Double.parseDouble(param[IndexParam.PARAM_PRICE
+                .ordinal()]));
 
         return toy;
     }
