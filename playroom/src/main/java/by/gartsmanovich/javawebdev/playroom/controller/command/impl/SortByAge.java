@@ -39,9 +39,8 @@ public class SortByAge implements Command {
             response = MessageManager
                     .getProperty("message.sort.by.age.correct");
         } catch (ServiceException e) {
-            LOGGER.error("Failed to sort play room storage by age!");
-            response = MessageManager
-                    .getProperty("message.sort.by.age.failed");
+            LOGGER.debug("Failed to sort play room storage by age!");
+            response = e.getMessage();
         }
         return response;
 
