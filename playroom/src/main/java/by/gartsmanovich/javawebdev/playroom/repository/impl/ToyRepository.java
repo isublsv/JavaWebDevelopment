@@ -54,9 +54,7 @@ public class ToyRepository implements Repository<Toy> {
             toys = new DataParser().parseData(budget, reader.readFile(path),
                     delimiter);
         } catch (DataHandlerException e) {
-            LOGGER.error("Error during creating the storage!");
-            throw new RepositoryException("Error during creating the "
-                                          + "storage!", e);
+            throw new RepositoryException(e);
         }
 
         storage = new PlayRoom(budget, toys);
@@ -141,16 +139,16 @@ public class ToyRepository implements Repository<Toy> {
     public void saveStorage(final String path) throws RepositoryException {
         DataWriter<Toy> dataWriter = new DataWriterImpl();
         try {
-            dataWriter.writeFile(storage.getToyStorage(), path);
+            if (storage != null) {
+                dataWriter.writeFile(storage.getToyStorage(), path);
+            } else {
+                LOGGER.error("Error during saving in the storage file!"
+                             + " The storage does not exist!");
+                throw new RepositoryException("Error during saving into the"
+                             + " storage file! The storage does not exist!");
+            }
         } catch (DataHandlerException e) {
-            LOGGER.error("Error during saving in the storage file!");
-            throw new RepositoryException("Error during saving in the "
-                                          + "storage file!", e);
-        } catch (NullPointerException e) {
-            LOGGER.error("Error during saving in the storage file!"
-                         + " The storage does not exist!");
-            throw new RepositoryException("Error during saving in the storage"
-                         + " file! The storage does not exist!", e);
+            throw new RepositoryException(e);
         }
     }
 
