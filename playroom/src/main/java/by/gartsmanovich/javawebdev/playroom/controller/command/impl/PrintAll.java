@@ -22,6 +22,11 @@ public class PrintAll implements Command {
     private static final Logger LOGGER = LogManager.getLogger(PrintAll.class);
 
     /**
+     * The delimiter for result string.
+     */
+    private static final String DEL = "\n";
+
+    /**
      * Handles the request parameters and passes its to the Service application
      * layer.
      *
@@ -44,19 +49,18 @@ public class PrintAll implements Command {
             if (!toys.isEmpty()) {
                 response.append(MessageManager
                         .getProperty("message.find.all.correct"));
-                response.append("\n");
+                response.append(DEL);
                 String s = toys.stream()
                                .map(Object::toString)
-                               .collect(Collectors.joining("\n"));
+                               .collect(Collectors.joining(DEL));
                 response.append(s);
             } else {
                 return MessageManager
                         .getProperty("message.entities.not.found");
             }
         } catch (ServiceException e) {
-            LOGGER.error("Failed to find the toys!");
-            response.append(MessageManager
-                    .getProperty("message.find.all.failed"));
+            LOGGER.debug("Failed to find the toys!");
+            response.append(e.getMessage());
         }
         return response.toString();
     }
