@@ -1,8 +1,9 @@
 package by.gartsmanovich.javawebdev.playroom.service.impl;
 
-import by.gartsmanovich.javawebdev.playroom.bean.toy.Doll;
 import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
 import by.gartsmanovich.javawebdev.playroom.repository.Repository;
+import by.gartsmanovich.javawebdev.playroom.repository.exception
+        .RepositoryException;
 import by.gartsmanovich.javawebdev.playroom.repository.factory
         .RepositoryFactory;
 import by.gartsmanovich.javawebdev.playroom.repository.specification.find
@@ -17,20 +18,18 @@ import by.gartsmanovich.javawebdev.playroom.repository.specification.find
         .FindByTitleSpecification;
 import by.gartsmanovich.javawebdev.playroom.repository.specification.sort
         .SortByAgeSpecification;
-
 import by.gartsmanovich.javawebdev.playroom.repository.specification.sort
         .SortByColorAndPriceSpecification;
 import by.gartsmanovich.javawebdev.playroom.service.PlayRoomService;
 import by.gartsmanovich.javawebdev.playroom.service.comparator.AgeComparator;
-import by.gartsmanovich.javawebdev.playroom.service.comparator
-        .ColorAndPriceComparator;
-import by.gartsmanovich.javawebdev.playroom.service.exception
-        .ServiceException;
+import by.gartsmanovich.javawebdev.playroom.service.comparator.ColorComparator;
+import by.gartsmanovich.javawebdev.playroom.service.comparator.PriceComparator;
+import by.gartsmanovich.javawebdev.playroom.service.exception.ServiceException;
+import by.gartsmanovich.javawebdev.playroom.service.factory.ToyFactory;
 import by.gartsmanovich.javawebdev.playroom.service.validator.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collections;
 import java.util.List;
 
 public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
@@ -38,11 +37,11 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     /**
      * The logger for Play Room Service class.
      */
-    private static final Logger LOGGER = LogManager
-            .getLogger(PlayRoomServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            PlayRoomServiceImpl.class);
 
     /**
-     * Used for returning factory instances.
+     * Used to returning the factory instances.
      */
     private RepositoryFactory factory;
 
@@ -52,7 +51,8 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     private Repository<Toy> toyRepository;
 
     /**
-     *
+     * The validator provides the different types of checks for a given
+     * parameters.
      */
     private Validator validator;
 
@@ -63,25 +63,40 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     public PlayRoomServiceImpl() {
         factory = RepositoryFactory.getInstance();
         toyRepository = factory.getToyRepository();
-        validator = Validator.getInstance();
+        validator = new Validator();
     }
 
     /**
      * Creates play room instance and fill the storage by provided budget
      * amount.
      *
-     * @param budget the total price of all toys in the play room.
+     * @param budget    the total price of all toys in the play room.
+     * @param path      the path to storage file.
+     * @param delimiter the delimiter to parse the data from file.
+     * @return true if operation was completed successful, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
-    @Override
-    public boolean createPlayRoom(final double budget) throws ServiceException {
-        if (validator.isValidValue(budget)) {
-            toyRepository.createStorage(budget);
-            return true;
-        } else {
-            return false;
+    public boolean createPlayRoom(final double budget, final String path,
+                                  final String delimiter) throws
+            ServiceException {
+
+        try {
+            if (!validator.isValidValue(budget) || !validator.isValidValue(path)
+                || !validator.isValidValue(delimiter)) {
+                LOGGER.error("The parameters for creating play room are"
+                             + " not valid!");
+                throw new ServiceException("The parameters for creating play"
+                                       + " room are not valid!");
+            } else {
+                toyRepository.createStorage(budget, path, delimiter);
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
         }
+
+        return true;
     }
+
 
     /**
      * Adds new entity in the end of the storage.
@@ -92,16 +107,24 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public boolean addEntity(final String... entity) throws ServiceException {
-        if (validator.isValidEntityParams(entity)) {
-            toyRepository.add(new Doll());
-            return true;
-        } else {
-            return false;
+
+        try {
+            if (!validator.isValidEntityParams(entity)) {
+                LOGGER.error("The parameters for adding entity are "
+                             + "not valid!");
+                throw new ServiceException("The parameters for adding entity "
+                                           + "are not valid!");
+            } else {
+                return toyRepository.add(ToyFactory.getInstance()
+                                                   .createToy(entity));
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
         }
     }
 
     /**
-     * Update entity in the repository by ID.
+     * Update entity in the storage by ID.
      *
      * @param entity the string representation of the entity to update.
      * @return true if operation was completed successful, false - otherwise.
@@ -110,7 +133,20 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     @Override
     public boolean updateEntity(final String... entity) throws
             ServiceException {
-        return false;
+
+        try {
+            if (!validator.isValidEntityParams(entity)) {
+                LOGGER.error("The parameters for updating entity are "
+                             + "not valid!");
+                throw new ServiceException("The parameters for updating entity"
+                                           + " are not valid!");
+            } else {
+                return toyRepository.update(ToyFactory.getInstance()
+                                                   .createToy(entity));
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
+        }
     }
 
     /**
@@ -121,7 +157,17 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public boolean removeEntity(final long id) throws ServiceException {
-        return false;
+        try {
+            if (!validator.isValidValue(id)) {
+                LOGGER.error("The ID for removing entity is not valid!");
+                throw new ServiceException("The ID for removing entity is not"
+                                           + " valid!");
+            } else {
+                return toyRepository.remove(id);
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
+        }
     }
 
     /**
@@ -134,10 +180,16 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     @Override
     public List<Toy> findEntityByID(final long id) throws ServiceException {
 
-        if (validator.isValidValue(id)) {
-            return toyRepository.query(new FindByIdSpecification(id));
-        } else {
-            return Collections.emptyList();
+        try {
+            if (!validator.isValidValue(id)) {
+                LOGGER.error("The ID to find the entity is not valid!");
+                throw new ServiceException("The ID to find the entity is not"
+                                           + " valid!");
+            } else {
+                return toyRepository.query(new FindByIdSpecification(id));
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
         }
     }
 
@@ -151,10 +203,18 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     @Override
     public List<Toy> findEntityByTitle(final String title) throws
             ServiceException {
-        if (validator.isValidValue(title)) {
-            return toyRepository.query(new FindByTitleSpecification(title));
-        } else {
-            return Collections.emptyList();
+
+        try {
+            if (!validator.isValidValue(title)) {
+                LOGGER.error("The title parameter to find the entities is"
+                             + " not valid!");
+                throw new ServiceException("The title parameter to find the"
+                                           + " entities is not valid!");
+            } else {
+                return toyRepository.query(new FindByTitleSpecification(title));
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
         }
     }
 
@@ -169,11 +229,19 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     @Override
     public List<Toy> findEntityByFirstTitleLetter(final char c) throws
             ServiceException {
-        if (validator.isValidValue(c)) {
-            return toyRepository
-                    .query(new FindByByFirstTitleLetterSpecification(c));
-        } else {
-            return Collections.emptyList();
+
+        try {
+            if (!validator.isValidValue(c)) {
+                LOGGER.error("The letter parameter to find the entities"
+                             + " is not valid!");
+                throw new ServiceException("The letter parameter to find the"
+                                           + " entities is not valid!");
+            } else {
+                return toyRepository
+                        .query(new FindByByFirstTitleLetterSpecification(c));
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
         }
     }
 
@@ -186,13 +254,22 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public List<Toy> findEntityByRangeId(final long startId, final long
-            endId) throws ServiceException {
-        if (validator.isValidValue(startId, endId)) {
-            return toyRepository
-                    .query(new FindByByRangeIdSpecification(startId, endId));
-        } else {
-            return Collections.emptyList();
+    public List<Toy> findEntityByRangeId(final long startId,
+                                         final long endId) throws
+            ServiceException {
+
+        try {
+            if (!validator.isValidValue(startId, endId)) {
+                LOGGER.error("The range parameters to find the entities"
+                             + " are not valid!");
+                throw new ServiceException("The range parameters to find the"
+                                           + " entities are not valid!");
+            } else {
+                return toyRepository
+                       .query(new FindByByRangeIdSpecification(startId, endId));
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
         }
     }
 
@@ -204,13 +281,11 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public List<Toy> findAll() throws ServiceException {
-        List<Toy> toys = toyRepository
-                    .query(new FindAllSpecification());
 
-        if (!toys.isEmpty()) {
-            return toys;
-        } else {
-            return Collections.emptyList();
+        try {
+            return toyRepository.query(new FindAllSpecification());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
         }
     }
 
@@ -221,8 +296,13 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public void sortByAge() throws ServiceException {
-        toyRepository
-                .query(new SortByAgeSpecification(new AgeComparator()));
+
+        try {
+            toyRepository
+                    .query(new SortByAgeSpecification(new AgeComparator()));
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
+        }
     }
 
     /**
@@ -232,18 +312,36 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      */
     @Override
     public void sortByColorAndPrice() throws ServiceException {
-        toyRepository
-                .query(new SortByColorAndPriceSpecification(
-                        new ColorAndPriceComparator()));
+
+        try {
+            toyRepository
+                    .query(new SortByColorAndPriceSpecification(
+                            new ColorComparator(), new PriceComparator()));
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
+        }
     }
 
     /**
      * Save storage to the file before exit.
      *
+     * @param path the path to file to save the storage.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void saveAll() throws ServiceException {
+    public void saveAll(final String path) throws ServiceException {
 
+        try {
+            if (!validator.isValidValue(path)) {
+                LOGGER.error("The path to file for saving the storage"
+                             + " is not valid!");
+                throw new ServiceException("The path to file for saving the"
+                                           + " storage is not valid!");
+            } else {
+                toyRepository.saveStorage(path);
+            }
+        } catch (RepositoryException e) {
+                throw new ServiceException(e);
+        }
     }
 }
