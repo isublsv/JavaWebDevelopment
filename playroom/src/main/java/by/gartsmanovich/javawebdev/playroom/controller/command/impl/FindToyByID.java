@@ -23,6 +23,11 @@ public class FindToyByID implements Command {
             .class);
 
     /**
+     * The delimiter for result string.
+     */
+    private static final String DEL = "\n";
+
+    /**
      * Handles the request parameters and passes its to the Service application
      * layer.
      *
@@ -40,7 +45,7 @@ public class FindToyByID implements Command {
                 .getPlayRoomService();
 
         if (request.isEmpty()) {
-            LOGGER.trace("Incorrect parameters number!");
+            LOGGER.debug("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
@@ -50,22 +55,21 @@ public class FindToyByID implements Command {
                 if (!toys.isEmpty()) {
                     response.append(MessageManager
                             .getProperty("message.find.by.id.correct"));
-                    response.append("\n");
+                    response.append(DEL);
                     String s = toys.stream().map(Object::toString)
-                                   .collect(Collectors.joining("\n"));
+                                   .collect(Collectors.joining(DEL));
                     response.append(s);
                 } else {
                     return MessageManager
                             .getProperty("message.entity.not.found");
                 }
             } catch (NumberFormatException e) {
-                LOGGER.trace("Invalid parameter format passed!");
+                LOGGER.debug("Invalid parameter format passed!");
                 response.append(MessageManager
                         .getProperty("message.incorrect.args.format"));
             } catch (ServiceException e) {
-                LOGGER.error("Failed to find the toy by ID!");
-                response.append(MessageManager
-                        .getProperty("message.find.by.id.failed"));
+                LOGGER.debug("Failed to find the toy by ID!");
+                response.append(e.getMessage());
             }
             return response.toString();
         }
