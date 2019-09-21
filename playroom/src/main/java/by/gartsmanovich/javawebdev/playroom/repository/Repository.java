@@ -40,17 +40,16 @@ public interface Repository<T extends Entity> {
     boolean update(T entity) throws RepositoryException;
 
     /**
-     * Removes the first occurrence of the specified element from the storage,
-     * if it is present.
+     * Removes entity with provided ID from the storage.
      *
-     * @param entity the entity to remove.
+     * @param id the entity to remove.
      * @return true if operation was completed successful, false - otherwise.
      * @throws RepositoryException if error happens during execution.
      */
-    boolean remove(T entity) throws RepositoryException;
+    boolean remove(int id) throws RepositoryException;
 
     /**
-     * Saves repository storage to file.
+     * Saves repository storage to the file.
      *
      * @param path the path to file to save.
      * @throws RepositoryException if error happens during execution.

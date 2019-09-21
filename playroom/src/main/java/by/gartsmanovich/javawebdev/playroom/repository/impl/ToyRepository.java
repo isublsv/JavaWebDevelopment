@@ -69,6 +69,7 @@ public class ToyRepository implements Repository<Toy> {
      */
     @Override
     public boolean add(final Toy entity) throws RepositoryException {
+
         if (storage != null) {
             return storage.getToyStorage().add(entity);
         } else {
@@ -116,6 +117,7 @@ public class ToyRepository implements Repository<Toy> {
      */
     @Override
     public boolean remove(final int id) throws RepositoryException {
+
         if (storage != null) {
             for (Toy toy : storage.getToyStorage()) {
                 if (toy.getId() == id) {
@@ -133,14 +135,16 @@ public class ToyRepository implements Repository<Toy> {
     }
 
     /**
-     * Saves repository storage to file.
+     * Saves repository storage to the file.
      *
      * @param path the path to file to save.
      * @throws RepositoryException if error happens during execution.
      */
     @Override
     public void saveStorage(final String path) throws RepositoryException {
+
         DataWriter<Toy> dataWriter = new DataWriterImpl();
+
         try {
             if (storage != null) {
                 dataWriter.writeFile(storage.getToyStorage(), path);
