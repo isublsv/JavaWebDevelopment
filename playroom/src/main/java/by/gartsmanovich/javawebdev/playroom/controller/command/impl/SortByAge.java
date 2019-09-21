@@ -11,12 +11,20 @@ import by.gartsmanovich.javawebdev.playroom.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class SortByAge implements Command {
 
     /**
      * The logger for SortByAge class.
      */
     private static final Logger LOGGER = LogManager.getLogger(SortByAge.class);
+
+    /**
+     * The delimiter for result string.
+     */
+    private static final String DEL = "\n";
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -28,21 +36,32 @@ public class SortByAge implements Command {
      */
     public String execute(final String request) {
 
-        String response;
+        StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
         try {
-            playRoomService.sortByAge();
-            response = MessageManager
-                    .getProperty("message.sort.by.age.correct");
+            List<Toy> toys = playRoomService.sortByAge();
+
+            if (!toys.isEmpty()) {
+                response.append(MessageManager
+                                   .getProperty("message.sort.by.age.correct"));
+                response.append(DEL);
+                String s = toys.stream()
+                               .map(Object::toString)
+                               .collect(Collectors.joining(DEL));
+                response.append(s);
+            } else {
+                return MessageManager
+                        .getProperty("message.entities.not.found");
+            }
         } catch (ServiceException e) {
             LOGGER.debug("Failed to sort play room storage by age!");
-            response = e.getMessage();
+            response.append(e.getMessage());
         }
-        return response;
+        return response.toString();
 
     }
 }
