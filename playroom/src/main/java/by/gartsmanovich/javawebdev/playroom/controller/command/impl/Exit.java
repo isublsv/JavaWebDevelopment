@@ -33,13 +33,18 @@ public class Exit implements Command {
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
-        try {
-            playRoomService.saveAll();
-            response = MessageManager.getProperty("message.save.correct");
-        } catch (ServiceException e) {
-            LOGGER.error("Failed to save storage!");
-            response = MessageManager.getProperty("message.save.failed");
+        if (request.isEmpty()) {
+            LOGGER.trace("Incorrect parameters number!");
+            return MessageManager.getProperty("message.incorrect.args.number");
+        } else {
+            try {
+                playRoomService.saveAll(request);
+                response = MessageManager.getProperty("message.save.correct");
+            } catch (ServiceException e) {
+                LOGGER.debug("Failed to save storage!");
+                response = e.getMessage();
+            }
+            return response;
         }
-        return response;
     }
 }

@@ -42,7 +42,7 @@ public class AddToy implements Command {
         String[] args = request.split(" ");
 
         if (args.length < ARGS_NUMBER) {
-            LOGGER.trace("Incorrect parameters number!");
+            LOGGER.debug("Incorrect parameters number!");
             return MessageManager
                     .getProperty("message.incorrect.args.number");
         } else {
@@ -55,9 +55,8 @@ public class AddToy implements Command {
                             .getProperty("message.add.failed");
                 }
             } catch (ServiceException e) {
-                LOGGER.error("Failed to add the toy!");
-                response = MessageManager
-                        .getProperty("message.add.failed");
+                LOGGER.debug("Failed during add command execution");
+                response = e.getMessage();
             }
             return response;
         }
