@@ -35,7 +35,7 @@ public class RemoveToy implements Command {
                 .getPlayRoomService();
 
         if (request.isEmpty()) {
-            LOGGER.trace("Incorrect parameters number!");
+            LOGGER.debug("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
@@ -49,13 +49,12 @@ public class RemoveToy implements Command {
                             .getProperty("message.remove.not.found");
                 }
             } catch (NumberFormatException e) {
-                LOGGER.trace("Invalid parameter format was passed!");
+                LOGGER.debug("Invalid parameter format was passed!");
                 response = MessageManager
                         .getProperty("message.incorrect.args.format");
             } catch (ServiceException e) {
-                LOGGER.error("Failed to remove the toy!");
-                response = MessageManager
-                        .getProperty("message.remove.failed");
+                LOGGER.debug("Failed to remove the toy!");
+                response = e.getMessage();
             }
             return response;
         }
