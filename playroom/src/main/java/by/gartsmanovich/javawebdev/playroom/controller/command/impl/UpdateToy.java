@@ -18,6 +18,11 @@ public class UpdateToy implements Command {
     private static final Logger LOGGER = LogManager.getLogger(UpdateToy.class);
 
     /**
+     * The splitter for request string.
+     */
+    private static final String SPLIT = " ";
+
+    /**
      * The valid number of arguments.
      */
     private static final int ARGS_NUMBER = 4;
@@ -39,20 +44,27 @@ public class UpdateToy implements Command {
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
-        String[] args = request.split(" ");
+        String[] args = request.split(SPLIT);
 
         if (args.length < ARGS_NUMBER) {
             LOGGER.debug("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
-                if (playRoomService.updateEntity(args)) {
-                    response = MessageManager
-                            .getProperty("message.update.correct");
+                long id = Long.parseLong(args[0]);
+                args = request.substring(request.indexOf(SPLIT)).split(SPLIT);
+
+                if (playRoomService.updateEntity(id, args)) {
+                    response = MessageManager.getProperty(
+                            "message.update.correct");
                 } else {
-                    return MessageManager
-                            .getProperty("message.update.not.found");
+                    return MessageManager.getProperty(
+                            "message.update.not.found");
                 }
+            } catch (NumberFormatException e) {
+                LOGGER.debug("Invalid parameter format was passed!");
+                response = MessageManager
+                        .getProperty("message.incorrect.args.format");
             } catch (ServiceException e) {
                 LOGGER.debug("Failed to update the toy data!");
                 response = e.getMessage();
