@@ -22,6 +22,11 @@ public class FindToyByRangeID implements Command {
             .getLogger(FindToyByRangeID.class);
 
     /**
+     * The delimiter for result string.
+     */
+    private static final String DEL = "\n";
+
+    /**
      * The valid number of arguments.
      */
     private static final int ARGS_NUMBER = 1;
@@ -46,7 +51,7 @@ public class FindToyByRangeID implements Command {
         String[] args = request.split(" ");
 
         if (args.length <= ARGS_NUMBER) {
-            LOGGER.trace("Incorrect parameters number!");
+            LOGGER.debug("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
@@ -58,23 +63,22 @@ public class FindToyByRangeID implements Command {
                 if (!toys.isEmpty()) {
                     response.append(MessageManager
                             .getProperty("message.find.by.range.id.correct"));
-                    response.append("\n");
+                    response.append(DEL);
                     String s = toys.stream().map(Object::toString)
-                                   .collect(Collectors.joining("\n"));
+                                   .collect(Collectors.joining(DEL));
                     response.append(s);
                 } else {
                     return MessageManager
                             .getProperty("message.entities.not.found");
                 }
             } catch (NumberFormatException e) {
-                LOGGER.trace("Invalid parameter format passed!");
+                LOGGER.debug("Invalid parameter format passed!");
                 response.append(MessageManager
                         .getProperty("message.incorrect.args.format"));
             } catch (ServiceException e) {
-                LOGGER.error("Failed to find the toys in the provided"
+                LOGGER.debug("Failed to find the toys in the provided"
                         + " ID range!");
-                response.append(MessageManager
-                        .getProperty("message.find.by.range.id.failed"));
+                response.append(e.getMessage());
             }
             return response.toString();
         }
