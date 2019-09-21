@@ -23,7 +23,7 @@ public class WrongRequest implements Command {
      */
     @Override
     public String execute(final String request) {
-        LOGGER.trace("The command not found or wrong!");
+        LOGGER.debug("The command not found or wrong!");
         return MessageManager.getProperty("message.wrong.request");
     }
 }
