@@ -42,7 +42,7 @@ public class UpdateToy implements Command {
         String[] args = request.split(" ");
 
         if (args.length < ARGS_NUMBER) {
-            LOGGER.trace("Incorrect parameters number!");
+            LOGGER.debug("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
@@ -54,9 +54,8 @@ public class UpdateToy implements Command {
                             .getProperty("message.update.not.found");
                 }
             } catch (ServiceException e) {
-                LOGGER.error("Failed to update the toy data!");
-                response = MessageManager
-                        .getProperty("message.update.failed");
+                LOGGER.debug("Failed to update the toy data!");
+                response = e.getMessage();
             }
             return response;
         }
