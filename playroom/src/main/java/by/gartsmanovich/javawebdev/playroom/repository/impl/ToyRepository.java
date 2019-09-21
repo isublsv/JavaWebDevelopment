@@ -54,7 +54,7 @@ public class ToyRepository implements Repository<Toy> {
             toys = new DataParser().parseData(budget, reader.readFile(path),
                     delimiter);
         } catch (DataHandlerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage(), e);
         }
 
         storage = new PlayRoom(budget, toys);
@@ -155,7 +155,7 @@ public class ToyRepository implements Repository<Toy> {
                              + " storage file! The storage does not exist!");
             }
         } catch (DataHandlerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage(), e);
         }
     }
 
