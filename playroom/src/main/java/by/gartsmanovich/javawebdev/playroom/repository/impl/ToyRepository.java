@@ -107,19 +107,21 @@ public class ToyRepository implements Repository<Toy> {
     }
 
     /**
-     * Removes the first occurrence of the specified element from the
-     * storage,
-     * if it is present.
+     * Removes entity with provided ID from the storage.
      *
-     * @param entity the entity to remove.
+     * @param id the entity to remove.
      * @return true if operation was completed successful, false -
      * otherwise.
      * @throws RepositoryException if error happens during execution.
      */
     @Override
-    public boolean remove(final Toy entity) throws RepositoryException {
+    public boolean remove(final int id) throws RepositoryException {
         if (storage != null) {
-            return storage.getToyStorage().remove(entity);
+            for (Toy toy : storage.getToyStorage()) {
+                if (toy.getId() == id) {
+                    return storage.getToyStorage().remove(toy);
+                }
+            }
         } else {
             LOGGER.error("Error during remove operation! The storage"
                          + " does not exist!");
@@ -127,6 +129,7 @@ public class ToyRepository implements Repository<Toy> {
                     "Error during remove operation! The storage does not "
                     + "exist!");
         }
+        return false;
     }
 
     /**
