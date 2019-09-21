@@ -292,13 +292,14 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     /**
      * Sorts the storage by age.
      *
+     * @return the list of sorted entities by age or empty list.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void sortByAge() throws ServiceException {
+    public List<Toy> sortByAge() throws ServiceException {
 
         try {
-            toyRepository
+            return toyRepository
                     .query(new SortByAgeSpecification(new AgeComparator()));
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -308,13 +309,15 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     /**
      * Sorts the storage by Color, than by price.
      *
+     * @return the list of sorted entities by color, by price than or
+     * empty list.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void sortByColorAndPrice() throws ServiceException {
+    public List<Toy> sortByColorAndPrice() throws ServiceException {
 
         try {
-            toyRepository
+            return toyRepository
                     .query(new SortByColorAndPriceSpecification(
                             new ColorComparator(), new PriceComparator()));
         } catch (RepositoryException e) {

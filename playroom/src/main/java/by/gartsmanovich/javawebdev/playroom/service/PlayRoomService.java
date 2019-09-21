@@ -98,16 +98,19 @@ public interface PlayRoomService<T extends Entity> {
     /**
      * Sorts the storage by age.
      *
+     * @return the list of sorted entities by age or empty list.
      * @throws ServiceException if error happens during execution.
      */
-    void sortByAge() throws ServiceException;
+    List<T> sortByAge() throws ServiceException;
 
     /**
-     * Sorts the repository by Color, than by price.
+     * Sorts the repository by color, than by price.
      *
+     * @return the list of sorted entities by color, by price than or
+     * empty list.
      * @throws ServiceException if error happens during execution.
      */
-    void sortByColorAndPrice() throws ServiceException;
+    List<T> sortByColorAndPrice() throws ServiceException;
 
     /**
      * Save storage to the file before exit.
