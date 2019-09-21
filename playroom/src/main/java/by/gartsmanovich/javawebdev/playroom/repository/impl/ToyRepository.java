@@ -116,7 +116,7 @@ public class ToyRepository implements Repository<Toy> {
      * @throws RepositoryException if error happens during execution.
      */
     @Override
-    public boolean remove(final int id) throws RepositoryException {
+    public boolean remove(final long id) throws RepositoryException {
 
         if (storage != null) {
             for (Toy toy : storage.getToyStorage()) {

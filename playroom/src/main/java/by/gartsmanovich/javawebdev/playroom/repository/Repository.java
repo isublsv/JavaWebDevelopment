@@ -46,7 +46,7 @@ public interface Repository<T extends Entity> {
      * @return true if operation was completed successful, false - otherwise.
      * @throws RepositoryException if error happens during execution.
      */
-    boolean remove(int id) throws RepositoryException;
+    boolean remove(long id) throws RepositoryException;
 
     /**
      * Saves repository storage to the file.
