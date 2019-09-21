@@ -22,6 +22,11 @@ public class FindToyByFirstLetter implements Command {
             .getLogger(FindToyByFirstLetter.class);
 
     /**
+     * The delimiter for result string.
+     */
+    private static final String DEL = "\n";
+
+    /**
      * Handles the request parameters and passes its to the Service application
      * layer.
      *
@@ -39,7 +44,7 @@ public class FindToyByFirstLetter implements Command {
                 .getPlayRoomService();
 
         if (request.isEmpty()) {
-            LOGGER.trace("Incorrect parameters number!");
+            LOGGER.debug("Incorrect parameters number!");
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
@@ -50,18 +55,17 @@ public class FindToyByFirstLetter implements Command {
                 if (!toys.isEmpty()) {
                     response.append(MessageManager
                         .getProperty("message.find.by.first.letter.correct"));
-                    response.append("\n");
+                    response.append(DEL);
                     String s = toys.stream().map(Object::toString)
-                                   .collect(Collectors.joining("\n"));
+                                   .collect(Collectors.joining(DEL));
                     response.append(s);
                 } else {
                     return MessageManager
                             .getProperty("message.entities.not.found");
                 }
             } catch (ServiceException e) {
-                LOGGER.error("Failed to find the toys by first letter!");
-                response.append(MessageManager
-                        .getProperty("message.find.by.first.letter.failed"));
+                LOGGER.debug("Failed to find the toys by first letter!");
+                response.append(e.getMessage());
             }
             return response.toString();
         }
