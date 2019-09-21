@@ -126,23 +126,26 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
     /**
      * Update entity in the storage by ID.
      *
+     * @param id the ID of the entity to update.
      * @param entity the string representation of the entity to update.
      * @return true if operation was completed successful, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public boolean updateEntity(final String... entity) throws
+    public boolean updateEntity(final long id, final String... entity) throws
             ServiceException {
 
         try {
-            if (!validator.isValidEntityParams(entity)) {
+            if (!validator.isValidEntityParams(entity)
+                    || !validator.isValidValue(id)) {
                 LOGGER.error("The parameters for updating entity are "
                              + "not valid!");
                 throw new ServiceException("The parameters for updating entity"
                                            + " are not valid!");
             } else {
-                return toyRepository.update(ToyFactory.getInstance()
-                                                   .createToy(entity));
+                Toy toy = ToyFactory.getInstance().createToy(entity);
+                toy.setId(id);
+                return toyRepository.update(toy);
             }
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);

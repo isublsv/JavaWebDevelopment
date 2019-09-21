@@ -33,11 +33,12 @@ public interface PlayRoomService<T extends Entity> {
     /**
      * Update entity in the repository by ID.
      *
+     * @param id the ID of the entity to update.
      * @param entity the string representation of the entity to update.
      * @return true if operation was completed successful, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
-    boolean updateEntity(String... entity) throws ServiceException;
+    boolean updateEntity(long id, String... entity) throws ServiceException;
 
     /**
      * Removes entity with provided ID from the storage.
