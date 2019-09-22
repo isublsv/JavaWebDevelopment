@@ -58,8 +58,8 @@ public class SortByAge implements Command {
                         .getProperty("message.entities.not.found");
             }
         } catch (ServiceException e) {
-            LOGGER.debug("Failed to sort play room storage by age!");
             response.append(e.getMessage());
+            LOGGER.error(response);
         }
         return response.toString();
 

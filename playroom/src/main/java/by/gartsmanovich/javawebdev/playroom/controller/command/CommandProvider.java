@@ -4,28 +4,24 @@ import by.gartsmanovich.javawebdev.playroom.controller.command.impl.AddToy;
 import by.gartsmanovich.javawebdev.playroom.controller.command.impl
         .CreatePlayRoom;
 import by.gartsmanovich.javawebdev.playroom.controller.command.impl.Exit;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .FindToyByFirstLetter;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .FindToyByID;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .FindToyByRangeID;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .FindToyByTitle;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .PrintAll;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .RemoveToy;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .SortByAge;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .SortByColorAndPrice;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .UpdateToy;
-import by.gartsmanovich.javawebdev.playroom.controller.command.impl
-        .WrongRequest;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.
+        FindToyByFirstLetter;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.
+        FindToyByID;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.
+        FindToyByRangeID;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.
+        FindToyByTitle;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.PrintAll;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.RemoveToy;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.SortByAge;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.
+        SortByColorAndPrice;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.UpdateToy;
+import by.gartsmanovich.javawebdev.playroom.controller.command.impl.
+        WrongRequest;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class CommandProvider {
@@ -33,7 +29,8 @@ public class CommandProvider {
     /**
      * The map contains the list of supported commands and its values.
      */
-    private final Map<CommandName, Command> repository = new HashMap<>();
+    private final Map<CommandName, Command> repository
+            = new EnumMap<>(CommandName.class);
 
     /**
      * Creates and fills the repository of supported commands.
@@ -61,15 +58,16 @@ public class CommandProvider {
      * Returns the command instance for which the specified name is mapped
      * in the repository.
      *
-     * @param code the key whose associated value is to be returned.
+     * @param name the name whose associated value is to be returned.
      * @return the command instance.
      */
-    public Command getCommand(final int code) {
+    public Command getCommand(final String name) {
         Command command;
 
         try {
-            command = repository.get(CommandName.values()[code]);
-        } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+            command = repository.get(CommandName.valueOf(name));
+        } catch (IllegalArgumentException | NullPointerException e) {
+
             command = repository.get(CommandName.WRONG_REQUEST);
         }
         return command;

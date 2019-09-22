@@ -41,36 +41,53 @@ public final class ToyFactory {
         Toy toy;
 
         if ("doll".equalsIgnoreCase(code)) {
-            toy = new DollBuilder()
-                    .setMaterial(Material.valueOf(
-                            param[IndexParam.PARAM_ADD_1.ordinal()]))
-                    .setWeight(Double.parseDouble(
-                            param[IndexParam.PARAM_ADD_2.ordinal()]))
-                    .build();
+
+            String material = param[IndexParam.PARAM_ADD_1.ordinal()]
+                    .toUpperCase();
+            String weight = param[IndexParam.PARAM_ADD_2.ordinal()];
+
+            toy = new DollBuilder().setMaterial(Material.valueOf(material))
+                                   .setWeight(Double.parseDouble(weight))
+                                   .build();
+
         } else if ("ball".equalsIgnoreCase(code)) {
+
+            String diameter = param[IndexParam.PARAM_ADD_1.ordinal()];
+
             toy = new ToyBallBuilder()
-                    .setDiameter(Double.parseDouble(
-                            param[IndexParam.PARAM_ADD_1.ordinal()]))
+                    .setDiameter(Double.parseDouble(diameter))
                     .build();
+
         } else if ("car".equalsIgnoreCase(code)) {
-            toy = new ToyCarBuilder()
-                    .setSize(Size.valueOf(param[
-                            IndexParam.PARAM_ADD_1.ordinal()]))
-                    .build();
+
+            String size = param[IndexParam.PARAM_ADD_1.ordinal()].toUpperCase();
+
+            toy = new ToyCarBuilder().setSize(Size.valueOf(size))
+                                     .build();
+
         } else {
+
+            String blockType = param[IndexParam.PARAM_ADD_1.ordinal()]
+                    .toUpperCase();
+
+            String material = param[IndexParam.PARAM_ADD_2.ordinal()]
+                    .toUpperCase();
+
             toy = new ToyBlockBuilder()
-                    .setBlockType(BlockType.valueOf(
-                            param[IndexParam.PARAM_ADD_1.ordinal()]))
-                    .setMaterial(Material.valueOf(
-                            param[IndexParam.PARAM_ADD_2.ordinal()]))
+                    .setBlockType(BlockType.valueOf(blockType))
+                    .setMaterial(Material.valueOf(material))
                     .build();
         }
 
-        toy.setTitle(param[IndexParam.PARAM_TITLE.ordinal()]);
-        toy.setColor(Color.valueOf(param[IndexParam.PARAM_COLOR.ordinal()]));
-        toy.setAge(Integer.parseInt(param[IndexParam.PARAM_AGE.ordinal()]));
-        toy.setPrice(Double.parseDouble(param[IndexParam.PARAM_PRICE
-                .ordinal()]));
+        String title = param[IndexParam.PARAM_TITLE.ordinal()];
+        String color = param[IndexParam.PARAM_COLOR.ordinal()].toUpperCase();
+        String age = param[IndexParam.PARAM_AGE.ordinal()];
+        String price = param[IndexParam.PARAM_PRICE.ordinal()];
+
+        toy.setTitle(title);
+        toy.setColor(Color.valueOf(color));
+        toy.setAge(Integer.parseInt(age));
+        toy.setPrice(Double.parseDouble(price));
 
         return toy;
     }

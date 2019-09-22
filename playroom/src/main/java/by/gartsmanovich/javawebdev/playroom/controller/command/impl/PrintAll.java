@@ -59,8 +59,8 @@ public class PrintAll implements Command {
                         .getProperty("message.entities.not.found");
             }
         } catch (ServiceException e) {
-            LOGGER.debug("Failed to find the toys!");
             response.append(e.getMessage());
+            LOGGER.error(response);
         }
         return response.toString();
     }

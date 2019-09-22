@@ -64,8 +64,8 @@ public class FindToyByFirstLetter implements Command {
                             .getProperty("message.entities.not.found");
                 }
             } catch (ServiceException e) {
-                LOGGER.debug("Failed to find the toys by first letter!");
                 response.append(e.getMessage());
+                LOGGER.error(response);
             }
             return response.toString();
         }

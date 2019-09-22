@@ -68,8 +68,8 @@ public class FindToyByID implements Command {
                 response.append(MessageManager
                         .getProperty("message.incorrect.args.format"));
             } catch (ServiceException e) {
-                LOGGER.debug("Failed to find the toy by ID!");
                 response.append(e.getMessage());
+                LOGGER.error(response);
             }
             return response.toString();
         }

@@ -53,8 +53,8 @@ public class RemoveToy implements Command {
                 response = MessageManager
                         .getProperty("message.incorrect.args.format");
             } catch (ServiceException e) {
-                LOGGER.debug("Failed to remove the toy!");
                 response = e.getMessage();
+                LOGGER.error(response);
             }
             return response;
         }

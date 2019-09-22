@@ -73,10 +73,9 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      * @param budget    the total price of all toys in the play room.
      * @param path      the path to storage file.
      * @param delimiter the delimiter to parse the data from file.
-     * @return true if operation was completed successful, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
-    public boolean createPlayRoom(final double budget, final String path,
+    public void createPlayRoom(final double budget, final String path,
                                   final String delimiter) throws
             ServiceException {
 
@@ -93,8 +92,6 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
-
-        return true;
     }
 
 

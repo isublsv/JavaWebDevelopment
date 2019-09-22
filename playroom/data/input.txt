@@ -1,4 +1,4 @@
-car, red, 3, 42.0, large
+car, red, 3, 42.0, big
 
 doll, multicolored, 5, 22.0, plastic, 220.0
 ball, blue, 4, 555.0, 22.0

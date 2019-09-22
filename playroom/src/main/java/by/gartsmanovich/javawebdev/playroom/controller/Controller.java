@@ -1,10 +1,7 @@
 package by.gartsmanovich.javawebdev.playroom.controller;
 
 import by.gartsmanovich.javawebdev.playroom.controller.command.Command;
-import by.gartsmanovich.javawebdev.playroom.controller.command
-        .CommandProvider;
-import by.gartsmanovich.javawebdev.playroom.controller.command.manager
-        .MessageManager;
+import by.gartsmanovich.javawebdev.playroom.controller.command.CommandProvider;
 
 public class Controller {
 
@@ -31,19 +28,21 @@ public class Controller {
         String commandName;
         Command executionCommand;
         String response;
+        String params = "";
 
-        commandName = request.substring(0, request.indexOf(PARAM_DELIMITER));
-        try {
-            int code = Integer.parseInt(commandName);
-            executionCommand = provider.getCommand(code);
-
-            String params = request.substring(request
-                    .indexOf(PARAM_DELIMITER));
-            response = executionCommand.execute(params);
-        } catch (NumberFormatException e) {
-            response = MessageManager
-                    .getProperty("message.incorrect.args.format");
+        if (request.contains(Character.toString(PARAM_DELIMITER))) {
+            commandName = request.substring(
+                    0, request.indexOf(PARAM_DELIMITER));
+            params = request.substring(request.indexOf(PARAM_DELIMITER))
+                            .toLowerCase()
+                            .trim();
+        } else {
+            commandName = request;
         }
+
+        executionCommand = provider.getCommand(commandName);
+        response = executionCommand.execute(params);
+
         return response;
     }
 }

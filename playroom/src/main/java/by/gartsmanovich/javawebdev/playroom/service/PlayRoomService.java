@@ -15,10 +15,9 @@ public interface PlayRoomService<T extends Entity> {
      * @param budget the total price of all toys in the play room.
      * @param path the path to storage file.
      * @param delimiter the delimiter to parse the data from file.
-     * @return true if operation was completed successful, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
-    boolean createPlayRoom(double budget, String path, String delimiter)
+    void createPlayRoom(double budget, String path, String delimiter)
             throws ServiceException;
 
     /**

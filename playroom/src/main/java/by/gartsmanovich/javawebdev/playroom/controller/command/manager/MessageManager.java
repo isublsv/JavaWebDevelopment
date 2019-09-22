@@ -9,7 +9,7 @@ public final class MessageManager {
      * messages.
      */
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-            .getBundle("resource.messages");
+            .getBundle("messages");
 
     private MessageManager() {
     }

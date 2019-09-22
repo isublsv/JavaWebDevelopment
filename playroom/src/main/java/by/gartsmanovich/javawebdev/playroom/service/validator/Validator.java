@@ -70,7 +70,7 @@ public class Validator {
     public boolean isValidValue(final long startId, final long endId) {
         long diff = endId - startId;
         return (startId > 0) && (startId < Long.MAX_VALUE) && (endId > 0) && (
-                endId < Long.MAX_VALUE) && (diff > 0);
+                endId < Long.MAX_VALUE) && (diff >= 0);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Validator {
      */
     public boolean isValidEntityParams(final String[] param) {
 
-        String title = param[0].toLowerCase();
+        String title = param[0];
         if (isValidValue(title)) {
             switch (title) {
                 case "car":
@@ -125,7 +125,7 @@ public class Validator {
     }
 
     private boolean isDollEntity(final String[] param) {
-        if (param.length == CAR_BALL_PARAM_NUM && isToy(param)) {
+        if (param.length == DOLL_BLOCK_PARAM_NUM && isToy(param)) {
             try {
                 String material = param[IndexParam.PARAM_ADD_1.ordinal()];
                 String weight = param[IndexParam.PARAM_ADD_2.ordinal()];

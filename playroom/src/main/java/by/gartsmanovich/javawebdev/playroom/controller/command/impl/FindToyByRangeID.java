@@ -76,9 +76,8 @@ public class FindToyByRangeID implements Command {
                 response.append(MessageManager
                         .getProperty("message.incorrect.args.format"));
             } catch (ServiceException e) {
-                LOGGER.debug("Failed to find the toys in the provided"
-                        + " ID range!");
                 response.append(e.getMessage());
+                LOGGER.error(response);
             }
             return response.toString();
         }

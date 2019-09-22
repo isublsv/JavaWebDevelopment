@@ -41,8 +41,8 @@ public class Exit implements Command {
                 playRoomService.saveAll(request);
                 response = MessageManager.getProperty("message.save.correct");
             } catch (ServiceException e) {
-                LOGGER.debug("Failed to save storage!");
                 response = e.getMessage();
+                LOGGER.error(response);
             }
             return response;
         }

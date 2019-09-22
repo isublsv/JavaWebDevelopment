@@ -39,15 +39,17 @@ public class DataParser {
     public List<Toy> parseData(final double limit, final List<String> data,
                                final String delimiter) {
         List<Toy> toys = new ArrayList<>();
-        double current = 0;
+        double current = limit;
 
         for (String s : data) {
-            String[] strings = s.split(delimiter);
+            String[] strings = s.replace(" ", "")
+                                .split(delimiter);
             if (validator.isValidEntityParams(strings)) {
                 Toy toy = toyFactory.createToy(strings);
-                current += toy.getPrice();
-                if (current <= limit) {
+                double price = toy.getPrice();
+                if (price <= current) {
                     toys.add(toy);
+                    current -= price;
                 }
             }
         }

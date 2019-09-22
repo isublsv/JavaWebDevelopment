@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="warn">
+<Configuration status="WARN">
     <Properties>
         <Property name="basePath">logs</Property>
     </Properties>
@@ -19,11 +19,11 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="by.gartsmanovich.javawebdev.playroom" level="error" additivity="true">
-            <appender-ref ref="fileLogger" level="error" />
+        <Logger name="by.gartsmanovich.javawebdev.playroom.controller" level="error" additivity="true">
+            <appender-ref ref="fileLogger" level="ERROR" />
         </Logger>
-        <Root level="debug" additivity="false">
-            <appender-ref ref="console" />
+        <Root level="debug">
+            <appender-ref ref="console"/>
         </Root>
     </Loggers>
 </Configuration>

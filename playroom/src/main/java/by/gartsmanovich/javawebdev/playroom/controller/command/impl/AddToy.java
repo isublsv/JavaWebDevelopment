@@ -55,8 +55,8 @@ public class AddToy implements Command {
                             .getProperty("message.add.failed");
                 }
             } catch (ServiceException e) {
-                LOGGER.debug("Failed during add command execution");
                 response = e.getMessage();
+                LOGGER.error(response);
             }
             return response;
         }

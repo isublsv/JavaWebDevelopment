@@ -58,9 +58,8 @@ public class SortByColorAndPrice implements Command {
                         .getProperty("message.entities.not.found");
             }
         } catch (ServiceException e) {
-            LOGGER.debug("The play room storage was sorted by"
-                    + " color and price! ");
             response.append(e.getMessage());
+            LOGGER.error(response);
         }
         return response.toString();
     }

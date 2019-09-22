@@ -52,7 +52,9 @@ public class UpdateToy implements Command {
         } else {
             try {
                 long id = Long.parseLong(args[0]);
-                args = request.substring(request.indexOf(SPLIT)).split(SPLIT);
+                args = request.substring(request.indexOf(SPLIT))
+                              .trim()
+                              .split(SPLIT);
 
                 if (playRoomService.updateEntity(id, args)) {
                     response = MessageManager.getProperty(
@@ -66,8 +68,8 @@ public class UpdateToy implements Command {
                 response = MessageManager
                         .getProperty("message.incorrect.args.format");
             } catch (ServiceException e) {
-                LOGGER.debug("Failed to update the toy data!");
                 response = e.getMessage();
+                LOGGER.error(response);
             }
             return response;
         }

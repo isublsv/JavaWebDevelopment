@@ -41,7 +41,7 @@ public class CreatePlayRoom implements Command {
         PlayRoomService<Toy> playRoomService = serviceFactory
                 .getPlayRoomService();
 
-        String[] args = request.split(" ");
+        String[] args = request.trim().split(" ");
 
         if (args.length < ARGS_NUMBER) {
             LOGGER.debug("Incorrect parameters number!");
@@ -61,8 +61,8 @@ public class CreatePlayRoom implements Command {
                 response = MessageManager
                     .getProperty("message.incorrect.args.format");
             } catch (ServiceException e) {
-                LOGGER.debug("Failed to create play room!");
                 response = e.getMessage();
+                LOGGER.error(response);
             }
             return response;
         }
