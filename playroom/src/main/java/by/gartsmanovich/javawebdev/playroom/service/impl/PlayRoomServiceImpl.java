@@ -103,7 +103,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public boolean addEntity(final String... entity) throws ServiceException {
+    public boolean addEntity(final String[] entity) throws ServiceException {
 
         try {
             if (!validator.isValidEntityParams(entity)) {
@@ -129,7 +129,7 @@ public class PlayRoomServiceImpl implements PlayRoomService<Toy> {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public boolean updateEntity(final long id, final String... entity) throws
+    public boolean updateEntity(final long id, final String[] entity) throws
             ServiceException {
 
         try {

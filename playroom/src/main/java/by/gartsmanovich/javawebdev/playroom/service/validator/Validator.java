@@ -27,7 +27,7 @@ public class Validator {
      * @return true if value is valid, false - otherwise.
      */
     public boolean isValidValue(final double value) {
-        return value > 0 && value < Double.MAX_VALUE;
+        return value > 0 && value < Double.MAX_VALUE && !Double.isNaN(value);
     }
 
     /**
@@ -81,6 +81,10 @@ public class Validator {
      */
     public boolean isValidEntityParams(final String[] param) {
 
+        if (param == null) {
+            return false;
+        }
+
         String title = param[0];
         if (isValidValue(title)) {
             switch (title) {
@@ -116,7 +120,7 @@ public class Validator {
             try {
                 String diameter = param[IndexParam.PARAM_ADD_1.ordinal()];
                 return isValidValue(Double.parseDouble(diameter));
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 return false;
             }
         } else {
@@ -131,7 +135,7 @@ public class Validator {
                 String weight = param[IndexParam.PARAM_ADD_2.ordinal()];
                 return isMaterialValue(material) && isValidValue(
                         Double.parseDouble(weight));
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 return false;
             }
         } else {
@@ -155,7 +159,7 @@ public class Validator {
         try {
             return isColorValue(color) && isValidValue(Integer.parseInt(age))
                    && isValidValue(Double.parseDouble(price));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             return false;
         }
     }

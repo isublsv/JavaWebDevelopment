@@ -27,7 +27,7 @@ public interface PlayRoomService<T extends Entity> {
      * @return true if operation was completed successful, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
-    boolean addEntity(String... entity) throws ServiceException;
+    boolean addEntity(String[] entity) throws ServiceException;
 
     /**
      * Update entity in the repository by ID.
@@ -37,7 +37,7 @@ public interface PlayRoomService<T extends Entity> {
      * @return true if operation was completed successful, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
-    boolean updateEntity(long id, String... entity) throws ServiceException;
+    boolean updateEntity(long id, String[] entity) throws ServiceException;
 
     /**
      * Removes entity with provided ID from the storage.
