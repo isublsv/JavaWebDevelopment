@@ -1,26 +1,76 @@
 package by.gartsmanovich.javawebdev.playroom.service.impl;
 
+import by.gartsmanovich.javawebdev.playroom.bean.param.BlockType;
+import by.gartsmanovich.javawebdev.playroom.bean.param.Color;
+import by.gartsmanovich.javawebdev.playroom.bean.param.Material;
+import by.gartsmanovich.javawebdev.playroom.bean.param.Size;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.Doll;
 import by.gartsmanovich.javawebdev.playroom.bean.toy.Toy;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.ToyBall;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.ToyBlock;
+import by.gartsmanovich.javawebdev.playroom.bean.toy.ToyCar;
 import by.gartsmanovich.javawebdev.playroom.service.PlayRoomService;
+import by.gartsmanovich.javawebdev.playroom.service.comparator.AgeComparator;
+import by.gartsmanovich.javawebdev.playroom.service.comparator.ColorComparator;
+import by.gartsmanovich.javawebdev.playroom.service.comparator.PriceComparator;
 import by.gartsmanovich.javawebdev.playroom.service.exception.ServiceException;
 import by.gartsmanovich.javawebdev.playroom.service.factory.ServiceFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.testng.Assert.*;
+
 public class PlayRoomServiceImplTest {
 
     private ServiceFactory serviceFactory;
     private PlayRoomService<Toy> playRoomService;
 
-    private String pathToRead =
-            "D:\\WORK\\Dropbox\\Java\\JavaWebDevelopment\\playroom"
-            + "\\data\\input.txt";
+    private List<Toy> toyList;
+    private List<Toy> sortedByAge;
+    private List<Toy> sortedByColorAndPrice;
+
+    private String pathToRead = "src\\test\\resources\\input.txt";
+    private String pathToWrite = "src\\test\\resources\\output.txt";
 
     @BeforeClass
-    public void setUp() {
+    public void setUpBeforeClass() throws ServiceException {
         serviceFactory = ServiceFactory.getInstance();
         playRoomService = serviceFactory.getPlayRoomService();
+
+        toyList = new ArrayList<>();
+        sortedByAge = new ArrayList<>();
+        sortedByColorAndPrice = new ArrayList<>();
+
+        Doll doll = new Doll(3, "doll", Color.BLUE,3, 42, Material.PLASTIC, 22.0);
+        ToyCar car = new ToyCar(1, "car", Color.RED, 2, 21, Size.SMALL);
+        ToyBall ball = new ToyBall(2, "ball", Color.WHITE, 4, 55, 22.0);
+        ToyBlock block = new ToyBlock(5, "block", Color.BLUE, 4, 40, BlockType.LEGO, Material.PLASTIC);
+
+        toyList.add(doll);
+        toyList.add(car);
+        toyList.add(ball);
+        toyList.add(block);
+
+        sortedByAge.add(car);
+        sortedByAge.add(doll);
+        sortedByAge.add(ball);
+        sortedByAge.add(block);
+
+        sortedByColorAndPrice.add(block);
+        sortedByColorAndPrice.add(doll);
+        sortedByColorAndPrice.add(car);
+        sortedByColorAndPrice.add(ball);
+
+        playRoomService.createPlayRoom(1000, pathToRead, ",");
     }
 
     @DataProvider(name = "inputDataPlayRoomException")
@@ -99,6 +149,22 @@ public class PlayRoomServiceImplTest {
         playRoomService.addEntity(param);
     }
 
+    @DataProvider(name = "inputDataPositiveAddEntity")
+    public Object[][] getInputDataPositiveAddEntity() {
+        return new Object[][]{
+                {"car", "red", "3", "145.0", "big"},
+                {"doll", "white", "5", "1", "plastic", "220.0"},
+                {"block", "blue", "2", "88.0", "lego", "wood"},
+                {"ball", "yellow", "9", "22.0", "15.5"},
+        };
+    }
+
+    //There are no negative tests because ArrayList.add always returns true
+    @Test(dataProvider = "inputDataPositiveAddEntity")
+    public void testPositiveAddEntity(String[] param) throws ServiceException {
+        assertTrue(playRoomService.addEntity(param));
+    }
+
     @DataProvider(name = "inputDataUpdateEntityException")
     public Object[][] getInputDataUpdateEntityException(){
         return new Object[][]{
@@ -154,6 +220,34 @@ public class PlayRoomServiceImplTest {
         playRoomService.updateEntity(id, param);
     }
 
+    @DataProvider(name = "inputDataPositiveUpdateEntity")
+    public Object[][] getInputDataPositiveUpdateEntity() {
+        return new Object[][]{
+                {5, "car", "red", "3", "145.0", "big"},
+                {6, "doll", "white", "5", "200.0", "plastic", "220.0"},
+        };
+    }
+
+    @Test(dataProvider = "inputDataPositiveUpdateEntity")
+    public void testPositiveUpdateEntity(long id, String[] param) throws
+            ServiceException {
+        assertTrue(playRoomService.updateEntity(id, param));
+    }
+
+    @DataProvider(name = "inputDataNegativeUpdateEntity")
+    public Object[][] getInputDataNegativeUpdateEntity() {
+        return new Object[][]{
+                {100, "car", "red", "3", "145.0", "big"},
+                {Long.MAX_VALUE - 1, "doll", "white", "5", "1", "plastic", "220.0"},
+        };
+    }
+
+    @Test(dataProvider = "inputDataNegativeUpdateEntity")
+    public void testNegativeUpdateEntity(long id, String[] param) throws
+            ServiceException {
+        assertFalse(playRoomService.updateEntity(id, param));
+    }
+
     @DataProvider(name = "inputDataForFindAndRemoveByIDException")
     public Object[][] getInputDataForFindAndRemoveByIDException() {
         return new Object[][]{{-1}, {0}, {Long.MAX_VALUE}};
@@ -165,10 +259,36 @@ public class PlayRoomServiceImplTest {
         playRoomService.removeEntity(id);
     }
 
+    @Test()
+    public void testPositiveRemoveEntity() throws ServiceException {
+        assertTrue(playRoomService.removeEntity(1));
+        assertTrue(playRoomService.removeEntity(2));
+    }
+
+    @Test()
+    public void testNegativeRemoveEntity() throws ServiceException {
+        assertFalse(playRoomService.removeEntity(100));
+        assertFalse(playRoomService.removeEntity(Long.MAX_VALUE - 1));
+    }
+
     @Test(dataProvider = "inputDataForFindAndRemoveByIDException",
             expectedExceptions = ServiceException.class)
     public void testFindEntityByIDException(long id) throws ServiceException {
         playRoomService.findEntityByID(id);
+    }
+
+    @Test()
+    public void testPositiveFindEntityByID() throws ServiceException {
+        List<Toy> entityByID = playRoomService.findEntityByID(5);
+        System.out.println("POSITIVE Find by id: " + entityByID);
+        assertEquals(entityByID.size(), 1);
+    }
+
+    @Test()
+    public void testNegativeFindEntityByID() throws ServiceException {
+        List<Toy> entityByID = playRoomService.findEntityByID(1000);
+        System.out.println("NEGATIVE Find by id: " + entityByID);
+        assertEquals(entityByID.size(), 0);
     }
 
     @DataProvider(name = "inputDataForFindEntityByTitleException")
@@ -176,11 +296,27 @@ public class PlayRoomServiceImplTest {
         return new Object[][]{{""}, {null}};
     }
 
-    @Test(dataProvider = "getInputDataFindEntityByTitleException",
+    @Test(dataProvider = "inputDataForFindEntityByTitleException",
             expectedExceptions = ServiceException.class)
     public void testFindEntityByTitleException(String title)
             throws ServiceException {
         playRoomService.findEntityByTitle(title);
+    }
+
+    @Test()
+    public void testPositiveFindEntityByTitle()
+            throws ServiceException {
+        List<Toy> entityByTitle = playRoomService.findEntityByTitle("car");
+        System.out.println("POSITIVE Find by title: " + entityByTitle);
+        assertEquals(entityByTitle.size(), 3);
+    }
+
+    @Test()
+    public void testNegativeFindEntityByTitle()
+            throws ServiceException {
+        List<Toy> entityByTitle = playRoomService.findEntityByTitle("ball");
+        System.out.println("NEGATIVE Find by title: " + entityByTitle);
+        assertEquals(entityByTitle.size(), 0);
     }
 
     @DataProvider(name = "inputDataForFindEntityByFirstTitleLetterException")
@@ -195,6 +331,27 @@ public class PlayRoomServiceImplTest {
         playRoomService.findEntityByFirstTitleLetter(ch);
     }
 
+    @Test()
+    public void testPositiveFindEntityByFirstTitleLetter() throws
+            ServiceException {
+        List<Toy> entityByFirstTitleLetter
+                = playRoomService.findEntityByFirstTitleLetter('D');
+        System.out.println("POSITIVE Find by first letter: "
+                           + entityByFirstTitleLetter);
+        assertEquals(entityByFirstTitleLetter.size(), 4);
+    }
+
+    @Test()
+    public void testNegativeFindEntityByFirstTitleLetter() throws
+            ServiceException {
+        List<Toy> entityByFirstTitleLetter
+                = playRoomService.findEntityByFirstTitleLetter('f');
+        System.out.println("NEGATIVE Find by first letter: "
+                           + entityByFirstTitleLetter);
+        assertEquals(entityByFirstTitleLetter.size(), 0);
+    }
+
+
     @DataProvider(name = "inputDataForFindEntityByRangeIdException")
     public Object[][] getInputDataForFindEntityByRangeIdException() {
         return new Object[][]{{-1, 5}, {0, 5}, {Long.MAX_VALUE, 5}, {5, -1},
@@ -208,21 +365,72 @@ public class PlayRoomServiceImplTest {
         playRoomService.findEntityByRangeId(start, end);
     }
 
+    @Test()
+    public void testPositiveFindEntityByRangeId() throws ServiceException {
+        List<Toy> entityByRangeId = playRoomService.findEntityByRangeId(1, 10);
+        System.out.println("POSITIVE Find by ID range: "
+                           + entityByRangeId);
+        assertEquals(entityByRangeId.size(), 7);
+
+    }
+
+    @Test()
+    public void testNegativeFindEntityByRangeId() throws ServiceException {
+        List<Toy> entityByRangeId = playRoomService.findEntityByRangeId(50, 100);
+        System.out.println("NEGATIVE Find by ID range: "
+                           + entityByRangeId);
+        assertEquals(entityByRangeId.size(), 0);
+
+    }
+
     @Test
-    public void testFindAll() {
+    public void testFindAll() throws ServiceException {
+        List<Toy> all = playRoomService.findAll();
+        assertEquals(all.size(), 7);
     }
 
     @Test
     public void testSortByAge() {
+        System.out.println("Before Sorting : " + toyList);
+        toyList.sort(new AgeComparator());
+
+        System.out.println("After Sorting : " + toyList);
+
+        assertEquals(toyList.get(0).getTitle(), "car");
+        assertEquals(toyList.get(2).getColor(), Color.WHITE);
+
+        assertEquals(toyList, sortedByAge);
     }
 
     @Test
     public void testSortByColorAndPrice() {
+        System.out.println("Before Sorting : " + toyList);
+        toyList.sort(new ColorComparator().thenComparing(new PriceComparator()));
+
+        System.out.println("After Sorting : " + toyList);
+
+        assertEquals(toyList.get(0).getTitle(), "block");
+        assertEquals(toyList.get(3).getPrice(), 55.0);
+
+        assertEquals(toyList, sortedByColorAndPrice);
     }
 
     @Test(dataProvider = "inputDataForFindEntityByTitleException",
             expectedExceptions = ServiceException.class)
-    public void testSaveAll(String path) throws ServiceException {
+    public void testSaveAllException(String path) throws ServiceException {
         playRoomService.saveAll(path);
+    }
+
+    @Test()
+    public void testSaveAll() throws ServiceException, IOException {
+        long before = Files.size(Paths.get(pathToWrite));
+        playRoomService.saveAll(pathToWrite);
+        long after = Files.size(Paths.get(pathToWrite));
+
+        assertNotEquals(before, after);
+
+        //file clearing
+        FileChannel.open(Paths.get(pathToWrite), StandardOpenOption.WRITE)
+                   .truncate(0).close();
     }
 }

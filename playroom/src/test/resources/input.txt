@@ -1,0 +1,15 @@
+car, red, 3, 42.0, big
+
+doll, multicolored, 5, 22.0, plastic, 220.0
+block, yellow, 3, 25.0, lego, plastic
+
+doll, green, 3, 83.0, wood, 180.0
+doll, blue, 8, 55.0, rubber, 140.0
+bal, purple, 3, 42.0, 60.0
+
+block, black, 5, 40.0, kapla, wood
+block, white, 5, 400.0, kapla, wood
+car, blue, 10, 120.0, small
+car, purple, 8, 1200.0, medium
+ball, orange, -1, 155.0, 5.0
+car, blue, 19, 0.0, small
