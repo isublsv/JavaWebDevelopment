@@ -29,9 +29,9 @@ public class DataParser {
     }
 
     /**
-     * Returns the list of valid entities from data string.
+     * Returns the list of valid entities from the data string.
      *
-     * @param limit the limit of reading.
+     * @param limit the limit of adding entities to the storage.
      * @param data the list of strings.
      * @param delimiter the delimiter that splits the string if matches.
      * @return the list of valid entities.
