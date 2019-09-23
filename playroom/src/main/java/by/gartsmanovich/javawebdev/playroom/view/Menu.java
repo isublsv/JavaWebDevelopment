@@ -68,12 +68,10 @@ public class Menu {
     /**
      * Adds entry to menu.
      *
-     * @param entry the menunetry to add.
-     * @return the menu.
+     * @param entry the menu entry to add.
      */
-    private Menu addEntry(final MenuEntry entry) {
+    private void addEntry(final MenuEntry entry) {
         entries.add(entry);
-        return this;
     }
 
     private void printMenu() {
@@ -81,11 +79,12 @@ public class Menu {
 
         builder.append("\nMenu:\nBefore any pattern type the MENU_NAME,"
                        + " please!\n");
-        builder.append("The doll: title color age price material weight\n");
-        builder.append("The ball: title color age price diameter\n");
         builder.append(
-                "The block: title color age price blockType material\n");
-        builder.append("The car: title color age price size\n");
+                "The doll type: title color age price material weight\n");
+        builder.append("The ball type: title color age price diameter\n");
+        builder.append(
+                "The block type: title color age price blockType material\n");
+        builder.append("The car type: title color age price size\n");
 
         for (int i = 0; i < entries.size(); i++) {
             MenuEntry entry = entries.get(i);
