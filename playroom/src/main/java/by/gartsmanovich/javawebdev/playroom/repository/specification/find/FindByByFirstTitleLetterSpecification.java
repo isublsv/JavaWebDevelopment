@@ -36,7 +36,8 @@ public class FindByByFirstTitleLetterSpecification
     public List<Toy> specified(final List<Toy> storage) {
         return storage.stream()
                       .filter(toy -> toy.getTitle()
-                                        .startsWith(Character.toString(letter)))
+                                        .startsWith(Character.toString(letter)
+                                                             .toLowerCase()))
                       .collect(Collectors.toList());
     }
 }
