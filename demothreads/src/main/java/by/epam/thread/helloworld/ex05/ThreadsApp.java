@@ -1,4 +1,4 @@
-package by.epam.thread.helloworld.ex04;
+package by.epam.thread.helloworld.ex05;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +17,6 @@ public class ThreadsApp {
 }
 
 class CommonResource {
-
     int x = 0;
 }
 
@@ -33,11 +32,11 @@ class CountThread implements Runnable {
         synchronized (res) {
             res.x = 1;
             for (int i = 1; i < 5; i++) {
-                System.out.printf("%s %d %n", Thread.currentThread()
-                                                    .getName(), res.x);
+                System.out.printf(
+                        "%s %d %n", Thread.currentThread().getName(), res.x);
                 res.x++;
                 try {
-                    TimeUnit.MILLISECONDS.sleep(100);
+                    TimeUnit.MILLISECONDS.sleep(10);
                 } catch (InterruptedException ignored) {
                 }
             }

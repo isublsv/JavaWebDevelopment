@@ -1,7 +1,5 @@
 package by.epam.thread.helloworld.ex02;
 
-import java.util.concurrent.TimeUnit;
-
 public class PersonRunnable extends Person implements Runnable{
 
     public PersonRunnable(final String name) {

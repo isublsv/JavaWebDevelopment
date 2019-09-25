@@ -1,7 +1,5 @@
 package by.epam.thread.helloworld.ex03;
 
-import java.util.ArrayList;
-
 public class PriorityRunner {
     public static void main(String[ ] args) throws InterruptedException {
 

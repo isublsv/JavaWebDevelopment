@@ -4,7 +4,7 @@ public class Person {
 
     private String name;
 
-    public Person(final String name) {
+    Person(final String name) {
         this.name = name;
     }
 
@@ -13,7 +13,7 @@ public class Person {
      *
      * @return value of name.
      */
-    public String getName() {
+    String getName() {
         return name;
     }
 
