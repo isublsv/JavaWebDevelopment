@@ -28,7 +28,7 @@ class CountThread implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger(
             CountThread.class);
 
-    final CommonResource res;
+    private final CommonResource res;
 
     CountThread(CommonResource res) {
         this.res = res;
