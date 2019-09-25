@@ -1,6 +1,12 @@
 package by.epam.thread.helloworld.ex04;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ThreadToDisable implements Runnable {
+
+    private static final Logger LOGGER = LogManager.getLogger(
+            ThreadToDisable.class);
 
     private boolean isActive;
 
@@ -14,19 +20,26 @@ public class ThreadToDisable implements Runnable {
 
     public void run() {
 
-        System.out.printf(
+        LOGGER.debug(
                 "Поток %s начал работу... %n",
                 Thread.currentThread().getName());
+
         int counter = 1; // счетчик циклов
+
         while (isActive) {
-            System.out.println("Цикл " + counter++);
+
+            String message = "Цикл " + counter++;
+            LOGGER.debug(message);
+
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                System.out.println("Поток прерван");
+                LOGGER.error("Поток прерван");
+                Thread.currentThread().interrupt();
             }
         }
-        System.out.printf(
+
+        LOGGER.debug(
                 "Поток %s завершил работу... %n",
                 Thread.currentThread().getName());
     }

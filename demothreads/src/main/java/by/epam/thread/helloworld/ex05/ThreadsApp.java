@@ -1,5 +1,8 @@
 package by.epam.thread.helloworld.ex05;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.concurrent.TimeUnit;
 
 public class ThreadsApp {
@@ -22,6 +25,9 @@ class CommonResource {
 
 class CountThread implements Runnable {
 
+    private static final Logger LOGGER = LogManager.getLogger(
+            CountThread.class);
+
     final CommonResource res;
 
     CountThread(CommonResource res) {
@@ -32,12 +38,14 @@ class CountThread implements Runnable {
         synchronized (res) {
             res.x = 1;
             for (int i = 1; i < 5; i++) {
-                System.out.printf(
+                LOGGER.debug(
                         "%s %d %n", Thread.currentThread().getName(), res.x);
                 res.x++;
                 try {
                     TimeUnit.MILLISECONDS.sleep(10);
-                } catch (InterruptedException ignored) {
+                } catch (InterruptedException e) {
+                    LOGGER.error(e);
+                    Thread.currentThread().interrupt();
                 }
             }
         }

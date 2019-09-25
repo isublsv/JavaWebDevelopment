@@ -1,8 +1,14 @@
 package by.epam.thread.helloworld.ex02;
 
-public class PersonRunnable extends Person implements Runnable{
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-    public PersonRunnable(final String name) {
+public class PersonRunnable extends Person implements Runnable {
+
+    private static final Logger LOGGER = LogManager.getLogger(
+            PersonRunnable.class);
+
+    PersonRunnable(final String name) {
         super(name);
     }
 
@@ -20,7 +26,8 @@ public class PersonRunnable extends Person implements Runnable{
     @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
-            System.out.println(getName() + ": Hello world");
+            String message = getName() + ": Hello world";
+            LOGGER.debug(message);
         }
     }
 

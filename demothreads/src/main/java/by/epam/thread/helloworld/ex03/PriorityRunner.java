@@ -1,24 +1,32 @@
 package by.epam.thread.helloworld.ex03;
 
-public class PriorityRunner {
-    public static void main(String[ ] args) throws InterruptedException {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-        System.out.println("The Runner has started!");
+public class PriorityRunner {
+
+    private static final Logger LOGGER = LogManager.getLogger(
+            PriorityRunner.class);
+
+    public static void main(String[] args) throws InterruptedException {
+
+        LOGGER.debug("The Runner has started!");
+
         PriorThread min = new PriorThread("Min");
         PriorThread max = new PriorThread("Max");
         PriorThread norm = new PriorThread("Norm");
+
         min.setPriority(Thread.MIN_PRIORITY); // 1
         max.setPriority(Thread.MAX_PRIORITY); // 10
         norm.setPriority(Thread.NORM_PRIORITY); // 5
+
         min.start();
         norm.start();
         max.start();
 
-
         norm.join(100);
-        System.out.println("The Runner has stopped!");
 
-
+        LOGGER.debug("The Runner has stopped!");
     }
 
 }
