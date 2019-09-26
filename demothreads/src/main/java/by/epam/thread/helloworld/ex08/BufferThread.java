@@ -20,7 +20,7 @@ public class BufferThread {
                     s.append("A");
                     String message = "> " + counter + " ";
                     LOGGER.debug(message);
-                    LOGGER.debug(BufferThread.s);
+                    LOGGER.debug(s);
                     try {
                         TimeUnit.MILLISECONDS.sleep(500);
                     } catch (InterruptedException eValue) {
@@ -41,7 +41,7 @@ public class BufferThread {
             String message = "< " + counter + " ";
             LOGGER.debug(message);
             BufferThread.s.append("B");
-            LOGGER.debug(BufferThread.s);
+            LOGGER.debug(s);
         }
     }
 }
