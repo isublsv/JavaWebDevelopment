@@ -1,5 +1,6 @@
 package by.gartsmanovich.javawebdev.matrix.datahandler.impl;
 
+import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
 import by.gartsmanovich.javawebdev.matrix.datahandler.DataWriter;
 import by.gartsmanovich.javawebdev.matrix.datahandler.exception
         .DataHandlerException;
@@ -10,10 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Stream;
 
-public class DataWriterImpl implements DataWriter<Integer> {
+public class DataWriterImpl implements DataWriter {
 
     /**
      * The logger for Data Writer implementation class.
@@ -22,21 +21,18 @@ public class DataWriterImpl implements DataWriter<Integer> {
             DataWriterImpl.class);
 
     /**
-     * Writes the provided list of entities to the file.
+     * Writes the provided array of ints to the file.
      *
-     * @param entities the provided list od entities.
+     * @param matrixValue the provided array of ints.
      * @param path     the path to file.
      * @throws DataHandlerException if error happens during execution.
      */
     @Override
-    public void writeFile(final List<Integer> entities,
+    public void writeFile(final Matrix matrixValue,
                           final String path) throws DataHandlerException {
 
-        //Convert list of object to list of strings
-        Stream<String> stream = entities.stream().map(Object::toString);
-
         try {
-            Files.write(Paths.get(path), (Iterable<String>) stream::iterator);
+            Files.write(Paths.get(path), matrixValue.toString().getBytes());
         } catch (FileNotFoundException e) {
             LOGGER.error("File not found.");
             throw new DataHandlerException("File not found.", e);

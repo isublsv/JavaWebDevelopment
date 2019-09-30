@@ -40,12 +40,13 @@ public class DataReaderImpl implements DataReader {
             stringList = stream.filter(line -> !line.isEmpty()).collect(
                     Collectors.toList());
         } catch (FileNotFoundException e) {
-            LOGGER.error("File not found.");
-            throw new DataHandlerException("File not found.", e);
+            String message = "File not found.";
+            LOGGER.error(message);
+            throw new DataHandlerException(message, e);
         } catch (IOException e) {
-            LOGGER.error("Error during reading the file.");
-            throw new DataHandlerException(
-                    "Error during reading the file.", e);
+            String message = "Error during reading the file.";
+            LOGGER.error(message);
+            throw new DataHandlerException(message, e);
         }
         return stringList;
     }
