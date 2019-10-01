@@ -1,6 +1,11 @@
 package by.gartsmanovich.javawebdev.matrix.bean;
 
-public class Matrix {
+public final class Matrix {
+
+    /**
+     * The lazy initialisation of matrix singleton instance.
+     */
+    private static Matrix instance = null;
 
     /**
      * Contains the multi-array of int values.
@@ -24,10 +29,27 @@ public class Matrix {
      * @param diag   the array of diagonal values.
      * @param ints      the row and column values.
      */
-    public Matrix(final int thread, final int[] diag, final int[][] ints) {
+    private Matrix(final int thread, final int[] diag, final int[][] ints) {
         threadNumber = thread;
         diagInts = diag;
         arr = ints;
+    }
+
+    /**
+     * The global method used to create only one synchronised matrix instance.
+     *
+     * @param thread the number of active threads.
+     * @param diag   the array of diagonal values.
+     * @param ints      the row and column values.
+     * @return the matrix instance.
+     */
+    public static synchronized Matrix getInstance(final int thread,
+            final int[] diag, final int[][] ints) {
+
+        if (instance == null) {
+            instance = new Matrix(thread, diag, ints);
+        }
+        return instance;
     }
 
     /**
@@ -82,46 +104,6 @@ public class Matrix {
      */
     public void setDiagInts(final int[] diagIntsValue) {
         diagInts = diagIntsValue;
-    }
-
-    /**
-     * Returns the value vertical size of matrix.
-     *
-     * @return the value of vertical size of the matrix.
-     */
-    public int getVerticalSize() {
-        return arr.length;
-    }
-
-    /**
-     * Returns the value horizontal size of matrix.
-     *
-     * @return the value of horizontal size of the matrix.
-     */
-    int getHorizontalSize() {
-        return arr[0].length;
-    }
-
-    /**
-     * Gets the value of element.
-     *
-     * @param i the index of row in the matrix.
-     * @param j the index of column in the matrix.
-     * @return the value of element.
-     */
-    int getElement(final int i, final int j) {
-        return arr[i][j];
-    }
-
-    /**
-     * Sets the value of element.
-     *
-     * @param i     the index of row in the matrix.
-     * @param j     the index of column in the matrix.
-     * @param value the value of element.
-     */
-    public void setElement(final int i, final int j, final int value) {
-        arr[i][j] = value;
     }
 
     /**
