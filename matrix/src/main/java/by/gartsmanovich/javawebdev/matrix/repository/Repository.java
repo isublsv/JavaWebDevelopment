@@ -1,14 +1,14 @@
 package by.gartsmanovich.javawebdev.matrix.repository;
 
-import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
 import by.gartsmanovich.javawebdev.matrix.repository.exception
         .RepositoryException;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.Specification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification
+        .Specification;
 
 public interface Repository {
 
     /**
-     * Creates the matrix.
+     * Creates the matrix instance.
      *
      * @param path      the path to storage file.
      * @param delimiter the delimiter to parse the data from file.
@@ -22,8 +22,9 @@ public interface Repository {
      *
      * @param specification the concrete specification that query different
      *                      types of actions.
-     * @return the matrix that main diagonal was filled by provided values.
+     * @return the 2-d array of integers that main diagonal was filled by
+     * provided values.
      * @throws RepositoryException if error happens during execution.
      */
-    Matrix query(Specification specification) throws RepositoryException;
+    int[][] query(Specification specification) throws RepositoryException;
 }
