@@ -1,15 +1,29 @@
 package by.gartsmanovich.javawebdev.matrix.repository.specification;
 
-import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
+import java.util.Arrays;
 
 public interface Specification {
 
     /**
-     * Applies specified criteria to the provided storage.
+     * Applies specified criteria to the provided array.
      *
-     * @param matrix with provided entities.
-     * @return the matrix that correspond to specified criteria,
+     * @param threadNumber the number of active threads.
+     * @param values  the array of provided values for the main diagonal.
+     * @param array with provided integers.
+     * @return the array that correspond to specified criteria,
      * false - otherwise.
      */
-    Matrix specified(Matrix matrix);
+    int[][] specified(int threadNumber, int[] values, int[][] array);
+
+    /**
+     * Makes a new copy of provided array.
+     *
+     * @param array the provided value of array.
+     * @return the new copy of provided array.
+     */
+    default int[][] getCopy(int[][] array) {
+        return Arrays.stream(array)
+                     .map(r -> Arrays.copyOf(r, r.length))
+                     .toArray(int[][]::new);
+    }
 }
