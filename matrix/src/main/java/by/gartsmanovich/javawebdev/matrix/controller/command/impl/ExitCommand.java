@@ -6,24 +6,23 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.manager
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class WrongRequest implements Command {
+public class ExitCommand implements Command {
 
     /**
-     * The logger for WrongRequest class.
+     * The logger for Exit class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
-            WrongRequest.class);
+            ExitCommand.class);
 
     /**
-     * Indicates that there was received wrong request and command was not
-     * found.
+     * The main method that changes its behavior depends on request parameter.
      *
      * @param request the provided string for processing.
-     * @return the string value for the given request.
+     * @return a result string value of the provided request.
      */
     @Override
     public String execute(final String request) {
-        LOGGER.debug("The command not found or wrong!");
-        return MessageManager.getProperty("message.wrong.request");
+        LOGGER.debug("Exit from the application!");
+        return MessageManager.getProperty("message.exit.correct");
     }
 }
