@@ -48,7 +48,7 @@ public class DataParser {
         int[][] ints = getMatrixInts(data.subList(2, data.size() - 1),
                                      delimiter);
 
-        return new Matrix(threadNumber, diagValue, ints);
+        return Matrix.getInstance(threadNumber, diagValue, ints);
     }
 
     private int[][] getMatrixInts(final List<String> subList,
