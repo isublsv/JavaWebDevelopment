@@ -20,18 +20,18 @@ public final class Matrix {
     /**
      * Contains an array of diagonal values.
      */
-    private int[] diagInts;
+    private int[] diagValues;
 
     /**
      * Constructs the square matrix instance.
      *
      * @param thread the number of active threads.
-     * @param diag   the array of diagonal values.
-     * @param ints      the row and column values.
+     * @param values the array of diagonal values.
+     * @param ints   the row and column values.
      */
-    private Matrix(final int thread, final int[] diag, final int[][] ints) {
+    private Matrix(final int thread, final int[] values, final int[][] ints) {
         threadNumber = thread;
-        diagInts = diag;
+        diagValues = values;
         arr = ints;
     }
 
@@ -39,15 +39,15 @@ public final class Matrix {
      * The global method used to create only one synchronised matrix instance.
      *
      * @param thread the number of active threads.
-     * @param diag   the array of diagonal values.
-     * @param ints      the row and column values.
+     * @param values the array of diagonal values.
+     * @param ints   the row and column values.
      * @return the matrix instance.
      */
     public static synchronized Matrix getInstance(final int thread,
-            final int[] diag, final int[][] ints) {
+            final int[] values, final int[][] ints) {
 
         if (instance == null) {
-            instance = new Matrix(thread, diag, ints);
+            instance = new Matrix(thread, values, ints);
         }
         return instance;
     }
@@ -93,17 +93,17 @@ public final class Matrix {
      *
      * @return value of diagValue.
      */
-    public int[] getDiagInts() {
-        return diagInts;
+    public int[] getDiagValues() {
+        return diagValues;
     }
 
     /**
      * Sets diagValue.
      *
-     * @param diagIntsValue value of diagValue.
+     * @param diagValuesValue value of diagValue.
      */
-    public void setDiagInts(final int[] diagIntsValue) {
-        diagInts = diagIntsValue;
+    public void setDiagValues(final int[] diagValuesValue) {
+        diagValues = diagValuesValue;
     }
 
     /**
