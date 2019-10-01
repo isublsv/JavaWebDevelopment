@@ -12,13 +12,13 @@ public class Controller {
     private final CommandProvider provider = new CommandProvider();
 
     /**
-     * The value of delimiter.
+     * The default delimiter.
      */
-    private static final char PARAM_DELIMITER = ' ';
+    private static final String DEL = " ";
 
     /**
      * Returns the result string value of executed command. The method takes
-     * first token before the {@link Controller#PARAM_DELIMITER} if exists and
+     * first token before the {@link Controller#DEL} if exists and
      * get an appropriate command from {@link Controller#provider} repository.
      *
      * @param request the initial request that contains the data
@@ -31,12 +31,11 @@ public class Controller {
         String response;
         String params = "";
 
-        if (request.contains(Character.toString(PARAM_DELIMITER))) {
+        if (request.contains(DEL)) {
             commandName = request.substring(
-                    0, request.indexOf(PARAM_DELIMITER));
-            params = request.substring(request.indexOf(PARAM_DELIMITER))
-                            .toLowerCase()
-                            .trim();
+                    0, request.indexOf(DEL));
+            params = request.substring(request.indexOf(DEL) + 1)
+                            .toLowerCase();
         } else {
             commandName = request;
         }
