@@ -6,7 +6,6 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option1;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option2;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option3;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option4;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.ResetMatrix;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.WrongRequest;
 
 import java.util.EnumMap;
@@ -29,7 +28,6 @@ public class CommandProvider {
         repository.put(CommandName.OPTION_2, new Option2());
         repository.put(CommandName.OPTION_3, new Option3());
         repository.put(CommandName.OPTION_4, new Option4());
-        repository.put(CommandName.RESET_MATRIX, new ResetMatrix());
         repository.put(CommandName.EXIT, new Exit());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequest());
     }

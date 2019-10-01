@@ -33,20 +33,14 @@ public enum CommandName {
     OPTION_4,
 
     /**
-     * The singleton instance for the reset matrix command.
-     * This has the numeric value of {@code 5}.
-     */
-    RESET_MATRIX,
-
-    /**
      * The singleton instance for the exit command.
-     * This has the numeric value of {@code 6}.
+     * This has the numeric value of {@code 5}.
      */
     EXIT,
 
     /**
      The singleton instance for the wrong request command.
-     * This has the numeric value of {@code 7}.
+     * This has the numeric value of {@code 6}.
      */
     WRONG_REQUEST
 }
