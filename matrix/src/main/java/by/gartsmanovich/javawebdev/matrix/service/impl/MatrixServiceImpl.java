@@ -1,12 +1,15 @@
 package by.gartsmanovich.javawebdev.matrix.service.impl;
 
-import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
 import by.gartsmanovich.javawebdev.matrix.repository.Repository;
-import by.gartsmanovich.javawebdev.matrix.repository.exception.RepositoryException;
+import by.gartsmanovich.javawebdev.matrix.repository.exception
+        .RepositoryException;
 import by.gartsmanovich.javawebdev.matrix.repository.factory.RepositoryFactory;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.fill.LockSpecification;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.fill.ResetSpecification;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.fill.SynchSpecification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
+        .ExecutorSpecification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
+        .LockSpecification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
+        .SynchSpecification;
 import by.gartsmanovich.javawebdev.matrix.service.MatrixService;
 import by.gartsmanovich.javawebdev.matrix.service.exception.ServiceException;
 import by.gartsmanovich.javawebdev.matrix.service.validator.Validator;
@@ -43,8 +46,9 @@ public class MatrixServiceImpl implements MatrixService {
     }
 
     /**
-     * Creates the Matrix instance. Fills it from file by integers that divided
-     * by provided delimiter.
+     * Creates the Matrix instance. Gets the number of active threads, the
+     * array of values for the main diagonal of the matrix and the values for
+     * matrix array from file. Divide data in the file by provided delimiter.
      *
      * @param path      the path to storage file.
      * @param delimiter the delimiter to parse the data from file.
@@ -69,14 +73,14 @@ public class MatrixServiceImpl implements MatrixService {
     }
 
     /**
-     * Returns the matrix that main diagonal was filled by using synchronised
-     * construction.
+     * Returns the array of integers that main diagonal was filled by using
+     * synchronised construction.
      *
-     * @return the matrix with a filled main diagonal.
+     * @return the array of integers with a filled main diagonal.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public Matrix doOption1() throws ServiceException {
+    public int[][] doOption1() throws ServiceException {
         try {
             return matrixRepository.query(new SynchSpecification());
         } catch (RepositoryException e) {
@@ -85,13 +89,14 @@ public class MatrixServiceImpl implements MatrixService {
     }
 
     /**
-     * Returns the matrix that main diagonal was filled by using Lock classes.
+     * Returns the array of integers that main diagonal was filled by using
+     * Lock classes.
      *
-     * @return the matrix with a filled main diagonal.
+     * @return the array of integers with a filled main diagonal.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public Matrix doOption2() throws ServiceException {
+    public int[][] doOption2() throws ServiceException {
         try {
             return matrixRepository.query(new LockSpecification());
         } catch (RepositoryException e) {
@@ -100,16 +105,16 @@ public class MatrixServiceImpl implements MatrixService {
     }
 
     /**
-     * Returns the matrix that main diagonal was filled by using synchronised
-     * construction.
+     * Returns the array of integers that main diagonal was filled by using
+     * Executor Service class.
      *
-     * @return the matrix with a filled main diagonal.
+     * @return the array of integers with a filled main diagonal.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public Matrix doOption3() throws ServiceException {
+    public int[][] doOption3() throws ServiceException {
         try {
-            return matrixRepository.query(new SynchSpecification());
+            return matrixRepository.query(new ExecutorSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -123,23 +128,9 @@ public class MatrixServiceImpl implements MatrixService {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public Matrix doOption4() throws ServiceException {
+    public int[][] doOption4() throws ServiceException {
         try {
             return matrixRepository.query(new SynchSpecification());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Sets all elements under the main diagonal of the matrix to zero.
-     *
-     * @throws ServiceException if error happens during execution.
-     */
-    @Override
-    public void resetMatrix() throws ServiceException {
-        try {
-            matrixRepository.query(new ResetSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
