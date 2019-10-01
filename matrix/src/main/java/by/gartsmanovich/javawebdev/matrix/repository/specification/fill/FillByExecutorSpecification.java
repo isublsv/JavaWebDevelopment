@@ -31,6 +31,8 @@ public class FillByExecutorSpecification implements Specification {
             executorService.submit(new MatrixThread(copy, value));
         }
 
+        executorService.shutdown();
+
         return copy;
     }
 }
