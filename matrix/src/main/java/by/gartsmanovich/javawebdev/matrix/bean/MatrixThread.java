@@ -3,39 +3,37 @@ package by.gartsmanovich.javawebdev.matrix.bean;
 public class MatrixThread implements Runnable {
 
     /**
-     * Contains the matrix instance.
+     * Contains the array instance of integers.
      */
-    private Matrix matrix;
+    private int[][] array;
 
     /**
-     * Comtains a new diagonal's value of the matrix.
+     * Contains a new diagonal's value of the 2-d array.
      */
     private int value;
 
     /**
      * Constructs the new thread with specific parameters.
      *
-     * @param matrixValue the matrix instance.
-     * @param newValue    a new diagonal's value of the matrix.
+     * @param arrayValue the array instance of integers.
+     * @param newValue   a new diagonal's value of the 2-d array.
      */
-    public MatrixThread(final Matrix matrixValue, final int newValue) {
-        matrix = matrixValue;
+    public MatrixThread(final int[][] arrayValue, final int newValue) {
+        array = arrayValue;
         value = newValue;
     }
 
     /**
-     *
+     * Finds the "empty" diagonal index in the provided array and sets the
+     * provided value.
      */
     @Override
     public void run() {
-        for (int i = 0; i <= matrix.getVerticalSize(); i++) {
-            for (int j = 0; j < matrix.getHorizontalSize(); j++) {
-                synchronized (this) {
-                    if (matrix.getElement(i, i) != 0) {
-                        matrix.setElement(i, i, value);
-                    }
+        for (int i = 0; i <= array.length; i++) {
+            if (array[i][i] == 0) {
+                array[i][i] = value;
+                break;
                 }
-            }
         }
     }
 }
