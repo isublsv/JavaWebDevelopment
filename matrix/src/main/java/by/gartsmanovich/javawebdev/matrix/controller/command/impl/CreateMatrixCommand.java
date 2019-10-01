@@ -8,13 +8,13 @@ import by.gartsmanovich.javawebdev.matrix.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CreateMatrix implements Command {
+public class CreateMatrixCommand implements Command {
 
     /**
      * The logger for CreateMatrix class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
-            CreateMatrix.class);
+            CreateMatrixCommand.class);
 
     /**
      * The default delimiter.
