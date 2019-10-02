@@ -1,13 +1,18 @@
 package by.gartsmanovich.javawebdev.matrix.repository.specification.fill;
 
 import by.gartsmanovich.javawebdev.matrix.bean.MatrixThread;
-import by.gartsmanovich.javawebdev.matrix.repository.specification
-        .Specification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.Specification;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class FillByExecutorSpecification implements Specification {
+
+    /**
+     * The timeout for the set a new value operation.
+     */
+    private static final int TIMEOUT = 100;
 
     /**
      * Applies specified criteria to the provided array.
@@ -32,6 +37,14 @@ public class FillByExecutorSpecification implements Specification {
         }
 
         executorService.shutdown();
+
+        while (!executorService.isTerminated()) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(TIMEOUT);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
 
         return copy;
     }
