@@ -5,24 +5,18 @@ import by.gartsmanovich.javawebdev.matrix.repository.exception
         .RepositoryException;
 import by.gartsmanovich.javawebdev.matrix.repository.factory.RepositoryFactory;
 import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
-        .ExecutorSpecification;
+        .FillByExecutorSpecification;
 import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
-        .LockSpecification;
+        .SeparateFillSpecification;
 import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
-        .SynchSpecification;
+        .FillBySemaphoreSpecification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
+        .FillBySynchronisedSpecification;
 import by.gartsmanovich.javawebdev.matrix.service.MatrixService;
 import by.gartsmanovich.javawebdev.matrix.service.exception.ServiceException;
 import by.gartsmanovich.javawebdev.matrix.service.validator.Validator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class MatrixServiceImpl implements MatrixService {
-
-    /**
-     * The logger for Matrix Service class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(
-            MatrixServiceImpl.class);
 
     /**
      * Provides the access to Matrix repository class methods.
@@ -58,10 +52,7 @@ public class MatrixServiceImpl implements MatrixService {
     public void createMatrix(final String path, final String delimiter) throws
             ServiceException {
         try {
-            if (!validator.isValidValue(path)
-                || !validator.isValidValue(delimiter)) {
-                LOGGER.error("The parameters for creating matrix are"
-                             + "not valid");
+            if (!validator.isValidValue(path)) {
                 throw new ServiceException("The parameters for creating matrix"
                                            + " are not valid");
             } else {
@@ -80,9 +71,10 @@ public class MatrixServiceImpl implements MatrixService {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public int[][] doOption1() throws ServiceException {
+    public int[][] fillBySeparateThreads() throws ServiceException {
         try {
-            return matrixRepository.query(new SynchSpecification());
+            return matrixRepository
+                    .query(new SeparateFillSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -98,7 +90,8 @@ public class MatrixServiceImpl implements MatrixService {
     @Override
     public int[][] doOption2() throws ServiceException {
         try {
-            return matrixRepository.query(new LockSpecification());
+            return matrixRepository
+                    .query(new FillBySynchronisedSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -112,25 +105,25 @@ public class MatrixServiceImpl implements MatrixService {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public int[][] doOption3() throws ServiceException {
+    public int[][] fillByExecutorService() throws ServiceException {
         try {
-            return matrixRepository.query(new ExecutorSpecification());
+            return matrixRepository.query(new FillByExecutorSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
 
     /**
-     * Returns the matrix that main diagonal was filled by using synchronised
-     * construction.
+     * Returns the matrix that main diagonal was filled by using semaphore.
      *
      * @return the matrix with a filled main diagonal.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public int[][] doOption4() throws ServiceException {
+    public int[][] fillBySemaphore() throws ServiceException {
         try {
-            return matrixRepository.query(new SynchSpecification());
+            return matrixRepository
+                    .query(new FillBySemaphoreSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
