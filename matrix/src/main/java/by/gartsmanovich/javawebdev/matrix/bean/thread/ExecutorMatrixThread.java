@@ -14,7 +14,7 @@ public class ExecutorMatrixThread implements Runnable {
     /**
      * Contains the array instance of integers.
      */
-    private final int[][] array;
+    private int[][] array;
 
     /**
      * Contains a new diagonal's value of the 2-d array.
