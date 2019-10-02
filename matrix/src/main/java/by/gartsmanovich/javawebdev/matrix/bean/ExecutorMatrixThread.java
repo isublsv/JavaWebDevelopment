@@ -1,6 +1,15 @@
 package by.gartsmanovich.javawebdev.matrix.bean;
 
-public class MatrixThread implements Runnable {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class ExecutorMatrixThread implements Runnable {
+
+    /**
+     * The logger for ExecutorMatrixThread class.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(
+            ExecutorMatrixThread.class);
 
     /**
      * Contains the array instance of integers.
@@ -18,7 +27,7 @@ public class MatrixThread implements Runnable {
      * @param arrayValue the array instance of integers.
      * @param newValue   a new diagonal's value of the 2-d array.
      */
-    public MatrixThread(final int[][] arrayValue, final int newValue) {
+    public ExecutorMatrixThread(final int[][] arrayValue, final int newValue) {
         array = arrayValue;
         value = newValue;
     }
@@ -32,8 +41,12 @@ public class MatrixThread implements Runnable {
         for (int i = 0; i <= array.length; i++) {
             if (array[i][i] == 0) {
                 array[i][i] = value;
+                String message =
+                        Thread.currentThread().getName() + " has insert "
+                        + value + " at " + i + " position";
+                LOGGER.debug(message);
                 break;
-                }
+            }
         }
     }
 }
