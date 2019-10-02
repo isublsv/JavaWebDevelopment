@@ -21,7 +21,7 @@ public class SemaphoreMatrixThread implements Runnable {
     /**
      * Contains the array instance of integers.
      */
-    private int[][] array;
+    private final int[][] array;
 
     /**
      * Contains a new diagonal's value of the 2-d array.
@@ -51,14 +51,18 @@ public class SemaphoreMatrixThread implements Runnable {
         String threadName = Thread.currentThread().getName();
         try {
             semaphore.acquire();
-            for (int i = 0; i < array.length; i++) {
-                if (array[i][i] == 0) {
-                    array[i][i] = value;
-                    String message =
-                            threadName + " has insert "
-                            + value + " at " + i + " position";
-                    LOGGER.debug(message);
-                    break;
+            synchronized (array) {
+                for (int i = 0; i < array.length; i++) {
+                    if (array[i][i] == 0) {
+                        array[i][i] = value;
+                        String message =
+                                threadName + " has insert "
+                                + value + " at " + i + " position. "
+                                + " Available permits: " + semaphore
+                                        .availablePermits();
+                        LOGGER.debug(message);
+                        break;
+                    }
                 }
             }
             semaphore.release();
