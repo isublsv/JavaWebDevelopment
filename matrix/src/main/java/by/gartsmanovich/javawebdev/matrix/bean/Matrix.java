@@ -100,10 +100,10 @@ public final class Matrix {
     /**
      * Sets diagValue.
      *
-     * @param diagValuesValue value of diagValue.
+     * @param diag value of diagValue.
      */
-    public void setDiagValues(final int[] diagValuesValue) {
-        diagValues = diagValuesValue;
+    public void setDiagValues(final int[] diag) {
+        this.diagValues = diag;
     }
 
     /**
