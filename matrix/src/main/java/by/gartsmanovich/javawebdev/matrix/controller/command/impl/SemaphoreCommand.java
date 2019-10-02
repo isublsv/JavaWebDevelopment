@@ -10,17 +10,23 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class Option4 implements Command {
+public class SemaphoreCommand implements Command {
 
     /**
-     * The logger for Option4 class.
+     * The logger for SemaphoreCommand class.
      */
-    private static final Logger LOGGER = LogManager.getLogger(Option4.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            SemaphoreCommand.class);
 
     /**
      * The default delimiter.
      */
     private static final String DEL = " ";
+
+    /**
+     * The appender for response string.
+     */
+    private static final String APPENDER = "\n";
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -33,25 +39,27 @@ public class Option4 implements Command {
     @Override
     public String execute(final String request) {
 
-        String response;
+        StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         MatrixService matrixService = serviceFactory.getMatrixService();
 
         try {
-            int[][] array = matrixService.doOption4();
+            int[][] array = matrixService.fillBySemaphore();
 
-            response = Arrays.stream(array)
-                             .map(s -> Arrays.stream(s)
-                                             .mapToObj(String::valueOf)
-                                             .collect(Collectors.joining(DEL)))
-                             .collect(Collectors.joining(
-                                     System.lineSeparator()));
+            response.append(APPENDER);
+            response.append(Arrays.stream(array)
+                                  .map(s -> Arrays.stream(s)
+                                                  .mapToObj(String::valueOf)
+                                                  .collect(Collectors
+                                                                .joining(DEL)))
+                                  .collect(Collectors.joining(
+                                          System.lineSeparator())));
         } catch (ServiceException e) {
-            response = e.getMessage();
+            response.append(e.getMessage());
             LOGGER.error(response);
         }
 
-        return response;
+        return response.toString();
     }
 }
