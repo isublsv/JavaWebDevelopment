@@ -1,12 +1,18 @@
 package by.gartsmanovich.javawebdev.matrix.controller.command;
 
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.CreateMatrix;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Exit;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option1;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl
+        .CreateMatrixCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl
+        .ExitCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl
+        .SimpleCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option2;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option3;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option4;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.WrongRequest;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl
+        .ExecutorServiceCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl
+        .SemaphoreCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl
+        .WrongRequestCommand;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -23,13 +29,14 @@ public class CommandProvider {
      * Creates and fills the repository of supported commands.
      */
     public CommandProvider() {
-        repository.put(CommandName.CREATE_MATRIX, new CreateMatrix());
-        repository.put(CommandName.OPTION_1, new Option1());
+        repository.put(CommandName.CREATE_MATRIX, new CreateMatrixCommand());
+        repository.put(CommandName.SIMPLE, new SimpleCommand());
         repository.put(CommandName.OPTION_2, new Option2());
-        repository.put(CommandName.OPTION_3, new Option3());
-        repository.put(CommandName.OPTION_4, new Option4());
-        repository.put(CommandName.EXIT, new Exit());
-        repository.put(CommandName.WRONG_REQUEST, new WrongRequest());
+        repository.put(CommandName
+                               .EXECUTOR_SERVICE, new ExecutorServiceCommand());
+        repository.put(CommandName.SEMAPHORE, new SemaphoreCommand());
+        repository.put(CommandName.EXIT, new ExitCommand());
+        repository.put(CommandName.WRONG_REQUEST, new WrongRequestCommand());
     }
 
     /**

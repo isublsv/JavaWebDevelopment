@@ -12,7 +12,7 @@ public enum CommandName {
      * The singleton instance for the first option command.
      * This has the numeric value of {@code 1}.
      */
-    OPTION_1,
+    SIMPLE,
 
     /**
      * The singleton instance for the second option command.
@@ -24,13 +24,13 @@ public enum CommandName {
      * The singleton instance for the third option command.
      * This has the numeric value of {@code 3}.
      */
-    OPTION_3,
+    EXECUTOR_SERVICE,
 
     /**
      * The singleton instance for the forth option command.
      * This has the numeric value of {@code 4}.
      */
-    OPTION_4,
+    SEMAPHORE,
 
     /**
      * The singleton instance for the exit command.
