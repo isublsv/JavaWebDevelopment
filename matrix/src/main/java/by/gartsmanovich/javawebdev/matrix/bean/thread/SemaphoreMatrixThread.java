@@ -51,7 +51,6 @@ public class SemaphoreMatrixThread implements Runnable {
         String threadName = Thread.currentThread().getName();
         try {
             semaphore.acquire();
-            synchronized (array) {
                 for (int i = 0; i < array.length; i++) {
                     if (array[i][i] == 0) {
                         array[i][i] = value;
@@ -64,7 +63,6 @@ public class SemaphoreMatrixThread implements Runnable {
                         break;
                     }
                 }
-            }
             semaphore.release();
         } catch (InterruptedException e) {
             String errorMessage = threadName + " was interrupted";
