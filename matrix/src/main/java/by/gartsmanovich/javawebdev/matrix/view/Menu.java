@@ -91,7 +91,7 @@ public class Menu {
     private void fillMenu() {
         addEntry(new MenuEntry("CREATE_MATRIX. Pattern: path delimiter."
                                + " By default: data\\input.txt  "));
-        addEntry(new MenuEntry("OPTION_1"));
+        addEntry(new MenuEntry("SIMPLE"));
         addEntry(new MenuEntry("OPTION_2"));
         addEntry(new MenuEntry("EXECUTOR_SERVICE"));
         addEntry(new MenuEntry("SEMAPHORE"));
