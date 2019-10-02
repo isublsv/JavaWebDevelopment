@@ -14,7 +14,7 @@ public class SimpleMatrixThread implements Runnable {
     /**
      * Contains the array instance of integers.
      */
-    private final int[][] array;
+    private int[][] array;
 
     /**
      * Contains a new values of diagonals.
