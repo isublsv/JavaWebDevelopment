@@ -11,22 +11,24 @@ import by.gartsmanovich.javawebdev.matrix.repository.exception
         .RepositoryException;
 import by.gartsmanovich.javawebdev.matrix.repository.specification
         .Specification;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class MatrixRepository implements Repository {
 
     /**
-     * The logger for Toy Repository implementation class.
+     * The number of active threads to use.
      */
-    private static final Logger LOGGER = LogManager.getLogger(
-            MatrixRepository.class);
+    private int threadNumber;
 
     /**
-     * The storage that contains entities to handle.
+     * The array of values used to write to the main diagonal of the storage
+     * array.
      */
-    private Matrix matrix;
+    private int[] values;
 
+    /**
+     * The main storage that contains array of integers to fill by values.
+     */
+    private int[][] array;
 
     /**
      * Creates the matrix.
@@ -40,10 +42,15 @@ public class MatrixRepository implements Repository {
             RepositoryException {
 
         DataReader reader = new DataReaderImpl();
-
+        Matrix matrix;
         try {
             matrix = new DataParser().parseData(reader.readFile(path),
                                                 delimiter);
+
+            threadNumber = matrix.getThreadNumber();
+            values = matrix.getDiagValues();
+            array = matrix.getArr();
+
         } catch (DataHandlerException e) {
             throw new RepositoryException(e.getMessage(), e);
         }
@@ -54,19 +61,18 @@ public class MatrixRepository implements Repository {
      *
      * @param specification the concrete specification that query different
      *                      types of actions.
-     * @return the matrix that main diagonal was filled by provided values.
+     * @return the 2-d array of integers that main diagonal was filled by
+     * provided values.
      * @throws RepositoryException if error happens during execution.
      */
     @Override
-    public Matrix query(final Specification specification) throws
+    public int[][] query(final Specification specification) throws
             RepositoryException {
-        if (matrix != null) {
-            return specification.specified(matrix);
+        if (threadNumber != 0 || values != null || array != null) {
+            return specification.specified(threadNumber, values, array);
         } else {
-            LOGGER.error("Error during query execution! The matrix "
-                         + "does not exist");
             throw new RepositoryException("Error during query execution!"
-                                          + " The matrix does not exist");
+                                          + " The parameters does not exist");
         }
     }
 }
