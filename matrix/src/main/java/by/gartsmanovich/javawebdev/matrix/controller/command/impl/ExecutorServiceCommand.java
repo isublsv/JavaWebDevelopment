@@ -45,7 +45,7 @@ public class ExecutorServiceCommand implements Command {
         MatrixService matrixService = serviceFactory.getMatrixService();
 
         try {
-            int[][] array = matrixService.doOption3();
+            int[][] array = matrixService.fillByExecutorService();
 
             response.append(APPENDER);
             response.append(Arrays.stream(array)
