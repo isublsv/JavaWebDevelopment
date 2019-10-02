@@ -1,18 +1,18 @@
 package by.gartsmanovich.javawebdev.matrix.controller.command;
 
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl
-        .CreateMatrixCommand;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl
-        .ExitCommand;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl
-        .SimpleCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
+        CreateMatrixCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
+        ExecutorServiceCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
+        ExitCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.Option2;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl
-        .ExecutorServiceCommand;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl
-        .SemaphoreCommand;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl
-        .WrongRequestCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
+        SemaphoreCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
+        ThreadDistributionCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
+        WrongRequestCommand;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -30,7 +30,8 @@ public class CommandProvider {
      */
     public CommandProvider() {
         repository.put(CommandName.CREATE_MATRIX, new CreateMatrixCommand());
-        repository.put(CommandName.SIMPLE, new SimpleCommand());
+        repository.put(CommandName.THREAD_DISTRIBUTION,
+                       new ThreadDistributionCommand());
         repository.put(CommandName.OPTION_2, new Option2());
         repository.put(CommandName
                                .EXECUTOR_SERVICE, new ExecutorServiceCommand());
