@@ -8,7 +8,7 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreMatrixThread implements Runnable {
 
     /**
-     * The logger for Option1 class.
+     * The logger for SemaphoreMatrixThread class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             SemaphoreMatrixThread.class);
