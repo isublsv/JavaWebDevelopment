@@ -6,12 +6,12 @@ import by.gartsmanovich.javawebdev.matrix.repository.exception
 import by.gartsmanovich.javawebdev.matrix.repository.factory.RepositoryFactory;
 import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
         .FillByExecutorSpecification;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
-        .SeparateFillSpecification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.fill.
+        FillBySeparateThreadsSpecification;
 import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
         .FillBySemaphoreSpecification;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.fill
-        .FillBySynchronisedSpecification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.fill.
+        FillByLockSpecification;
 import by.gartsmanovich.javawebdev.matrix.service.MatrixService;
 import by.gartsmanovich.javawebdev.matrix.service.exception.ServiceException;
 import by.gartsmanovich.javawebdev.matrix.service.validator.Validator;
@@ -74,7 +74,7 @@ public class MatrixServiceImpl implements MatrixService {
     public int[][] fillBySeparateThreads() throws ServiceException {
         try {
             return matrixRepository
-                    .query(new SeparateFillSpecification());
+                    .query(new FillBySeparateThreadsSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -88,10 +88,10 @@ public class MatrixServiceImpl implements MatrixService {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public int[][] doOption2() throws ServiceException {
+    public int[][] fillByLocks() throws ServiceException {
         try {
             return matrixRepository
-                    .query(new FillBySynchronisedSpecification());
+                    .query(new FillByLockSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
