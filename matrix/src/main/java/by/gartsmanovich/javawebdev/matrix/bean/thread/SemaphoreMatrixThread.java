@@ -1,4 +1,4 @@
-package by.gartsmanovich.javawebdev.matrix.bean;
+package by.gartsmanovich.javawebdev.matrix.bean.thread;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
