@@ -1,7 +1,8 @@
 package by.gartsmanovich.javawebdev.matrix.repository.specification.fill;
 
-import by.gartsmanovich.javawebdev.matrix.bean.SemaphoreMatrixThread;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.Specification;
+import by.gartsmanovich.javawebdev.matrix.bean.thread.SemaphoreMatrixThread;
+import by.gartsmanovich.javawebdev.matrix.repository.specification
+        .Specification;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;

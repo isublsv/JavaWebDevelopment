@@ -1,7 +1,8 @@
 package by.gartsmanovich.javawebdev.matrix.repository.specification.fill;
 
-import by.gartsmanovich.javawebdev.matrix.bean.ExecutorMatrixThread;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.Specification;
+import by.gartsmanovich.javawebdev.matrix.bean.thread.ExecutorMatrixThread;
+import by.gartsmanovich.javawebdev.matrix.repository.specification
+        .Specification;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
