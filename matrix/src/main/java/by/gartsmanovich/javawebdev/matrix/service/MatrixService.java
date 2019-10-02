@@ -31,7 +31,7 @@ public interface MatrixService {
      * @return the array of integers with a filled main diagonal.
      * @throws ServiceException if error happens during execution.
      */
-    int[][] doOption2() throws ServiceException;
+    int[][] fillByLocks() throws ServiceException;
 
     /**
      * Returns the array of integers that main diagonal was filled by using
