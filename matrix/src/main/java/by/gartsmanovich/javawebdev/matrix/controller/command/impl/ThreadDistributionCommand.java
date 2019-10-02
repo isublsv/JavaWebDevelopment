@@ -10,13 +10,13 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class SimpleCommand implements Command {
+public class ThreadDistributionCommand implements Command {
 
     /**
-     * The logger for Option1 class.
+     * The logger for ThreadDistributionCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
-            SimpleCommand.class);
+            ThreadDistributionCommand.class);
 
     /**
      * The default delimiter.
