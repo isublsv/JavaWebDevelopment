@@ -4,7 +4,7 @@ import by.gartsmanovich.javawebdev.matrix.bean.thread.SimpleMatrixThread;
 import by.gartsmanovich.javawebdev.matrix.repository.specification
         .Specification;
 
-public class SeparateFillSpecification implements Specification {
+public class FillBySeparateThreadsSpecification implements Specification {
 
     /**
      * Applies specified criteria to the provided array.
