@@ -16,8 +16,8 @@ public interface MatrixService {
     void createMatrix(String path, String delimiter) throws ServiceException;
 
     /**
-     * Returns the array of integers that main diagonal was filled by using
-     * synchronised construction.
+     * Returns the array of integers that main diagonal was filled by threads
+     * that was separate by indexes of the 2d array.
      *
      * @return the array of integers with a filled main diagonal.
      * @throws ServiceException if error happens during execution.
