@@ -33,7 +33,7 @@ public class FillByExecutorSpecification implements Specification {
         int[][] copy = getCopy(array);
 
         for (int value : values) {
-            executorService.submit(new MatrixThread(copy, value));
+            executorService.execute(new MatrixThread(copy, value));
         }
 
         executorService.shutdown();
