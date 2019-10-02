@@ -12,7 +12,7 @@ public enum CommandName {
      * The singleton instance for the first option command.
      * This has the numeric value of {@code 1}.
      */
-    SIMPLE,
+    THREAD_DISTRIBUTION,
 
     /**
      * The singleton instance for the second option command.
