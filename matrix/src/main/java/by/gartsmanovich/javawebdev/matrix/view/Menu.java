@@ -94,7 +94,7 @@ public class Menu {
         addEntry(new MenuEntry("OPTION_1"));
         addEntry(new MenuEntry("OPTION_2"));
         addEntry(new MenuEntry("EXECUTOR_SERVICE"));
-        addEntry(new MenuEntry("OPTION_4"));
+        addEntry(new MenuEntry("SEMAPHORE"));
         addEntry(new MenuEntry("EXIT"));
     }
 }
