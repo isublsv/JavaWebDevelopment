@@ -38,16 +38,14 @@ public class ExecutorMatrixThread implements Runnable {
      */
     @Override
     public void run() {
-        synchronized (array) {
-            for (int i = 0; i <= array.length; i++) {
-                if (array[i][i] == 0) {
-                    array[i][i] = value;
-                    String message =
-                            Thread.currentThread().getName() + " has insert "
-                            + value + " at " + i + " position.";
-                    LOGGER.debug(message);
-                    break;
-                }
+        for (int i = 0; i <= array.length; i++) {
+            if (array[i][i] == 0) {
+                array[i][i] = value;
+                String message =
+                        Thread.currentThread().getName() + " has insert "
+                        + value + " at " + i + " position.";
+                LOGGER.debug(message);
+                break;
             }
         }
     }
