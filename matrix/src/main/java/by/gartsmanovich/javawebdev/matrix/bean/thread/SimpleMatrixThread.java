@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class SimpleMatrixThread implements Runnable {
 
     /**
-     * The logger for ExecutorMatrixThread class.
+     * The logger for SimpleMatrixThread class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             SimpleMatrixThread.class);
