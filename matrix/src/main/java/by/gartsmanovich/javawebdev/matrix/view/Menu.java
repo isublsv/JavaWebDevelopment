@@ -75,6 +75,7 @@ public class Menu {
         StringBuilder builder = new StringBuilder();
 
         builder.append("\nMenu:\n");
+        builder.append("Type \"COMMAND_NAME PATTERN\" to run the command:\n");
 
         for (int i = 0; i < entries.size(); i++) {
             MenuEntry entry = entries.get(i);
@@ -88,12 +89,12 @@ public class Menu {
     }
 
     private void fillMenu() {
-        addEntry(new MenuEntry("CREATE_MATRIX"));
+        addEntry(new MenuEntry("CREATE_MATRIX. Pattern: path delimiter."
+                               + " By default: data\\input.txt  "));
         addEntry(new MenuEntry("OPTION_1"));
         addEntry(new MenuEntry("OPTION_2"));
-        addEntry(new MenuEntry("OPTION_3"));
+        addEntry(new MenuEntry("EXECUTOR_SERVICE"));
         addEntry(new MenuEntry("OPTION_4"));
-        addEntry(new MenuEntry("RESET_MATRIX"));
         addEntry(new MenuEntry("EXIT"));
     }
 }
