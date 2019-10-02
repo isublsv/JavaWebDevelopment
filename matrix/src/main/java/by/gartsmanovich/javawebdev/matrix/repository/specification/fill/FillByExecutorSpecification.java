@@ -1,6 +1,6 @@
 package by.gartsmanovich.javawebdev.matrix.repository.specification.fill;
 
-import by.gartsmanovich.javawebdev.matrix.bean.MatrixThread;
+import by.gartsmanovich.javawebdev.matrix.bean.ExecutorMatrixThread;
 import by.gartsmanovich.javawebdev.matrix.repository.specification.Specification;
 
 import java.util.concurrent.ExecutorService;
@@ -33,7 +33,7 @@ public class FillByExecutorSpecification implements Specification {
         int[][] copy = getCopy(array);
 
         for (int value : values) {
-            executorService.execute(new MatrixThread(copy, value));
+            executorService.execute(new ExecutorMatrixThread(copy, value));
         }
 
         executorService.shutdown();
