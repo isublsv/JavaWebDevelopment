@@ -44,7 +44,7 @@ public class ExecutorMatrixThread implements Runnable {
                     array[i][i] = value;
                     String message =
                             Thread.currentThread().getName() + " has insert "
-                            + value + " at " + i + " position";
+                            + value + " at " + i + " position.";
                     LOGGER.debug(message);
                     break;
                 }
