@@ -13,7 +13,7 @@ public final class Matrix {
     private int[][] arr;
 
     /**
-     * Containds the number of active threads.
+     * Contains the number of active threads.
      */
     private int threadNumber;
 
@@ -104,23 +104,5 @@ public final class Matrix {
      */
     public void setDiagValues(final int[] diag) {
         this.diagValues = diag;
-    }
-
-    /**
-     * Represents an instance of an matrix as a string value.
-     *
-     * @return a string representation of an entity.
-     */
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder(
-                "\nMatrix : " + arr.length + "x" + arr[0].length + "\n");
-        for (int[] row : arr) {
-            for (int value : row) {
-                s.append(value).append(" ");
-            }
-            s.append("\n");
-        }
-        return s.toString();
     }
 }
