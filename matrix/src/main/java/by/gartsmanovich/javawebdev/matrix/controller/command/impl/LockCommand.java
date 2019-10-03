@@ -10,12 +10,18 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class Option2 implements Command {
+public class LockCommand implements Command {
 
     /**
-     * The logger for Option2 class.
+     * The logger for LockCommand class.
      */
-    private static final Logger LOGGER = LogManager.getLogger(Option2.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            LockCommand.class);
+
+    /**
+     * The appender for response string.
+     */
+    private static final String APPENDER = "\n";
 
     /**
      * The default delimiter.
@@ -33,25 +39,27 @@ public class Option2 implements Command {
     @Override
     public String execute(final String request) {
 
-        String response;
+        StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         MatrixService matrixService = serviceFactory.getMatrixService();
 
         try {
-            int[][] array = matrixService.doOption2();
+            int[][] array = matrixService.fillByLocks();
 
-            response = Arrays.stream(array)
-                             .map(s -> Arrays.stream(s)
-                                             .mapToObj(String::valueOf)
-                                             .collect(Collectors.joining(DEL)))
-                             .collect(Collectors.joining(
-                                     System.lineSeparator()));
+            response.append(APPENDER);
+            response.append(Arrays.stream(array)
+                                  .map(s -> Arrays.stream(s)
+                                                  .mapToObj(String::valueOf)
+                                                  .collect(Collectors
+                                                                .joining(DEL)))
+                                  .collect(Collectors.joining(
+                                          System.lineSeparator())));
         } catch (ServiceException e) {
-            response = e.getMessage();
+            response.append(e.getMessage());
             LOGGER.error(response);
         }
 
-        return response;
+        return response.toString();
     }
 }

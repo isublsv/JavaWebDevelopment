@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 public class WrongRequestCommand implements Command {
 
     /**
-     * The logger for WrongRequest class.
+     * The logger for WrongRequestCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             WrongRequestCommand.class);

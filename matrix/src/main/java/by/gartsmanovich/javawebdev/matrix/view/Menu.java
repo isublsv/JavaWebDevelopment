@@ -92,7 +92,7 @@ public class Menu {
         addEntry(new MenuEntry("CREATE_MATRIX. Pattern: path delimiter."
                             + " Example: \"CREATE_MATRIX data\\input.txt  \""));
         addEntry(new MenuEntry("THREAD_DISTRIBUTION"));
-        addEntry(new MenuEntry("OPTION_2"));
+        addEntry(new MenuEntry("LOCK"));
         addEntry(new MenuEntry("EXECUTOR_SERVICE"));
         addEntry(new MenuEntry("SEMAPHORE"));
         addEntry(new MenuEntry("EXIT"));

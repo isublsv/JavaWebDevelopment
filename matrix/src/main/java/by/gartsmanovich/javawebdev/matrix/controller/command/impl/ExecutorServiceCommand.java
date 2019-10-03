@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ExecutorServiceCommand implements Command {
 
     /**
-     * The logger for Option3 class.
+     * The logger for ExecutorServiceCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ExecutorServiceCommand.class);

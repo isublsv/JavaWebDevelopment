@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 public class ExitCommand implements Command {
 
     /**
-     * The logger for Exit class.
+     * The logger for ExitCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ExitCommand.class);

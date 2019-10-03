@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class CreateMatrixCommand implements Command {
 
     /**
-     * The logger for CreateMatrix class.
+     * The logger for CreateMatrixCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             CreateMatrixCommand.class);

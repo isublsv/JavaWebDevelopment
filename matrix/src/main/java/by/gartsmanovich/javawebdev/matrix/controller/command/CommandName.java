@@ -9,25 +9,25 @@ public enum CommandName {
     CREATE_MATRIX,
 
     /**
-     * The singleton instance for the first option command.
+     * The singleton instance for the thread distribution command.
      * This has the numeric value of {@code 1}.
      */
     THREAD_DISTRIBUTION,
 
     /**
-     * The singleton instance for the second option command.
+     * The singleton instance for the lock command.
      * This has the numeric value of {@code 2}.
      */
-    OPTION_2,
+    LOCK,
 
     /**
-     * The singleton instance for the third option command.
+     * The singleton instance for the executor service command.
      * This has the numeric value of {@code 3}.
      */
     EXECUTOR_SERVICE,
 
     /**
-     * The singleton instance for the forth option command.
+     * The singleton instance for the semaphore command.
      * This has the numeric value of {@code 4}.
      */
     SEMAPHORE,
