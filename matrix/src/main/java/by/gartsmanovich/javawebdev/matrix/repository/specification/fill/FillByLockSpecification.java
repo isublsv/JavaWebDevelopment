@@ -1,9 +1,9 @@
 package by.gartsmanovich.javawebdev.matrix.repository.specification.fill;
 
 import by.gartsmanovich.javawebdev.matrix.bean.thread.LockMatrixThread;
-import by.gartsmanovich.javawebdev.matrix.repository.specification
-        .Specification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification.Specification;
 
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -25,10 +25,13 @@ public class FillByLockSpecification implements Specification {
         int[][] copy = getCopy(array);
 
         Lock lock = new ReentrantLock(true);
+        Condition isFree = lock.newCondition();
+
         Thread[] threads = new Thread[threadNumber];
 
         for (int i = 0; i < threadNumber; i++) {
-            threads[i] = new Thread(new LockMatrixThread(lock, copy, values));
+            threads[i] = new Thread(
+                    new LockMatrixThread(lock, isFree, copy, values));
             threads[i].start();
         }
 
