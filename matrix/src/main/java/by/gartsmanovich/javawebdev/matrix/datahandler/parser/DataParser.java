@@ -31,7 +31,7 @@ public class DataParser {
     }
 
     /**
-     * Returns the matrix instance wit valid ints from the data string.
+     * Returns the matrix instance with valid ints from the data string.
      *
      * @param data      the list of strings.
      * @param delimiter the delimiter that splits the string if matches.
