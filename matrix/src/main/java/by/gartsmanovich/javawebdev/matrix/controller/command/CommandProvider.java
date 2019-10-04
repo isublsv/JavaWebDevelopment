@@ -6,8 +6,7 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         ExecutorServiceCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         ExitCommand;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl
-        .LockCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.LockCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         SemaphoreCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
@@ -18,6 +17,9 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Class used to store and determine the different kind of commands.
+ */
 public class CommandProvider {
 
     /**
@@ -42,19 +44,19 @@ public class CommandProvider {
     }
 
     /**
-     * Returns the command instance for which the specified name is mapped
+     * Returns the command instance for which the specified code is mapped
      * in the repository.
      *
-     * @param name the name whose associated value is to be returned.
+     * @param code the code whose associated value is to be returned.
      * @return the command instance.
      */
-    public Command getCommand(final String name) {
+    public Command getCommand(final String code) {
         Command command;
 
         try {
-            command = repository.get(CommandName.valueOf(name));
-        } catch (IllegalArgumentException | NullPointerException e) {
-
+            command = repository
+                    .get(CommandName.values()[Integer.parseInt(code) - 1]);
+        } catch (IllegalArgumentException e) {
             command = repository.get(CommandName.WRONG_REQUEST);
         }
         return command;
