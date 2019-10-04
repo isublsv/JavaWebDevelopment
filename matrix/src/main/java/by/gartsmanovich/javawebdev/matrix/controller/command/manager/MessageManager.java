@@ -3,7 +3,7 @@ package by.gartsmanovich.javawebdev.matrix.controller.command.manager;
 import java.util.ResourceBundle;
 
 /**
- * Utilise class used to manage the messages in the Controller layer of the
+ * Utility class used to manage the messages in the Controller layer of the
  * application.
  *
  * @author Dmitry Gartsmanovich
