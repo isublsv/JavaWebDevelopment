@@ -3,8 +3,14 @@ package by.gartsmanovich.javawebdev.matrix.controller;
 import by.gartsmanovich.javawebdev.matrix.controller.command.Command;
 import by.gartsmanovich.javawebdev.matrix.controller.command.CommandProvider;
 
+/**
+ * Class represents the Controller layer of the application. Created for manage
+ * requests from user, invoke the commands and return the results from Data
+ * Access layer.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class Controller {
-
 
     /**
      * The class gives an access to supported commands.
