@@ -2,6 +2,8 @@ package by.gartsmanovich.javawebdev.matrix.controller.command;
 
 /**
  * Enum-class represents the list of commands that exists in the application.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public enum CommandName {
 
