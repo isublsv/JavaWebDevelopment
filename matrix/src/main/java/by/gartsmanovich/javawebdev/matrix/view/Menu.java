@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 /**
  * Class used to display the menu of the application.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class Menu {
 
