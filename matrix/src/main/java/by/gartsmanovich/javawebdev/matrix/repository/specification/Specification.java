@@ -2,6 +2,9 @@ package by.gartsmanovich.javawebdev.matrix.repository.specification;
 
 import java.util.Arrays;
 
+/**
+ * Common interface for specifications.
+ */
 public interface Specification {
 
     /**
