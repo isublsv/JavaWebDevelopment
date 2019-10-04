@@ -2,6 +2,8 @@ package by.gartsmanovich.javawebdev.matrix.controller.command;
 
 /**
  * Interface for Commands.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public interface Command {
 
