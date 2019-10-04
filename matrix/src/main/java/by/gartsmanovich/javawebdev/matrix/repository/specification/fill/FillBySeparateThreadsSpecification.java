@@ -5,7 +5,8 @@ import by.gartsmanovich.javawebdev.matrix.repository.specification
         .Specification;
 
 /**
- * .
+ * Specification represents the solution  of the task that using the thread
+ * distribution by start and end indexes of diagonal vales of provided 2d array.
  */
 public class FillBySeparateThreadsSpecification implements Specification {
 
@@ -14,7 +15,7 @@ public class FillBySeparateThreadsSpecification implements Specification {
      *
      * @param threadNumber the number of active threads.
      * @param values       the array of provided values for the main diagonal.
-     * @param array        with provided integers.
+     * @param array        the 2d array with provided integers.
      * @return the array that correspond to specified criteria,
      * false - otherwise.
      */
