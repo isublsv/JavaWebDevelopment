@@ -19,6 +19,8 @@ import java.util.Map;
 
 /**
  * Class used to store and determine the different kind of commands.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class CommandProvider {
 
