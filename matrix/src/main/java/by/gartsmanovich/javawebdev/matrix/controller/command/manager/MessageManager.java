@@ -2,6 +2,12 @@ package by.gartsmanovich.javawebdev.matrix.controller.command.manager;
 
 import java.util.ResourceBundle;
 
+/**
+ * Utilise class used to manage the messages in the Controller layer of the
+ * application.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public final class MessageManager {
 
     /**
@@ -11,6 +17,10 @@ public final class MessageManager {
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
             .getBundle("messages");
 
+    /**
+     * The private constructor. Forbids the implicit creation of the
+     * MessageManager class instance.
+     */
     private MessageManager() {
     }
 
