@@ -6,6 +6,12 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.manager
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Class describes the exit command and used to inform the user about successful
+ * stop of the application.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class ExitCommand implements Command {
 
     /**
