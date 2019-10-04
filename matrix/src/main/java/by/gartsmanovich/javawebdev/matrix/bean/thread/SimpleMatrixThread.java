@@ -1,20 +1,20 @@
 package by.gartsmanovich.javawebdev.matrix.bean.thread;
 
+import by.gartsmanovich.javawebdev.matrix.bean.BasicThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SimpleMatrixThread implements Runnable {
+/**
+ * Class used to write provided values to the range of indexes of 2d array
+ * in the separate thread.
+ */
+public class SimpleMatrixThread extends BasicThread implements Runnable {
 
     /**
      * The logger for SimpleMatrixThread class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             SimpleMatrixThread.class);
-
-    /**
-     * Contains the array instance of integers.
-     */
-    private int[][] array;
 
     /**
      * Contains a new values of diagonals.
@@ -34,14 +34,17 @@ public class SimpleMatrixThread implements Runnable {
     /**
      * Constructs the new thread with specific parameters.
      *
+     * @param idValue the ID of the thread.
+     * @param nameValue the name of the thread.
      * @param arrayValue the array instance of integers.
      * @param diagValues the array instance with diagonal values.
      * @param startValue the start index int the array.
      * @param endValue the end index in the array.
      */
-    public SimpleMatrixThread(final int[][] arrayValue, final int[] diagValues,
+    public SimpleMatrixThread(final int idValue, final String nameValue,
+            final int[][] arrayValue, final int[] diagValues,
             final int startValue, final int endValue) {
-        array = arrayValue;
+        super(idValue, nameValue, arrayValue);
         values = diagValues;
         start = startValue;
         end = endValue;
@@ -53,13 +56,11 @@ public class SimpleMatrixThread implements Runnable {
      */
     @Override
     public void run() {
-        String threadName = Thread.currentThread().getName();
         for (int i = start; i <= end; i++) {
-            if (array[i][i] == 0) {
-                array[i][i] = values[i];
-                String message =
-                        threadName + " has insert "
-                        + values[i] + " at " + i + " position.";
+            if (getArray()[i][i] == 0) {
+                getArray()[i][i] = values[getId()];
+                String message = getName() + " has insert " + values[getId()]
+                                 + " at " + i + " position.";
                 LOGGER.debug(message);
             }
         }
