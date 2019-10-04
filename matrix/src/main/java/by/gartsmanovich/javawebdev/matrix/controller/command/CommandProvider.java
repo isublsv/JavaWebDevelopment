@@ -58,7 +58,7 @@ public class CommandProvider {
         try {
             command = repository
                     .get(CommandName.values()[Integer.parseInt(code) - 1]);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
             command = repository.get(CommandName.WRONG_REQUEST);
         }
         return command;
