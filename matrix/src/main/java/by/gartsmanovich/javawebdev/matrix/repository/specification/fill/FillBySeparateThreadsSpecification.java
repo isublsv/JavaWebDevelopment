@@ -4,6 +4,9 @@ import by.gartsmanovich.javawebdev.matrix.bean.thread.SimpleMatrixThread;
 import by.gartsmanovich.javawebdev.matrix.repository.specification
         .Specification;
 
+/**
+ * .
+ */
 public class FillBySeparateThreadsSpecification implements Specification {
 
     /**
@@ -28,10 +31,16 @@ public class FillBySeparateThreadsSpecification implements Specification {
 
         int start = 0;
         for (int i = 0; i < threads.length; i++) {
-            int currentCount = (i == 0) ? count + additional : count;
-            threads[i] = new Thread(new SimpleMatrixThread(copy, values, start,
-                                                        start + currentCount
-                                                        - 1));
+            int currentCount;
+            if (i == 0) {
+                currentCount = count + additional;
+            } else {
+                currentCount = count;
+            }
+            int end = start + currentCount - 1;
+            threads[i] = new Thread(
+                    new SimpleMatrixThread(i, "IndexThread", copy,
+                                           values, start, end));
             start = start + currentCount;
             threads[i].start();
         }
