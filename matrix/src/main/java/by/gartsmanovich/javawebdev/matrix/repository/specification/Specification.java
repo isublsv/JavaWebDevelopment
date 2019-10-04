@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 /**
  * Common interface for specifications.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public interface Specification {
 
@@ -13,8 +15,7 @@ public interface Specification {
      * @param threadNumber the number of active threads.
      * @param values       the array of provided values for the main diagonal.
      * @param array        the 2d array with provided integers.
-     * @return the array that correspond to specified criteria,
-     * false - otherwise.
+     * @return the 2d array that correspond to specified criteria
      */
     int[][] specified(int threadNumber, int[] values, int[][] array);
 
