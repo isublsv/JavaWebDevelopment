@@ -2,8 +2,14 @@ package by.gartsmanovich.javawebdev.matrix;
 
 import by.gartsmanovich.javawebdev.matrix.view.Menu;
 
+/**
+ * Class used to start the application.
+ */
 public final class AppRunner {
 
+    /**
+     * Private constructor.
+     */
     private AppRunner() {
     }
 

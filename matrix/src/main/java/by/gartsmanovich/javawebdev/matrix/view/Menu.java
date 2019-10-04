@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class used to display the menu of the application.
+ */
 public class Menu {
 
     /**
@@ -52,7 +55,8 @@ public class Menu {
             scanner.useDelimiter("\\Z");
             String query = scanner.nextLine();
 
-            if (!query.isEmpty() && query.startsWith("EXIT")) {
+            if (!query.isEmpty() && (query.startsWith("6")
+                                     || query.startsWith("Exit"))) {
                 isExit = true;
             }
 
@@ -71,11 +75,14 @@ public class Menu {
         entries.add(entry);
     }
 
+    /**
+     * Prints the menu to the log.
+     */
     private void printMenu() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("\nMenu:\n");
-        builder.append("Type \"COMMAND_NAME PATTERN\" to run the command:\n");
+        builder.append("Type \"Number of the command pattern\" to run:\n");
 
         for (int i = 0; i < entries.size(); i++) {
             MenuEntry entry = entries.get(i);
@@ -88,13 +95,17 @@ public class Menu {
         LOGGER.debug(menu);
     }
 
+    /**
+     * Fills the menu tih options that describes the behavior of the
+     * application.
+     */
     private void fillMenu() {
-        addEntry(new MenuEntry("CREATE_MATRIX. Pattern: path delimiter."
-                            + " Example: \"CREATE_MATRIX data\\input.txt  \""));
-        addEntry(new MenuEntry("THREAD_DISTRIBUTION"));
-        addEntry(new MenuEntry("LOCK"));
-        addEntry(new MenuEntry("EXECUTOR_SERVICE"));
-        addEntry(new MenuEntry("SEMAPHORE"));
-        addEntry(new MenuEntry("EXIT"));
+        addEntry(new MenuEntry("Create the matrix. Pattern: path delimiter."
+                            + " Example: \"1 data\\input.txt  \""));
+        addEntry(new MenuEntry("Fill the matrix using index distribution."));
+        addEntry(new MenuEntry("Fill the matrix using concurrent locks."));
+        addEntry(new MenuEntry("Fill the matrix using executor service."));
+        addEntry(new MenuEntry("Fill the matrix using semaphore."));
+        addEntry(new MenuEntry("Exit."));
     }
 }
