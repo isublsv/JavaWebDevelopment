@@ -11,6 +11,8 @@ import java.util.concurrent.locks.Lock;
  * Class used to write provided values to the 2d array using
  * {@link java.util.concurrent.locks.ReentrantLock} technology in the separate
  * thread.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class LockMatrixThread extends BasicThread implements Runnable {
 

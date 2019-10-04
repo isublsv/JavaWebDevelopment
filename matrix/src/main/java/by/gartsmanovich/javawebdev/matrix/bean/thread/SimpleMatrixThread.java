@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Class used to write provided values to the range of indexes of 2d array
  * in the separate thread.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class SimpleMatrixThread extends BasicThread implements Runnable {
 

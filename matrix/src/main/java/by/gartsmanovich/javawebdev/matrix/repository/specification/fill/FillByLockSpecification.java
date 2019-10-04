@@ -1,11 +1,20 @@
 package by.gartsmanovich.javawebdev.matrix.repository.specification.fill;
 
 import by.gartsmanovich.javawebdev.matrix.bean.thread.LockMatrixThread;
-import by.gartsmanovich.javawebdev.matrix.repository.specification.Specification;
+import by.gartsmanovich.javawebdev.matrix.repository.specification
+        .Specification;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Specification represents the solution of the task that using
+ * {@link java.util.concurrent.locks.ReentrantLock} realisation to distribute
+ * provided vales between active threads and put them into the provided 2d
+ * array.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class FillByLockSpecification implements Specification {
 
     /**
@@ -14,8 +23,7 @@ public class FillByLockSpecification implements Specification {
      * @param threadNumber the number of active threads.
      * @param values       the array of provided values for the main diagonal.
      * @param array        with provided integers.
-     * @return the array that correspond to specified criteria,
-     * false - otherwise.
+     * @return the 2d array that correspond to specified criteria
      */
     @Override
     public int[][] specified(final int threadNumber, final int[] values,
@@ -29,7 +37,7 @@ public class FillByLockSpecification implements Specification {
 
         for (int i = 0; i < threadNumber; i++) {
             threads[i] = new Thread(
-                    new LockMatrixThread(lock, copy, values));
+                    new LockMatrixThread(i, "LockThread", copy, lock, values));
             threads[i].start();
         }
 
