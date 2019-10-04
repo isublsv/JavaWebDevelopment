@@ -8,6 +8,13 @@ import by.gartsmanovich.javawebdev.matrix.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Class describes the create matrix command that proceed user request and
+ * invoke appropriate method from Service layer of the application. The result
+ * depends on input parameters.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class CreateMatrixCommand implements Command {
 
     /**
