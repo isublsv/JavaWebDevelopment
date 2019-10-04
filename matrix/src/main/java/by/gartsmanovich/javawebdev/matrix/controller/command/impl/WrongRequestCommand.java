@@ -6,6 +6,12 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.manager
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Class describes the wrong request command that inform user about incorrect
+ * command invocation.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class WrongRequestCommand implements Command {
 
     /**
