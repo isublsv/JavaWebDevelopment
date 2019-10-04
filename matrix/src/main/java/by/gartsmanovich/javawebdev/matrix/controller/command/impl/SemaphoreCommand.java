@@ -10,6 +10,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Class describes the semaphore command that invoke appropriate method
+ * from Service layer of the application.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class SemaphoreCommand implements Command {
 
     /**
