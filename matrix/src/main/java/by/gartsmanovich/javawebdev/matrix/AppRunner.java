@@ -4,6 +4,8 @@ import by.gartsmanovich.javawebdev.matrix.view.Menu;
 
 /**
  * Class used to start the application.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public final class AppRunner {
 
