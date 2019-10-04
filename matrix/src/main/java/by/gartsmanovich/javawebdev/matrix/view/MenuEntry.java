@@ -1,5 +1,10 @@
 package by.gartsmanovich.javawebdev.matrix.view;
 
+/**
+ * Class-entry used to add an option to the menu of the application.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class MenuEntry {
 
     /**
