@@ -1,12 +1,18 @@
 package by.gartsmanovich.javawebdev.matrix.bean.thread;
 
+import by.gartsmanovich.javawebdev.matrix.bean.BasicThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
-public class LockMatrixThread implements Runnable {
+/**
+ * Class used to write provided values to the 2d array using
+ * {@link java.util.concurrent.locks.ReentrantLock} technology in the separate
+ * thread.
+ */
+public class LockMatrixThread extends BasicThread implements Runnable {
 
     /**
      * The logger for LockMatrixThread class.
@@ -17,12 +23,7 @@ public class LockMatrixThread implements Runnable {
     /**
      * The timeout for the set a new value operation.
      */
-    private static final int TIMEOUT = 100;
-
-    /**
-     * Contains the array instance of integers.
-     */
-    private int[][] array;
+    private static final int TIMEOUT = 30;
 
     /**
      * Contains a new values of diagonals.
@@ -37,14 +38,17 @@ public class LockMatrixThread implements Runnable {
     /**
      * Constructs the new thread with specific parameters.
      *
-     * @param lockValue  the lock instance for blocking threads.
+     * @param idValue the ID of the thread.
+     * @param nameValue the name of the thread.
      * @param arrayValue the array instance of integers.
+     * @param lockValue  the lock instance for blocking threads.
      * @param diagValues a new diagonal's value of the 2-d array.
      */
-    public LockMatrixThread(final Lock lockValue, final int[][] arrayValue,
-                            final int[] diagValues) {
+    public LockMatrixThread(final int idValue, final String nameValue,
+            final int[][] arrayValue, final Lock lockValue,
+            final int[] diagValues) {
+        super(idValue, nameValue, arrayValue);
         lock = lockValue;
-        array = arrayValue;
         values = diagValues;
     }
 
@@ -54,26 +58,33 @@ public class LockMatrixThread implements Runnable {
      */
     @Override
     public void run() {
-        String threadName = Thread.currentThread().getName();
-        for (int i = 0; i < array.length; i++) {
-            try {
-                lock.lock();
+        for (int i = getId(); i < getArray().length; i++) {
+            //find first empty diagonal value
+            if (getArray()[i][i] == 0) {
                 try {
-                    if (array[i][i] == 0) {
-                        array[i][i] = values[i];
-                        String message =
-                                threadName + " has insert " + values[i] + " "
-                                        + "at " + i + " position.";
-                        LOGGER.debug(message);
+                    //trying to acquire the lock
+                    boolean flag = lock.tryLock(TIMEOUT, TimeUnit.MILLISECONDS);
+                    if (flag) {
+                        try {
+                            //check if the value is still empty
+                            if (getArray()[i][i] == 0) {
+                                //set new value
+                                getArray()[i][i] = values[getId()];
+                                String message = getName() + " has insert "
+                                                 + values[getId()] + " at " + i
+                                                 + " position.";
+                                LOGGER.debug(message);
+                            }
+                        } finally {
+                            lock.unlock();
+                        }
+                        TimeUnit.MILLISECONDS.sleep(TIMEOUT);
                     }
-                } finally {
-                    lock.unlock();
+                } catch (InterruptedException e) {
+                    String errorMessage = getName() + " was interrupted";
+                    LOGGER.error(errorMessage);
+                    Thread.currentThread().interrupt();
                 }
-                TimeUnit.MILLISECONDS.sleep(TIMEOUT);
-            } catch (InterruptedException e) {
-                String errorMessage = threadName + " was interrupted";
-                LOGGER.error(errorMessage);
-                Thread.currentThread().interrupt();
             }
         }
     }
