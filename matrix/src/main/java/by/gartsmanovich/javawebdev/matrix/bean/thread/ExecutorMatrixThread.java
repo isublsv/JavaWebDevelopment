@@ -1,35 +1,61 @@
 package by.gartsmanovich.javawebdev.matrix.bean.thread;
 
+import by.gartsmanovich.javawebdev.matrix.bean.BasicThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ExecutorMatrixThread implements Runnable {
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
+
+/**
+ * Class used to write provided values to the 2d array using
+ * {@link java.util.concurrent.ExecutorService} and
+ * {@link java.util.concurrent.atomic.AtomicInteger} technologies in the
+ * separate threads.
+ *
+ * @author Dmitry Gartsmanovich
+ */
+public class ExecutorMatrixThread extends BasicThread implements Runnable {
 
     /**
-     * The logger for ExecutorMatrixThread class.
+     * The logger for SimpleMatrixThread class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ExecutorMatrixThread.class);
 
     /**
-     * Contains the array instance of integers.
+     * Contains the current start value of the range for active thread.
      */
-    private int[][] array;
+    private static AtomicInteger startRange = new AtomicInteger(0);
 
     /**
-     * Contains a new diagonal's value of the 2-d array.
+     * Contains a new values of diagonals.
      */
-    private int value;
+    private int[] values;
+
+    /**
+     * Contain the start index in the array that current thread will be change.
+     */
+    private int start;
+
+    /**
+     * Contain the end index in the array that current thread will be change.
+     */
+    private int end;
 
     /**
      * Constructs the new thread with specific parameters.
      *
+     * @param idValue the ID of the thread.
+     * @param nameValue the name of the thread.
      * @param arrayValue the array instance of integers.
-     * @param newValue   a new diagonal's value of the 2-d array.
+     * @param diagValues the array instance with diagonal values.
      */
-    public ExecutorMatrixThread(final int[][] arrayValue, final int newValue) {
-        array = arrayValue;
-        value = newValue;
+    public ExecutorMatrixThread(final int idValue, final String nameValue,
+            final int[][] arrayValue, final int[] diagValues) {
+        super(idValue, nameValue, arrayValue);
+        values = diagValues;
+        perform();
     }
 
     /**
@@ -38,15 +64,32 @@ public class ExecutorMatrixThread implements Runnable {
      */
     @Override
     public void run() {
-        for (int i = 0; i <= array.length; i++) {
-            if (array[i][i] == 0) {
-                array[i][i] = value;
-                String message =
-                        Thread.currentThread().getName() + " has insert "
-                        + value + " at " + i + " position.";
-                LOGGER.debug(message);
-                break;
-            }
+        IntStream.rangeClosed(start, end)
+                 .filter(i -> getArray()[i][i] == 0)
+                 .forEach(i -> {
+                     getArray()[i][i] = values[getId()];
+                     String message =
+                             getName() + " has insert " + values[getId()]
+                             + " at " + i + " position.";
+                     LOGGER.debug(message);
+                 });
+    }
+
+    /**
+     * Calculates the start and the end indexes of active thread depends on
+     * {@link ExecutorMatrixThread#startRange} value.
+     */
+    private void perform() {
+        int count = getArray().length / values.length;
+        int additional = getArray().length % values.length;
+
+        if (getId() == 0) {
+            start = 0;
+            end = count + additional - 1;
+        } else {
+            start = startRange.get();
+            end = start + count - 1;
         }
+        startRange.set(end + 1);
     }
 }
