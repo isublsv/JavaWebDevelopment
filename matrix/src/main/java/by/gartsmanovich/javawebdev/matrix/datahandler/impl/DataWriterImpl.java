@@ -1,46 +1,50 @@
 package by.gartsmanovich.javawebdev.matrix.datahandler.impl;
 
-import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
 import by.gartsmanovich.javawebdev.matrix.datahandler.DataWriter;
 import by.gartsmanovich.javawebdev.matrix.datahandler.exception
         .DataHandlerException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
+/**
+ * Data writer realisation. Write data to provided file.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class DataWriterImpl implements DataWriter {
-
-    /**
-     * The logger for Data Writer implementation class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(
-            DataWriterImpl.class);
 
     /**
      * Writes the provided array of ints to the file.
      *
-     * @param matrixValue the provided array of ints.
+     * @param array the provided array of ints.
      * @param path     the path to file.
      * @throws DataHandlerException if error happens during execution.
      */
     @Override
-    public void writeFile(final Matrix matrixValue,
-                          final String path) throws DataHandlerException {
+    public void writeFile(final int[][] array, final String path) throws
+            DataHandlerException {
 
+        String resultString = Arrays.stream(array)
+                                    .map(s -> Arrays.stream(s)
+                                                    .mapToObj(String::valueOf)
+                                                    .collect(
+                                                            Collectors.joining(
+                                                                    " ")))
+                                    .collect(Collectors.joining(
+                                            System.lineSeparator()));
         try {
-            Files.write(Paths.get(path), matrixValue.toString().getBytes());
+            Files.write(Paths.get(path), resultString.getBytes());
         } catch (FileNotFoundException e) {
-            LOGGER.error("File not found.");
-            throw new DataHandlerException("File not found.", e);
+            String message = "File not found.";
+            throw new DataHandlerException(message, e);
         } catch (IOException e) {
-            LOGGER.error("Error during writing to the file.");
-            throw new DataHandlerException(
-                    "Error during writing" + " to the file.", e);
+            String message = "Error during writing to the file.";
+            throw new DataHandlerException(message, e);
         }
-
     }
 }
