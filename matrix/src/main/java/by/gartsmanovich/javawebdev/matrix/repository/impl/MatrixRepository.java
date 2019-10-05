@@ -4,7 +4,8 @@ import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
 import by.gartsmanovich.javawebdev.matrix.datahandler.DataReader;
 import by.gartsmanovich.javawebdev.matrix.datahandler.exception
         .DataHandlerException;
-import by.gartsmanovich.javawebdev.matrix.datahandler.impl.DataReaderImpl;
+import by.gartsmanovich.javawebdev.matrix.datahandler.factory
+        .DataHandlerFactory;
 import by.gartsmanovich.javawebdev.matrix.datahandler.parser.DataParser;
 import by.gartsmanovich.javawebdev.matrix.repository.Repository;
 import by.gartsmanovich.javawebdev.matrix.repository.exception
@@ -12,6 +13,12 @@ import by.gartsmanovich.javawebdev.matrix.repository.exception
 import by.gartsmanovich.javawebdev.matrix.repository.specification
         .Specification;
 
+/**
+ * The repository interface implementation. Used to processing queries from
+ * Services layer and applying to the matrix instance.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class MatrixRepository implements Repository {
 
     /**
@@ -41,7 +48,9 @@ public class MatrixRepository implements Repository {
     public void createMatrix(final String path, final String delimiter) throws
             RepositoryException {
 
-        DataReader reader = new DataReaderImpl();
+        DataHandlerFactory factory = DataHandlerFactory.getInstance();
+        DataReader reader = factory.getDataReader();
+
         Matrix matrix;
         try {
             matrix = new DataParser().parseData(reader.readFile(path),
