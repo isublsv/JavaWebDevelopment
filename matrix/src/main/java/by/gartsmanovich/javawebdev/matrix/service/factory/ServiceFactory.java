@@ -3,6 +3,12 @@ package by.gartsmanovich.javawebdev.matrix.service.factory;
 import by.gartsmanovich.javawebdev.matrix.service.MatrixService;
 import by.gartsmanovich.javawebdev.matrix.service.impl.MatrixServiceImpl;
 
+/**
+ * Class Service factory used to create the different kinds of services
+ * depending on the entity type.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public final class ServiceFactory {
 
     /**
@@ -16,8 +22,10 @@ public final class ServiceFactory {
      */
     private final MatrixService matrixService = new MatrixServiceImpl();
 
+    /**
+     * Private constructor. Forbids the explicit object creation.
+     */
     private ServiceFactory() {
-
     }
 
     /**
