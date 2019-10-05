@@ -112,4 +112,18 @@ public class Validator {
     public boolean isValidDimension(final int n) {
         return n >= MIN_DIM && n <= MAX_DIM;
     }
+
+    /**
+     * Checks if provided values equals to 0.
+     *
+     * @param value the value to valid.
+     * @return true if value is valid, false - otherwise.
+     */
+    public boolean isValidDiagonalValue(final String value) {
+        if (isNumber(value)) {
+            return Integer.parseInt(value) != 0;
+        } else {
+            return false;
+        }
+    }
 }

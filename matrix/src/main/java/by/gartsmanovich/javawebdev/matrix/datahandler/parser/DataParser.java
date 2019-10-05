@@ -71,33 +71,53 @@ public class DataParser {
         if (validator.isSquareMatrix(subList, delimiter)) {
 
             int n = subList.size();
-
             if (!validator.isValidDimension(n)) {
                 String message = "The dimension of the matrix in the file"
                                  + " is invalid: " + n;
                 throw new DataHandlerException(message);
             }
 
-            int[][] arr = new int[n][n];
-
-            for (int i = 0; i < subList.size(); i++) {
-                String[] row = subList.get(i).split(delimiter);
-                for (int j = 0; j < row.length; j++) {
-                    if (validator.isNumber(row[j])) {
-                        arr[i][j] = Integer.parseInt(row[j]);
-                    } else {
-                        String message = "The values for the matrix in the file"
-                                         + " are invalid: " + row[j];
-                        throw new DataHandlerException(message);
-                    }
-                }
-            }
-
-            return arr;
+            return getArr(subList, delimiter, n);
         } else {
             String message = "The data in the file is not square matrix!";
             throw new DataHandlerException(message);
         }
+    }
+
+    /**
+     * Check and fill 2d array with valid numbers.
+     *
+     * @param subList   the list to processing.
+     * @param delimiter the delimiter to split the provided strings from
+     *                  the list.
+     * @param n         the valid dimension of array.
+     * @return the valid 2d array of integers.
+     * @throws DataHandlerException if error happens during execution.
+     */
+    private int[][] getArr(final List<String> subList, final String delimiter,
+            final int n) throws DataHandlerException {
+
+        int[][] arr = new int[n][n];
+        for (int i = 0; i < subList.size(); i++) {
+
+            String[] row = subList.get(i).split(delimiter);
+            if (validator.isValidDiagonalValue(row[i])) {
+                String message = "The diagonal value for the matrix in"
+                                 + " the file is not equal to 0: " + row[i];
+                throw new DataHandlerException(message);
+            }
+
+            for (int j = 0; j < row.length; j++) {
+                if (validator.isNumber(row[j])) {
+                    arr[i][j] = Integer.parseInt(row[j]);
+                } else {
+                    String message = "The values for the matrix in the file"
+                                     + " are invalid: " + row[j];
+                    throw new DataHandlerException(message);
+                }
+            }
+        }
+        return arr;
     }
 
     /**
