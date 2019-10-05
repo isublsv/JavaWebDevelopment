@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
 public class ExecutorMatrixThread extends BasicThread implements Runnable {
 
     /**
-     * The logger for SimpleMatrixThread class.
+     * The logger for ExecutorMatrixThread class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ExecutorMatrixThread.class);
@@ -27,11 +27,6 @@ public class ExecutorMatrixThread extends BasicThread implements Runnable {
      * Contains the current start value of the range for active thread.
      */
     private static AtomicInteger startRange = new AtomicInteger(0);
-
-    /**
-     * Contains a new values of diagonals.
-     */
-    private int[] values;
 
     /**
      * Contain the start index in the array that current thread will be change.
@@ -53,8 +48,7 @@ public class ExecutorMatrixThread extends BasicThread implements Runnable {
      */
     public ExecutorMatrixThread(final int idValue, final String nameValue,
             final int[][] arrayValue, final int[] diagValues) {
-        super(idValue, nameValue, arrayValue);
-        values = diagValues;
+        super(idValue, nameValue, arrayValue, diagValues);
         perform();
     }
 
@@ -67,9 +61,9 @@ public class ExecutorMatrixThread extends BasicThread implements Runnable {
         IntStream.rangeClosed(start, end)
                  .filter(i -> getArray()[i][i] == 0)
                  .forEach(i -> {
-                     getArray()[i][i] = values[getId()];
+                     getArray()[i][i] = getValues()[getId()];
                      String message =
-                             getName() + " has insert " + values[getId()]
+                             getName() + " has insert " + getValues()[getId()]
                              + " at " + i + " position.";
                      LOGGER.debug(message);
                  });
@@ -80,8 +74,8 @@ public class ExecutorMatrixThread extends BasicThread implements Runnable {
      * {@link ExecutorMatrixThread#startRange} value.
      */
     private void perform() {
-        int count = getArray().length / values.length;
-        int additional = getArray().length % values.length;
+        int count = getArray().length / getValues().length;
+        int additional = getArray().length % getValues().length;
 
         if (getId() == 0) {
             start = 0;

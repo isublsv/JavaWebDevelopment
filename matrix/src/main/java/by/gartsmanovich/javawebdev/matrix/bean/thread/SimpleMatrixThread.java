@@ -19,11 +19,6 @@ public class SimpleMatrixThread extends BasicThread implements Runnable {
             SimpleMatrixThread.class);
 
     /**
-     * Contains a new values of diagonals.
-     */
-    private int[] values;
-
-    /**
      * Contain the start index in the array that current thread will be change.
      */
     private int start;
@@ -46,8 +41,7 @@ public class SimpleMatrixThread extends BasicThread implements Runnable {
     public SimpleMatrixThread(final int idValue, final String nameValue,
             final int[][] arrayValue, final int[] diagValues,
             final int startValue, final int endValue) {
-        super(idValue, nameValue, arrayValue);
-        values = diagValues;
+        super(idValue, nameValue, arrayValue, diagValues);
         start = startValue;
         end = endValue;
     }
@@ -60,9 +54,10 @@ public class SimpleMatrixThread extends BasicThread implements Runnable {
     public void run() {
         for (int i = start; i <= end; i++) {
             if (getArray()[i][i] == 0) {
-                getArray()[i][i] = values[getId()];
-                String message = getName() + " has insert " + values[getId()]
-                                 + " at " + i + " position.";
+                getArray()[i][i] = getValues()[getId()];
+                String message = getName() + " has insert "
+                                 + getValues()[getId()] + " at "
+                                 + i + " position.";
                 LOGGER.debug(message);
             }
         }

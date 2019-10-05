@@ -37,7 +37,7 @@ public class FillByLockSpecification implements Specification {
 
         for (int i = 0; i < threadNumber; i++) {
             threads[i] = new Thread(
-                    new LockMatrixThread(i, "LockThread", copy, lock, values));
+                    new LockMatrixThread(i, "LockThread", copy, values, lock));
             threads[i].start();
         }
 

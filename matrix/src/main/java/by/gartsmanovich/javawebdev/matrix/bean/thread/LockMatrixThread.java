@@ -28,11 +28,6 @@ public class LockMatrixThread extends BasicThread implements Runnable {
     private static final int TIMEOUT = 30;
 
     /**
-     * Contains a new values of diagonals.
-     */
-    private int[] values;
-
-    /**
      * Contains the lock instance.
      */
     private Lock lock;
@@ -43,15 +38,14 @@ public class LockMatrixThread extends BasicThread implements Runnable {
      * @param idValue the ID of the thread.
      * @param nameValue the name of the thread.
      * @param arrayValue the array instance of integers.
-     * @param lockValue  the lock instance for blocking threads.
      * @param diagValues a new diagonal's value of the 2-d array.
+     * @param lockValue  the lock instance for blocking threads.
      */
     public LockMatrixThread(final int idValue, final String nameValue,
-            final int[][] arrayValue, final Lock lockValue,
-            final int[] diagValues) {
-        super(idValue, nameValue, arrayValue);
+            final int[][] arrayValue, final int[] diagValues,
+            final Lock lockValue) {
+        super(idValue, nameValue, arrayValue, diagValues);
         lock = lockValue;
-        values = diagValues;
     }
 
     /**
@@ -71,10 +65,10 @@ public class LockMatrixThread extends BasicThread implements Runnable {
                             //check if the value is still empty
                             if (getArray()[i][i] == 0) {
                                 //set new value
-                                getArray()[i][i] = values[getId()];
+                                getArray()[i][i] = getValues()[getId()];
                                 String message = getName() + " has insert "
-                                                 + values[getId()] + " at " + i
-                                                 + " position.";
+                                                 + getValues()[getId()]
+                                                 + " at " + i + " position.";
                                 LOGGER.debug(message);
                             }
                         } finally {
