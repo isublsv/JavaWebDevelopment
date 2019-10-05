@@ -8,6 +8,8 @@ import java.util.List;
 /**
  * Interface used to describe the common structure of different types of
  * readers.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public interface DataReader {
 
