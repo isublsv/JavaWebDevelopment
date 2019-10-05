@@ -1,5 +1,11 @@
 package by.gartsmanovich.javawebdev.matrix.bean;
 
+/**
+ * Class used to store data about thread number, values of every thread that
+ * it must puts to the main diagonal and 2d array of integers to processing.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public final class Matrix {
 
     /**
