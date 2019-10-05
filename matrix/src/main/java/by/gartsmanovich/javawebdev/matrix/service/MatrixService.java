@@ -2,6 +2,12 @@ package by.gartsmanovich.javawebdev.matrix.service;
 
 import by.gartsmanovich.javawebdev.matrix.service.exception.ServiceException;
 
+/**
+ * The interface used to determine the common structure of Service Layer
+ * classes.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public interface MatrixService {
 
     /**
