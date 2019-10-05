@@ -5,6 +5,12 @@ import by.gartsmanovich.javawebdev.matrix.datahandler.DataWriter;
 import by.gartsmanovich.javawebdev.matrix.datahandler.impl.DataReaderImpl;
 import by.gartsmanovich.javawebdev.matrix.datahandler.impl.DataWriterImpl;
 
+/**
+ * Class Data Handler factory used to proceed the data from file. Depends on
+ * type of data handler can read or write to the selected file.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public final class DataHandlerFactory {
 
     /**
@@ -23,6 +29,9 @@ public final class DataHandlerFactory {
      */
     private final DataWriter dataWriter = new DataWriterImpl();
 
+    /**
+     * Private constructor. Forbids the explicit object creation.
+     */
     private DataHandlerFactory() {
     }
 
