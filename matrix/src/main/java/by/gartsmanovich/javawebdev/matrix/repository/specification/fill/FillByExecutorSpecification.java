@@ -27,10 +27,9 @@ public class FillByExecutorSpecification implements Specification {
      * Applies specified criteria to the provided array.
      *
      * @param threadNumber the number of active threads.
-     * @param values      the array of provided values for the main diagonal.
-     * @param array       with provided integers.
-     * @return the array that correspond to specified criteria,
-     * false - otherwise.
+     * @param values       the array of provided values for the main diagonal.
+     * @param array        the 2d array with provided integers.
+     * @return the 2d array that correspond to specified criteria.
      */
     @Override
     public int[][] specified(final int threadNumber,
