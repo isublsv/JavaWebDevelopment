@@ -57,7 +57,7 @@ public class Menu {
             scanner.useDelimiter("\\Z");
             String query = scanner.nextLine();
 
-            if (!query.isEmpty() && (query.startsWith("6")
+            if (!query.isEmpty() && (query.startsWith("7")
                                      || query.startsWith("Exit"))) {
                 isExit = true;
             }
@@ -108,6 +108,8 @@ public class Menu {
         addEntry(new MenuEntry("Fill the matrix using concurrent locks."));
         addEntry(new MenuEntry("Fill the matrix using executor service."));
         addEntry(new MenuEntry("Fill the matrix using semaphore."));
+        addEntry(new MenuEntry("Save last result. Pattern: path."
+                               + " Example: \"6 data\\output.txt\""));
         addEntry(new MenuEntry("Exit."));
     }
 }

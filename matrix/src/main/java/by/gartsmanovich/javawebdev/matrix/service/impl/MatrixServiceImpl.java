@@ -135,4 +135,27 @@ public class MatrixServiceImpl implements MatrixService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
+    /**
+     * Saves the last result obtained after executing the any method
+     * that fill the main diagonal.
+     *
+     * @param path the path to storage file.
+     * @throws ServiceException if error happens during execution.
+     */
+    @Override
+    public void saveLastResult(final String path) throws ServiceException {
+        try {
+            if (!validator.isValidValue(path)) {
+                throw new ServiceException("The parameters for saving  are "
+                                           + "not valid");
+            } else {
+                matrixRepository.saveLastResult(path);
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+
 }

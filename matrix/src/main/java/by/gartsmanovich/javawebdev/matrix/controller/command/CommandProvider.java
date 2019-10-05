@@ -7,6 +7,7 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         ExitCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.LockCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.SaveLastCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         SemaphoreCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
@@ -41,6 +42,7 @@ public class CommandProvider {
         repository.put(CommandName
                                .EXECUTOR_SERVICE, new ExecutorServiceCommand());
         repository.put(CommandName.SEMAPHORE, new SemaphoreCommand());
+        repository.put(CommandName.SAVE_LAST, new SaveLastCommand());
         repository.put(CommandName.EXIT, new ExitCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestCommand());
     }

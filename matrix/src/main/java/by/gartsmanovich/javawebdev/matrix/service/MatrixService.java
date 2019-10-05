@@ -55,4 +55,13 @@ public interface MatrixService {
      * @throws ServiceException if error happens during execution.
      */
     int[][] fillBySemaphore() throws ServiceException;
+
+    /**
+     * Saves the last result obtained after executing the any method
+     * that fill the main diagonal.
+     *
+     * @param path the path to storage file.
+     * @throws ServiceException if error happens during execution.
+     */
+    void saveLastResult(String path) throws ServiceException;
 }

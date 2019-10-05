@@ -38,14 +38,25 @@ public enum CommandName {
     SEMAPHORE,
 
     /**
-     * The singleton instance for the exit command.
+     * The singleton instance for the save last result command.
      * This has the numeric value of {@code 5}.
+     */
+    SAVE_LAST,
+
+    /**
+     * The singleton instance for the exit command.
+     * This has the numeric value of {@code 6}.
      */
     EXIT,
 
     /**
      The singleton instance for the wrong request command.
-     * This has the numeric value of {@code 6}.
+     * This has the numeric value of {@code 7}.
      */
-    WRONG_REQUEST
+    WRONG_REQUEST;
+
+    @Override
+    public String toString() {
+        return this.name().toLowerCase();
+    }
 }
