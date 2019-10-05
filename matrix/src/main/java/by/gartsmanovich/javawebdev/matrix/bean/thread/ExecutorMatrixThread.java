@@ -63,8 +63,8 @@ public class ExecutorMatrixThread extends BasicThread implements Runnable {
                  .forEach(i -> {
                      getArray()[i][i] = getValues()[getId()];
                      String message =
-                             getName() + " has insert " + getValues()[getId()]
-                             + " at " + i + " position.";
+                             String.format("%s has insert %d at %d position",
+                             getName(), getValues()[getId()], i);
                      LOGGER.debug(message);
                  });
     }

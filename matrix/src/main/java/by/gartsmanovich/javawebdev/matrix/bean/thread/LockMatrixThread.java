@@ -66,9 +66,9 @@ public class LockMatrixThread extends BasicThread implements Runnable {
                             if (getArray()[i][i] == 0) {
                                 //set new value
                                 getArray()[i][i] = getValues()[getId()];
-                                String message = getName() + " has insert "
-                                                 + getValues()[getId()]
-                                                 + " at " + i + " position.";
+                                String message = String.format(
+                                        "%s has insert %d at %d position",
+                                        getName(), getValues()[getId()], i);
                                 LOGGER.debug(message);
                             }
                         } finally {
@@ -77,7 +77,8 @@ public class LockMatrixThread extends BasicThread implements Runnable {
                         TimeUnit.MILLISECONDS.sleep(TIMEOUT);
                     }
                 } catch (InterruptedException e) {
-                    String errorMessage = getName() + " was interrupted";
+                    String errorMessage = String.format("%s was interrupted",
+                                                        getName());
                     LOGGER.error(errorMessage);
                     Thread.currentThread().interrupt();
                 }

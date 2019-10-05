@@ -54,18 +54,19 @@ public class SemaphoreMatrixThread extends BasicThread implements Runnable {
             for (int i = 0; i < getArray().length; i++) {
                 if (getArray()[i][i] == 0) {
                     getArray()[i][i] = getValues()[getId()];
-                    String message =
-                            getName() + " has insert " + getValues()[getId()]
-                            + " at " + i + " position. "
-                                + " Available permits: " + semaphore
-                                        .availablePermits();
+                    String message = String.format(
+                            "%s has insert %d at %d position.  Available "
+                            + "permits: %d",
+                            getName(), getValues()[getId()], i,
+                            semaphore.availablePermits());
                         LOGGER.debug(message);
                     break;
                     }
                 }
             semaphore.release();
         } catch (InterruptedException e) {
-            String errorMessage = getName() + " was interrupted";
+            String errorMessage = String.format("%s was interrupted",
+                                                getName());
             LOGGER.error(errorMessage);
             Thread.currentThread().interrupt();
         }

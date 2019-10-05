@@ -55,9 +55,9 @@ public class SimpleMatrixThread extends BasicThread implements Runnable {
         for (int i = start; i <= end; i++) {
             if (getArray()[i][i] == 0) {
                 getArray()[i][i] = getValues()[getId()];
-                String message = getName() + " has insert "
-                                 + getValues()[getId()] + " at "
-                                 + i + " position.";
+                String message = String.format(
+                        "%s has insert %d at %d position.", getName(),
+                        getValues()[getId()], i);
                 LOGGER.debug(message);
             }
         }
