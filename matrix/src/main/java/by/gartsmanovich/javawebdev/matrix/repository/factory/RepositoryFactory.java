@@ -3,6 +3,12 @@ package by.gartsmanovich.javawebdev.matrix.repository.factory;
 import by.gartsmanovich.javawebdev.matrix.repository.Repository;
 import by.gartsmanovich.javawebdev.matrix.repository.impl.MatrixRepository;
 
+/**
+ * Class Repository factory used to create the different kinds of repositories
+ * depending on the entity type.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public final class RepositoryFactory {
 
     /**
@@ -16,8 +22,10 @@ public final class RepositoryFactory {
      */
     private final Repository matrixRepository = new MatrixRepository();
 
+    /**
+     * Private constructor. Forbids the explicit object creation.
+     */
     private RepositoryFactory() {
-
     }
 
     /**
