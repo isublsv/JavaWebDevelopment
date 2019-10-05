@@ -6,8 +6,8 @@ import by.gartsmanovich.javawebdev.matrix.datahandler.impl.DataReaderImpl;
 import by.gartsmanovich.javawebdev.matrix.datahandler.impl.DataWriterImpl;
 
 /**
- * Class Data Handler factory used to proceed the data from file. Depends on
- * type of data handler can read or write to the selected file.
+ * Class Data Handler factory used to proceed the data that need to read or
+ * write to the file.
  *
  * @author Dmitry Gartsmanovich
  */
