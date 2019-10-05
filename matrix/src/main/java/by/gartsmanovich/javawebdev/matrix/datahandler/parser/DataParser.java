@@ -47,9 +47,10 @@ public class DataParser {
 
         if (!validator.isValidThreadNumber(threadNumber)
             || validator.isValidDiagValues(diagValue, threadNumber)) {
-            String message = "The thread number: " + threadNumber
-                             + " or the number of thread values: "
-                             + Arrays.toString(diagValue) + " are not valid!";
+            String message = String.format(
+                    "The thread number: %d or the number of thread values: "
+                    + "%s are not valid!", threadNumber,
+                    Arrays.toString(diagValue));
             throw new DataHandlerException(message);
         } else {
             return Matrix.getInstance(threadNumber, diagValue, ints);
@@ -72,8 +73,9 @@ public class DataParser {
 
             int n = subList.size();
             if (!validator.isValidDimension(n)) {
-                String message = "The dimension of the matrix in the file"
-                                 + " is invalid: " + n;
+                String message = String.format(
+                        "The dimension of the matrix in the file is invalid:"
+                        + " %d", n);
                 throw new DataHandlerException(message);
             }
 
@@ -102,8 +104,9 @@ public class DataParser {
 
             String[] row = subList.get(i).split(delimiter);
             if (validator.isValidDiagonalValue(row[i])) {
-                String message = "The diagonal value for the matrix in"
-                                 + " the file is not equal to 0: " + row[i];
+                String message = String.format(
+                        "The diagonal value for the matrix in the file is "
+                        + "not equal to 0: %s", row[i]);
                 throw new DataHandlerException(message);
             }
 
@@ -111,8 +114,9 @@ public class DataParser {
                 if (validator.isNumber(row[j])) {
                     arr[i][j] = Integer.parseInt(row[j]);
                 } else {
-                    String message = "The values for the matrix in the file"
-                                     + " are invalid: " + row[j];
+                    String message = String.format(
+                            "The values for the matrix in the file are "
+                            + "invalid: %s", row[j]);
                     throw new DataHandlerException(message);
                 }
             }
@@ -142,8 +146,8 @@ public class DataParser {
             if (validator.isNumber(s)) {
                 diagArrInts[i] = Integer.parseInt(s);
             } else {
-                String message = "The diagonal values in the file"
-                                 + " are invalid: " + s;
+                String message = String.format(
+                        "The diagonal values in the file are invalid: %s", s);
                 throw new DataHandlerException(message);
             }
         }
@@ -165,9 +169,9 @@ public class DataParser {
         if (validator.isNumber(threadNumStr)) {
             return Integer.parseInt(threadNumStr);
         } else {
-            String message =
-                    "The thread number in the file contains invalid data: "
-                    + threadNumStr;
+            String message = String.format(
+                    "The thread number in the file contains invalid data: %s",
+                    threadNumStr);
             throw new DataHandlerException(message);
         }
     }
