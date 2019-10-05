@@ -16,6 +16,13 @@ import by.gartsmanovich.javawebdev.matrix.service.MatrixService;
 import by.gartsmanovich.javawebdev.matrix.service.exception.ServiceException;
 import by.gartsmanovich.javawebdev.matrix.service.validator.Validator;
 
+/**
+ * The matrix service interface implementation. Used to processing queries from
+ * Controller layer, validating incoming parameters and passing them to the Data
+ * Access layer.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class MatrixServiceImpl implements MatrixService {
 
     /**
