@@ -22,8 +22,8 @@ public class FillByLockSpecification implements Specification {
      *
      * @param threadNumber the number of active threads.
      * @param values       the array of provided values for the main diagonal.
-     * @param array        with provided integers.
-     * @return the 2d array that correspond to specified criteria
+     * @param array        the 2d array with provided integers.
+     * @return the 2d array that correspond to specified criteria.
      */
     @Override
     public int[][] specified(final int threadNumber, final int[] values,
