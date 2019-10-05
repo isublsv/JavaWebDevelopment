@@ -3,6 +3,8 @@ package by.gartsmanovich.javawebdev.matrix.repository.exception;
 /**
  * The Repository Exception class indicates that abnormal condition had
  * occurred in the Data Access Object application layer.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class RepositoryException extends Exception {
 

@@ -1,8 +1,10 @@
 package by.gartsmanovich.javawebdev.matrix.datahandler.exception;
 
 /**
- * The DataHandlerException Exception class indicates that abnormal condition
+ * The Data Handler Exception class indicates that abnormal condition
  * had occurred in the Data Access Object application layer.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class DataHandlerException extends Exception {
 

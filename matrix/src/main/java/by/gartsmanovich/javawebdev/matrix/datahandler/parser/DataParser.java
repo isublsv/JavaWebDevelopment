@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * The class used to parse provided string data to the valid numeric data.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class DataParser {
 
@@ -67,7 +69,15 @@ public class DataParser {
             final String delimiter) throws DataHandlerException {
 
         if (validator.isSquareMatrix(subList, delimiter)) {
+
             int n = subList.size();
+
+            if (!validator.isValidDimension(n)) {
+                String message = "The dimension of the matrix in the file"
+                                 + " is invalid: " + n;
+                throw new DataHandlerException(message);
+            }
+
             int[][] arr = new int[n][n];
 
             for (int i = 0; i < subList.size(); i++) {

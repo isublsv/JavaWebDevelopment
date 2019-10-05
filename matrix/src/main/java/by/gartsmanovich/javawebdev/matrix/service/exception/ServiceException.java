@@ -1,8 +1,10 @@
 package by.gartsmanovich.javawebdev.matrix.service.exception;
 
 /**
- * The ServiceException class indicates that abnormal condition had occurred in
+ * The Service Exception class indicates that abnormal condition had occurred in
  * the Service application layer.
+ *
+ * @author Dmitry Gartsmanovich
  */
 public class ServiceException extends Exception {
 
