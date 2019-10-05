@@ -8,6 +8,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Specification represents the solution of the task that using
+ * {@link java.util.concurrent.ExecutorService} realisation to distribute
+ * provided vales between active threads and put them into the provided 2d
+ * array.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class FillByExecutorSpecification implements Specification {
 
     /**
@@ -28,13 +36,17 @@ public class FillByExecutorSpecification implements Specification {
     public int[][] specified(final int threadNumber,
             final int[] values, final int[][] array) {
 
+        int poolLimit = array.length / threadNumber + 1;
+
         ExecutorService executorService = Executors
-                .newFixedThreadPool(threadNumber);
+                .newFixedThreadPool(poolLimit);
 
         int[][] copy = getCopy(array);
 
-        for (int value : values) {
-            executorService.execute(new ExecutorMatrixThread(copy, value));
+        for (int i = 0; i < threadNumber; i++) {
+            executorService.execute(
+                    new ExecutorMatrixThread(i, "ExecutorThread",
+                                             copy, values));
         }
 
         executorService.shutdown();
