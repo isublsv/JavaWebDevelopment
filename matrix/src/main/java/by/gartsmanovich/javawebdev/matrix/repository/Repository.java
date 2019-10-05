@@ -5,6 +5,13 @@ import by.gartsmanovich.javawebdev.matrix.repository.exception
 import by.gartsmanovich.javawebdev.matrix.repository.specification
         .Specification;
 
+
+/**
+ * Interface used to describe the common structure of the different types of
+ * repositories.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public interface Repository {
 
     /**

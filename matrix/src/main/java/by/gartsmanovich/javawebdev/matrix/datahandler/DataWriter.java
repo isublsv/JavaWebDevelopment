@@ -4,7 +4,7 @@ import by.gartsmanovich.javawebdev.matrix.datahandler.exception
         .DataHandlerException;
 
 /**
- * Interface used to describe the common structure of different types of
+ * Interface used to describe the common structure of the different types of
  * writers.
  *
  * @author Dmitry Gartsmanovich

@@ -6,7 +6,7 @@ import by.gartsmanovich.javawebdev.matrix.datahandler.exception
 import java.util.List;
 
 /**
- * Interface used to describe the common structure of different types of
+ * Interface used to describe the common structure of the different types of
  * readers.
  *
  * @author Dmitry Gartsmanovich
