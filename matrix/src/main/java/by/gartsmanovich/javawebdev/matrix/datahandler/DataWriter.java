@@ -4,6 +4,12 @@ import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
 import by.gartsmanovich.javawebdev.matrix.datahandler.exception
         .DataHandlerException;
 
+/**
+ * Interface used to describe the common structure of different types of
+ * writers.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public interface DataWriter {
 
     /**
