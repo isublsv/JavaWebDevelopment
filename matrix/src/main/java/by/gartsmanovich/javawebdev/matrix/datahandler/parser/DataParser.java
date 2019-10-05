@@ -4,18 +4,14 @@ import by.gartsmanovich.javawebdev.matrix.bean.Matrix;
 import by.gartsmanovich.javawebdev.matrix.datahandler.exception
         .DataHandlerException;
 import by.gartsmanovich.javawebdev.matrix.service.validator.Validator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The class used to parse provided string data to the valid numeric data.
+ */
 public class DataParser {
-
-    /**
-     * The logger for Data Reader implementation class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(
-            DataParser.class);
 
     /**
      * The validator provides the different types of checks for a given
@@ -45,12 +41,28 @@ public class DataParser {
 
         int[] diagValue = getDiagInts(data, delimiter);
 
-        int[][] ints = getMatrixInts(data.subList(2, data.size()),
-                                     delimiter);
+        int[][] ints = getMatrixInts(data.subList(2, data.size()), delimiter);
 
-        return Matrix.getInstance(threadNumber, diagValue, ints);
+        if (!validator.isValidThreadNumber(threadNumber)
+            || validator.isValidDiagValues(diagValue, threadNumber)) {
+            String message = "The thread number: " + threadNumber
+                             + " or the number of thread values: "
+                             + Arrays.toString(diagValue) + " are not valid!";
+            throw new DataHandlerException(message);
+        } else {
+            return Matrix.getInstance(threadNumber, diagValue, ints);
+        }
     }
 
+    /**
+     * Creates the 2d array of integers from list of strings using delimiter.
+     *
+     * @param subList   the list to processing.
+     * @param delimiter the delimiter to split the provided strings from
+     *                  the list.
+     * @return the valid 2d array of integers.
+     * @throws DataHandlerException if error happens during execution.
+     */
     private int[][] getMatrixInts(final List<String> subList,
             final String delimiter) throws DataHandlerException {
 
@@ -64,9 +76,8 @@ public class DataParser {
                     if (validator.isNumber(row[j])) {
                         arr[i][j] = Integer.parseInt(row[j]);
                     } else {
-                        String message = "The int values for matrix contains"
-                                         + "wrong data" + row[j];
-                        LOGGER.error(message);
+                        String message = "The values for the matrix in the file"
+                                         + " are invalid: " + row[j];
                         throw new DataHandlerException(message);
                     }
                 }
@@ -74,12 +85,21 @@ public class DataParser {
 
             return arr;
         } else {
-            String message = "The data in the file is not square matrix";
-            LOGGER.error(message);
+            String message = "The data in the file is not square matrix!";
             throw new DataHandlerException(message);
         }
     }
 
+    /**
+     * Returns the valid array of integers used to write to the diagonal
+     * positions of the 2d array.
+     *
+     * @param data      the data list to processing.
+     * @param delimiter the delimiter to split the provided string from
+     *                  the list.
+     * @return the valid array of the diagonal values.
+     * @throws DataHandlerException if error happens during execution.
+     */
     private int[] getDiagInts(final List<String> data,
             final String delimiter) throws DataHandlerException {
 
@@ -92,15 +112,21 @@ public class DataParser {
             if (validator.isNumber(s)) {
                 diagArrInts[i] = Integer.parseInt(s);
             } else {
-                String message = "The diagonal values in the file contains"
-                                 + " wrong data" + s;
-                LOGGER.error(message);
+                String message = "The diagonal values in the file"
+                                 + " are invalid: " + s;
                 throw new DataHandlerException(message);
             }
         }
         return diagArrInts;
     }
 
+    /**
+     * Returns the valid number of thread used in the application.
+     *
+     * @param data the data list to processing.
+     * @return the valid number of the active thread.
+     * @throws DataHandlerException if error happens during execution.
+     */
     private int getThreadNumber(final List<String> data) throws
             DataHandlerException {
 
@@ -110,9 +136,8 @@ public class DataParser {
             return Integer.parseInt(threadNumStr);
         } else {
             String message =
-                    "The thread number in the file contains wrong data"
+                    "The thread number in the file contains invalid data: "
                     + threadNumStr;
-            LOGGER.error(message);
             throw new DataHandlerException(message);
         }
     }
