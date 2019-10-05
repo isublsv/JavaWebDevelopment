@@ -3,8 +3,6 @@ package by.gartsmanovich.javawebdev.matrix.datahandler.impl;
 import by.gartsmanovich.javawebdev.matrix.datahandler.DataReader;
 import by.gartsmanovich.javawebdev.matrix.datahandler.exception
         .DataHandlerException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,13 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Data reader realisation. Read file from provided path and proceed to the
+ * list of valid strings.
+ *
+ * @author Dmitry Gartsmanovich
+ */
 public class DataReaderImpl implements DataReader {
-
-    /**
-     * The logger for Data Reader implementation class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(
-            DataReaderImpl.class);
 
     /**
      * Reads the file from given path by lines. Checks lines for incorrect
@@ -41,11 +39,9 @@ public class DataReaderImpl implements DataReader {
                     Collectors.toList());
         } catch (FileNotFoundException e) {
             String message = "File not found.";
-            LOGGER.error(message);
             throw new DataHandlerException(message, e);
         } catch (IOException e) {
             String message = "Error during reading the file.";
-            LOGGER.error(message);
             throw new DataHandlerException(message, e);
         }
         return stringList;
