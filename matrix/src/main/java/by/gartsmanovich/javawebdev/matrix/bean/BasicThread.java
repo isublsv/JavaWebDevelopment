@@ -22,17 +22,24 @@ public abstract class BasicThread {
     private int[][] array;
 
     /**
+     * Contains a new values of diagonals.
+     */
+    private int[] values;
+
+    /**
      * Constructs the thread with the name.
      *
      * @param idValue the ID of the thread.
      * @param nameValue the name of the thread.
      * @param arrayValue the array instance of integers.
+     * @param diagValues the array instance with diagonal values.
      */
     public BasicThread(final int idValue, final String nameValue,
-            final int[][] arrayValue) {
+            final int[][] arrayValue, final int[] diagValues) {
         id = idValue;
         name = nameValue + " #" + idValue;
         array = arrayValue;
+        values = diagValues;
     }
 
     /**
@@ -42,6 +49,15 @@ public abstract class BasicThread {
      */
     protected int getId() {
         return id;
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param idValue value of id.
+     */
+    public void setId(final int idValue) {
+        id = idValue;
     }
 
     /**
@@ -78,5 +94,23 @@ public abstract class BasicThread {
      */
     public void setArray(final int[][] arrayValue) {
         array = arrayValue;
+    }
+
+    /**
+     * Gets values.
+     *
+     * @return value of values.
+     */
+    public int[] getValues() {
+        return values;
+    }
+
+    /**
+     * Sets values.
+     *
+     * @param diagValues value of values.
+     */
+    public void setValues(final int[] diagValues) {
+        values = diagValues;
     }
 }
