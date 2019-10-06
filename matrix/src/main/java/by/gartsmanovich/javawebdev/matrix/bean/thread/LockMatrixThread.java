@@ -38,7 +38,7 @@ public class LockMatrixThread extends BasicThread implements Runnable {
      * @param idValue the ID of the thread.
      * @param nameValue the name of the thread.
      * @param arrayValue the array instance of integers.
-     * @param diagValues a new diagonal's value of the 2-d array.
+     * @param diagValues the array instance with diagonal values.
      * @param lockValue  the lock instance for blocking threads.
      */
     public LockMatrixThread(final int idValue, final String nameValue,

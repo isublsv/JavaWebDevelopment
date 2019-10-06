@@ -24,7 +24,7 @@ public class ExecutorMatrixThread extends BasicThread implements Runnable {
             ExecutorMatrixThread.class);
 
     /**
-     * Contains the current start value of the range for active thread.
+     * Contains the current start index value of the range for current thread.
      */
     private static AtomicInteger startRange = new AtomicInteger(0);
 
