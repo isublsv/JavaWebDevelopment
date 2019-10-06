@@ -41,7 +41,11 @@ public class MatrixServiceImplTest {
     public Object[][] getInvalidInputDataForCreateMatrix() {
 
         Object[][] data = null;
-        try(Stream<Path> paths = Files.walk(Paths.get("test")) ) {
+
+        //didn't with "data" in the folder name, it's trying to get 
+        //files from "matrix/data" folder instead
+        try (Stream<Path> paths = Files.walk(
+                Paths.get("src", "test", "resources"))) {
 
             List<String> fileList = paths.map(
                     Path::toString).filter(x -> x.endsWith(".txt"))
