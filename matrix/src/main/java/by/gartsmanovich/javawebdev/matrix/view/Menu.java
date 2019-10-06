@@ -84,7 +84,7 @@ public class Menu {
         StringBuilder builder = new StringBuilder();
 
         builder.append("\nMenu:\n");
-        builder.append("Type \"Number of the command pattern\" to run:\n");
+        builder.append("Type \"Number_of_the_command pattern\" to run:\n");
 
         for (int i = 0; i < entries.size(); i++) {
             MenuEntry entry = entries.get(i);
