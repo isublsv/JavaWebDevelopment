@@ -1,8 +1,7 @@
 package by.gartsmanovich.javawebdev.matrix.datahandler.impl;
 
 import by.gartsmanovich.javawebdev.matrix.datahandler.DataReader;
-import by.gartsmanovich.javawebdev.matrix.datahandler.exception
-        .DataHandlerException;
+import by.gartsmanovich.javawebdev.matrix.datahandler.exception.DataHandlerException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -44,6 +43,12 @@ public class DataReaderImpl implements DataReader {
             String message = "Error during reading the file.";
             throw new DataHandlerException(message, e);
         }
-        return stringList;
+
+        if (stringList.isEmpty()) {
+            String message = "The file is empty!";
+            throw new DataHandlerException(message);
+        } else {
+            return stringList;
+        }
     }
 }
