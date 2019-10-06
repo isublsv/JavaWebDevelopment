@@ -5,8 +5,8 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.CommandProvider;
 
 /**
  * Class represents the Controller layer of the application. Created to manage
- * requests from user, invoke the commands and return the results from Data
- * Access layer.
+ * requests from user, invoke the commands and return the results from Service
+ * layer ot the application.
  *
  * @author Dmitry Gartsmanovich
  */

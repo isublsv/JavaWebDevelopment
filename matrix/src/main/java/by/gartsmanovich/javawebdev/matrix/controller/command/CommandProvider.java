@@ -4,10 +4,10 @@ import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         CreateMatrixCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         ExecutorServiceCommand;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
-        ExitCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl.ExitCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.LockCommand;
-import by.gartsmanovich.javawebdev.matrix.controller.command.impl.SaveLastCommand;
+import by.gartsmanovich.javawebdev.matrix.controller.command.impl
+        .SaveLastCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
         SemaphoreCommand;
 import by.gartsmanovich.javawebdev.matrix.controller.command.impl.
