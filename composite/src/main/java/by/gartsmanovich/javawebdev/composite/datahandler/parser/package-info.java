@@ -1,4 +1,4 @@
 /**
- * Package contains Data Parser class.
+ * Package contains base Abstract Parser class.
  */
 package by.gartsmanovich.javawebdev.composite.datahandler.parser;
