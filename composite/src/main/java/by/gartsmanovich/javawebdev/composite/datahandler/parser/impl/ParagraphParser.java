@@ -18,7 +18,7 @@ public class ParagraphParser extends AbstractParser {
      * The regular expression used to determine the paragraphs in the provided
      * message.
      */
-    private static final String PARAGRAPH_REGEX = "";
+    private static final String PARAGRAPH_REGEX = "^.+[\\.?! ]+\\s?$";
 
     /**
      * Returns the component that appropriate to the concrete requirements.

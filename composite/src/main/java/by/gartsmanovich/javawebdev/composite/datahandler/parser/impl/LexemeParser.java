@@ -18,8 +18,8 @@ public class LexemeParser extends AbstractParser {
      * The regular expression used to determine the lexemes in the provided
      * message.
      */
-    private static final String LEXEME_REGEX = "";
-    
+    private static final String LEXEME_REGEX = "(\\S+)";
+
     /**
      * Returns the component that appropriate to the concrete requirements.
      *
