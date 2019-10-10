@@ -18,7 +18,7 @@ public class SentenceParser extends AbstractParser {
      * The regular expression used to determine the sentences in the provided
      * message.
      */
-    private static final String SENTENCE_REGEX = "(?<=[a-z\\d][?.!]\\s)";
+    private static final String SENTENCE_REGEX = "[\\S][^.!?]*[.!?]{0,3}";
 
     /**
      * Returns the component that appropriate to the concrete requirements.
