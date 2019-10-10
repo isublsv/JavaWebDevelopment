@@ -1,0 +1,8 @@
+1, car, red, 3, 42,00, big
+2, doll, multicolored, 5, 22,00, plastic, 220,00
+3, ball, blue, 4, 555,00, 22,00
+4, block, yellow, 3, 25,00, lego, plastic
+5, doll, green, 3, 83,00, wood, 180,00
+6, doll, blue, 8, 55,00, rubber, 140,00
+7, ball, white, 4, 55,00, 75,00
+9, car, blue, 10, 120,00, small
