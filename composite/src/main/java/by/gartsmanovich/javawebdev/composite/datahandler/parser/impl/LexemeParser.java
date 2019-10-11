@@ -1,9 +1,14 @@
 package by.gartsmanovich.javawebdev.composite.datahandler.parser.impl;
 
 import by.gartsmanovich.javawebdev.composite.bean.Component;
+import by.gartsmanovich.javawebdev.composite.bean.ComponentType;
+import by.gartsmanovich.javawebdev.composite.bean.Composite;
 import by.gartsmanovich.javawebdev.composite.datahandler.exception
         .ParseException;
 import by.gartsmanovich.javawebdev.composite.datahandler.parser.AbstractParser;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The LexemeParser class represents the AbstractParser class realisation.
@@ -29,6 +34,16 @@ public class LexemeParser extends AbstractParser {
      */
     @Override
     public Component parse(final String message) throws ParseException {
-        return null;
+        if (getNext() == null) {
+            throw new ParseException("There is no the next parser!");
+        }
+        Composite composite = new Composite(ComponentType.LEXEME);
+
+        Matcher matcher = Pattern.compile(LEXEME_REGEX).matcher(message);
+        while (matcher.find()) {
+            String lexeme = matcher.group();
+            composite.add(getNext().parse(lexeme));
+        }
+        return composite;
     }
 }

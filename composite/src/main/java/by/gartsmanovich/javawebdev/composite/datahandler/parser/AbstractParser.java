@@ -27,6 +27,15 @@ public abstract class AbstractParser {
     }
 
     /**
+     * Gets next.
+     *
+     * @return value of next.
+     */
+    public AbstractParser getNext() {
+        return next;
+    }
+
+    /**
      * Returns the component that appropriate to the concrete requirements.
      *
      * @param message the provided message to parse.
