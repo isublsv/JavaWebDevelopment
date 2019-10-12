@@ -45,6 +45,35 @@ public class Composite implements Component {
     }
 
     /**
+     * Collects all components in one string.
+     *
+     * @return the result string.
+     */
+    @Override
+    public String collect() {
+        StringBuilder sb = new StringBuilder();
+        for (Component component : components) {
+            ComponentType typeValue = component.getType();
+            switch (typeValue) {
+                case PARAGRAPH:
+                    sb.append("    ").append(component.collect());
+                    break;
+                case SENTENCE:
+                case LEXEME:
+                case WORD:
+                case EXPRESSION:
+                case SYMBOL:
+                    sb.append(component.collect());
+                    break;
+                default:
+                    throw new IllegalStateException(
+                            "Unexpected value: " + typeValue);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
      * Appends the specified component to the end of this list.
      *
      * @param component the provided component.

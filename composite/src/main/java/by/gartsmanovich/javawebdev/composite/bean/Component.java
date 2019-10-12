@@ -14,4 +14,11 @@ public interface Component {
      * @return type of the component.
      */
     ComponentType getType();
+
+    /**
+     * Collects all components in one string.
+     *
+     * @return the result string.
+     */
+    String collect();
 }

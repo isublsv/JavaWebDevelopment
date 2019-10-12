@@ -41,6 +41,16 @@ public class Symbol implements Component {
     }
 
     /**
+     * Collects all components in one string.
+     *
+     * @return the result string.
+     */
+    @Override
+    public String collect() {
+        return Character.toString(s);
+    }
+
+    /**
      * Indicates whether some other object is "equal to" this one.
      *
      * @param o the reference object with which to compare.
