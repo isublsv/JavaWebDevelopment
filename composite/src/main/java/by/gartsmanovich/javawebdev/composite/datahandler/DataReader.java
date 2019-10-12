@@ -3,8 +3,6 @@ package by.gartsmanovich.javawebdev.composite.datahandler;
 import by.gartsmanovich.javawebdev.composite.datahandler.exception
         .DataHandlerException;
 
-import java.util.List;
-
 /**
  * Interface used to describe the common structure of the different types of
  * readers.
@@ -18,8 +16,8 @@ public interface DataReader {
      * data.
      *
      * @param path to the provided file.
-     * @return the list of entities.
+     * @return the data string from the file.
      * @throws DataHandlerException if error happens during execution.
      */
-    List<String> readFile(String path) throws DataHandlerException;
+    String readFile(String path) throws DataHandlerException;
 }

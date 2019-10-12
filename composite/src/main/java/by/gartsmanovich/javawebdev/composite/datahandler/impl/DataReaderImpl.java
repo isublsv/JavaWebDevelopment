@@ -8,8 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -25,18 +23,17 @@ public class DataReaderImpl implements DataReader {
      * data.
      *
      * @param path to the provided file.
-     * @return the list of strings.
+     * @return the data string from the file.
      * @throws DataHandlerException if error happens during execution.
      */
     @Override
-    public List<String> readFile(final String path) throws
+    public String readFile(final String path) throws
             DataHandlerException {
 
-        List<String> stringList;
+        StringBuilder sb = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(path))) {
-            stringList = stream.filter(line -> !line.isEmpty()).collect(
-                    Collectors.toList());
+            stream.filter(line -> !line.isEmpty()).forEach(sb::append);
         } catch (FileNotFoundException e) {
             String message = "File not found.";
             throw new DataHandlerException(message, e);
@@ -45,11 +42,6 @@ public class DataReaderImpl implements DataReader {
             throw new DataHandlerException(message, e);
         }
 
-        if (stringList.isEmpty()) {
-            String message = "The file is empty!";
-            throw new DataHandlerException(message);
-        } else {
-            return stringList;
-        }
+        return sb.toString();
     }
 }
