@@ -8,8 +8,7 @@ import by.gartsmanovich.javawebdev.composite.controller.command.impl
         .ExitCommand;
 import by.gartsmanovich.javawebdev.composite.controller.command.impl
         .SortWordsCommand;
-import by.gartsmanovich.javawebdev.composite.controller.command.impl
-        .SaveLastCommand;
+import by.gartsmanovich.javawebdev.composite.controller.command.impl.SaveCompositeCommand;
 import by.gartsmanovich.javawebdev.composite.controller.command.impl
         .SortParagraphsCommand;
 import by.gartsmanovich.javawebdev.composite.controller.command.impl
@@ -42,7 +41,7 @@ public class CommandProvider {
         repository.put(CommandName.SORT_WORDS, new SortWordsCommand());
         repository.put(CommandName.SORT_LEXEMES,
                        new SortLexemesCommand());
-        repository.put(CommandName.SAVE_LAST, new SaveLastCommand());
+        repository.put(CommandName.SAVE_COMPOSITE, new SaveCompositeCommand());
         repository.put(CommandName.EXIT, new ExitCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestCommand());
     }

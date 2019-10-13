@@ -32,10 +32,10 @@ public enum CommandName {
     SORT_LEXEMES,
 
     /**
-     * The singleton instance for the save last result command.
+     * The singleton instance for the save composite command.
      * This has the numeric value of {@code 4}.
      */
-    SAVE_LAST,
+    SAVE_COMPOSITE,
 
     /**
      * The singleton instance for the exit command.

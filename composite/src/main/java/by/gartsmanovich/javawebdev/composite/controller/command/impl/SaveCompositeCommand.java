@@ -10,19 +10,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Class describes the save last result command that proceed user request and
+ * Class describes the save composite command that proceed user request and
  * invoke appropriate method from Service layer of the application. The result
  * depends on input parameters.
  *
  * @author Dmitry Gartsmanovich
  */
-public class SaveLastCommand implements Command {
+public class SaveCompositeCommand implements Command {
 
     /**
-     * The logger for SaveLastCommand class.
+     * The logger for SaveCompositeCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
-            SaveLastCommand.class);
+            SaveCompositeCommand.class);
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -44,7 +44,7 @@ public class SaveLastCommand implements Command {
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
-                matrixService.saveLastResult(request);
+                matrixService.saveComposite(request);
                 response = MessageManager.getProperty(
                         "message.save.last.result.correct");
             } catch (ServiceException e) {
