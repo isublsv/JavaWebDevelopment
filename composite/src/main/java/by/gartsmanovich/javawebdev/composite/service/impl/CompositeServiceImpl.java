@@ -1,9 +1,22 @@
 package by.gartsmanovich.javawebdev.composite.service.impl;
 
 import by.gartsmanovich.javawebdev.composite.repository.Repository;
+import by.gartsmanovich.javawebdev.composite.repository.exception
+        .RepositoryException;
 import by.gartsmanovich.javawebdev.composite.repository.factory
         .RepositoryFactory;
+import by.gartsmanovich.javawebdev.composite.repository.specification.sort
+        .SortByWordLengthSpecification;
+import by.gartsmanovich.javawebdev.composite.repository.specification.sort
+        .SortLexemesByCharNumberSpecification;
+import by.gartsmanovich.javawebdev.composite.repository.specification.sort
+        .SortParagraphByNumberOfSentencesSpecification;
 import by.gartsmanovich.javawebdev.composite.service.CompositeService;
+import by.gartsmanovich.javawebdev.composite.service.comparator
+        .LexemeComparator;
+import by.gartsmanovich.javawebdev.composite.service.comparator
+        .ParagraphComparator;
+import by.gartsmanovich.javawebdev.composite.service.comparator.WordComparator;
 import by.gartsmanovich.javawebdev.composite.service.exception
         .ServiceException;
 import by.gartsmanovich.javawebdev.composite.service.validator.Validator;
@@ -46,6 +59,17 @@ public class CompositeServiceImpl implements CompositeService {
      */
     @Override
     public void createComposite(final String path) throws ServiceException {
+        try {
+            if (validator.isValidValue(path)) {
+                throw new ServiceException(
+                        "The parameter for creating composite is not "
+                        + "valid");
+            } else {
+                repository.createComposite(path);
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     /**
@@ -56,7 +80,13 @@ public class CompositeServiceImpl implements CompositeService {
      */
     @Override
     public String sortParagraphsByNumberOfSentences() throws ServiceException {
-        return null;
+        try {
+            return repository.query(
+                    new SortParagraphByNumberOfSentencesSpecification(
+                            new ParagraphComparator()));
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     /**
@@ -67,7 +97,12 @@ public class CompositeServiceImpl implements CompositeService {
      */
     @Override
     public String sortWordsByLength() throws ServiceException {
-        return null;
+        try {
+            return repository.query(
+                    new SortByWordLengthSpecification(new WordComparator()));
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     /**
@@ -80,7 +115,13 @@ public class CompositeServiceImpl implements CompositeService {
     @Override
     public String sortLexemesByCharNumber(final char c)
             throws ServiceException {
-        return null;
+        try {
+            return repository
+                    .query(new SortLexemesByCharNumberSpecification(
+                            c, new LexemeComparator()));
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     /**
@@ -91,6 +132,15 @@ public class CompositeServiceImpl implements CompositeService {
      */
     @Override
     public void saveLastResult(final String path) throws ServiceException {
-
+        try {
+            if (validator.isValidValue(path)) {
+                throw new ServiceException("The parameter for saving composite"
+                                           + " is not valid");
+            } else {
+                repository.saveLastResult(path);
+            }
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 }
