@@ -1,33 +1,23 @@
 package by.gartsmanovich.javawebdev.composite.repository.specification;
 
-import java.util.Arrays;
+import by.gartsmanovich.javawebdev.composite.bean.Component;
+
+import java.util.List;
 
 /**
  * Common interface for specifications.
  *
+ * @param <T> the type of elements which the specification is used for.
+ *
  * @author Dmitry Gartsmanovich
  */
-public interface Specification {
+public interface Specification<T extends Component> {
 
     /**
      * Applies specified criteria to the provided array.
      *
-     * @param threadNumber the number of active threads.
-     * @param values       the array of provided values for the main diagonal.
-     * @param array        the 2d array with provided integers.
-     * @return the 2d array that correspond to specified criteria
+     * @param list        the provided list of elements.
+     * @return the result string that correspond to specified criteria
      */
-    int[][] specified(int threadNumber, int[] values, int[][] array);
-
-    /**
-     * Makes a new copy of provided array.
-     *
-     * @param array the provided value of array.
-     * @return the new copy of provided array.
-     */
-    default int[][] getCopy(int[][] array) {
-        return Arrays.stream(array)
-                     .map(r -> Arrays.copyOf(r, r.length))
-                     .toArray(int[][]::new);
-    }
+    String specified(List<T> list);
 }
