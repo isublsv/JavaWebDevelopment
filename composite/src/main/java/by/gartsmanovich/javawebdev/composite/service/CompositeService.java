@@ -1,6 +1,7 @@
 package by.gartsmanovich.javawebdev.composite.service;
 
-import by.gartsmanovich.javawebdev.composite.service.exception.ServiceException;
+import by.gartsmanovich.javawebdev.composite.service.exception
+        .ServiceException;
 
 /**
  * The interface used to determine the common structure of Service Layer
@@ -11,54 +12,40 @@ import by.gartsmanovich.javawebdev.composite.service.exception.ServiceException;
 public interface CompositeService {
 
     /**
-     * Creates the Matrix instance. Gets the number of active threads, the
-     * array of values for the main diagonal of the matrix and the values for
-     * matrix array from file. Divide data in the file by provided delimiter.
+     * Creates the Composite instance from provided data file.
      *
-     * @param path      the path to storage file.
-     * @param delimiter the delimiter to parse the data from file.
+     * @param path      the path to data file.
      * @throws ServiceException if error happens during execution.
      */
-    void createMatrix(String path, String delimiter) throws ServiceException;
+    void createComposite(String path) throws ServiceException;
 
     /**
-     * Returns the array of integers that main diagonal was filled by threads
-     * that was separate by indexes of the 2d array.
+     * Sorts the paragraphs by the number of sentences.
      *
-     * @return the array of integers with a filled main diagonal.
+     * @return the result string.
      * @throws ServiceException if error happens during execution.
      */
-    int[][] fillBySeparateThreads() throws ServiceException;
+    String sortParagraphsByNumberOfSentences() throws ServiceException;
 
     /**
-     * Returns the array of integers that main diagonal was filled by using
-     * Lock classes.
+     * Sorts words in the sentences by length.
      *
-     * @return the array of integers with a filled main diagonal.
+     * @return the result string.
      * @throws ServiceException if error happens during execution.
      */
-    int[][] fillByLocks() throws ServiceException;
+    String sortWordsByLength() throws ServiceException;
 
     /**
-     * Returns the array of integers that main diagonal was filled by using
-     * Executor Service class.
+     * Sorts lexemes by number of provided char, than by alphabet.
      *
-     * @return the array of integers with a filled main diagonal.
+     * @param c the provided char value.
+     * @return the result string.
      * @throws ServiceException if error happens during execution.
      */
-    int[][] fillByExecutorService() throws ServiceException;
+    String sortLexemesByCharNumber(char c) throws ServiceException;
 
     /**
-     * Returns the matrix that main diagonal was filled by using semaphore.
-     *
-     * @return the matrix with a filled main diagonal.
-     * @throws ServiceException if error happens during execution.
-     */
-    int[][] fillBySemaphore() throws ServiceException;
-
-    /**
-     * Saves the last result obtained after executing the any method
-     * that fill the main diagonal.
+     * Saves the last result obtained after executing the any method.
      *
      * @param path the path to storage file.
      * @throws ServiceException if error happens during execution.

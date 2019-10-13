@@ -9,19 +9,18 @@ import by.gartsmanovich.javawebdev.composite.service.exception
 import by.gartsmanovich.javawebdev.composite.service.validator.Validator;
 
 /**
- * The matrix service interface implementation. Used to processing queries from
- * Controller layer, validating incoming parameters and passing them to the
- * Data
- * Access layer.
+ * The Composite service interface implementation. Used to processing queries
+ * from Controller layer, validating incoming parameters and passing them to the
+ * Data Access layer.
  *
  * @author Dmitry Gartsmanovich
  */
 public class CompositeServiceImpl implements CompositeService {
 
     /**
-     * Provides the access to Matrix repository class methods.
+     * Provides the access to Composite repository class methods.
      */
-    private Repository matrixRepository;
+    private Repository repository;
 
     /**
      * The validator provides the different types of checks for a given
@@ -35,75 +34,57 @@ public class CompositeServiceImpl implements CompositeService {
      */
     public CompositeServiceImpl() {
         RepositoryFactory factory = RepositoryFactory.getInstance();
-        matrixRepository = factory.getCompositeRepository();
+        repository = factory.getCompositeRepository();
         validator = new Validator();
     }
 
     /**
-     * Creates the Matrix instance. Gets the number of active threads, the
-     * array of values for the main diagonal of the matrix and the values for
-     * matrix array from file. Divide data in the file by provided delimiter.
+     * Creates the Composite instance from provided data file.
      *
-     * @param path      the path to storage file.
-     * @param delimiter the delimiter to parse the data from file.
+     * @param path      the path to data file.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void createMatrix(final String path, final String delimiter) throws
-            ServiceException {
-
+    public void createComposite(final String path) throws ServiceException {
     }
 
     /**
-     * Returns the array of integers that main diagonal was filled by using
-     * synchronised construction.
+     * Sorts the paragraphs by the number of sentences.
      *
-     * @return the array of integers with a filled main diagonal.
+     * @return the result string.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public int[][] fillBySeparateThreads() throws ServiceException {
+    public String sortParagraphsByNumberOfSentences() throws ServiceException {
         return null;
     }
 
     /**
-     * Returns the array of integers that main diagonal was filled by using
-     * Lock classes.
+     * Sorts words in the sentences by length.
      *
-     * @return the array of integers with a filled main diagonal.
+     * @return the result string.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public int[][] fillByLocks() throws ServiceException {
+    public String sortWordsByLength() throws ServiceException {
         return null;
     }
 
     /**
-     * Returns the array of integers that main diagonal was filled by using
-     * Executor Service class.
+     * Sorts lexemes by number of provided char, than by alphabet.
      *
-     * @return the array of integers with a filled main diagonal.
+     * @param c the provided char value.
+     * @return the result string.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public int[][] fillByExecutorService() throws ServiceException {
+    public String sortLexemesByCharNumber(final char c)
+            throws ServiceException {
         return null;
     }
 
     /**
-     * Returns the matrix that main diagonal was filled by using semaphore.
-     *
-     * @return the matrix with a filled main diagonal.
-     * @throws ServiceException if error happens during execution.
-     */
-    @Override
-    public int[][] fillBySemaphore() throws ServiceException {
-        return null;
-    }
-
-    /**
-     * Saves the last result obtained after executing the any method
-     * that fill the main diagonal.
+     * Saves the last result obtained after executing the any method.
      *
      * @param path the path to storage file.
      * @throws ServiceException if error happens during execution.
