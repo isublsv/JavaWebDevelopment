@@ -16,5 +16,4 @@ public class Validator {
     public boolean isValidValue(final String value) {
         return value == null || value.isEmpty();
     }
-
 }
