@@ -10,19 +10,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Class describes the save last result command that proceed user request and
- * invoke appropriate method from Service layer of the application. The result
- * depends on input parameters.
+ * Class describes the sort lexemes command that invoke appropriate method
+ * from Service layer of the application.
  *
  * @author Dmitry Gartsmanovich
  */
-public class SaveLastCommand implements Command {
+public class SortLexemesCommand implements Command {
 
     /**
-     * The logger for SaveLastCommand class.
+     * The logger for SortLexemesCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
-            SaveLastCommand.class);
+            SortLexemesCommand.class);
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -35,7 +34,7 @@ public class SaveLastCommand implements Command {
     @Override
     public String execute(final String request) {
 
-        String response;
+        StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         CompositeService matrixService = serviceFactory.getCompositeService();
@@ -44,14 +43,14 @@ public class SaveLastCommand implements Command {
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
-                matrixService.saveLastResult(request);
-                response = MessageManager.getProperty(
-                        "message.save.last.result.correct");
+                response.append(matrixService.sortLexemesByCharNumber(
+                        request.trim().charAt(0)));
             } catch (ServiceException e) {
-                response = e.getMessage();
+                response.append(e.getMessage());
                 LOGGER.error(response);
             }
+
+            return response.toString();
         }
-        return response;
     }
 }

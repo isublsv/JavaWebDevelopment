@@ -1,7 +1,8 @@
 package by.gartsmanovich.javawebdev.composite.controller.command.impl;
 
 import by.gartsmanovich.javawebdev.composite.controller.command.Command;
-import by.gartsmanovich.javawebdev.composite.controller.command.manager.MessageManager;
+import by.gartsmanovich.javawebdev.composite.controller.command.manager
+        .MessageManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

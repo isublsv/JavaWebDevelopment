@@ -7,32 +7,19 @@ import by.gartsmanovich.javawebdev.composite.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 /**
- * Class describes the executor service command that invoke appropriate method
+ * Class describes the sort words command that invoke appropriate method
  * from Service layer of the application.
  *
  * @author Dmitry Gartsmanovich
  */
-public class ExecutorServiceCommand implements Command {
+public class SortWordsCommand implements Command {
 
     /**
-     * The logger for ExecutorServiceCommand class.
+     * The logger for SortWordsCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
-            ExecutorServiceCommand.class);
-
-    /**
-     * The default delimiter.
-     */
-    private static final String DEL = " ";
-
-    /**
-     * The appender for response string.
-     */
-    private static final String APPENDER = "\n";
+            SortWordsCommand.class);
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -51,16 +38,7 @@ public class ExecutorServiceCommand implements Command {
         CompositeService matrixService = serviceFactory.getCompositeService();
 
         try {
-            int[][] array = matrixService.fillByExecutorService();
-
-            response.append(APPENDER);
-            response.append(Arrays.stream(array)
-                                  .map(s -> Arrays.stream(s)
-                                                  .mapToObj(String::valueOf)
-                                                  .collect(Collectors
-                                                                 .joining(DEL)))
-                                  .collect(Collectors.joining(
-                                          System.lineSeparator())));
+            response.append(matrixService.sortWordsByLength());
         } catch (ServiceException e) {
             response.append(e.getMessage());
             LOGGER.error(response);
