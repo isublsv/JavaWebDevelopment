@@ -1,6 +1,5 @@
 package by.gartsmanovich.javawebdev.composite.datahandler;
 
-import by.gartsmanovich.javawebdev.composite.bean.Component;
 import by.gartsmanovich.javawebdev.composite.datahandler.exception
         .DataHandlerException;
 
@@ -13,11 +12,11 @@ import by.gartsmanovich.javawebdev.composite.datahandler.exception
 public interface DataWriter {
 
     /**
-     * Writes the provided component to the file.
+     * Writes the provided text to the file.
      *
-     * @param c the provided component.
+     * @param text the provided text.
      * @param path     the path to file.
      * @throws DataHandlerException if error happens during execution.
      */
-    void writeFile(Component c, String path) throws DataHandlerException;
+    void writeFile(String text, String path) throws DataHandlerException;
 }

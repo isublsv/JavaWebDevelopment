@@ -1,15 +1,12 @@
 package by.gartsmanovich.javawebdev.composite.datahandler.impl;
 
 import by.gartsmanovich.javawebdev.composite.datahandler.DataWriter;
-import by.gartsmanovich.javawebdev.composite.datahandler.exception
-        .DataHandlerException;
+import by.gartsmanovich.javawebdev.composite.datahandler.exception.DataHandlerException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Data writer realisation. Write data to provided file.
@@ -19,26 +16,18 @@ import java.util.stream.Collectors;
 public class DataWriterImpl implements DataWriter {
 
     /**
-     * Writes the provided array of ints to the file.
+     * Writes the provided text to the file.
      *
-     * @param array the provided array of ints.
-     * @param path  the path to file.
+     * @param text the provided text.
+     * @param path     the path to file.
      * @throws DataHandlerException if error happens during execution.
      */
     @Override
-    public void writeFile(final int[][] array, final String path) throws
+    public void writeFile(final String text, final String path) throws
             DataHandlerException {
 
-        String resultString = Arrays.stream(array)
-                                    .map(s -> Arrays.stream(s)
-                                                    .mapToObj(String::valueOf)
-                                                    .collect(
-                                                            Collectors.joining(
-                                                                    " ")))
-                                    .collect(Collectors.joining(
-                                            System.lineSeparator()));
         try {
-            Files.write(Paths.get(path), resultString.getBytes());
+            Files.write(Paths.get(path), text.getBytes());
         } catch (FileNotFoundException e) {
             String message = "File not found.";
             throw new DataHandlerException(message, e);
