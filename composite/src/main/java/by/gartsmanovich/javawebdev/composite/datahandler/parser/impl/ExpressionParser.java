@@ -23,7 +23,7 @@ public class ExpressionParser extends AbstractParser {
      * The regular expression used to determine the bitwise expressions in the
      * provided message.
      */
-    private static final String EXPRESSION_REGEX = "([\\d^|&~><]+)";
+    private static final String EXPRESSION_REGEX = "^\\d*[ ^&()|<>\\d]*\\d+";
 
     /**
      * Returns the component that appropriate to the concrete requirements.
@@ -41,7 +41,7 @@ public class ExpressionParser extends AbstractParser {
 
         Matcher matcher = Pattern.compile(EXPRESSION_REGEX).matcher(message);
         while (matcher.find()) {
-            String expression = matcher.group();
+            String expression = matcher.group().trim();
             composite.add(getNext().parse(expression));
         }
         return composite;

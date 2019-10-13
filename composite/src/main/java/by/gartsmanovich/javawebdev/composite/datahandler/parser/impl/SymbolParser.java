@@ -23,7 +23,7 @@ public class SymbolParser extends AbstractParser {
      * The regular expression used to determine the symbols in the provided
      * message.
      */
-    private static final String SYMBOL_REGEX = "(\\S)";
+    private static final String SYMBOL_REGEX = "\\S";
 
     /**
      * Returns the component that appropriate to the concrete requirements.

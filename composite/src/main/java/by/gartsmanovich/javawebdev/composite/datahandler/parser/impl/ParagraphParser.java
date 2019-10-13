@@ -41,7 +41,7 @@ public class ParagraphParser extends AbstractParser {
 
         Matcher matcher = Pattern.compile(PARAGRAPH_REGEX).matcher(message);
         while (matcher.find()) {
-            String paragraph = matcher.group();
+            String paragraph = matcher.group().trim();
             composite.add(getNext().parse(paragraph));
         }
         return composite;
