@@ -52,14 +52,17 @@ public class Composite implements Component {
     @Override
     public String collect() {
         StringBuilder sb = new StringBuilder();
-        for (Component component : components) {
-            ComponentType typeValue = component.getType();
-            switch (typeValue) {
+
+        for (Component component : this.components) {
+            switch (type) {
                 case PARAGRAPH:
-                    sb.append("    ").append(component.collect());
+                    sb.append("    ").append(component.collect())
+                      .append(System.lineSeparator());
                     break;
                 case SENTENCE:
                 case LEXEME:
+                    sb.append(component.collect()).append(" ");
+                    break;
                 case WORD:
                 case EXPRESSION:
                 case SYMBOL:
@@ -67,7 +70,7 @@ public class Composite implements Component {
                     break;
                 default:
                     throw new IllegalStateException(
-                            "Unexpected value: " + typeValue);
+                            "Unexpected value: " + type);
             }
         }
         return sb.toString();
