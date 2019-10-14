@@ -1,5 +1,6 @@
 package by.gartsmanovich.javawebdev.composite.repository.factory;
 
+import by.gartsmanovich.javawebdev.composite.bean.Component;
 import by.gartsmanovich.javawebdev.composite.repository.Repository;
 import by.gartsmanovich.javawebdev.composite.repository.impl
         .CompositeRepository;
@@ -19,9 +20,10 @@ public final class RepositoryFactory {
     private static final RepositoryFactory INSTANCE = new RepositoryFactory();
 
     /**
-     * Provides the access to Matrix Repository class methods.
+     * Provides the access to Composite Repository class methods.
      */
-    private final Repository compositeRepository = new CompositeRepository();
+    private final Repository<Component> compositeRepository =
+            new CompositeRepository();
 
     /**
      * Private constructor. Forbids the explicit object creation.
@@ -43,9 +45,9 @@ public final class RepositoryFactory {
      * An instance provide the access to Data Access Object application
      * layer methods.
      *
-     * @return an instance of Matrix Repository implementation.
+     * @return an instance of Composite Repository implementation.
      */
-    public Repository getCompositeRepository() {
+    public Repository<Component> getCompositeRepository() {
         return compositeRepository;
     }
 }
