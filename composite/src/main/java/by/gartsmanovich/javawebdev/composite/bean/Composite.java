@@ -60,13 +60,13 @@ public class Composite implements Component {
                       .append(System.lineSeparator());
                     break;
                 case SENTENCE:
-                case LEXEME:
-                    sb.append(component.collect()).append(" ");
-                    break;
                 case WORD:
                 case EXPRESSION:
                 case SYMBOL:
                     sb.append(component.collect());
+                    break;
+                case LEXEME:
+                    sb.append(component.collect()).append(" ");
                     break;
                 default:
                     throw new IllegalStateException(
