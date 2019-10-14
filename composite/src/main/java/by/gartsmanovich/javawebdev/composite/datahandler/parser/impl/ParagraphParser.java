@@ -23,8 +23,8 @@ public class ParagraphParser extends AbstractParser {
      * The regular expression used to determine the paragraphs in the provided
      * message.
      */
-    private static final String PARAGRAPH_REGEX = "^.+[.?! ]+\\s?$";
-
+    private static final String PARAGRAPH_REGEX = "([A-Z].+(?=\\s)|[\\n]$)";
+    //(\n?\s+(.*))
     /**
      * Returns the component that appropriate to the concrete requirements.
      *
@@ -39,9 +39,10 @@ public class ParagraphParser extends AbstractParser {
         }
         Composite composite = new Composite(ComponentType.PARAGRAPH);
 
-        Matcher matcher = Pattern.compile(PARAGRAPH_REGEX).matcher(message);
+        Matcher matcher = Pattern.compile(PARAGRAPH_REGEX, Pattern.MULTILINE)
+                                 .matcher(message);
         while (matcher.find()) {
-            String paragraph = matcher.group().trim();
+            String paragraph = matcher.group();
             composite.add(getNext().parse(paragraph));
         }
         return composite;
