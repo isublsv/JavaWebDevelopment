@@ -39,5 +39,5 @@ public interface Repository<T extends Component> {
      * @param path the path to storage file.
      * @throws RepositoryException if error happens during execution.
      */
-    void saveLastResult(String path) throws RepositoryException;
+    void saveComposite(String path) throws RepositoryException;
 }

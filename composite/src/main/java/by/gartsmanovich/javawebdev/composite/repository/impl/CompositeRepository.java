@@ -95,15 +95,16 @@ public class CompositeRepository implements Repository<Component> {
      * @param path the path to storage file.
      * @throws RepositoryException if error happens during execution.
      */
-    public void saveLastResult(final String path) throws RepositoryException {
+    public void saveComposite(final String path) throws RepositoryException {
         try {
             if (component != null) {
                 DataHandlerFactory factory = DataHandlerFactory.getInstance();
                 DataWriter dataWriter = factory.getDataWriter();
 
-                dataWriter.writeFile(component, path);
+                String fullText = component.collect();
+                dataWriter.writeFile(fullText, path);
             } else {
-                throw new RepositoryException("The last result is empty!"
+                throw new RepositoryException("The composite is not exist!"
                                               + " Run any method first!");
             }
         } catch (DataHandlerException e) {
