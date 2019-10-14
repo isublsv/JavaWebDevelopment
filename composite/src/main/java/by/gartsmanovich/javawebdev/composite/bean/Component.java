@@ -1,12 +1,14 @@
 package by.gartsmanovich.javawebdev.composite.bean;
 
+import java.util.List;
+
 /**
  * The Component class defines the base interface for simple and compound
  * objects.
  *
  * @author Dmitry Gartsmanovich
  */
-public interface Component {
+public interface Component{
 
     /**
      * Returns type of the component.
@@ -21,4 +23,8 @@ public interface Component {
      * @return the result string.
      */
     String collect();
+
+    default List<Component> getComponents() {
+        throw new UnsupportedOperationException("Unsupported operation!");
+    }
 }

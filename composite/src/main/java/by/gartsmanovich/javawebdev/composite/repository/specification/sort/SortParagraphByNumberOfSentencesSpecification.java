@@ -1,13 +1,18 @@
 package by.gartsmanovich.javawebdev.composite.repository.specification.sort;
 
 import by.gartsmanovich.javawebdev.composite.bean.Component;
+import by.gartsmanovich.javawebdev.composite.bean.ComponentType;
 import by.gartsmanovich.javawebdev.composite.repository.specification
         .Specification;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
+ * The specification interface realisation used to sort provided component.
+ *
  * @author Dmitry Gartsmanovich
  */
 public class SortParagraphByNumberOfSentencesSpecification implements
@@ -30,13 +35,25 @@ public class SortParagraphByNumberOfSentencesSpecification implements
     }
 
     /**
-     * Applies specified criteria to the provided array.
+     * Applies specified criteria to the provided element.
      *
-     * @param components        the provided list of elements.
+     * @param type        the provided type of elements.
      * @return the result string that correspond to specified criteria
      */
     @Override
-    public String specified(final List<Component> components) {
-        return "";
+    public String specified(final Component type) {
+        List<Component> paragraphs = new ArrayList<>();
+
+        for (Component component : type.getComponents()) {
+            if (component.getType() == ComponentType.PARAGRAPH) {
+                paragraphs.add(component);
+            }
+        }
+
+        List<Component> collect = paragraphs.stream()
+                                            .sorted(comparator)
+                                            .collect(Collectors.toList());
+
+        return collect.toString();
     }
 }

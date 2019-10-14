@@ -1,6 +1,7 @@
 package by.gartsmanovich.javawebdev.composite.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -74,6 +75,14 @@ public class Composite implements Component {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<Component> getComponents() {
+        return components;
     }
 
     /**

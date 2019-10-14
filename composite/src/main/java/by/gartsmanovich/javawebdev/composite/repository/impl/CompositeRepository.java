@@ -25,9 +25,6 @@ import by.gartsmanovich.javawebdev.composite.repository.exception
 import by.gartsmanovich.javawebdev.composite.repository.specification
         .Specification;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * The repository interface implementation. Used to processing queries from
  * Services layer and applying to the composite instance.
@@ -85,8 +82,12 @@ public class CompositeRepository implements Repository<Component> {
     @Override
     public String query(final Specification<Component> specification) throws
             RepositoryException {
-        List<Component> components = new ArrayList<>();
-        return specification.specified(components);
+        if (component != null) {
+            return specification.specified(component);
+        } else {
+            throw new RepositoryException("The composite is not exist!"
+                    + " Run any method first!");
+        }
     }
 
     /**

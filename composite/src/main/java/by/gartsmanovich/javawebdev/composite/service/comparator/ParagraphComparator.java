@@ -29,6 +29,6 @@ public class ParagraphComparator implements Comparator<Component> {
      */
     @Override
     public int compare(final Component o1, final Component o2) {
-        return 0;
+        return o1.getComponents().size() - o2.getComponents().size();
     }
 }

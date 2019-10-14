@@ -1,12 +1,14 @@
 package by.gartsmanovich.javawebdev.composite.repository.specification.sort;
 
 import by.gartsmanovich.javawebdev.composite.bean.Component;
-import by.gartsmanovich.javawebdev.composite.repository.specification.Specification;
+import by.gartsmanovich.javawebdev.composite.repository.specification
+        .Specification;
 
 import java.util.Comparator;
-import java.util.List;
 
 /**
+ * The specification interface realisation used to sort provided component.
+ *
  * @author Dmitry Gartsmanovich
  */
 public class SortLexemesByCharNumberSpecification implements
@@ -36,13 +38,13 @@ public class SortLexemesByCharNumberSpecification implements
     }
 
     /**
-     * Applies specified criteria to the provided array.
+     * Applies specified criteria to the provided element.
      *
-     * @param list the provided list of elements.
+     * @param type        the provided type of elements.
      * @return the result string that correspond to specified criteria
      */
     @Override
-    public String specified(final List<Component> list) {
+    public String specified(final Component type) {
         return null;
     }
 }

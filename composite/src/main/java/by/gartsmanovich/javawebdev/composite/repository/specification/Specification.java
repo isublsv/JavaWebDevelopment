@@ -2,8 +2,6 @@ package by.gartsmanovich.javawebdev.composite.repository.specification;
 
 import by.gartsmanovich.javawebdev.composite.bean.Component;
 
-import java.util.List;
-
 /**
  * Common interface for specifications.
  *
@@ -14,10 +12,10 @@ import java.util.List;
 public interface Specification<T extends Component> {
 
     /**
-     * Applies specified criteria to the provided array.
+     * Applies specified criteria to the provided element.
      *
-     * @param list        the provided list of elements.
+     * @param type        the provided type of elements.
      * @return the result string that correspond to specified criteria
      */
-    String specified(List<T> list);
+    String specified(T type);
 }

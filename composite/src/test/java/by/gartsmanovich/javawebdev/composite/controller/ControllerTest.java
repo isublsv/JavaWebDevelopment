@@ -21,7 +21,12 @@ public class ControllerTest {
     }
 
     @Test
+    public void testSortParagraphsByNumberOfSentences() {
+        System.out.println(controller.executeTask("2"));
+    }
+
+    @Test
     public void testSaveComposite() {
-        controller.executeTask("5 " + pathToWrite);
+        System.out.println(controller.executeTask("5 " + pathToWrite));
     }
 }
