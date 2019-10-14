@@ -6,9 +6,9 @@ import by.gartsmanovich.javawebdev.composite.datahandler.exception
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 /**
  * Data reader realisation. Read file from provided path and proceed to the
@@ -30,10 +30,10 @@ public class DataReaderImpl implements DataReader {
     public String readFile(final String path) throws
             DataHandlerException {
 
-        StringBuilder sb = new StringBuilder();
-
-        try (Stream<String> stream = Files.lines(Paths.get(path))) {
-            stream.filter(line -> !line.isEmpty()).forEach(sb::append);
+        String resultString;
+        try {
+            byte[] allBytes = Files.readAllBytes(Paths.get(path));
+            resultString = new String(allBytes, Charset.defaultCharset());
         } catch (FileNotFoundException e) {
             String message = "File not found.";
             throw new DataHandlerException(message, e);
@@ -42,6 +42,6 @@ public class DataReaderImpl implements DataReader {
             throw new DataHandlerException(message, e);
         }
 
-        return sb.toString();
+        return resultString;
     }
 }
