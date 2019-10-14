@@ -1,5 +1,6 @@
 package by.gartsmanovich.javawebdev.composite.service.impl;
 
+import by.gartsmanovich.javawebdev.composite.bean.Component;
 import by.gartsmanovich.javawebdev.composite.repository.Repository;
 import by.gartsmanovich.javawebdev.composite.repository.exception
         .RepositoryException;
@@ -33,7 +34,7 @@ public class CompositeServiceImpl implements CompositeService {
     /**
      * Provides the access to Composite repository class methods.
      */
-    private Repository repository;
+    private Repository<Component> repository;
 
     /**
      * The validator provides the different types of checks for a given
@@ -62,7 +63,7 @@ public class CompositeServiceImpl implements CompositeService {
         try {
             if (validator.isValidValue(path)) {
                 throw new ServiceException(
-                        "The parameter for creating composite is not "
+                        "The path parameter for creating composite is not "
                         + "valid");
             } else {
                 repository.createComposite(path);
@@ -131,13 +132,13 @@ public class CompositeServiceImpl implements CompositeService {
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public void saveLastResult(final String path) throws ServiceException {
+    public void saveComposite(final String path) throws ServiceException {
         try {
             if (validator.isValidValue(path)) {
-                throw new ServiceException("The parameter for saving composite"
-                                           + " is not valid");
+                throw new ServiceException("The path parameter for saving"
+                                           + " composite is not valid");
             } else {
-                repository.saveLastResult(path);
+                repository.saveComposite(path);
             }
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);

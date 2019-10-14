@@ -50,5 +50,5 @@ public interface CompositeService {
      * @param path the path to storage file.
      * @throws ServiceException if error happens during execution.
      */
-    void saveLastResult(String path) throws ServiceException;
+    void saveComposite(String path) throws ServiceException;
 }
