@@ -78,11 +78,34 @@ public class Composite implements Component {
     }
 
     /**
+     * Returns the list of components.
      *
-     * @return
+     * @return the list of components.
      */
+    @Override
     public List<Component> getComponents() {
         return components;
+    }
+
+    /**
+     * Returns the list of components selected by provided type.
+     *
+     * @param component the provided component.
+     * @param typeValue the type of component.
+     * @return the list of components of the same type.
+     */
+    @Override
+    public List<Component> getComponentsByType(final Component component,
+            final ComponentType typeValue) {
+        ArrayList<Component> resultList = new ArrayList<>();
+        if (component.getType() == typeValue) {
+            resultList.add(component);
+        } else {
+            for (Component child : component.getComponents()) {
+                resultList.addAll(getComponentsByType(child, typeValue));
+            }
+        }
+        return resultList;
     }
 
     /**

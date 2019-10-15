@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Dmitry Gartsmanovich
  */
-public interface Component{
+public interface Component {
 
     /**
      * Returns type of the component.
@@ -24,7 +24,25 @@ public interface Component{
      */
     String collect();
 
+    /**
+     * Returns the list of components.
+     *
+     * @return the list of components.
+     */
     default List<Component> getComponents() {
+        throw new UnsupportedOperationException("Unsupported operation!");
+    }
+
+
+    /**
+     * Returns the list of components selected by provided type.
+     *
+     * @param component the provided component.
+     * @param typeValue the type of component.
+     * @return the list of components of the same type.
+     */
+    default List<Component> getComponentsByType(final Component component,
+            final ComponentType typeValue) {
         throw new UnsupportedOperationException("Unsupported operation!");
     }
 }
