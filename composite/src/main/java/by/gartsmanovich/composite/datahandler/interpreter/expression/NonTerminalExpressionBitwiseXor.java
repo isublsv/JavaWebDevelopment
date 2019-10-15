@@ -9,7 +9,7 @@ import by.gartsmanovich.composite.datahandler.interpreter.Context;
  *
  * @author Dmitry Gartsmanovich
  */
-public class TerminalExpressionBitwiseXor implements
+public class NonTerminalExpressionBitwiseXor implements
         AbstractBitwiseExpression {
 
     /**

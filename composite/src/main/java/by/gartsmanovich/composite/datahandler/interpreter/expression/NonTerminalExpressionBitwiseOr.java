@@ -5,21 +5,23 @@ import by.gartsmanovich.composite.datahandler.interpreter.Context;
 
 /**
  * The realisation of AbstractBitwiseExpression interface that defines the
- * processing the "bitwise compliment" operator.
+ * processing the "bitwise OR" operator.
  *
  * @author Dmitry Gartsmanovich
  */
-public class TerminalExpressionBitwiseCompliment implements
-        AbstractBitwiseExpression {
+public class NonTerminalExpressionBitwiseOr
+        implements AbstractBitwiseExpression {
 
     /**
-     * Finds the result of bitwise compliment binary operation between two
+     * Finds the result of bitwise OR binary operation between two
      * popped values. Inserts the result to the context.
      *
      * @param context the provided context.
      */
     @Override
     public void interpret(final Context context) {
-        context.pushValue(~context.popValue());
+        Integer a = context.popValue();
+        Integer b = context.popValue();
+        context.pushValue(a | b);
     }
 }

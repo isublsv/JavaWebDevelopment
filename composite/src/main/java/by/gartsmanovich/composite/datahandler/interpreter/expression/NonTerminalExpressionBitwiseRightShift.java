@@ -5,16 +5,16 @@ import by.gartsmanovich.composite.datahandler.interpreter.Context;
 
 /**
  * The realisation of AbstractBitwiseExpression interface that defines the
- * processing the "bitwise AND" operator.
+ * processing the "bitwise right shift" operator.
  *
  * @author Dmitry Gartsmanovich
  */
-public class TerminalExpressionBitwiseAnd implements
+public class NonTerminalExpressionBitwiseRightShift implements
         AbstractBitwiseExpression {
 
     /**
-     * Finds the result of bitwise AND binary operation between two popped
-     * values. Inserts the result to the context.
+     * Finds the result of bitwise right shift binary operation between two
+     * popped values. Inserts the result to the context.
      *
      * @param context the provided context.
      */
@@ -22,6 +22,6 @@ public class TerminalExpressionBitwiseAnd implements
     public void interpret(final Context context) {
         Integer a = context.popValue();
         Integer b = context.popValue();
-        context.pushValue(a & b);
+        context.pushValue(a >> b);
     }
 }

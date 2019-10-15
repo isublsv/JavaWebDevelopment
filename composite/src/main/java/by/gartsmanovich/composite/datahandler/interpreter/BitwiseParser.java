@@ -1,13 +1,13 @@
 package by.gartsmanovich.composite.datahandler.interpreter;
 
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonterminalExpressionNumber;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionBitwiseAnd;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionBitwiseCompliment;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionBitwiseLeftShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionBitwiseOr;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionBitwiseRightShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionBitwiseUnsignedRightShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionBitwiseXor;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionNumber;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseAnd;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseCompliment;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseLeftShift;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseOr;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseRightShift;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseUnsignedRightShift;
+import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseXor;
 
 import java.util.ArrayList;
 
@@ -53,32 +53,32 @@ public class BitwiseParser {
 
             switch (temp) {
                 case '&':
-                    listExpression.add(new TerminalExpressionBitwiseAnd());
+                    listExpression.add(new NonTerminalExpressionBitwiseAnd());
                     break;
                 case '|':
-                    listExpression.add(new TerminalExpressionBitwiseOr());
+                    listExpression.add(new NonTerminalExpressionBitwiseOr());
                     break;
                 case '^':
-                    listExpression.add(new TerminalExpressionBitwiseXor());
+                    listExpression.add(new NonTerminalExpressionBitwiseXor());
                     break;
                 case '~':
                     listExpression.add(
-                            new TerminalExpressionBitwiseCompliment());
+                            new NonTerminalExpressionBitwiseCompliment());
                     break;
                 case '>':
                     listExpression.add(
-                            new TerminalExpressionBitwiseRightShift());
+                            new NonTerminalExpressionBitwiseRightShift());
                     break;
                 case '<':
                     listExpression.add(
-                            new TerminalExpressionBitwiseLeftShift());
+                            new NonTerminalExpressionBitwiseLeftShift());
                     break;
                 case 'u':
                     listExpression.add(
-                            new TerminalExpressionBitwiseUnsignedRightShift());
+                          new NonTerminalExpressionBitwiseUnsignedRightShift());
                     break;
                 default:
-                    listExpression.add(new NonterminalExpressionNumber(temp));
+                    listExpression.add(new TerminalExpressionNumber(temp));
             }
         }
     }

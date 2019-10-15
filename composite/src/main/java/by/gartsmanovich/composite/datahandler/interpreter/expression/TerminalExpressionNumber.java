@@ -9,7 +9,7 @@ import by.gartsmanovich.composite.datahandler.interpreter.Context;
  *
  * @author Dmitry Gartsmanovich
  */
-public class NonterminalExpressionNumber implements AbstractBitwiseExpression {
+public class TerminalExpressionNumber implements AbstractBitwiseExpression {
 
     /**
      * The found number in the expression.
@@ -21,7 +21,7 @@ public class NonterminalExpressionNumber implements AbstractBitwiseExpression {
      *
      * @param numberValue the found number in the expression.
      */
-    public NonterminalExpressionNumber(final int numberValue) {
+    public TerminalExpressionNumber(final int numberValue) {
         number = numberValue;
     }
 

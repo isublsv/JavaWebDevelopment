@@ -5,16 +5,16 @@ import by.gartsmanovich.composite.datahandler.interpreter.Context;
 
 /**
  * The realisation of AbstractBitwiseExpression interface that defines the
- * processing the "bitwise left shift" operator.
+ * processing the "bitwise unsigned left shift" operator.
  *
  * @author Dmitry Gartsmanovich
  */
-public class TerminalExpressionBitwiseLeftShift implements
+public class NonTerminalExpressionBitwiseUnsignedRightShift implements
         AbstractBitwiseExpression {
 
     /**
-     * Finds the result of bitwise left shift binary operation between two
-     * popped values. Inserts the result to the context.
+     * Finds the result of bitwise unsigned left shift binary operation between
+     * two popped values. Inserts the result to the context.
      *
      * @param context the provided context.
      */
@@ -22,6 +22,6 @@ public class TerminalExpressionBitwiseLeftShift implements
     public void interpret(final Context context) {
         Integer a = context.popValue();
         Integer b = context.popValue();
-        context.pushValue(a << b);
+        context.pushValue(a >>> b);
     }
 }
