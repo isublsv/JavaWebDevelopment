@@ -13,11 +13,6 @@ import by.gartsmanovich.javawebdev.composite.repository.specification.sort
 import by.gartsmanovich.javawebdev.composite.repository.specification.sort
         .SortParagraphByNumberOfSentencesSpecification;
 import by.gartsmanovich.javawebdev.composite.service.CompositeService;
-import by.gartsmanovich.javawebdev.composite.service.comparator
-        .LexemeComparator;
-import by.gartsmanovich.javawebdev.composite.service.comparator
-        .ParagraphComparator;
-import by.gartsmanovich.javawebdev.composite.service.comparator.WordComparator;
 import by.gartsmanovich.javawebdev.composite.service.exception
         .ServiceException;
 import by.gartsmanovich.javawebdev.composite.service.validator.Validator;
@@ -83,8 +78,7 @@ public class CompositeServiceImpl implements CompositeService {
     public String sortParagraphsByNumberOfSentences() throws ServiceException {
         try {
             return repository.query(
-                    new SortParagraphByNumberOfSentencesSpecification(
-                            new ParagraphComparator()));
+                    new SortParagraphByNumberOfSentencesSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -100,7 +94,7 @@ public class CompositeServiceImpl implements CompositeService {
     public String sortWordsByLength() throws ServiceException {
         try {
             return repository.query(
-                    new SortByWordLengthSpecification(new WordComparator()));
+                    new SortByWordLengthSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -118,8 +112,7 @@ public class CompositeServiceImpl implements CompositeService {
             throws ServiceException {
         try {
             return repository
-                    .query(new SortLexemesByCharNumberSpecification(
-                            c, new LexemeComparator()));
+                    .query(new SortLexemesByCharNumberSpecification(c));
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
