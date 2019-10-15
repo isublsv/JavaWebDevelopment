@@ -25,6 +25,7 @@ public class SortParagraphByNumberOfSentencesSpecification implements
     @Override
     public String specified(final Component component) {
 
+        CompositeUtils.clearList();
         return CompositeUtils.getComponentsByType(component,
                               ComponentType.PARAGRAPH)
                         .stream()

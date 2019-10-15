@@ -41,6 +41,7 @@ public class SortLexemesByCharNumberSpecification implements
     @Override
     public String specified(final Component component) {
 
+        CompositeUtils.clearList();
         List<Pair<Component, Long>> pairs = CompositeUtils
                 .getComponentsByType(component, ComponentType.LEXEME)
                 .stream()

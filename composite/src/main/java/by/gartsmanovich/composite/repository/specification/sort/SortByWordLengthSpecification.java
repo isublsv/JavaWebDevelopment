@@ -6,7 +6,6 @@ import by.gartsmanovich.composite.repository.specification.Specification;
 import by.gartsmanovich.composite.service.utils.CompositeUtils;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -25,10 +24,10 @@ public class SortByWordLengthSpecification implements Specification<Component> {
     @Override
     public String specified(final Component component) {
 
-        List<Component> words = CompositeUtils.getComponentsByType(
-                component, ComponentType.WORD);
+        CompositeUtils.clearList();
 
-        return words.stream()
+        return CompositeUtils.getComponentsByType(component,
+                                                  ComponentType.WORD).stream()
                     .sorted(Comparator.comparingInt(c -> c.collect().length()))
                     .map(Component::collect)
                     .collect(Collectors.joining(System.lineSeparator()));

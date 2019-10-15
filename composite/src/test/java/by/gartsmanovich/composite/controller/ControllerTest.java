@@ -1,13 +1,12 @@
 package by.gartsmanovich.composite.controller;
 
-import by.gartsmanovich.composite.controller.Controller;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ControllerTest {
 
     private Controller controller;
-    private String pathToRead = "data/input1.txt";
+    private String pathToRead = "data/input.txt";
     private String pathToWrite = "data/output.txt";
 
     @BeforeMethod

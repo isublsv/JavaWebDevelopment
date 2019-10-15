@@ -42,4 +42,11 @@ public final class CompositeUtils {
         }
         return resultList;
     }
+
+    /**
+     * Clears the current list.
+     */
+    public static void clearList() {
+        resultList.clear();
+    }
 }
