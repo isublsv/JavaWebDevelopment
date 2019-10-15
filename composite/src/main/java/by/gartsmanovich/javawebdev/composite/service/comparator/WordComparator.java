@@ -28,6 +28,6 @@ public class WordComparator implements Comparator<Component> {
      */
     @Override
     public int compare(final Component o1, final Component o2) {
-        return 0;
+        return o1.collect().length() - o2.collect().length();
     }
 }
