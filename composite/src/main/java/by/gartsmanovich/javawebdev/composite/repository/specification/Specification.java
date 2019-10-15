@@ -14,8 +14,8 @@ public interface Specification<T extends Component> {
     /**
      * Applies specified criteria to the provided element.
      *
-     * @param type        the provided type of elements.
+     * @param component        the provided component.
      * @return the result string that correspond to specified criteria
      */
-    String specified(T type);
+    String specified(T component);
 }
