@@ -57,22 +57,14 @@ public class Composite implements Component {
 
         for (Component component : this.components) {
             switch (type) {
-                case PARAGRAPH:
-                    sb.append("    ").append(component.collect())
-                      .append(System.lineSeparator());
-                    break;
-                case SENTENCE:
-                case WORD:
-                case EXPRESSION:
-                case SYMBOL:
-                    sb.append(component.collect());
-                    break;
-                case LEXEME:
-                    sb.append(component.collect()).append(" ");
-                    break;
-                default:
-                    throw new IllegalStateException(
-                            "Unexpected value: " + type);
+                case PARAGRAPH -> sb.append("    ")
+                                    .append(component.collect())
+                                    .append(System.lineSeparator());
+                case SENTENCE, WORD, EXPRESSION, SYMBOL -> sb.append(
+                        component.collect());
+                case LEXEME -> sb.append(component.collect()).append(" ");
+                default -> throw new IllegalStateException(
+                        "Unexpected value: " + type);
             }
         }
         return sb.toString();
