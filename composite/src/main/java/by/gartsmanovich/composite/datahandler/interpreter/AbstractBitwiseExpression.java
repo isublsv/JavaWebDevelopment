@@ -1,10 +1,12 @@
 package by.gartsmanovich.composite.datahandler.interpreter;
 
 /**
- * The interface defines the base rules for interacting with the client.
+ * The functional interface defines the base rules for interacting with the
+ * client.
  *
  * @author Dmitry Gartsmanovich
  */
+@FunctionalInterface
 public interface AbstractBitwiseExpression {
 
     /**

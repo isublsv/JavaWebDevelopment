@@ -1,22 +1,5 @@
 package by.gartsmanovich.composite.datahandler.interpreter;
 
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .TerminalExpressionNumber;
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .NonTerminalExpressionBitwiseAnd;
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .NonTerminalExpressionBitwiseCompliment;
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .NonTerminalExpressionBitwiseLeftShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .NonTerminalExpressionBitwiseOr;
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .NonTerminalExpressionBitwiseRightShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .NonTerminalExpressionBitwiseUnsignedRightShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression
-        .NonTerminalExpressionBitwiseXor;
-
 import java.util.ArrayList;
 
 /**
@@ -60,33 +43,40 @@ public class BitwiseParser {
             char temp = lexeme.charAt(0);
 
             switch (temp) {
-                case '&':
-                    listExpression.add(new NonTerminalExpressionBitwiseAnd());
-                    break;
-                case '|':
-                    listExpression.add(new NonTerminalExpressionBitwiseOr());
-                    break;
-                case '^':
-                    listExpression.add(new NonTerminalExpressionBitwiseXor());
-                    break;
-                case '~':
-                    listExpression.add(
-                            new NonTerminalExpressionBitwiseCompliment());
-                    break;
-                case '>':
-                    listExpression.add(
-                            new NonTerminalExpressionBitwiseRightShift());
-                    break;
-                case '<':
-                    listExpression.add(
-                            new NonTerminalExpressionBitwiseLeftShift());
-                    break;
-                case 'u':
-                    listExpression.add(
-                          new NonTerminalExpressionBitwiseUnsignedRightShift());
-                    break;
-                default:
-                    listExpression.add(new TerminalExpressionNumber(temp));
+                case '&' -> listExpression.add(context -> {
+                    Integer a = context.popValue();
+                    Integer b = context.popValue();
+                    context.pushValue(a & b);
+                });
+                case '|' -> listExpression.add(context -> {
+                    Integer a = context.popValue();
+                    Integer b = context.popValue();
+                    context.pushValue(a | b);
+                });
+                case '^' -> listExpression.add(context -> {
+                    Integer a = context.popValue();
+                    Integer b = context.popValue();
+                    context.pushValue(a ^ b);
+                });
+                case '~' -> listExpression.add(
+                        context -> context.pushValue(~context.popValue()));
+                case '>' -> listExpression.add(context -> {
+                    Integer a = context.popValue();
+                    Integer b = context.popValue();
+                    context.pushValue(a >> b);
+                });
+                case '<' -> listExpression.add(context -> {
+                    Integer a = context.popValue();
+                    Integer b = context.popValue();
+                    context.pushValue(a << b);
+                });
+                case 'u' -> listExpression.add(context -> {
+                    Integer a = context.popValue();
+                    Integer b = context.popValue();
+                    context.pushValue(a >>> b);
+                });
+                default -> listExpression.add(context -> context.pushValue(
+                        Character.getNumericValue(temp)));
             }
         }
     }
@@ -98,11 +88,7 @@ public class BitwiseParser {
      */
     public Number calculate() {
         Context context = new Context();
-
-        for (AbstractBitwiseExpression expression : listExpression) {
-            expression.interpret(context);
-        }
-
+        listExpression.forEach(expression -> expression.interpret(context));
         return context.popValue();
     }
 }
