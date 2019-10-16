@@ -3,7 +3,7 @@ package by.gartsmanovich.composite.repository.specification.sort;
 import by.gartsmanovich.composite.bean.Component;
 import by.gartsmanovich.composite.bean.ComponentType;
 import by.gartsmanovich.composite.repository.specification.Specification;
-import by.gartsmanovich.composite.service.utils.CompositeUtils;
+import by.gartsmanovich.composite.service.util.CompositeUtils;
 
 //need to add from jdk 8 <Java SDK root>/jre/lib/ext/jfxrt.jar
 import javafx.util.Pair;
@@ -54,7 +54,8 @@ public class SortLexemesByCharNumberSpecification implements
                 .comparing(Pair::getValue, Comparator.reverseOrder());
 
         Comparator<Pair<Component, Long>> comp2 = Comparator
-                .comparing(p -> p.getKey().collect());
+                .comparing(p -> p.getKey().collect(),
+                           Comparator.naturalOrder());
 
         pairs.sort(comp1.thenComparing(comp2));
 

@@ -3,7 +3,7 @@ package by.gartsmanovich.composite.repository.specification.sort;
 import by.gartsmanovich.composite.bean.Component;
 import by.gartsmanovich.composite.bean.ComponentType;
 import by.gartsmanovich.composite.repository.specification.Specification;
-import by.gartsmanovich.composite.service.utils.CompositeUtils;
+import by.gartsmanovich.composite.service.util.CompositeUtils;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;

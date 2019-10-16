@@ -1,4 +1,4 @@
-package by.gartsmanovich.composite.service.utils;
+package by.gartsmanovich.composite.service.util;
 
 import by.gartsmanovich.composite.bean.Component;
 import by.gartsmanovich.composite.bean.ComponentType;
