@@ -23,7 +23,7 @@ public class WordParser extends AbstractParser {
      * message.
      */
     private static final String WORD_REGEX =
-            "[']+|[.]+|[,]+|[!]+|[?]+|[\\w-]+|[\"]+";
+            "[']+|[.]+|[,]+|[!]+|[?]+|[A-Za-z-]+|[\"]+|[:]+|[\\d^()|&><~]+";
 
     /**
      * Returns the component that appropriate to the concrete requirements.

@@ -22,7 +22,7 @@ public class ExpressionParser extends AbstractParser {
      * The regular expression used to determine the bitwise expressions in the
      * provided message.
      */
-    private static final String EXPRESSION_REGEX = "^\\d*[ ^&()|<>\\d]*\\d+";
+    private static final String EXPRESSION_REGEX = "\\d*[&^()|<>\\d]*\\d+";
 
     /**
      * Returns the component that appropriate to the concrete requirements.
