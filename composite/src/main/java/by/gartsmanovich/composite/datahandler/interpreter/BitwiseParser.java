@@ -1,13 +1,21 @@
 package by.gartsmanovich.composite.datahandler.interpreter;
 
-import by.gartsmanovich.composite.datahandler.interpreter.expression.TerminalExpressionNumber;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseAnd;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseCompliment;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseLeftShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseOr;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseRightShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseUnsignedRightShift;
-import by.gartsmanovich.composite.datahandler.interpreter.expression.NonTerminalExpressionBitwiseXor;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .TerminalExpressionNumber;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .NonTerminalExpressionBitwiseAnd;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .NonTerminalExpressionBitwiseCompliment;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .NonTerminalExpressionBitwiseLeftShift;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .NonTerminalExpressionBitwiseOr;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .NonTerminalExpressionBitwiseRightShift;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .NonTerminalExpressionBitwiseUnsignedRightShift;
+import by.gartsmanovich.composite.datahandler.interpreter.expression
+        .NonTerminalExpressionBitwiseXor;
 
 import java.util.ArrayList;
 

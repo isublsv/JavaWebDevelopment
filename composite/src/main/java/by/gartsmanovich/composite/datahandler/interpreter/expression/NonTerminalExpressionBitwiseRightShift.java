@@ -1,6 +1,7 @@
 package by.gartsmanovich.composite.datahandler.interpreter.expression;
 
-import by.gartsmanovich.composite.datahandler.interpreter.AbstractBitwiseExpression;
+import by.gartsmanovich.composite.datahandler.interpreter
+        .AbstractBitwiseExpression;
 import by.gartsmanovich.composite.datahandler.interpreter.Context;
 
 /**
