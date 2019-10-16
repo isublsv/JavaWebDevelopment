@@ -4,6 +4,8 @@ import by.gartsmanovich.composite.bean.Component;
 import by.gartsmanovich.composite.bean.ComponentType;
 import by.gartsmanovich.composite.repository.specification.Specification;
 import by.gartsmanovich.composite.service.utils.CompositeUtils;
+
+//need to add from jdk 8 <Java SDK root>/jre/lib/ext/jfxrt.jar
 import javafx.util.Pair;
 
 import java.util.Comparator;
