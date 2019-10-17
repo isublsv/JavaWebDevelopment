@@ -2,9 +2,10 @@ package by.gartsmanovich.composite.datahandler.interpreter;
 
 import by.gartsmanovich.composite.datahandler.exception.ParseException;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class InfixToPostfixConverterTest {
 
@@ -14,13 +15,21 @@ public class InfixToPostfixConverterTest {
     public void setUp() {
         converter = new InfixToPostfixConverter();
     }
-    
-    @Test
-    public void testConvert() throws ParseException {
-        String expression = "5^(4|2)<<3";
-        String actual = "542|3<<^";
-        String expected = converter.convert(expression);
+
+    @DataProvider(name = "getDataForPositiveConvert")
+    public Object[][] getDataForPositiveConvert() {
+        return new Object[][]{
+                {"5^(4|2)<<3", "542|3<<^"},
+                {"25>>>2", "252>>>"},
+                {"~24|3", "24~3|"},        
+        };
+    }
+
+    @Test(dataProvider = "getDataForPositiveConvert")
+    public void testPositiveConvert(String expression, String expected)
+            throws ParseException {
+        String actual = converter.convert(expression);
         
-        assertEquals(expected, actual);
+        assertEquals(actual, expected);
     }
 }
