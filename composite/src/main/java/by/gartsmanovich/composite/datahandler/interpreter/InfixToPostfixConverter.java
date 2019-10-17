@@ -12,13 +12,44 @@ import java.util.regex.Pattern;
  *
  * @author Dmitry Gartsmanovich
  */
-public class InfixToPostfixConverter {
+public final class InfixToPostfixConverter {
 
     /**
      * The regular expression used to determine the bitwise expressions in the
      * provided message.
      */
-    private static final String EXPRESSION_REGEX = "[\\d]+|[\\^]+|[<]+|[>]+|[()]+|[|]+|[&]+|[~]+";
+    private static final String EXPRESSION_REGEX =
+            "[\\d]+|[\\^]+|[<]+|[>]+|[()]+|[|]+|[&]+|[~]+";
+
+    /**
+     * The precedence of the bitwise or operation.
+     */
+    private static final int OR = 1;
+
+    /**
+     * The precedence of the bitwise xor operation.
+     */
+    private static final int XOR = 2;
+
+    /**
+     * The precedence of the bitwise and operation.
+     */
+    private static final int AND = 3;
+
+    /**
+     * The precedence of the bitwise shift operation.
+     */
+    private static final int SHIFT = 4;
+
+    /**
+     * The precedence of the bitwise compliment operation.
+     */
+    private static final int COMPLIMENT = 5;
+
+    /**
+     * The precedence of the default operation.
+     */
+    private static final int DEFAULT = -1;
 
     /**
      * The validator provides the different types of checks for a given
@@ -31,19 +62,28 @@ public class InfixToPostfixConverter {
      */
     private ArrayDeque<String> values;
 
-    private InfixToPostfixConverter() {
+    /**
+     * Constructs the instance.
+     */
+    public InfixToPostfixConverter() {
         validator = new Validator();
         values = new ArrayDeque<>();
     }
 
-    private int precedence(String s) {
-        return switch (s) {
-            case "|" -> 1;
-            case "^" -> 2;
-            case "&" -> 3;
-            case ">>", "<<", ">>>" -> 4;
-            case "~" -> 5;
-            default -> -1;
+    /**
+     * Gets precedence of the bitwise operator.
+     *
+     * @param operator the provided operator or number.
+     * @return the integer value of precedence.
+     */
+    private int getPrecedence(final String operator) {
+        return switch (operator) {
+            case "|" -> OR;
+            case "^" -> XOR;
+            case "&" -> AND;
+            case ">>", "<<", ">>>" -> SHIFT;
+            case "~" -> COMPLIMENT;
+            default -> DEFAULT;
         };
     }
 
@@ -54,7 +94,7 @@ public class InfixToPostfixConverter {
      * @return the expression in the postfix form.
      * @throws ParseException if error happens during parsing.
      */
-    public String infixToPostfix(final String expression) throws
+    public String convert(final String expression) throws
             ParseException {
         StringBuilder result = new StringBuilder();
 
@@ -79,25 +119,17 @@ public class InfixToPostfixConverter {
                 } else {
                     values.pop();
                 }
-            } else // an operator is encountered 
-            {
-                while (!values.isEmpty() && precedence(temp) <= precedence(
+            } else {
+                while (!values.isEmpty() && getPrecedence(temp)
+                                            <= getPrecedence(
                         values.peek())) {
-                    if (values.peek().equals("(")) {
-                        throw new ParseException(invalidExpression);
-                    }
                     result.append(values.pop());
                 }
                 values.push(temp);
             }
-
         }
 
-        // pop all the operators from the stack 
         while (!values.isEmpty()) {
-            if (values.peek().equals("(")) {
-                throw new ParseException(invalidExpression);
-            }
             result.append(values.pop());
         }
         return result.toString();

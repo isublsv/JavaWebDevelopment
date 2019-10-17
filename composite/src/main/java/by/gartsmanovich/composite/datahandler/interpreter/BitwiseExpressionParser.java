@@ -1,6 +1,8 @@
 package by.gartsmanovich.composite.datahandler.interpreter;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class has a role to initiating and representing the
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Dmitry Gartsmanovich
  */
-public class BitwiseParser {
+public class BitwiseExpressionParser {
 
     /**
      * The list of provided operators used to evaluate the expression.
@@ -17,66 +19,72 @@ public class BitwiseParser {
     private ArrayList<AbstractBitwiseExpression> listExpression;
 
     /**
+     * The regular expression used to determine the bitwise expressions in the
+     * provided message.
+     */
+    private static final String EXPRESSION_REGEX =
+            "[\\d]+|[\\^]+|[<]+|[>]+|[()]+|[|]+|[&]+|[~]+";
+
+    /**
      * Constructs the instance of a parser for provided string.
      *
      * @param expression the provided expression to parse.
      */
-    public BitwiseParser(final String expression) {
+    public BitwiseExpressionParser(final String expression) {
         listExpression = new ArrayList<>();
         parse(expression);
     }
 
     /**
-     * Parses the provided expression. Splits the provided string by whitespace
-     * and creates the different kinds of terminal expressions that depends on
-     * found value.
+     * Parses the provided expression. Creates the different kinds of non- or
+     * terminal expressions that depends on found value.
      *
      * @param expression the provided string to parse.
      */
     private void parse(final String expression) {
-        //The character class \p{Blank} matches a space or tab character.
-        for (String lexeme : expression.split("\\p{Blank}+")) {
-            if (lexeme.isEmpty()) {
+
+        Matcher matcher = Pattern.compile(EXPRESSION_REGEX).matcher(expression);
+        while (matcher.find()) {
+            String temp = matcher.group();
+            if (temp.isEmpty()) {
                 continue;
             }
 
-            char temp = lexeme.charAt(0);
-
             switch (temp) {
-                case '&' -> listExpression.add(context -> {
+                case "&" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
                     context.pushValue(a & b);
                 });
-                case '|' -> listExpression.add(context -> {
+                case "|" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
                     context.pushValue(a | b);
                 });
-                case '^' -> listExpression.add(context -> {
+                case "^" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
                     context.pushValue(a ^ b);
                 });
-                case '~' -> listExpression.add(
+                case "~" -> listExpression.add(
                         context -> context.pushValue(~context.popValue()));
-                case '>' -> listExpression.add(context -> {
+                case ">>" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
                     context.pushValue(a >> b);
                 });
-                case '<' -> listExpression.add(context -> {
+                case "<<" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
                     context.pushValue(a << b);
                 });
-                case 'u' -> listExpression.add(context -> {
+                case ">>>" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
                     context.pushValue(a >>> b);
                 });
-                default -> listExpression.add(context -> context.pushValue(
-                        Character.getNumericValue(temp)));
+                default -> listExpression.add(
+                        context -> context.pushValue(Integer.parseInt(temp)));
             }
         }
     }
