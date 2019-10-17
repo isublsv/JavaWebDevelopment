@@ -24,7 +24,7 @@ public class Validator {
      * @return true if value is valid, false - otherwise.
      */
     public boolean isNumber(final String value) {
-        if (isValidValue(value)) {
+        if (!isValidValue(value)) {
             try {
                 Integer.parseInt(value);
                 return true;

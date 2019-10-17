@@ -25,7 +25,6 @@ public class SortByWordLengthSpecification implements Specification<Component> {
     public String specified(final Component component) {
 
         CompositeUtils.clearList();
-
         return CompositeUtils.getComponentsByType(component,
                                                   ComponentType.WORD).stream()
                     .sorted(Comparator.comparingInt(c -> c.collect().length()))

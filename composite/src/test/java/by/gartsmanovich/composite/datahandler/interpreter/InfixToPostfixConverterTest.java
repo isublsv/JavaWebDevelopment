@@ -18,9 +18,9 @@ public class InfixToPostfixConverterTest {
     @Test
     public void testConvert() throws ParseException {
         String expression = "5^(4|2)<<3";
-        String expected = "3542|^<<";
-        String actual = converter.convert(expression);
+        String actual = "542|3<<^";
+        String expected = converter.convert(expression);
         
-        assertEquals(expected, expected);
+        assertEquals(expected, actual);
     }
 }
