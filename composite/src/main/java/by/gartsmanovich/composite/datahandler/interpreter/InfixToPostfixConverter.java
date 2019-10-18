@@ -19,7 +19,7 @@ public final class InfixToPostfixConverter {
      * provided message.
      */
     private static final String EXPRESSION_REGEX =
-            "[\\d]+|[\\^]+|[<]+|[>]+|[()]+|[|]+|[&]+|[~]+";
+            "[\\d]+|[\\^]+|[<]{2}|[>]{2,3}|[()]+|[|]+|[&]+|[~]+";
 
     /**
      * The precedence of the bitwise or operation.
@@ -105,13 +105,13 @@ public final class InfixToPostfixConverter {
             String temp = matcher.group();
 
             if (validator.isNumber(temp)) {
-                result.append(temp);
+                result.append(temp).append(" ");
             } else if (temp.equals("(")) {
                 values.push(temp);
             } else if (temp.equals(")")) {
 
                 while (!values.isEmpty() && !values.peek().equals("(")) {
-                    result.append(values.pop());
+                    result.append(values.pop()).append(" ");
                 }
 
                 if (!values.isEmpty() && !values.peek().equals("(")) {
@@ -120,17 +120,22 @@ public final class InfixToPostfixConverter {
                     values.pop();
                 }
             } else {
-                while (!values.isEmpty() && getPrecedence(temp)
-                                            <= getPrecedence(
-                        values.peek())) {
-                    result.append(values.pop());
+                while (!values.isEmpty() 
+                       && getPrecedence(temp) <= getPrecedence(values.peek())) {
+                    if (values.peek().equals("(")) {
+                        throw new ParseException(invalidExpression);
+                    }
+                    result.append(values.pop()).append(" ");
                 }
                 values.push(temp);
             }
         }
 
         while (!values.isEmpty()) {
-            result.append(values.pop());
+            if (values.peek().equals("(")) {
+                throw new ParseException(invalidExpression);
+            }
+            result.append(values.pop()).append(" ");
         }
         return result.toString();
     }
