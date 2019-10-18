@@ -19,9 +19,9 @@ public class InfixToPostfixConverterTest {
     @DataProvider(name = "getDataForPositiveConvert")
     public Object[][] getDataForPositiveConvert() {
         return new Object[][]{
-                {"5^(4|2)<<3", "542|3<<^"},
-                {"25>>>2", "252>>>"},
-                {"~24|3", "24~3|"},        
+                {"5^(4|2)<<3", "5 4 2 | 3 << ^ "},
+                {"9>>>2", "9 2 >>> "},
+                {"~4|3", "4 ~ 3 | "},   
         };
     }
 
@@ -31,5 +31,20 @@ public class InfixToPostfixConverterTest {
         String actual = converter.convert(expression);
         
         assertEquals(actual, expected);
+    }
+
+    @DataProvider(name = "getDataForConvertException")
+    public Object[][] getDataForConvertException() {
+        return new Object[][]{
+                {"(5^4|2(<<3"},
+                {"(~24|3"},
+        };
+    }
+
+    @Test(dataProvider = "getDataForConvertException",
+            expectedExceptions = ParseException.class)
+    public void testConvertException(String expression)
+            throws ParseException {
+        converter.convert(expression);
     }
 }
