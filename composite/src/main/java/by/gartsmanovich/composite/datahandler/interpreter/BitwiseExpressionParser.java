@@ -1,8 +1,7 @@
 package by.gartsmanovich.composite.datahandler.interpreter;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 /**
  * Class has a role to initiating and representing the
@@ -16,14 +15,13 @@ public class BitwiseExpressionParser {
     /**
      * The list of provided operators used to evaluate the expression.
      */
-    private ArrayList<AbstractBitwiseExpression> listExpression;
+    private List<AbstractBitwiseExpression> listExpression;
 
     /**
      * The regular expression used to determine the bitwise expressions in the
      * provided message.
      */
-    private static final String EXPRESSION_REGEX =
-            "[\\d]+|[\\^]+|[<]+|[>]+|[()]+|[|]+|[&]+|[~]+";
+    private static final String EXPRESSION_REGEX = "\\p{Blank}+";
 
     /**
      * Constructs the instance of a parser for provided string.
@@ -43,9 +41,8 @@ public class BitwiseExpressionParser {
      */
     private void parse(final String expression) {
 
-        Matcher matcher = Pattern.compile(EXPRESSION_REGEX).matcher(expression);
-        while (matcher.find()) {
-            String temp = matcher.group();
+        String[] lexemes = expression.split(EXPRESSION_REGEX);
+        for (String temp : lexemes) {            
             if (temp.isEmpty()) {
                 continue;
             }
@@ -54,34 +51,34 @@ public class BitwiseExpressionParser {
                 case "&" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
-                    context.pushValue(a & b);
+                    context.pushValue(b & a);
                 });
                 case "|" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
-                    context.pushValue(a | b);
+                    context.pushValue(b | a);
                 });
                 case "^" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
-                    context.pushValue(a ^ b);
+                    context.pushValue(b ^ a);
                 });
                 case "~" -> listExpression.add(
                         context -> context.pushValue(~context.popValue()));
                 case ">>" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
-                    context.pushValue(a >> b);
+                    context.pushValue(b >> a);
                 });
                 case "<<" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
-                    context.pushValue(a << b);
+                    context.pushValue(b << a);
                 });
                 case ">>>" -> listExpression.add(context -> {
                     Integer a = context.popValue();
                     Integer b = context.popValue();
-                    context.pushValue(a >>> b);
+                    context.pushValue(b >>> a);
                 });
                 default -> listExpression.add(
                         context -> context.pushValue(Integer.parseInt(temp)));
