@@ -23,8 +23,8 @@ public class ControllerTest {
     }
 
     @Test
-    public void testSortByWordLength() {
-        System.out.println("SORT WORDS BY LENGTH:");
+    public void testSortSentencesByWordLength() {
+        System.out.println("SORT SENTENCES BY WORDS LENGTH:");
         System.out.println(controller.executeTask("3"));
     }
 
