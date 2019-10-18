@@ -16,7 +16,7 @@ public class InfixToPostfixConverterTest {
         converter = new InfixToPostfixConverter();
     }
 
-    @DataProvider(name = "getDataForPositiveConvert")
+    @DataProvider(name = "DataForPositiveConvert")
     public Object[][] getDataForPositiveConvert() {
         return new Object[][]{
                 {"5^(42|2)<<3", "5 42 2 | 3 << ^ "},
@@ -25,7 +25,7 @@ public class InfixToPostfixConverterTest {
         };
     }
 
-    @Test(dataProvider = "getDataForPositiveConvert")
+    @Test(dataProvider = "DataForPositiveConvert")
     public void testPositiveConvert(String expression, String expected)
             throws ParseException {
         String actual = converter.convert(expression);
@@ -33,7 +33,7 @@ public class InfixToPostfixConverterTest {
         assertEquals(actual, expected);
     }
 
-    @DataProvider(name = "getDataForConvertException")
+    @DataProvider(name = "DataForConvertException")
     public Object[][] getDataForConvertException() {
         return new Object[][]{
                 {"(5^4|2(<<3"},
@@ -41,7 +41,7 @@ public class InfixToPostfixConverterTest {
         };
     }
 
-    @Test(dataProvider = "getDataForConvertException",
+    @Test(dataProvider = "DataForConvertException",
             expectedExceptions = ParseException.class)
     public void testConvertException(String expression)
             throws ParseException {
