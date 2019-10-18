@@ -9,6 +9,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -26,9 +28,11 @@ public class CompositeServiceImplTest {
     }
 
     @BeforeGroups(groups = "sortAndSave")
-    public void beforeGroup() throws ServiceException {
+    public void beforeGroup() throws ServiceException, URISyntaxException {
         System.out.println("BEFORE GROUP:");
-        String pathToRead = "test/input1.txt";
+        URI uri = ClassLoader.getSystemResource("test/input1.txt").toURI();
+        String pathToRead = Paths.get(uri).toString();
+
         compositeService.createComposite(pathToRead);
     }
 
@@ -80,8 +84,11 @@ public class CompositeServiceImplTest {
 
     @Test(groups = "sortAndSave",
     description = "Test the method for saving composite in the file")
-    public void testSaveComposite() throws IOException, ServiceException {
-        String pathToWrite = "test\\output1.txt";
+    public void testSaveComposite() throws IOException, ServiceException,
+            URISyntaxException {
+
+        URI uri = ClassLoader.getSystemResource("test/output1.txt").toURI();
+        String pathToWrite = Paths.get(uri).toString();
 
         long before = Files.size(Paths.get(pathToWrite));
         compositeService.saveComposite(pathToWrite);
