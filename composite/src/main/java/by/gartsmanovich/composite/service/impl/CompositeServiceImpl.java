@@ -1,12 +1,15 @@
 package by.gartsmanovich.composite.service.impl;
 
-import by.gartsmanovich.composite.repository.specification.sort.SortByWordLengthSpecification;
-import by.gartsmanovich.composite.repository.specification.sort.SortParagraphByNumberOfSentencesSpecification;
+import by.gartsmanovich.composite.repository.specification.sort
+        .SortSentencesByWordLengthSpecification;
+import by.gartsmanovich.composite.repository.specification.sort
+        .SortParagraphByNumberOfSentencesSpecification;
 import by.gartsmanovich.composite.bean.Component;
 import by.gartsmanovich.composite.repository.Repository;
 import by.gartsmanovich.composite.repository.exception.RepositoryException;
 import by.gartsmanovich.composite.repository.factory.RepositoryFactory;
-import by.gartsmanovich.composite.repository.specification.sort.SortLexemesByCharNumberSpecification;
+import by.gartsmanovich.composite.repository.specification.sort
+        .SortLexemesByCharNumberSpecification;
 import by.gartsmanovich.composite.service.CompositeService;
 import by.gartsmanovich.composite.service.exception.ServiceException;
 import by.gartsmanovich.composite.service.validator.Validator;
@@ -88,7 +91,7 @@ public class CompositeServiceImpl implements CompositeService {
     public String sortWordsByLength() throws ServiceException {
         try {
             return repository.query(
-                    new SortByWordLengthSpecification());
+                    new SortSentencesByWordLengthSpecification());
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }

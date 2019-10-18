@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
  *
  * @author Dmitry Gartsmanovich
  */
-public class SortByWordLengthSpecification implements Specification<Component> {
+public class SortSentencesByWordLengthSpecification
+        implements Specification<Component> {
 
     /**
      * Applies specified criteria to the provided element.
