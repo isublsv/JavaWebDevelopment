@@ -19,9 +19,9 @@ public class InfixToPostfixConverterTest {
     @DataProvider(name = "getDataForPositiveConvert")
     public Object[][] getDataForPositiveConvert() {
         return new Object[][]{
-                {"5^(4|2)<<3", "5 4 2 | 3 << ^ "},
-                {"9>>>2", "9 2 >>> "},
-                {"~4|3", "4 ~ 3 | "},   
+                {"5^(42|2)<<3", "5 42 2 | 3 << ^ "},
+                {"91>>>2", "91 2 >>> "},
+                {"~44|3", "44 ~ 3 | "},   
         };
     }
 
