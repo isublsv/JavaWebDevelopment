@@ -36,13 +36,14 @@ public class SortLexemesCommand implements Command {
         StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        CompositeService matrixService = serviceFactory.getCompositeService();
+        CompositeService compositeService = serviceFactory
+                .getCompositeService();
 
         if (request.isEmpty()) {
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
-                response.append(matrixService.sortLexemesByCharNumber(
+                response.append(compositeService.sortLexemesByCharNumber(
                         request.trim().charAt(0)));
             } catch (ServiceException e) {
                 response.append(e.getMessage());

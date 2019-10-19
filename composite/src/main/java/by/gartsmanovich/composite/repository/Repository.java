@@ -22,7 +22,7 @@ public interface Repository<T extends Component> {
     void createComposite(String path) throws RepositoryException;
 
     /**
-     * Determines the business rules that applies to the matrix.
+     * Determines the business rules that applies to the composite.
      *
      * @param specification the concrete specification that query different
      *                      types of actions.

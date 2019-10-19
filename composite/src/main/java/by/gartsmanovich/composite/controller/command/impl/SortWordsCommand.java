@@ -35,10 +35,11 @@ public class SortWordsCommand implements Command {
         StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        CompositeService matrixService = serviceFactory.getCompositeService();
+        CompositeService compositeService = serviceFactory
+                .getCompositeService();
 
         try {
-            response.append(matrixService.sortWordsByLength());
+            response.append(compositeService.sortWordsByLength());
         } catch (ServiceException e) {
             response.append(e.getMessage());
             LOGGER.error(response);

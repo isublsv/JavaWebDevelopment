@@ -18,7 +18,7 @@ public final class ServiceFactory {
     private static final ServiceFactory INSTANCE = new ServiceFactory();
 
     /**
-     * The variable provides the access to Matrix Service methods.
+     * The variable provides the access to Composite Service methods.
      */
     private final CompositeService compositeService =
             new CompositeServiceImpl();
@@ -39,10 +39,10 @@ public final class ServiceFactory {
     }
 
     /**
-     * Returns the implementation of the Matrix Service interface.
+     * Returns the implementation of the Composite Service interface.
      * An instance provide the access to Service application layer methods.
      *
-     * @return an instance of Matrix Service
+     * @return an instance of Composite Service
      */
     public CompositeService getCompositeService() {
         return compositeService;

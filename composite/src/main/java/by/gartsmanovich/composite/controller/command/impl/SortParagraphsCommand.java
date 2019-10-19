@@ -35,10 +35,12 @@ public class SortParagraphsCommand implements Command {
         StringBuilder response = new StringBuilder();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        CompositeService matrixService = serviceFactory.getCompositeService();
+        CompositeService compositeService = serviceFactory
+                .getCompositeService();
 
         try {
-            response.append(matrixService.sortParagraphsByNumberOfSentences());
+            response.append(compositeService
+                                    .sortParagraphsByNumberOfSentences());
         } catch (ServiceException e) {
             response.append(e.getMessage());
             LOGGER.error(response);

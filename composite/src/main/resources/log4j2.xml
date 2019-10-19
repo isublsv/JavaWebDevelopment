@@ -19,7 +19,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="by.gartsmanovich.javawebdev.matrix.controller" level="debug" additivity="true">
+        <Logger name="by.gartsmanovich.composite.controller" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="ERROR" />
         </Logger>
         <Root level="debug">

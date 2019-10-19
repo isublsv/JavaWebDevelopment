@@ -37,13 +37,14 @@ public class SaveCompositeCommand implements Command {
         String response;
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        CompositeService matrixService = serviceFactory.getCompositeService();
+        CompositeService compositeService = serviceFactory
+                .getCompositeService();
 
         if (request.isEmpty()) {
             return MessageManager.getProperty("message.incorrect.args.number");
         } else {
             try {
-                matrixService.saveComposite(request);
+                compositeService.saveComposite(request);
                 response = MessageManager.getProperty(
                         "message.save.last.result.correct");
             } catch (ServiceException e) {
