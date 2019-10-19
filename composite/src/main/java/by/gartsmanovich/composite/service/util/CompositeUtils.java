@@ -16,7 +16,7 @@ public final class CompositeUtils {
     /**
      * The list of components of the same type.
      */
-    private static ArrayList<Component> resultList = new ArrayList<>();
+    private static List<Component> resultList = new ArrayList<>();
 
     /**
      * Private constructor. Forbids the explicit object creation.
