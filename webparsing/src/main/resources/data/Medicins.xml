@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medisines>
+    <drug id="001">
+        <name>Iodomarin</name>
+        <group>hormones</group>
+        <analogs>Potassium iodide</analogs>
+        <versions>
+            <form type ="pills">
+                <pharm>
+                    <certificate>
+                        <number>123456789</number>
+                        <issue_date>10/12/2017</issue_date>
+                        <registration>Berlin-Chemie AG, Germany</registration>
+                    </certificate>
+                    <package>
+                        <package_type>blister</package_type>
+                        <quantity>100</quantity>
+                        <price>12.99</price>
+                    </package>
+                    <dosare>0.1</dosare>
+                </pharm>
+                <pharm>
+                    <certificate>
+                        <number>123456789</number>
+                        <issue_date>10/12/2017</issue_date>
+                        <registration>Berlin-Chemie AG, Germany</registration>
+                    </certificate>
+                    <package>
+                        <package_type>blister</package_type>
+                        <quantity>50</quantity>
+                        <price>15.99</price>
+                    </package>
+                    <dosare>0.2</dosare>
+                </pharm>
+            </form>
+            <form type="drops">
+                <pharm>
+                    <certificate>
+                        <number>111222333</number>
+                        <issue_date>13/08/2018</issue_date>
+                        <registration>Pharmacy Production, Belarus</registration>
+                    </certificate>
+                    <package>
+                        <package_type>bottle</package_type>
+                        <quantity>50</quantity>
+                        <price>20.0</price>
+                    </package>
+                    <dosare>1</dosare>
+                </pharm>
+            </form>
+        </versions>
+    </drug>
+</medisines>
+        <!--
+                Лекарственные препараты
+                Лекарственные препараты имеют следующие характеристики.
+                Name – наименование препарата.
+                Pharm – фирма-производитель.
+                Group – группа препаратов к которым относится лекарство (антибиотики, болеутоляющие, витамины и т.п.).
+                Analogs (может быть несколько) – содержит наименование аналога.
+                Versions – варианты исполнения (консистенция/вид: таблетки, капсулы, порошок, капли и т.п.). Для каждого варианта исполнения может быть несколько производителей лекарственных препаратов со следующими характеристиками:
+                Certificate – свидетельство о регистрации препарата (номер, даты выдачи/истечения действия, регистрирующая организация);
+                Package – упаковка (тип упаковки, количество в упаковке, цена за упаковку);
+                Dosage – дозировка препарата, периодичность приема.
+                Корневой элемент назвать Medicines.-->
