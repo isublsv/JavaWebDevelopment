@@ -4,7 +4,7 @@
     <xs:element name="medicines">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="drug" minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="drug" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element type="xs:string" name="name"/>
@@ -29,7 +29,10 @@
                             <xs:element name="versions">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="tablets" type="Form"/>
+                                        <xs:element name="tablets" type="Form" minOccurs="0"/>
+                                        <xs:element name="drops" type="Form" minOccurs="0"/>
+                                        <xs:element name="powder" type="Form" minOccurs="0"/>
+                                        <xs:element name="capsules" type="Form" minOccurs="0"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
@@ -63,31 +66,28 @@
 
     <xs:complexType name="Certificate">
         <xs:sequence>
-            <xs:element type="xs:positiveInteger"
-                        name="number"/>
-            <xs:element type="xs:date"
-                        name="issue_date"/>
-            <xs:element type="xs:date"
-                        name="expiration_date"/>
-            <xs:element type="xs:string"
-                        name="registration"/>
+            <xs:element type="xs:positiveInteger" name="number"/>
+            <xs:element type="xs:date" name="issue_date"/>
+            <xs:element type="xs:date" name="expiration_date"/>
+            <xs:element type="xs:string" name="registration"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="Package">
         <xs:sequence>
-            <xs:element name="packageType">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="pack"/>
-                        <xs:enumeration value="packet"/>
-                        <xs:enumeration value="blister pack"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element type="xs:positiveInteger"
-                        name="quantity"/>
+            <xs:element name="packageType" type="PackageType"/>
+            <xs:element type="xs:positiveInteger" name="quantity"/>
             <xs:element type="xs:decimal" name="price"/>
         </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="PackageType">
+        <xs:simpleContent>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="pack"/>
+                <xs:enumeration value="packet"/>
+                <xs:enumeration value="blister pack"/>
+            </xs:restriction>
+        </xs:simpleContent>
     </xs:complexType>
 </xs:schema>
