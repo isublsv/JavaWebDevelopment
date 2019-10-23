@@ -19,7 +19,7 @@
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
-                            <xs:element name="analogs" maxOccurs="0">
+                            <xs:element name="analogs" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="analog" type="xs:string" maxOccurs="unbounded"/>
@@ -29,8 +29,8 @@
                             <xs:element name="versions">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="tablets" type="Form" minOccurs="0"/>
-                                        <xs:element name="drops" type="Form" minOccurs="0"/>
+                                        <xs:element name="tablets" type="Tablets" minOccurs="0"/>
+                                        <xs:element name="drops" type="Drops" minOccurs="0"/>
                                         <xs:element name="powder" type="Form" minOccurs="0"/>
                                         <xs:element name="capsules" type="Form" minOccurs="0"/>
                                     </xs:sequence>
@@ -56,7 +56,7 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="certificate" type="Certificate"/>
-                        <xs:element name="package" type="Package"/>
+                        <xs:element name="package" type="Pack"/>
                         <xs:element name="dosage" type="xs:decimal"/>
                     </xs:sequence>
                 </xs:complexType>
@@ -73,15 +73,23 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="Package">
+    <xs:complexType name="Liquid">
         <xs:sequence>
-            <xs:element name="packageType" type="PackageType"/>
+            <xs:element name="packageType" type="VolumeType"/>
+            <xs:element type="xs:positiveInteger" name="volume"/>
+            <xs:element type="xs:decimal" name="price"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Pack">
+        <xs:sequence>
+            <xs:element name="packageType" type="PackType"/>
             <xs:element type="xs:positiveInteger" name="quantity"/>
             <xs:element type="xs:decimal" name="price"/>
         </xs:sequence>
     </xs:complexType>
-    
-    <xs:complexType name="PackageType">
+
+    <xs:complexType name="PackType">
         <xs:simpleContent>
             <xs:restriction base="xs:string">
                 <xs:enumeration value="pack"/>
@@ -90,4 +98,54 @@
             </xs:restriction>
         </xs:simpleContent>
     </xs:complexType>
+    
+    <xs:complexType name="VolumeType">
+        <xs:simpleContent>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="bottle"/>
+                <xs:enumeration value="vial"/>
+                <xs:enumeration value="cup"/>
+            </xs:restriction>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Tablets">
+        <xs:complexContent>
+            <xs:extension base="Form">
+                <xs:sequence>
+                    <xs:element name="pharmacy" maxOccurs="unbounded" minOccurs="1">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="certificate" type="Certificate"/>
+                                <xs:element name="package" type="Pack"/>
+                                <xs:element name="dosage" type="xs:decimal"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Drops">
+        <xs:complexContent>
+            <xs:extension base="Form">
+                <xs:sequence>
+                    <xs:element name="pharmacy" maxOccurs="unbounded" minOccurs="1">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="certificate" type="Certificate"/>
+                                <xs:element name="package" type="Liquid"/>
+                                <xs:element name="dosage" type="xs:decimal"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="form" type="Form" abstract="true"/>
+    <xs:element name="tablets" type="Tablets" substitutionGroup="form"/>
+    <xs:element name="drops" type="Drops" substitutionGroup="form"/>
 </xs:schema>
