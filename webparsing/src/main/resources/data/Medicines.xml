@@ -18,7 +18,7 @@
                         <registration>Berlin-Chemie AG, Germany</registration>
                     </certificate>
                     <package>
-                        <packageType>pack</packageType>
+                        <packageType>Plastic bottle</packageType>
                         <quantity>100</quantity>
                         <price>12.99</price>
                     </package>                    
@@ -32,7 +32,7 @@
                         <registration>Berlin-Chemie AG, Germany</registration>
                     </certificate>
                     <package>
-                        <packageType>packet</packageType>
+                        <packageType>Blister pack</packageType>
                         <quantity>100</quantity>
                         <price>12.99</price>
                     </package>                    
@@ -48,8 +48,8 @@
                         <registration>Pharmacy Production, Belarus</registration>
                     </certificate>
                     <package>
-                        <packageType>bottle</packageType>
-                        <volume>100</volume>
+                        <packageType>Drop counter</packageType>
+                        <volume>50</volume>
                         <price>20</price>
                     </package>                    
                     <dosage>1</dosage>
@@ -62,7 +62,7 @@
                 Лекарственные препараты
                 Лекарственные препараты имеют следующие характеристики.
                 Name – наименование препарата.
-                Pharm – фирма-производитель.
+                Pharmacy – фирма-производитель.
                 Group – группа препаратов к которым относится лекарство (антибиотики, болеутоляющие, витамины и т.п.).
                 Analogs (может быть несколько) – содержит наименование аналога.
                 Versions – варианты исполнения (консистенция/вид: таблетки, капсулы, порошок, капли и т.п.). Для каждого варианта исполнения может быть несколько производителей лекарственных препаратов со следующими характеристиками:
