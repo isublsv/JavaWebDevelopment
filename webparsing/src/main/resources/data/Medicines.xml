@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<medisines>
+<medicines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.epam.com/medicines"
+           xsi:schemaLocation="http://www.epam.com/medicines Medicines.xsd">
     <drug id="001">
         <name>Iodomarin</name>
-        <group>hormones</group>
-        <analogs>Potassium iodide</analogs>
+        <group>Hormones</group>
+        <analogs>
+            <analog>Potassium iodide</analog>
+        </analogs>
         <versions>
-            <form type ="pills">
-                <pharm>
+            <tablets>
+                <pharmacy>
                     <certificate>
                         <number>123456789</number>
-                        <issue_date>10/12/2017</issue_date>
+                        <issue_date>2017-10-12</issue_date>
+                        <expiration_date>2021-10-12</expiration_date>
                         <registration>Berlin-Chemie AG, Germany</registration>
                     </certificate>
                     <package>
-                        <package_type>blister</package_type>
+                        <packageType>pack</packageType>
                         <quantity>100</quantity>
                         <price>12.99</price>
-                    </package>
-                    <dosare>0.1</dosare>
-                </pharm>
-                <pharm>
+                    </package>                    
+                    <dosage>0.1</dosage>
+                </pharmacy>
+                <pharmacy>
                     <certificate>
                         <number>123456789</number>
-                        <issue_date>10/12/2017</issue_date>
+                        <issue_date>2017-10-12</issue_date>
+                        <expiration_date>2021-10-12</expiration_date>
                         <registration>Berlin-Chemie AG, Germany</registration>
                     </certificate>
                     <package>
-                        <package_type>blister</package_type>
-                        <quantity>50</quantity>
-                        <price>15.99</price>
-                    </package>
-                    <dosare>0.2</dosare>
-                </pharm>
-            </form>
-            <form type="drops">
-                <pharm>
+                        <packageType>packet</packageType>
+                        <quantity>100</quantity>
+                        <price>12.99</price>
+                    </package>                    
+                    <dosage>0.2</dosage>
+                </pharmacy>
+            </tablets>
+            <drops>
+                <pharmacy>
                     <certificate>
                         <number>111222333</number>
-                        <issue_date>13/08/2018</issue_date>
+                        <issue_date>2018-08-13</issue_date>
+                        <expiration_date>2018-08-13</expiration_date>
                         <registration>Pharmacy Production, Belarus</registration>
                     </certificate>
                     <package>
-                        <package_type>bottle</package_type>
-                        <quantity>50</quantity>
-                        <price>20.0</price>
-                    </package>
-                    <dosare>1</dosare>
-                </pharm>
-            </form>
+                        <packageType>bottle</packageType>
+                        <volume>100</volume>
+                        <price>20</price>
+                    </package>                    
+                    <dosage>1</dosage>
+                </pharmacy>
+            </drops>
         </versions>
     </drug>
-</medisines>
+</medicines>
         <!--
                 Лекарственные препараты
                 Лекарственные препараты имеют следующие характеристики.

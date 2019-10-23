@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.epam.com/medicines"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="medicines">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="drug" minOccurs="1" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="name"/>
+                            <xs:element name="group">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="Analgesics"/>
+                                        <xs:enumeration value="Antibiotics"/>
+                                        <xs:enumeration value="Antiseptics"/>
+                                        <xs:enumeration value="Hormones"/>
+                                        <xs:enumeration value="Stimulants"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="analogs" maxOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="analog" type="xs:string" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="versions">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="tablets" type="Form"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:positiveInteger">
+                                    <xs:pattern value="([\d]){3}"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Form">
+        <xs:sequence>
+            <xs:element name="pharmacy" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="certificate" type="Certificate"/>
+                        <xs:element name="package" type="Package"/>
+                        <xs:element name="dosage" type="xs:decimal"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Certificate">
+        <xs:sequence>
+            <xs:element type="xs:positiveInteger"
+                        name="number"/>
+            <xs:element type="xs:date"
+                        name="issue_date"/>
+            <xs:element type="xs:date"
+                        name="expiration_date"/>
+            <xs:element type="xs:string"
+                        name="registration"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Package">
+        <xs:sequence>
+            <xs:element name="packageType">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="pack"/>
+                        <xs:enumeration value="packet"/>
+                        <xs:enumeration value="blister pack"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="xs:positiveInteger"
+                        name="quantity"/>
+            <xs:element type="xs:decimal" name="price"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
