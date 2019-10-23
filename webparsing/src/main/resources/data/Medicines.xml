@@ -2,6 +2,22 @@
 <medicines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns="http://www.epam.com/medicines"
            xsi:schemaLocation="http://www.epam.com/medicines Medicines.xsd">
+    <!--
+        Лекарственные препараты.
+        Лекарственные препараты имеют следующие характеристики.
+        1. Name – наименование препарата.
+        2. Pharmacy – фирма-производитель.
+        3. Group – группа препаратов к которым относится лекарство (антибиотики, болеутоляющие, витамины и т.п.).
+        4. Analogs (может быть несколько) – содержит наименование аналога.
+        5. Versions – варианты исполнения (консистенция/вид: таблетки, капсулы, порошок, капли и т.п.).
+        Для каждого варианта исполнения может быть несколько производителей лекарственных препаратов
+        со следующими характеристиками:
+            5.1. Certificate – свидетельство о регистрации препарата (номер, даты выдачи/истечения действия,
+            регистрирующая организация);
+            5.2. Package – упаковка (тип упаковки, количество в упаковке, цена за упаковку);
+            5.3. Dosage – дозировка препарата, периодичность приема.
+        Корневой элемент назвать Medicines.
+    -->
     <drug id="001">
         <name>Iodomarin</name>
         <group>Hormones</group>
@@ -16,12 +32,12 @@
                         <issue_date>2017-10-12</issue_date>
                         <expiration_date>2021-10-12</expiration_date>
                         <registration>Berlin-Chemie AG, Germany</registration>
-                    </certificate>
+                    </certificate>                   
                     <package>
                         <packageType>Plastic bottle</packageType>
-                        <quantity>100</quantity>
-                        <price>12.99</price>
-                    </package>                    
+                        <quantity>75</quantity>
+                        <price>18.99</price>
+                    </package>
                     <dosage>0.1</dosage>
                 </pharmacy>
                 <pharmacy>
@@ -33,7 +49,7 @@
                     </certificate>
                     <package>
                         <packageType>Blister pack</packageType>
-                        <quantity>100</quantity>
+                        <quantity>50</quantity>
                         <price>12.99</price>
                     </package>                    
                     <dosage>0.2</dosage>
@@ -57,16 +73,96 @@
             </drops>
         </versions>
     </drug>
+    <drug id="002">
+        <name></name>
+        <group>Vitamins</group>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number></number>
+                        <issue_date></issue_date>
+                        <expiration_date></expiration_date>
+                        <registration></registration>
+                    </certificate>
+                    <dosage></dosage>
+                    <package>
+                        <packageType></packageType>
+                        <quantity></quantity>
+                        <price></price>
+                    </package>
+                </pharmacy>
+            </tablets>
+        </versions>
+    </drug>
+    <drug id="003">
+        <name></name>
+        <group>Antibiotics</group>
+        <versions></versions>
+    </drug>
+    <drug id="004">
+        <name></name>
+        <group>Analgesics</group>
+        <versions></versions>
+    </drug>
+    <drug id="005">
+        <name></name>
+        <group>Antiseptics</group>
+        <versions></versions>
+    </drug>
+    <drug id="006">
+        <name></name>
+        <group>Hormones</group>
+        <versions></versions>
+    </drug>
+    <drug id="007">
+        <name></name>
+        <group>Stimulants</group>
+        <versions></versions>
+    </drug>
+    <drug id="008">
+        <name></name>
+        <group>Vitamins</group>
+        <versions></versions>
+    </drug>
+    <drug id="009">
+        <name></name>
+        <group>Antibiotics</group>
+        <versions></versions>
+    </drug>
+    <drug id="010">
+        <name></name>
+        <group>Hormones</group>
+        <versions></versions>
+    </drug>
+    <drug id="011">
+        <name></name>
+        <group>Vitamins</group>
+        <versions></versions>
+    </drug>
+    <drug id="012">
+        <name></name>
+        <group>Analgesics</group>
+        <versions></versions>
+    </drug>
+    <drug id="013">
+        <name></name>
+        <group>Antibiotics</group>
+        <versions></versions>
+    </drug>
+    <drug id="014">
+        <name></name>
+        <group>Stimulants</group>
+        <versions></versions>
+    </drug>
+    <drug id="015">
+        <name></name>
+        <group>Hormones</group>
+        <versions></versions>
+    </drug>
+    <drug id="016">
+        <name></name>
+        <group>Antiseptics</group>
+        <versions></versions>
+    </drug>
 </medicines>
-        <!--
-                Лекарственные препараты
-                Лекарственные препараты имеют следующие характеристики.
-                Name – наименование препарата.
-                Pharmacy – фирма-производитель.
-                Group – группа препаратов к которым относится лекарство (антибиотики, болеутоляющие, витамины и т.п.).
-                Analogs (может быть несколько) – содержит наименование аналога.
-                Versions – варианты исполнения (консистенция/вид: таблетки, капсулы, порошок, капли и т.п.). Для каждого варианта исполнения может быть несколько производителей лекарственных препаратов со следующими характеристиками:
-                Certificate – свидетельство о регистрации препарата (номер, даты выдачи/истечения действия, регистрирующая организация);
-                Package – упаковка (тип упаковки, количество в упаковке, цена за упаковку);
-                Dosage – дозировка препарата, периодичность приема.
-                Корневой элемент назвать Medicines.-->
