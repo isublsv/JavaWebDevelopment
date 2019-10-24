@@ -32,13 +32,14 @@
                         <issue_date>2017-10-12</issue_date>
                         <expiration_date>2021-10-12</expiration_date>
                         <registration>Berlin-Chemie AG, Germany</registration>
-                    </certificate>                   
+                    </certificate>
+                    <dosage>0.1</dosage>
                     <package>
                         <packageType>Plastic bottle</packageType>
                         <quantity>75</quantity>
                         <price>18.99</price>
                     </package>
-                    <dosage>0.1</dosage>
+
                 </pharmacy>
                 <pharmacy>
                     <certificate>
@@ -47,12 +48,12 @@
                         <expiration_date>2021-10-12</expiration_date>
                         <registration>Berlin-Chemie AG, Germany</registration>
                     </certificate>
+                    <dosage>0.2</dosage>
                     <package>
                         <packageType>Blister pack</packageType>
                         <quantity>50</quantity>
                         <price>12.99</price>
-                    </package>                    
-                    <dosage>0.2</dosage>
+                    </package>
                 </pharmacy>
             </tablets>
             <drops>
@@ -63,106 +64,616 @@
                         <expiration_date>2018-08-13</expiration_date>
                         <registration>Pharmacy Production, Belarus</registration>
                     </certificate>
+                    <dosage>1</dosage>
                     <package>
                         <packageType>Drop counter</packageType>
                         <volume>50</volume>
                         <price>20</price>
-                    </package>                    
-                    <dosage>1</dosage>
+                    </package>
                 </pharmacy>
             </drops>
         </versions>
     </drug>
     <drug id="002">
-        <name></name>
+        <name>Optics</name>
         <group>Vitamins</group>
         <versions>
             <tablets>
                 <pharmacy>
                     <certificate>
-                        <number></number>
-                        <issue_date></issue_date>
-                        <expiration_date></expiration_date>
-                        <registration></registration>
+                        <number>333555444</number>
+                        <issue_date>2018-05-10</issue_date>
+                        <expiration_date>2021-05-10</expiration_date>
+                        <registration>Alcon, Switzerland</registration>
                     </certificate>
-                    <dosage></dosage>
+                    <dosage>1</dosage>
                     <package>
-                        <packageType></packageType>
-                        <quantity></quantity>
-                        <price></price>
+                        <packageType>Plastic case</packageType>
+                        <quantity>30</quantity>
+                        <price>14.31</price>
                     </package>
                 </pharmacy>
             </tablets>
         </versions>
     </drug>
     <drug id="003">
-        <name></name>
+        <name>Vilprafen</name>
         <group>Antibiotics</group>
-        <versions></versions>
+        <analogs>
+            <analog>Josamycin</analog>
+        </analogs>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>987654321</number>
+                        <issue_date>2017-10-10</issue_date>
+                        <expiration_date>2024-10-10</expiration_date>
+                        <registration>Astellas pharmacy</registration>
+                    </certificate>
+                    <dosage>500</dosage>
+                    <package>
+                        <packageType>Plastic case</packageType>
+                        <quantity>10</quantity>
+                        <price>23.52</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>987654321</number>
+                        <issue_date>2017-10-10</issue_date>
+                        <expiration_date>2024-10-10</expiration_date>
+                        <registration>Astellas pharmacy</registration>
+                    </certificate>
+                    <dosage>1000</dosage>
+                    <package>
+                        <packageType>Plastic case</packageType>
+                        <quantity>10</quantity>
+                        <price>19.0</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+        </versions>
     </drug>
     <drug id="004">
-        <name></name>
+        <name>Chlorprotixen</name>
         <group>Analgesics</group>
-        <versions></versions>
+        <analogs>
+            <analog>Cordiamine</analog>
+            <analog>Никетамид</analog>
+        </analogs>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>144855977</number>
+                        <issue_date>2018-07-07</issue_date>
+                        <expiration_date>2021-07-07</expiration_date>
+                        <registration>Zentiva C.S., Czech Republic</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Plastic case</packageType>
+                        <quantity>30</quantity>
+                        <price>6.89</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+            <drops>
+                <pharmacy>
+                    <certificate>
+                        <number>123648975</number>
+                        <issue_date>2018-09-30</issue_date>
+                        <expiration_date>2022-09-30</expiration_date>
+                        <registration>Technopark Center, Russia</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Ampule</packageType>
+                        <volume>25</volume>
+                        <price>0.89</price>
+                    </package>
+                </pharmacy>
+            </drops>
+        </versions>
     </drug>
     <drug id="005">
-        <name></name>
+        <name>Saraya Alsoft R</name>
         <group>Antiseptics</group>
-        <versions></versions>
+        <analogs>
+            <analog>Softa-Man Iso</analog>
+        </analogs>
+        <versions>
+            <ointment>
+                <pharmacy>
+                    <certificate>
+                        <number>122355944</number>
+                        <issue_date>2019-06-28</issue_date>
+                        <expiration_date>2022-06-28</expiration_date>
+                        <registration>Sarai, Japan</registration>
+                    </certificate>
+                    <dosage>0.5</dosage>
+                    <package>
+                        <packageType>Tube</packageType>
+                        <weight>120</weight>
+                        <concentration>8</concentration>
+                        <price>0.5</price>
+                    </package>
+                </pharmacy>
+            </ointment>
+            <ointment>
+                <pharmacy>
+                    <certificate>
+                        <number>789357951</number>
+                        <issue_date>2018-05-09</issue_date>
+                        <expiration_date>2021-05-09</expiration_date>
+                        <registration>B. Brown Medical AG, Germany</registration>
+                    </certificate>
+                    <dosage>0.5</dosage>
+                    <package>
+                        <packageType>Ointment package</packageType>
+                        <weight>100</weight>
+                        <concentration>5</concentration>
+                        <price>15.99</price>
+                    </package>
+                </pharmacy>
+            </ointment>
+        </versions>
     </drug>
     <drug id="006">
-        <name></name>
+        <name>Halidor</name>
         <group>Hormones</group>
-        <versions></versions>
+        <analogs>
+            <analog>Bicyclan</analog>
+        </analogs>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>146952387</number>
+                        <issue_date>2019-04-04</issue_date>
+                        <expiration_date>2022-04-04</expiration_date>
+                        <registration>Aegis, Hungary</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Plastic bottle</packageType>
+                        <quantity>50</quantity>
+                        <price>8.68</price>
+                    </package>
+                </pharmacy>
+                <pharmacy>
+                    <certificate>
+                        <number>146952387</number>
+                        <issue_date>2019-04-04</issue_date>
+                        <expiration_date>2022-04-04</expiration_date>
+                        <registration>Aegis, Hungary</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Plastic bottle</packageType>
+                        <quantity>100</quantity>
+                        <price>15.99</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+            <powder>
+                <pharmacy>
+                    <certificate>
+                        <number>699453847</number>
+                        <issue_date>2019-02-10</issue_date>
+                        <expiration_date>2021-02-10</expiration_date>
+                        <registration>Tatkhimpharmpreparaty, Russia</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Aluminum bag</packageType>
+                        <weight>30</weight>
+                        <price>14.55</price>
+                    </package>
+                </pharmacy>
+            </powder>
+        </versions>
     </drug>
     <drug id="007">
-        <name></name>
-        <group>Stimulants</group>
-        <versions></versions>
+        <name>Ascorbic acid</name>
+        <group>Vitamins</group>
+        <versions>
+            <powder>
+                <pharmacy>
+                    <certificate>
+                        <number>184652367</number>
+                        <issue_date>2018-08-22</issue_date>
+                        <expiration_date>2022-08-22</expiration_date>
+                        <registration>Exon, Belarus</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Sachet</packageType>
+                        <weight>1</weight>
+                        <price>1.83</price>
+                    </package>
+                </pharmacy>
+                <pharmacy>
+                    <certificate>
+                        <number>166588933</number>
+                        <issue_date>2017-01-05</issue_date>
+                        <expiration_date>2020-01-05</expiration_date>
+                        <registration>BelMedPreparaty, Belarus</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Sachet</packageType>
+                        <weight>5</weight>
+                        <price>3.29</price>
+                    </package>
+                </pharmacy>
+            </powder>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>135795999</number>
+                        <issue_date>2018-11-11</issue_date>
+                        <expiration_date>2022-11-11</expiration_date>
+                        <registration>Natur product</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Plastic case</packageType>
+                        <quantity>10</quantity>
+                        <price>3.92</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+        </versions>
     </drug>
     <drug id="008">
-        <name></name>
-        <group>Vitamins</group>
-        <versions></versions>
+        <name>Androcourt</name>
+        <group>Stimulants</group>
+        <analogs>
+            <analog>Cyproterone</analog>
+        </analogs>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>145862359</number>
+                        <issue_date>2018-06-06</issue_date>
+                        <expiration_date>2022-06-06</expiration_date>
+                        <registration>Bayer Pharma AG, Germany</registration>
+                    </certificate>
+                    <dosage>2</dosage>
+                    <package>
+                        <packageType>Plastic case</packageType>
+                        <quantity>120</quantity>
+                        <price>25.66</price>
+                    </package>
+                </pharmacy>
+                <pharmacy>
+                    <certificate>
+                        <number>145862359</number>
+                        <issue_date>2018-06-06</issue_date>
+                        <expiration_date>2022-06-06</expiration_date>
+                        <registration>Bayer Pharma AG, Germany</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Plastic bottle</packageType>
+                        <quantity>50</quantity>
+                        <price>42.66</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+        </versions>
     </drug>
     <drug id="009">
-        <name></name>
+        <name>Amoxicillin</name>
         <group>Antibiotics</group>
-        <versions></versions>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>122455788</number>
+                        <issue_date>2018-01-01</issue_date>
+                        <expiration_date>2025-01-01</expiration_date>
+                        <registration>Pharmtechnology, Belarus</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Blister pack</packageType>
+                        <quantity>12</quantity>
+                        <price>4.9</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+            <powder>
+                <pharmacy>
+                    <certificate>
+                        <number>166588933</number>
+                        <issue_date>2017-01-05</issue_date>
+                        <expiration_date>2020-01-05</expiration_date>
+                        <registration>BelMedPreparaty, Belarus</registration>
+                    </certificate>
+                    <dosage>250</dosage>
+                    <package>
+                        <packageType>Plastic bottle</packageType>
+                        <weight>20</weight>
+                        <price>2.88</price>
+                    </package>
+                </pharmacy>
+            </powder>
+        </versions>
     </drug>
     <drug id="010">
-        <name></name>
+        <name>Pipolfen</name>
         <group>Hormones</group>
-        <versions></versions>
+        <analogs>
+            <analog>Promethazine</analog>
+        </analogs>
+        <versions>
+            <drops>
+                <pharmacy>
+                    <certificate>
+                        <number>146952387</number>
+                        <issue_date>2019-04-04</issue_date>
+                        <expiration_date>2022-04-04</expiration_date>
+                        <registration>Aegis, Hungary</registration>
+                    </certificate>
+                    <dosage>2</dosage>
+                    <package>
+                        <packageType>Ampule</packageType>
+                        <volume>25</volume>
+                        <price>14.99</price>
+                    </package>
+                </pharmacy>
+            </drops>
+        </versions>
     </drug>
     <drug id="011">
-        <name></name>
+        <name>Aquadetrim</name>
         <group>Vitamins</group>
-        <versions></versions>
+        <analogs>
+            <analog>Cholecalciferol</analog>
+        </analogs>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>624897531</number>
+                        <issue_date>2017-09-30</issue_date>
+                        <expiration_date>2020-09-30</expiration_date>
+                        <registration>Lamira, OOO</registration>
+                    </certificate>
+                    <dosage>0.5</dosage>
+                    <package>
+                        <packageType>Blister pack</packageType>
+                        <quantity>8</quantity>
+                        <price>15.50</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+            <drops>
+                <pharmacy>
+                    <certificate>
+                        <number>951852753</number>
+                        <issue_date>2019-03-03</issue_date>
+                        <expiration_date>2023-03-03</expiration_date>
+                        <registration>Medana Pharma, Poland</registration>
+                    </certificate>
+                    <dosage>15</dosage>
+                    <package>
+                        <packageType>Drop counter</packageType>
+                        <volume>100</volume>
+                        <price>7.47</price>
+                    </package>
+                </pharmacy>
+            </drops>
+        </versions>
     </drug>
     <drug id="012">
-        <name></name>
+        <name>Divigel</name>
         <group>Analgesics</group>
-        <versions></versions>
+        <analogs>
+            <analog>Estradiol</analog>
+        </analogs>
+        <versions>
+            <ointment>
+                <pharmacy>
+                    <certificate>
+                        <number>764284368</number>
+                        <issue_date>2018-12-06</issue_date>
+                        <expiration_date>2025-12-06</expiration_date>
+                        <registration>Orion Corporation, Finland</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Tube</packageType>
+                        <weight>150</weight>
+                        <concentration>5</concentration>
+                        <price>8.55</price>
+                    </package>
+                </pharmacy>
+                <pharmacy>
+                    <certificate>
+                        <number>764284368</number>
+                        <issue_date>2018-12-06</issue_date>
+                        <expiration_date>2025-12-06</expiration_date>
+                        <registration>Orion Corporation, Finland</registration>
+                    </certificate>
+                    <dosage>2</dosage>
+                    <package>
+                        <packageType>Ointment package</packageType>
+                        <weight>100</weight>
+                        <concentration>10</concentration>
+                        <price>18.25</price>
+                    </package>
+                </pharmacy>
+            </ointment>
+        </versions>
     </drug>
     <drug id="013">
-        <name></name>
+        <name>Bicillin</name>
         <group>Antibiotics</group>
-        <versions></versions>
+        <analogs>
+            <analog>Bicillin-5</analog>
+        </analogs>
+        <versions>
+            <powder>
+                <pharmacy>
+                    <certificate>
+                        <number>159753852</number>
+                        <issue_date>2019-08-02</issue_date>
+                        <expiration_date>2019-08-02</expiration_date>
+                        <registration>Sintez Ako</registration>
+                    </certificate>
+                    <dosage>200</dosage>
+                    <package>
+                        <packageType>Sachet</packageType>
+                        <weight>100</weight>
+                        <price>3.60</price>
+                    </package>
+                </pharmacy>
+            </powder>
+            <powder>
+                <pharmacy>
+                    <certificate>
+                        <number>159753852</number>
+                        <issue_date>2019-08-02</issue_date>
+                        <expiration_date>2019-08-02</expiration_date>
+                        <registration>Sintez Ako</registration>
+                    </certificate>
+                    <dosage>1.2</dosage>
+                    <package>
+                        <packageType>Aluminum bag</packageType>
+                        <weight>100</weight>
+                        <price>5.10</price>
+                    </package>
+                </pharmacy>
+            </powder>
+        </versions>
     </drug>
     <drug id="014">
-        <name></name>
+        <name>Gestarella</name>
         <group>Stimulants</group>
-        <versions></versions>
+        <analogs>
+            <analog>Gestoden</analog>
+            <analog>Ethinyl estradiol</analog>
+        </analogs>
+        <versions>
+            <tablets>
+                <pharmacy>
+                    <certificate>
+                        <number>499751675</number>
+                        <issue_date>2017-09-20</issue_date>
+                        <expiration_date>2025-09-20</expiration_date>
+                        <registration>Haupt Pharma Munster GmbH, Czech Republic</registration>
+                    </certificate>
+                    <dosage>1.5</dosage>
+                    <package>
+                        <packageType>Blister pack</packageType>
+                        <quantity>75</quantity>
+                        <price>39.99</price>
+                    </package>
+                </pharmacy>
+            </tablets>
+            <drops>
+                <pharmacy>
+                    <certificate>
+                        <number>778855555</number>
+                        <issue_date>2018-11-01</issue_date>
+                        <expiration_date>2021-11-01</expiration_date>
+                        <registration>Helvet, Russia</registration>
+                    </certificate>
+                    <dosage>2.5</dosage>
+                    <package>
+                        <packageType>Glass bottle</packageType>
+                        <volume>100</volume>
+                        <price>13.65</price>
+                    </package>
+                </pharmacy>
+            </drops>
+        </versions>
     </drug>
     <drug id="015">
-        <name></name>
+        <name>Jintropin</name>
         <group>Hormones</group>
-        <versions></versions>
+        <analogs>
+            <analog>Genotropin</analog>
+            <analog>Rastan</analog>
+        </analogs>
+        <versions>
+            <drops>
+                <pharmacy>
+                    <certificate>
+                        <number>644822733</number>
+                        <issue_date>2019-01-15</issue_date>
+                        <expiration_date>2022-01-15</expiration_date>
+                        <registration>Jensiens, China</registration>
+                    </certificate>
+                    <dosage>5</dosage>
+                    <package>
+                        <packageType>Glass bottle</packageType>
+                        <volume>100</volume>
+                        <price>19.99</price>
+                    </package>
+                </pharmacy>
+            </drops>
+            <drops>
+                <pharmacy>
+                    <certificate>
+                        <number>844625972</number>
+                        <issue_date>2017-11-01</issue_date>
+                        <expiration_date>2025-11-01</expiration_date>
+                        <registration>Pfizer, USA</registration>
+                    </certificate>
+                    <dosage>2</dosage>
+                    <package>
+                        <packageType>Ampule</packageType>
+                        <volume>50</volume>
+                        <price>42.50</price>
+                    </package>
+                </pharmacy>
+            </drops>
+        </versions>
     </drug>
     <drug id="016">
-        <name></name>
+        <name>Triosept-OL</name>
         <group>Antiseptics</group>
-        <versions></versions>
+        <versions>
+            <ointment>
+                <pharmacy>
+                    <certificate>
+                        <number>999442268</number>
+                        <issue_date>2018-08-01</issue_date>
+                        <expiration_date>2024-08-01</expiration_date>
+                        <registration>Special Synthesis of NGOs, Russia</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Ointment package</packageType>
+                        <weight>100</weight>
+                        <concentration>10</concentration>
+                        <price>1.22</price>
+                    </package>
+                </pharmacy>
+                <pharmacy>
+                    <certificate>
+                        <number>999442268</number>
+                        <issue_date>2018-08-01</issue_date>
+                        <expiration_date>2024-08-01</expiration_date>
+                        <registration>Special Synthesis of NGOs, Russia</registration>
+                    </certificate>
+                    <dosage>1</dosage>
+                    <package>
+                        <packageType>Tube</packageType>
+                        <weight>250</weight>
+                        <concentration>10</concentration>
+                        <price>8.15</price>
+                    </package>
+                </pharmacy>
+            </ointment>
+        </versions>
     </drug>
 </medicines>

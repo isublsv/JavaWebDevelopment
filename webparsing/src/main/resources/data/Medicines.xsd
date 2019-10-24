@@ -45,7 +45,7 @@
                         <attribute name="id" use="required">
                             <simpleType>
                                 <restriction base="positiveInteger">
-                                    <pattern value="([\d]){3}"/>
+                                    <pattern value="[\d]{3}"/>
                                 </restriction>
                             </simpleType>
                         </attribute>
@@ -76,7 +76,13 @@
 
     <complexType name="Certificate">
         <sequence>
-            <element type="positiveInteger" name="number"/>
+            <element name="number">
+                <simpleType>
+                    <restriction base="positiveInteger">
+                        <pattern value="[\d]{9}"/>
+                    </restriction>
+                </simpleType>
+            </element>
             <element type="date" name="issue_date"/>
             <element type="date" name="expiration_date"/>
             <element type="string" name="registration"/>
@@ -86,15 +92,7 @@
     <complexType name="TabletPackage">
         <sequence>
             <element name="packageType" type="md:PackType"/>
-            <element name="quantity">
-                <simpleType>
-                    <restriction base="positiveInteger">
-                        <enumeration value="20"/>
-                        <enumeration value="50"/>
-                        <enumeration value="75"/>
-                    </restriction>
-                </simpleType>
-            </element>
+            <element name="quantity" type="positiveInteger"/>
             <element type="decimal" name="price"/>
         </sequence>
     </complexType>
@@ -102,15 +100,7 @@
     <complexType name="LiquidPackage">
         <sequence>
             <element name="packageType" type="md:VolumeType"/>
-            <element name="volume">
-                <simpleType>
-                    <restriction base="positiveInteger">
-                        <enumeration value="20"/>
-                        <enumeration value="50"/>
-                        <enumeration value="100"/>
-                    </restriction>
-                </simpleType>
-            </element>
+            <element name="volume" type="positiveInteger"/>
             <element type="decimal" name="price"/>
         </sequence>
     </complexType>
@@ -118,15 +108,7 @@
     <complexType name="PowderPackage">
         <sequence>
             <element name="packageType" type="md:PowderType"/>
-            <element name="weight">
-                <simpleType>
-                    <restriction base="positiveInteger">
-                        <enumeration value="20"/>
-                        <enumeration value="50"/>
-                        <enumeration value="100"/>
-                    </restriction>
-                </simpleType>
-            </element>
+            <element name="weight" type="positiveInteger"/>
             <element type="decimal" name="price"/>
         </sequence>
     </complexType>
@@ -134,15 +116,7 @@
     <complexType name="OintmentPackage">
         <sequence>
             <element name="packageType" type="md:OintmentType"/>
-            <element name="weight">
-                <simpleType>
-                    <restriction base="positiveInteger">
-                        <enumeration value="150"/>
-                        <enumeration value="200"/>
-                        <enumeration value="250"/>
-                    </restriction>
-                </simpleType>
-            </element>
+            <element name="weight" type="positiveInteger"/>
             <element type="positiveInteger" name="concentration"/>
             <element type="decimal" name="price"/>
         </sequence>
@@ -152,6 +126,7 @@
         <restriction base="string">
             <enumeration value="Plastic bottle"/>
             <enumeration value="Blister pack"/>
+            <enumeration value="Plastic case"/>
         </restriction>
     </simpleType>
 
@@ -167,6 +142,7 @@
         <restriction base="string">
             <enumeration value="Plastic bottle"/>
             <enumeration value="Aluminum bag"/>
+            <enumeration value="Sachet"/>
         </restriction>
     </simpleType>
 
@@ -188,6 +164,13 @@
         </complexContent>
     </complexType>-->
 
+    <group name="pharmacyGroup">
+        <sequence>
+            <element name="certificate" type="md:Certificate"/>
+            <element name="dosage" type="decimal"/>
+        </sequence>
+    </group>
+    
     <complexType name="Tablets">
         <complexContent>
             <extension base="md:FormType">
@@ -195,9 +178,8 @@
                     <element name="pharmacy" maxOccurs="unbounded">
                         <complexType>
                             <sequence>
-                                <element name="certificate" type="md:Certificate"/>
+                                <group ref="md:pharmacyGroup"/>
                                 <element name="package" type="md:TabletPackage"/>
-                                <element name="dosage" type="decimal"/>
                             </sequence>
                         </complexType>
                     </element>
@@ -213,9 +195,8 @@
                     <element name="pharmacy" maxOccurs="unbounded">
                         <complexType>
                             <sequence>
-                                <element name="certificate" type="md:Certificate"/>
+                                <group ref="md:pharmacyGroup"/>
                                 <element name="package" type="md:LiquidPackage"/>
-                                <element name="dosage" type="decimal"/>
                             </sequence>
                         </complexType>
                     </element>
@@ -231,9 +212,8 @@
                     <element name="pharmacy" maxOccurs="unbounded">
                         <complexType>
                             <sequence>
-                                <element name="certificate" type="md:Certificate"/>
+                                <group ref="md:pharmacyGroup"/>
                                 <element name="package" type="md:PowderPackage"/>
-                                <element name="dosage" type="decimal"/>
                             </sequence>
                         </complexType>
                     </element>
@@ -249,9 +229,8 @@
                     <element name="pharmacy" maxOccurs="unbounded">
                         <complexType>
                             <sequence>
-                                <element name="certificate" type="md:Certificate"/>
+                                <group ref="md:pharmacyGroup"/>
                                 <element name="package" type="md:OintmentPackage"/>
-                                <element name="dosage" type="decimal"/>
                             </sequence>
                         </complexType>
                     </element>
