@@ -44,7 +44,7 @@
                         </sequence>
                         <attribute name="id" use="required">
                             <simpleType>
-                                <restriction base="positiveInteger">
+                                <restriction base="int">
                                     <pattern value="[\d]{3}"/>
                                 </restriction>
                             </simpleType>
@@ -72,65 +72,83 @@
         </sequence>
     </complexType>
 
-    <complexType name="TabletPackage">
+    <complexType name="PackageType">
         <sequence>
-            <element name="packageType" type="md:PackType" default="Plastic case"/>
-            <element name="quantity">
-                <simpleType>
-                    <restriction base="integer">
-                        <minInclusive value="0"/>
-                        <maxInclusive value="1000"/>
-                    </restriction>
-                </simpleType>
-            </element>
             <element type="decimal" name="price"/>
         </sequence>
+    </complexType>
+
+    <complexType name="TabletPackage">
+        <complexContent>
+            <extension base="md:PackageType">
+                <sequence>
+                    <element name="packageType" type="md:PackType" default="Plastic case"/>
+                    <element name="quantity">
+                        <simpleType>
+                            <restriction base="integer">
+                                <minInclusive value="0"/>
+                                <maxInclusive value="1000"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
     </complexType>
 
     <complexType name="LiquidPackage">
-        <sequence>
-            <element name="packageType" type="md:VolumeType" default="Drop counter"/>
-            <element name="volume">
-                <simpleType>
-                    <restriction base="integer">
-                        <minInclusive value="0"/>
-                        <maxInclusive value="500"/>
-                    </restriction>
-                </simpleType>
-            </element>
-            <element type="decimal" name="price"/>
-        </sequence>
+        <complexContent>
+            <extension base="md:PackageType">
+                <sequence>
+                    <element name="packageType" type="md:VolumeType" default="Drop counter"/>
+                    <element name="volume">
+                        <simpleType>
+                            <restriction base="integer">
+                                <minInclusive value="0"/>
+                                <maxInclusive value="500"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
     </complexType>
 
     <complexType name="PowderPackage">
-        <sequence>
-            <element name="packageType" type="md:PowderType" default="Plastic bottle"/>
-            <element name="weight">
-                <simpleType>
-                    <restriction base="integer">
-                        <minInclusive value="0"/>
-                        <maxInclusive value="250"/>
-                    </restriction>
-                </simpleType>
-            </element>
-            <element type="decimal" name="price"/>
-        </sequence>
+        <complexContent>
+            <extension base="md:PackageType">
+                <sequence>
+                    <element name="packageType" type="md:PowderType" default="Plastic bottle"/>
+                    <element name="weight">
+                        <simpleType>
+                            <restriction base="integer">
+                                <minInclusive value="0"/>
+                                <maxInclusive value="250"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
     </complexType>
 
     <complexType name="OintmentPackage">
-        <sequence>
-            <element name="packageType" type="md:OintmentType" default="Tube"/>
-            <element name="weight">
-                <simpleType>
-                    <restriction base="integer">
-                        <minInclusive value="0"/>
-                        <maxInclusive value="500"/>
-                    </restriction>
-                </simpleType>
-            </element>
-            <element type="positiveInteger" name="concentration"/>
-            <element type="decimal" name="price"/>
-        </sequence>
+        <complexContent>
+            <extension base="md:PackageType">
+                <sequence>
+                    <element name="packageType" type="md:OintmentType" default="Tube"/>
+                    <element name="weight">
+                        <simpleType>
+                            <restriction base="integer">
+                                <minInclusive value="0"/>
+                                <maxInclusive value="500"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element type="positiveInteger" name="concentration"/>                    
+                </sequence>
+            </extension>
+        </complexContent>
     </complexType>
 
     <simpleType name="PackType">
@@ -163,17 +181,6 @@
             <enumeration value="Ointment package"/>
         </restriction>
     </simpleType>
-
-<!--    <complexType name="Pharmacy">
-        <complexContent mixed="true">
-            <extension base="anyType">
-                <all maxOccurs="1" minOccurs="1">
-                    <element name="certificate" type="md:Certificate" minOccurs="1" maxOccurs="1"/>
-                    <element name="dosage" type="decimal" minOccurs="1" maxOccurs="1"/>
-                </all>
-            </extension>
-        </complexContent>
-    </complexType>-->
 
     <group name="pharmacyGroup">
         <sequence>

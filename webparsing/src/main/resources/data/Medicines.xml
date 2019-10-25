@@ -35,9 +35,10 @@
                     </certificate>
                     <dosage>0.1</dosage>
                     <package>
+                        <price>18.99</price>
                         <packageType>Plastic bottle</packageType>
                         <quantity>75</quantity>
-                        <price>18.99</price>
+
                     </package>
                 </pharmacy>
                 <pharmacy>
@@ -49,9 +50,9 @@
                     </certificate>
                     <dosage>0.2</dosage>
                     <package>
+                        <price>12.99</price>
                         <packageType>Blister pack</packageType>
                         <quantity>50</quantity>
-                        <price>12.99</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -65,9 +66,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>20</price>
                         <packageType>Drop counter</packageType>
                         <volume>50</volume>
-                        <price>20</price>
                     </package>
                 </pharmacy>
             </drops>
@@ -87,9 +88,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>14.31</price>
                         <packageType>Plastic case</packageType>
                         <quantity>30</quantity>
-                        <price>14.31</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -112,9 +113,9 @@
                     </certificate>
                     <dosage>500</dosage>
                     <package>
+                        <price>23.52</price>
                         <packageType>Plastic case</packageType>
                         <quantity>10</quantity>
-                        <price>23.52</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -128,9 +129,9 @@
                     </certificate>
                     <dosage>1000</dosage>
                     <package>
+                        <price>19.0</price>
                         <packageType>Plastic case</packageType>
                         <quantity>10</quantity>
-                        <price>19.0</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -141,7 +142,7 @@
         <group>Analgesics</group>
         <analogs>
             <analog>Cordiamine</analog>
-            <analog>Никетамид</analog>
+            <analog>Niketamide</analog>
         </analogs>
         <versions>
             <tablets>
@@ -154,9 +155,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>6.89</price>
                         <packageType>Plastic case</packageType>
                         <quantity>30</quantity>
-                        <price>6.89</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -170,9 +171,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>0.89</price>
                         <packageType>Ampule</packageType>
                         <volume>25</volume>
-                        <price>0.89</price>
                     </package>
                 </pharmacy>
             </drops>
@@ -195,10 +196,10 @@
                     </certificate>
                     <dosage>0.5</dosage>
                     <package>
+                        <price>0.5</price>
                         <packageType>Tube</packageType>
                         <weight>120</weight>
                         <concentration>8</concentration>
-                        <price>0.5</price>
                     </package>
                 </pharmacy>
             </ointment>
@@ -212,10 +213,10 @@
                     </certificate>
                     <dosage>0.5</dosage>
                     <package>
+                        <price>15.99</price>
                         <packageType>Ointment package</packageType>
                         <weight>100</weight>
                         <concentration>5</concentration>
-                        <price>15.99</price>
                     </package>
                 </pharmacy>
             </ointment>
@@ -238,9 +239,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>8.68</price>
                         <packageType>Plastic bottle</packageType>
                         <quantity>50</quantity>
-                        <price>8.68</price>
                     </package>
                 </pharmacy>
                 <pharmacy>
@@ -252,9 +253,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>15.99</price>
                         <packageType>Plastic bottle</packageType>
                         <quantity>100</quantity>
-                        <price>15.99</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -268,9 +269,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>14.55</price>
                         <packageType>Aluminum bag</packageType>
                         <weight>30</weight>
-                        <price>14.55</price>
                     </package>
                 </pharmacy>
             </powder>
@@ -290,9 +291,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>1.83</price>
                         <packageType>Sachet</packageType>
                         <weight>1</weight>
-                        <price>1.83</price>
                     </package>
                 </pharmacy>
                 <pharmacy>
@@ -304,9 +305,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>3.29</price>
                         <packageType>Sachet</packageType>
                         <weight>5</weight>
-                        <price>3.29</price>
                     </package>
                 </pharmacy>
             </powder>
@@ -320,9 +321,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>3.92</price>
                         <packageType>Plastic case</packageType>
                         <quantity>10</quantity>
-                        <price>3.92</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -345,9 +346,9 @@
                     </certificate>
                     <dosage>2</dosage>
                     <package>
+                        <price>25.66</price>
                         <packageType>Plastic case</packageType>
                         <quantity>120</quantity>
-                        <price>25.66</price>
                     </package>
                 </pharmacy>
                 <pharmacy>
@@ -359,9 +360,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>42.66</price>
                         <packageType>Plastic bottle</packageType>
                         <quantity>50</quantity>
-                        <price>42.66</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -381,9 +382,9 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>4.9</price>
                         <packageType>Blister pack</packageType>
                         <quantity>12</quantity>
-                        <price>4.9</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -397,9 +398,9 @@
                     </certificate>
                     <dosage>250</dosage>
                     <package>
+                        <price>2.88</price>
                         <packageType>Plastic bottle</packageType>
                         <weight>20</weight>
-                        <price>2.88</price>
                     </package>
                 </pharmacy>
             </powder>
@@ -422,9 +423,9 @@
                     </certificate>
                     <dosage>2</dosage>
                     <package>
+                        <price>14.99</price>
                         <packageType>Ampule</packageType>
                         <volume>25</volume>
-                        <price>14.99</price>
                     </package>
                 </pharmacy>
             </drops>
@@ -447,9 +448,9 @@
                     </certificate>
                     <dosage>0.5</dosage>
                     <package>
+                        <price>15.50</price>
                         <packageType>Blister pack</packageType>
                         <quantity>8</quantity>
-                        <price>15.50</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -463,9 +464,9 @@
                     </certificate>
                     <dosage>15</dosage>
                     <package>
+                        <price>7.47</price>
                         <packageType>Drop counter</packageType>
                         <volume>100</volume>
-                        <price>7.47</price>
                     </package>
                 </pharmacy>
             </drops>
@@ -488,10 +489,10 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>8.55</price>
                         <packageType>Tube</packageType>
                         <weight>150</weight>
                         <concentration>5</concentration>
-                        <price>8.55</price>
                     </package>
                 </pharmacy>
                 <pharmacy>
@@ -503,10 +504,10 @@
                     </certificate>
                     <dosage>2</dosage>
                     <package>
+                        <price>18.25</price>
                         <packageType>Ointment package</packageType>
                         <weight>100</weight>
                         <concentration>10</concentration>
-                        <price>18.25</price>
                     </package>
                 </pharmacy>
             </ointment>
@@ -529,9 +530,9 @@
                     </certificate>
                     <dosage>200</dosage>
                     <package>
+                        <price>3.60</price>
                         <packageType>Sachet</packageType>
                         <weight>100</weight>
-                        <price>3.60</price>
                     </package>
                 </pharmacy>
             </powder>
@@ -545,9 +546,9 @@
                     </certificate>
                     <dosage>1.2</dosage>
                     <package>
+                        <price>5.10</price>
                         <packageType>Aluminum bag</packageType>
                         <weight>100</weight>
-                        <price>5.10</price>
                     </package>
                 </pharmacy>
             </powder>
@@ -571,9 +572,9 @@
                     </certificate>
                     <dosage>1.5</dosage>
                     <package>
+                        <price>39.99</price>
                         <packageType>Blister pack</packageType>
                         <quantity>75</quantity>
-                        <price>39.99</price>
                     </package>
                 </pharmacy>
             </tablets>
@@ -587,9 +588,9 @@
                     </certificate>
                     <dosage>2.5</dosage>
                     <package>
+                        <price>13.65</price>
                         <packageType>Glass bottle</packageType>
                         <volume>100</volume>
-                        <price>13.65</price>
                     </package>
                 </pharmacy>
             </drops>
@@ -613,9 +614,9 @@
                     </certificate>
                     <dosage>5</dosage>
                     <package>
+                        <price>19.99</price>
                         <packageType>Glass bottle</packageType>
                         <volume>100</volume>
-                        <price>19.99</price>
                     </package>
                 </pharmacy>
             </drops>
@@ -629,9 +630,9 @@
                     </certificate>
                     <dosage>2</dosage>
                     <package>
+                        <price>42.50</price>
                         <packageType>Ampule</packageType>
                         <volume>50</volume>
-                        <price>42.50</price>
                     </package>
                 </pharmacy>
             </drops>
@@ -651,10 +652,10 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>1.22</price>
                         <packageType>Ointment package</packageType>
                         <weight>100</weight>
                         <concentration>10</concentration>
-                        <price>1.22</price>
                     </package>
                 </pharmacy>
                 <pharmacy>
@@ -666,10 +667,10 @@
                     </certificate>
                     <dosage>1</dosage>
                     <package>
+                        <price>8.15</price>
                         <packageType>Tube</packageType>
                         <weight>250</weight>
                         <concentration>10</concentration>
-                        <price>8.15</price>
                     </package>
                 </pharmacy>
             </ointment>
