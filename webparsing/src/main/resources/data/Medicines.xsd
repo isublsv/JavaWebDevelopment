@@ -56,23 +56,6 @@
     </element>
 
     <complexType name="FormType"/>
-    <!--                <sequence>
-                        <element name="pharmacy" maxOccurs="unbounded">
-                            <complexType>
-                                <complexContent>
-                                    <extension base="Pharmacy">
-                                        <sequence>
-                                            <element name="certificate" type="Certificate"/>
-                                            &lt;!&ndash;type="TabletPackage" by default&ndash;&gt;
-                                            <element name="package" type="TabletPackage"/>
-                                            <element name="dosage" type="decimal"/>
-                                        </sequence>
-                                    </extension>
-                                </complexContent>
-                            </complexType>
-                        </element>
-                    </sequence>
-        </complexType>-->
 
     <complexType name="Certificate">
         <sequence>
@@ -91,32 +74,60 @@
 
     <complexType name="TabletPackage">
         <sequence>
-            <element name="packageType" type="md:PackType"/>
-            <element name="quantity" type="positiveInteger"/>
+            <element name="packageType" type="md:PackType" default="Plastic case"/>
+            <element name="quantity">
+                <simpleType>
+                    <restriction base="integer">
+                        <minInclusive value="0"/>
+                        <maxInclusive value="1000"/>
+                    </restriction>
+                </simpleType>
+            </element>
             <element type="decimal" name="price"/>
         </sequence>
     </complexType>
 
     <complexType name="LiquidPackage">
         <sequence>
-            <element name="packageType" type="md:VolumeType"/>
-            <element name="volume" type="positiveInteger"/>
+            <element name="packageType" type="md:VolumeType" default="Drop counter"/>
+            <element name="volume">
+                <simpleType>
+                    <restriction base="integer">
+                        <minInclusive value="0"/>
+                        <maxInclusive value="500"/>
+                    </restriction>
+                </simpleType>
+            </element>
             <element type="decimal" name="price"/>
         </sequence>
     </complexType>
 
     <complexType name="PowderPackage">
         <sequence>
-            <element name="packageType" type="md:PowderType"/>
-            <element name="weight" type="positiveInteger"/>
+            <element name="packageType" type="md:PowderType" default="Plastic bottle"/>
+            <element name="weight">
+                <simpleType>
+                    <restriction base="integer">
+                        <minInclusive value="0"/>
+                        <maxInclusive value="250"/>
+                    </restriction>
+                </simpleType>
+            </element>
             <element type="decimal" name="price"/>
         </sequence>
     </complexType>
 
     <complexType name="OintmentPackage">
         <sequence>
-            <element name="packageType" type="md:OintmentType"/>
-            <element name="weight" type="positiveInteger"/>
+            <element name="packageType" type="md:OintmentType" default="Tube"/>
+            <element name="weight">
+                <simpleType>
+                    <restriction base="integer">
+                        <minInclusive value="0"/>
+                        <maxInclusive value="500"/>
+                    </restriction>
+                </simpleType>
+            </element>
             <element type="positiveInteger" name="concentration"/>
             <element type="decimal" name="price"/>
         </sequence>
