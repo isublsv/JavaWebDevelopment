@@ -44,8 +44,8 @@
                         </sequence>
                         <attribute name="id" use="required">
                             <simpleType>
-                                <restriction base="int">
-                                    <pattern value="[\d]{3}"/>
+                                <restriction base="ID">
+                                    <pattern value="(drug)[\d]{1,5}"/>
                                 </restriction>
                             </simpleType>
                         </attribute>

@@ -18,7 +18,7 @@
             5.3. Dosage – дозировка препарата, периодичность приема.
         Корневой элемент назвать Medicines.
     -->
-    <drug id="001">
+    <drug id="drug1">
         <name>Iodomarin</name>
         <group>Hormones</group>
         <analogs>
@@ -74,7 +74,7 @@
             </drops>
         </versions>
     </drug>
-    <drug id="002">
+    <drug id="drug2">
         <name>Optics</name>
         <group>Vitamins</group>
         <versions>
@@ -96,7 +96,7 @@
             </tablets>
         </versions>
     </drug>
-    <drug id="003">
+    <drug id="drug3">
         <name>Vilprafen</name>
         <group>Antibiotics</group>
         <analogs>
@@ -137,7 +137,7 @@
             </tablets>
         </versions>
     </drug>
-    <drug id="004">
+    <drug id="drug4">
         <name>Chlorprotixen</name>
         <group>Analgesics</group>
         <analogs>
@@ -179,7 +179,7 @@
             </drops>
         </versions>
     </drug>
-    <drug id="005">
+    <drug id="drug5">
         <name>Saraya Alsoft R</name>
         <group>Antiseptics</group>
         <analogs>
@@ -222,7 +222,7 @@
             </ointment>
         </versions>
     </drug>
-    <drug id="006">
+    <drug id="drug6">
         <name>Halidor</name>
         <group>Hormones</group>
         <analogs>
@@ -277,7 +277,7 @@
             </powder>
         </versions>
     </drug>
-    <drug id="007">
+    <drug id="drug7">
         <name>Ascorbic acid</name>
         <group>Vitamins</group>
         <versions>
@@ -329,7 +329,7 @@
             </tablets>
         </versions>
     </drug>
-    <drug id="008">
+    <drug id="drug8">
         <name>Androcourt</name>
         <group>Stimulants</group>
         <analogs>
@@ -368,7 +368,7 @@
             </tablets>
         </versions>
     </drug>
-    <drug id="009">
+    <drug id="drug9">
         <name>Amoxicillin</name>
         <group>Antibiotics</group>
         <versions>
@@ -406,7 +406,7 @@
             </powder>
         </versions>
     </drug>
-    <drug id="010">
+    <drug id="drug10">
         <name>Pipolfen</name>
         <group>Hormones</group>
         <analogs>
@@ -431,7 +431,7 @@
             </drops>
         </versions>
     </drug>
-    <drug id="011">
+    <drug id="drug11">
         <name>Aquadetrim</name>
         <group>Vitamins</group>
         <analogs>
@@ -472,7 +472,7 @@
             </drops>
         </versions>
     </drug>
-    <drug id="012">
+    <drug id="drug12">
         <name>Divigel</name>
         <group>Analgesics</group>
         <analogs>
@@ -513,7 +513,7 @@
             </ointment>
         </versions>
     </drug>
-    <drug id="013">
+    <drug id="drug13">
         <name>Bicillin</name>
         <group>Antibiotics</group>
         <analogs>
@@ -554,7 +554,7 @@
             </powder>
         </versions>
     </drug>
-    <drug id="014">
+    <drug id="drug14">
         <name>Gestarella</name>
         <group>Stimulants</group>
         <analogs>
@@ -596,7 +596,7 @@
             </drops>
         </versions>
     </drug>
-    <drug id="015">
+    <drug id="drug15">
         <name>Jintropin</name>
         <group>Hormones</group>
         <analogs>
@@ -638,7 +638,7 @@
             </drops>
         </versions>
     </drug>
-    <drug id="016">
+    <drug id="drug16">
         <name>Triosept-OL</name>
         <group>Antiseptics</group>
         <versions>
