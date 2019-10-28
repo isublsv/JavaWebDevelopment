@@ -82,7 +82,7 @@
         <complexContent>
             <extension base="md:PackageType">
                 <sequence>
-                    <element name="packageType" type="md:PackType" default="Plastic case"/>
+                    <element name="package_type" type="md:PackType" default="Plastic case"/>
                     <element name="quantity">
                         <simpleType>
                             <restriction base="integer">
@@ -100,7 +100,7 @@
         <complexContent>
             <extension base="md:PackageType">
                 <sequence>
-                    <element name="packageType" type="md:VolumeType" default="Drop counter"/>
+                    <element name="package_type" type="md:VolumeType" default="Drop counter"/>
                     <element name="volume">
                         <simpleType>
                             <restriction base="integer">
@@ -118,7 +118,7 @@
         <complexContent>
             <extension base="md:PackageType">
                 <sequence>
-                    <element name="packageType" type="md:PowderType" default="Plastic bottle"/>
+                    <element name="package_type" type="md:PowderType" default="Plastic bottle"/>
                     <element name="weight">
                         <simpleType>
                             <restriction base="integer">
@@ -136,7 +136,7 @@
         <complexContent>
             <extension base="md:PackageType">
                 <sequence>
-                    <element name="packageType" type="md:OintmentType" default="Tube"/>
+                    <element name="package_type" type="md:OintmentType" default="Tube"/>
                     <element name="weight">
                         <simpleType>
                             <restriction base="integer">

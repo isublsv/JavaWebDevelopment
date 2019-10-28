@@ -36,7 +36,7 @@
                     <dosage>0.1</dosage>
                     <package>
                         <price>18.99</price>
-                        <packageType>Plastic bottle</packageType>
+                        <package_type>Plastic bottle</package_type>
                         <quantity>75</quantity>
                     </package>
                 </pharmacy>
@@ -50,7 +50,7 @@
                     <dosage>0.2</dosage>
                     <package>
                         <price>12.99</price>
-                        <packageType>Blister pack</packageType>
+                        <package_type>Blister pack</package_type>
                         <quantity>50</quantity>
                     </package>
                 </pharmacy>
@@ -66,7 +66,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>20</price>
-                        <packageType>Drop counter</packageType>
+                        <package_type>Drop counter</package_type>
                         <volume>50</volume>
                     </package>
                 </pharmacy>
@@ -88,7 +88,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>14.31</price>
-                        <packageType>Plastic case</packageType>
+                        <package_type>Plastic case</package_type>
                         <quantity>30</quantity>
                     </package>
                 </pharmacy>
@@ -113,7 +113,7 @@
                     <dosage>500</dosage>
                     <package>
                         <price>23.52</price>
-                        <packageType>Plastic case</packageType>
+                        <package_type>Plastic case</package_type>
                         <quantity>10</quantity>
                     </package>
                 </pharmacy>
@@ -129,7 +129,7 @@
                     <dosage>1000</dosage>
                     <package>
                         <price>19.0</price>
-                        <packageType>Plastic case</packageType>
+                        <package_type>Plastic case</package_type>
                         <quantity>10</quantity>
                     </package>
                 </pharmacy>
@@ -155,7 +155,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>6.89</price>
-                        <packageType>Plastic case</packageType>
+                        <package_type>Plastic case</package_type>
                         <quantity>30</quantity>
                     </package>
                 </pharmacy>
@@ -171,7 +171,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>0.89</price>
-                        <packageType>Ampule</packageType>
+                        <package_type>Ampule</package_type>
                         <volume>25</volume>
                     </package>
                 </pharmacy>
@@ -196,7 +196,7 @@
                     <dosage>0.5</dosage>
                     <package>
                         <price>0.5</price>
-                        <packageType>Tube</packageType>
+                        <package_type>Tube</package_type>
                         <weight>120</weight>
                         <concentration>8</concentration>
                     </package>
@@ -213,7 +213,7 @@
                     <dosage>0.5</dosage>
                     <package>
                         <price>15.99</price>
-                        <packageType>Ointment package</packageType>
+                        <package_type>Ointment package</package_type>
                         <weight>100</weight>
                         <concentration>5</concentration>
                     </package>
@@ -239,7 +239,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>8.68</price>
-                        <packageType>Plastic bottle</packageType>
+                        <package_type>Plastic bottle</package_type>
                         <quantity>50</quantity>
                     </package>
                 </pharmacy>
@@ -253,7 +253,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>15.99</price>
-                        <packageType>Plastic bottle</packageType>
+                        <package_type>Plastic bottle</package_type>
                         <quantity>100</quantity>
                     </package>
                 </pharmacy>
@@ -269,7 +269,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>14.55</price>
-                        <packageType>Aluminum bag</packageType>
+                        <package_type>Aluminum bag</package_type>
                         <weight>30</weight>
                     </package>
                 </pharmacy>
@@ -291,7 +291,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>1.83</price>
-                        <packageType>Sachet</packageType>
+                        <package_type>Sachet</package_type>
                         <weight>1</weight>
                     </package>
                 </pharmacy>
@@ -305,7 +305,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>3.29</price>
-                        <packageType>Sachet</packageType>
+                        <package_type>Sachet</package_type>
                         <weight>5</weight>
                     </package>
                 </pharmacy>
@@ -321,7 +321,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>3.92</price>
-                        <packageType>Plastic case</packageType>
+                        <package_type>Plastic case</package_type>
                         <quantity>10</quantity>
                     </package>
                 </pharmacy>
@@ -346,7 +346,7 @@
                     <dosage>2</dosage>
                     <package>
                         <price>25.66</price>
-                        <packageType>Plastic case</packageType>
+                        <package_type>Plastic case</package_type>
                         <quantity>120</quantity>
                     </package>
                 </pharmacy>
@@ -360,7 +360,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>42.66</price>
-                        <packageType>Plastic bottle</packageType>
+                        <package_type>Plastic bottle</package_type>
                         <quantity>50</quantity>
                     </package>
                 </pharmacy>
@@ -382,7 +382,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>4.9</price>
-                        <packageType>Blister pack</packageType>
+                        <package_type>Blister pack</package_type>
                         <quantity>12</quantity>
                     </package>
                 </pharmacy>
@@ -398,7 +398,7 @@
                     <dosage>250</dosage>
                     <package>
                         <price>2.88</price>
-                        <packageType>Plastic bottle</packageType>
+                        <package_type>Plastic bottle</package_type>
                         <weight>20</weight>
                     </package>
                 </pharmacy>
@@ -423,7 +423,7 @@
                     <dosage>2</dosage>
                     <package>
                         <price>14.99</price>
-                        <packageType>Ampule</packageType>
+                        <package_type>Ampule</package_type>
                         <volume>25</volume>
                     </package>
                 </pharmacy>
@@ -448,7 +448,7 @@
                     <dosage>0.5</dosage>
                     <package>
                         <price>15.50</price>
-                        <packageType>Blister pack</packageType>
+                        <package_type>Blister pack</package_type>
                         <quantity>8</quantity>
                     </package>
                 </pharmacy>
@@ -464,7 +464,7 @@
                     <dosage>15</dosage>
                     <package>
                         <price>7.47</price>
-                        <packageType>Drop counter</packageType>
+                        <package_type>Drop counter</package_type>
                         <volume>100</volume>
                     </package>
                 </pharmacy>
@@ -489,7 +489,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>8.55</price>
-                        <packageType>Tube</packageType>
+                        <package_type>Tube</package_type>
                         <weight>150</weight>
                         <concentration>5</concentration>
                     </package>
@@ -504,7 +504,7 @@
                     <dosage>2</dosage>
                     <package>
                         <price>18.25</price>
-                        <packageType>Ointment package</packageType>
+                        <package_type>Ointment package</package_type>
                         <weight>100</weight>
                         <concentration>10</concentration>
                     </package>
@@ -530,7 +530,7 @@
                     <dosage>200</dosage>
                     <package>
                         <price>3.60</price>
-                        <packageType>Sachet</packageType>
+                        <package_type>Sachet</package_type>
                         <weight>100</weight>
                     </package>
                 </pharmacy>
@@ -546,7 +546,7 @@
                     <dosage>1.2</dosage>
                     <package>
                         <price>5.10</price>
-                        <packageType>Aluminum bag</packageType>
+                        <package_type>Aluminum bag</package_type>
                         <weight>100</weight>
                     </package>
                 </pharmacy>
@@ -572,7 +572,7 @@
                     <dosage>1.5</dosage>
                     <package>
                         <price>39.99</price>
-                        <packageType>Blister pack</packageType>
+                        <package_type>Blister pack</package_type>
                         <quantity>75</quantity>
                     </package>
                 </pharmacy>
@@ -588,7 +588,7 @@
                     <dosage>2.5</dosage>
                     <package>
                         <price>13.65</price>
-                        <packageType>Glass bottle</packageType>
+                        <package_type>Glass bottle</package_type>
                         <volume>100</volume>
                     </package>
                 </pharmacy>
@@ -614,7 +614,7 @@
                     <dosage>5</dosage>
                     <package>
                         <price>19.99</price>
-                        <packageType>Glass bottle</packageType>
+                        <package_type>Glass bottle</package_type>
                         <volume>100</volume>
                     </package>
                 </pharmacy>
@@ -630,7 +630,7 @@
                     <dosage>2</dosage>
                     <package>
                         <price>42.50</price>
-                        <packageType>Ampule</packageType>
+                        <package_type>Ampule</package_type>
                         <volume>50</volume>
                     </package>
                 </pharmacy>
@@ -652,7 +652,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>1.22</price>
-                        <packageType>Ointment package</packageType>
+                        <package_type>Ointment package</package_type>
                         <weight>100</weight>
                         <concentration>10</concentration>
                     </package>
@@ -667,7 +667,7 @@
                     <dosage>1</dosage>
                     <package>
                         <price>8.15</price>
-                        <packageType>Tube</packageType>
+                        <package_type>Tube</package_type>
                         <weight>250</weight>
                         <concentration>10</concentration>
                     </package>

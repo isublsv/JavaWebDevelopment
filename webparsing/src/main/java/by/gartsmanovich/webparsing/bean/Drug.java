@@ -17,9 +17,14 @@ public class Drug {
     private static final int PRIME = 31;
 
     /**
+     * The number for shifting double value to int value.
+     */
+    private static final int SHIFT = 32;
+
+    /**
      * The ID of the drug.
      */
-    private int id;
+    private long id;
 
     /**
      * The name of the drug.
@@ -42,13 +47,21 @@ public class Drug {
     private List<Form> versions;
 
     /**
+     * Default Drug constructor.
+     */
+    public Drug() {
+        analogs = new ArrayList<>();
+        versions = new ArrayList<>();
+    }
+
+    /**
      * Constructs the drug with specific parameters.
      *
      * @param idValue    the ID of the drug.
      * @param nameValue  the name of the drug.
      * @param groupValue the group of the drug.
      */
-    public Drug(final int idValue, final String nameValue,
+    public Drug(final long idValue, final String nameValue,
             final Group groupValue) {
         id = idValue;
         name = nameValue;
@@ -62,7 +75,7 @@ public class Drug {
      *
      * @return value of id.
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -71,7 +84,7 @@ public class Drug {
      *
      * @param idValue value of id.
      */
-    public void setId(final int idValue) {
+    public void setId(final long idValue) {
         id = idValue;
     }
 
@@ -160,7 +173,7 @@ public class Drug {
      */
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) (id ^ (id >>> SHIFT));
         result = PRIME * result + name.hashCode();
         result = PRIME * result + group.hashCode();
         if (analogs != null) {
@@ -169,7 +182,6 @@ public class Drug {
             result = PRIME * result;
         }
         result = PRIME * result + versions.hashCode();
-
         return result;
     }
 
