@@ -35,6 +35,7 @@ public class DrugSAXBuilder extends AbstractDrugBuilder {
             factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             SAXParser parser = factory.newSAXParser();
             drugHandler = new DrugHandler();
+
             reader = parser.getXMLReader();
             reader.setContentHandler(drugHandler);
         } catch (SAXException | ParserConfigurationException e) {

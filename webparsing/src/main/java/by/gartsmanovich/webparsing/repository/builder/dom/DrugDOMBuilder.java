@@ -94,14 +94,12 @@ public class DrugDOMBuilder extends AbstractDrugBuilder {
         builder.setGroup(group);
 
         Drug drug = builder.build();
-        NodeList analogs = element.getElementsByTagName("analogs");
-        if (analogs != null) {
-            NodeList childNodes = analogs.item(0).getChildNodes();
-            for (int i = 0; i < childNodes.getLength(); i++) {
-                Element analog = (Element) analogs.item(i);
-                String value = getElementTextContent(analog, "analog");
-                drug.addAnalog(value);
-            }
+        NodeList analogs = element.getElementsByTagName("analog");
+
+        for (int i = 0; i < analogs.getLength(); i++) {
+            Element analog = (Element) analogs.item(i);
+            String value = analog.getTextContent();
+            drug.addAnalog(value);
         }
 
         return drug;
