@@ -87,4 +87,14 @@ public abstract class PackageType {
 
         return Double.compare(that.price, price) == 0;
     }
+
+    /**
+     * Represents an instance of an entity as a string value.
+     *
+     * @return a string representation of an entity.
+     */
+    @Override
+    public String toString() {
+        return String.format("PackageType{price=%s ", price);
+    }
 }

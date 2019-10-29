@@ -116,4 +116,15 @@ public class TabletsPackage extends PackageType {
         }
         return type == that.type;
     }
+
+    /**
+     * Represents an instance of an entity as a string value.
+     *
+     * @return a string representation of an entity.
+     */
+    @Override
+    public String toString() {
+        return String.format("%s, type=%s, quantity=%d}", super.toString(),
+                             type, quantity);
+    }
 }

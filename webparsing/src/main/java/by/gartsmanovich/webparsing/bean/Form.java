@@ -109,4 +109,15 @@ public class Form {
         }
         return type == form.type;
     }
+
+    /**
+     * Represents an instance of an entity as a string value.
+     *
+     * @return a string representation of an entity.
+     */
+    @Override
+    public String toString() {
+        return String.format("pharmacies=%s, type=%s", pharmacies.toString(),
+                             type);
+    }
 }

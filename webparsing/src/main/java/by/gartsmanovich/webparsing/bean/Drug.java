@@ -217,4 +217,16 @@ public class Drug {
         }
         return Objects.equals(versions, drug.versions);
     }
+
+    /**
+     * Represents an instance of an entity as a string value.
+     *
+     * @return a string representation of an entity.
+     */
+    @Override
+    public String toString() {
+        return String.format(
+                "id=%d, name='%s', group=%s, analogs=%s, versions=%s%n",
+                id, name, group, analogs.toString(), versions.toString());
+    }
 }

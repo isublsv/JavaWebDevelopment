@@ -179,4 +179,16 @@ public class Certificate {
         }
         return Objects.equals(registration, that.registration);
     }
+
+    /**
+     * Represents an instance of an entity as a string value.
+     *
+     * @return a string representation of an entity.
+     */
+    @Override
+    public String toString() {
+        return String.format(
+                "number=%d, issueDate=%s, expirationDate=%s, registration='%s'",
+                number, issueDate, expirationDate, registration);
+    }
 }
