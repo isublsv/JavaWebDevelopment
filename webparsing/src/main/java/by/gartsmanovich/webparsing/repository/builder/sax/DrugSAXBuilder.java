@@ -2,6 +2,7 @@ package by.gartsmanovich.webparsing.repository.builder.sax;
 
 import by.gartsmanovich.webparsing.repository.builder.AbstractDrugBuilder;
 import by.gartsmanovich.webparsing.repository.builder.sax.handler.DrugHandler;
+import by.gartsmanovich.webparsing.repository.exception.RepositoryException;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
@@ -12,24 +13,28 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
 /**
+ * The SAX parser realisation.
  *
+ * @author Dmitry Gartsmanovich
  */
 public class DrugSAXBuilder extends AbstractDrugBuilder {
 
     /**
-     *
+     * The realisation of base class for SAX2 event handlers.
      */
     private DrugHandler drugHandler;
 
     /**
-     *
+     * Interface for reading an XML document using callbacks.
      */
     private XMLReader reader;
 
     /**
+     * The default constructor.
      *
+     * @throws RepositoryException if error happens during execution.
      */
-    public DrugSAXBuilder() {
+    public DrugSAXBuilder() throws RepositoryException {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
@@ -38,20 +43,28 @@ public class DrugSAXBuilder extends AbstractDrugBuilder {
 
             reader = parser.getXMLReader();
             reader.setContentHandler(drugHandler);
-        } catch (SAXException | ParserConfigurationException e) {
-            e.printStackTrace();
+        } catch (SAXException e) {
+            throw new RepositoryException("SAX parser error!", e);
+        } catch (ParserConfigurationException e) {
+            throw new RepositoryException("Parser configuration error!", e);
         }
     }
 
+    /**
+     * Creates the list of the drug objects.
+     *
+     * @param filename the provided path to the xml-document.
+     */
     @Override
-    public void buildSetDrugs(final String filename) {
+    public void buildSetDrugs(final String filename) throws
+            RepositoryException {
         try {
             reader.parse(filename);
         } catch (SAXException e) {
-            System.err.println("SAX parser error: " + e);
+            throw new RepositoryException("SAX parser error!", e);
         } catch (IOException e) {
-            System.err.println("I/O error: " + e);
+            throw new RepositoryException("File error or I/O error!", e);
         }
-        //drugs = drugHandler.getDrugs();
+        setDrugs(drugHandler.getDrugs());
     }
 }
