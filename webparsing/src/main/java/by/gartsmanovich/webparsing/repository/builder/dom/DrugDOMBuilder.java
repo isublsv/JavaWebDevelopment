@@ -31,7 +31,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 /**
+ * The DOM parser realisation.
  *
+ * @author Dmitry Gartsmanovich
  */
 public class DrugDOMBuilder extends AbstractDrugBuilder {
 
