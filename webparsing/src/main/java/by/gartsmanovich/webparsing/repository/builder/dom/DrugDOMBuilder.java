@@ -38,21 +38,43 @@ import java.time.LocalDate;
 public class DrugDOMBuilder extends AbstractDrugBuilder {
 
     /**
+     * Defines a factory API that enables applications to obtain a parser that
+     * produces DOM object trees from XML documents.
+     */
+    private DocumentBuilderFactory factory;
+
+    /**
+     * Defines the API to obtain DOM Document instances from an XML document.
+     */
+    private DocumentBuilder builder;
+
+    /**
+     * Default constructor.
+     *
+     * @throws RepositoryException if error happens during execution.
+     */
+    public DrugDOMBuilder() throws RepositoryException {
+        factory = DocumentBuilderFactory.newInstance();
+        try {
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RepositoryException("Parser configuration error!", e);
+        }
+    }
+
+    /**
      * Creates the list of the drug objects.
      *
      * @param filename the provided path to the xml-document.
+     * @throws RepositoryException if error happens during execution.
      */
     @Override
     public void buildSetDrugs(final String filename) throws
             RepositoryException {
         Document document;
         try {
-            DocumentBuilderFactory factory =
-                    DocumentBuilderFactory.newInstance();
-            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-
-            DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-            document = documentBuilder.parse(filename);
+            document = builder.parse(filename);
             Element root = document.getDocumentElement();
 
             NodeList accountList = root.getElementsByTagName("drug");
@@ -65,8 +87,6 @@ public class DrugDOMBuilder extends AbstractDrugBuilder {
             throw new RepositoryException("Parsing failure!", e);
         } catch (IOException e) {
             throw new RepositoryException("File error or I/O error!", e);
-        } catch (ParserConfigurationException e) {
-            throw new RepositoryException("Parser configuration error!", e);
         }
     }
 
@@ -96,7 +116,8 @@ public class DrugDOMBuilder extends AbstractDrugBuilder {
 
             Form drugForm = new Form(formType);
             if (forms != null) {
-            NodeList pharmacies = forms.getElementsByTagName("pharmacy");
+                drug.addVersion(drugForm);
+                NodeList pharmacies = forms.getElementsByTagName("pharmacy");
 
                 for (int i = 0; i < pharmacies.getLength(); i++) {
                     Element pharmacyElement = (Element) pharmacies.item(i);
