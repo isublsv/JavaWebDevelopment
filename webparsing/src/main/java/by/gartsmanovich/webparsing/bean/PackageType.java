@@ -24,6 +24,12 @@ public abstract class PackageType {
     private double price;
 
     /**
+     * Default constructor.
+     */
+    public PackageType() {
+    }
+
+    /**
      * Constructs the package with the price.
      *
      * @param priceValue the price of the package.

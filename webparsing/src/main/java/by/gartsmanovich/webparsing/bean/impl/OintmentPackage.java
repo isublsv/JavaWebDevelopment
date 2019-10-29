@@ -26,6 +26,12 @@ public class OintmentPackage extends PackageType {
     private int concentration;
 
     /**
+     * Default constructor.
+     */
+    public OintmentPackage() {
+    }
+
+    /**
      * Constructs the instance with specific parameters.
      *
      * @param priceValue         the price of the ointment drug.

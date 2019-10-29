@@ -14,10 +14,10 @@ public enum Powder {
     PLASTIC_BOTTLE,
 
     /**
-     * The singleton instance for the aluminium bag type instance.
+     * The singleton instance for the aluminum bag type instance.
      * This has the numeric value of {@code 1}.
      */
-    ALUMINIUM_BAG,
+    ALUMINUM_BAG,
 
     /**
      * The singleton instance for the sachet type instance.

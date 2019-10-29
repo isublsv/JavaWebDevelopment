@@ -21,6 +21,12 @@ public class PowderPackage extends PackageType {
     private int weight;
 
     /**
+     * Default constructor.
+     */
+    public PowderPackage() {
+    }
+
+    /**
      * Constructs the instance with specific parameters.
      *
      * @param priceValue  the price of the powder drug.

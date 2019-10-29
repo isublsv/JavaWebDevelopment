@@ -47,7 +47,7 @@ public class Drug {
     private List<Form> versions;
 
     /**
-     * Default Drug constructor.
+     * Default constructor.
      */
     public Drug() {
         analogs = new ArrayList<>();

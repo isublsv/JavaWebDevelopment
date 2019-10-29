@@ -21,6 +21,13 @@ public class TabletsPackage extends PackageType {
     private int quantity;
 
     /**
+     * Default Drug constructor.
+     */
+    public TabletsPackage() {
+        super();
+    }
+
+    /**
      * Constructs the instance with specific parameters.
      *
      * @param priceValue    the price of the tablet drug.

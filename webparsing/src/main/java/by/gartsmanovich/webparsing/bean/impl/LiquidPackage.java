@@ -21,6 +21,12 @@ public class LiquidPackage extends PackageType {
     private int volume;
 
     /**
+     * Default constructor.
+     */
+    public LiquidPackage() {
+    }
+
+    /**
      * Constructs the instance with specific parameters.
      *
      * @param priceValue  the price of the liquid drug.

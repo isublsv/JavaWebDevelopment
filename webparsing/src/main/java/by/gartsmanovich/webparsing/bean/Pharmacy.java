@@ -36,6 +36,12 @@ public class Pharmacy {
     private PackageType type;
 
     /**
+     * Default constructor.
+     */
+    public Pharmacy() {
+    }
+
+    /**
      * Constructs the instance of the pharmacy with specific parameters.
      *
      * @param certificateValue the certificate of the pharmacy.

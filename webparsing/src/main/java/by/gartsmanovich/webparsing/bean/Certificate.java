@@ -42,6 +42,12 @@ public class Certificate {
     private String registration;
 
     /**
+     * Default constructor.
+     */
+    public Certificate() {
+    }
+
+    /**
      * Constructs the instance of certificate with specific parameters.
      *
      * @param numberValue         the number of certificate.
