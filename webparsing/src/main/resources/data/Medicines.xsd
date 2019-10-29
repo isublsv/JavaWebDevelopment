@@ -45,7 +45,7 @@
                         <attribute name="id" use="required">
                             <simpleType>
                                 <restriction base="ID">
-                                    <pattern value="(drug)[\d]{1,5}"/>
+                                    <pattern value="(drug)[1-9][\d]{0,5}"/>
                                 </restriction>
                             </simpleType>
                         </attribute>
