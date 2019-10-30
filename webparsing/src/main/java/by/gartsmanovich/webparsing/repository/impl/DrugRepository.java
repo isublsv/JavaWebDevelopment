@@ -20,13 +20,13 @@ public class DrugRepository implements Repository<Drug> {
      *
      * @param specification the concrete specification that query different
      *                      types of actions.
-     * @return the string that contains result of query execution.
+     * @return the list that contains result of query execution.
      * @throws RepositoryException if error happens during execution.
      */
     @Override
     public List<Drug> query(final Specification<Drug> specification) throws
             RepositoryException {
 
-        return specification.specified(null);
+        return specification.specified();
     }
 }
