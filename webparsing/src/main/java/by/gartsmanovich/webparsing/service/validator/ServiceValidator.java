@@ -20,7 +20,7 @@ import java.io.IOException;
 public class ServiceValidator {
 
     /**
-     *
+     * The path to xml-schema.
      */
     private static final String SCHEMA_NAME = "data/medicines.xsd";
 
@@ -32,25 +32,6 @@ public class ServiceValidator {
      */
     public boolean isValidValue(final String value) {
         return value == null || value.isEmpty();
-    }
-
-    /**
-     * Checks if the value is a number.
-     *
-     * @param value the value to valid.
-     * @return true if value is valid, false - otherwise.
-     */
-    public boolean isNumber(final String value) {
-        if (!isValidValue(value)) {
-            try {
-                Integer.parseInt(value);
-                return true;
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        } else {
-            return false;
-        }
     }
 
     /**
