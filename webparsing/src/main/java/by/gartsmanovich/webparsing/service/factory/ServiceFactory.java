@@ -18,7 +18,7 @@ public final class ServiceFactory {
     private static final ServiceFactory INSTANCE = new ServiceFactory();
 
     /**
-     * The variable provides the access to Medicine Service methods.
+     * The variable provides the access to Drug Service methods.
      */
     private final DrugService drugService = new DrugServiceImpl();
 
@@ -38,7 +38,7 @@ public final class ServiceFactory {
     }
 
     /**
-     * Returns the implementation of the Medicine Service interface.
+     * Returns the implementation of the Drug Service interface.
      * An instance provide the access to Service application layer methods.
      *
      * @return an instance of Medicine Service.
