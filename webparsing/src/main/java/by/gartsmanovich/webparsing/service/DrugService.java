@@ -14,12 +14,13 @@ import java.util.List;
 public interface DrugService {
 
     /**
-     * Creates the Composite instance from provided data file.
+     * Creates the list of entities from provided xml-document.
      *
-     * @param path the path to data file.
+     * @param path the path to xml-document.
+     * @param key the key.
      * @return the list of drugs.
      * @throws ServiceException if error happens during execution.
      */
-    List<Drug> executeDOMBuilder(String path) throws ServiceException;
+    List<Drug> executeBuilder(String key, String path) throws ServiceException;
 }
 
