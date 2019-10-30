@@ -20,7 +20,7 @@ public interface Repository<T extends Drug> {
      *
      * @param specification the concrete specification that query different
      *                      types of actions.
-     * @return the string that contains result of query execution.
+     * @return the list that contains result of query execution.
      * @throws RepositoryException if error happens during execution.
      */
     List<T> query(Specification<T> specification) throws RepositoryException;
