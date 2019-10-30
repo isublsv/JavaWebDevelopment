@@ -1,4 +1,4 @@
-package by.gartsmanovich.webparsing.repository.builder.dom;
+package by.gartsmanovich.webparsing.repository.builder.stax;
 
 import by.gartsmanovich.webparsing.bean.Drug;
 import by.gartsmanovich.webparsing.repository.builder.AbstractDrugBuilder;
@@ -12,14 +12,15 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
-public class DrugDOMBuilderTest {
+public class DrugStaXBuilderTest {
 
     @Test
-    public void testDOMBuildSetDrugs() throws RepositoryException, URISyntaxException {
+    public void testStAXBuildSetDrugs() throws RepositoryException,
+            URISyntaxException {
         URI uri = ClassLoader.getSystemResource("data/Medicines.xml").toURI();
         String pathToRead = Paths.get(uri).toString();
 
-        AbstractDrugBuilder builder = new DrugDOMBuilder();
+        AbstractDrugBuilder builder = new DrugStaXBuilder();
         builder.buildSetDrugs(pathToRead);
         List<Drug> drugs = builder.getDrugs();
         System.out.println(drugs);
