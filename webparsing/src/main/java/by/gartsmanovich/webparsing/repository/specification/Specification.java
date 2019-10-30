@@ -1,5 +1,7 @@
 package by.gartsmanovich.webparsing.repository.specification;
 
+import by.gartsmanovich.webparsing.repository.exception.RepositoryException;
+
 import java.util.List;
 
 /**
@@ -13,8 +15,8 @@ public interface Specification<T> {
     /**
      * Applies specified criteria to the provided element.
      *
-     * @param component the provided component.
      * @return the list of elements that correspond to specified criteria.
+     * @throws RepositoryException if error happens during execution.
      */
-    List<T> specified(T component);
+    List<T> specified() throws RepositoryException;
 }
