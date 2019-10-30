@@ -4,6 +4,8 @@ import by.gartsmanovich.webparsing.bean.Drug;
 import by.gartsmanovich.webparsing.repository.Repository;
 import by.gartsmanovich.webparsing.repository.exception.RepositoryException;
 import by.gartsmanovich.webparsing.repository.factory.RepositoryFactory;
+import by.gartsmanovich.webparsing.repository.specification.impl
+        .BuilderSpecification;
 import by.gartsmanovich.webparsing.service.DrugService;
 import by.gartsmanovich.webparsing.service.exception.ServiceException;
 import by.gartsmanovich.webparsing.service.validator.ServiceValidator;
@@ -42,22 +44,24 @@ public class DrugServiceImpl implements DrugService {
     }
 
     /**
-     * Creates the Composite instance from provided data file.
+     * Creates the list of entities from provided xml-document.
      *
-     * @param path the path to data file.
+     * @param path the path to xml-document.
+     * @param key the key.
      * @return the list of drugs.
      * @throws ServiceException if error happens during execution.
      */
     @Override
-    public List<Drug> executeDOMBuilder(final String path) throws
-            ServiceException {
+    public List<Drug> executeBuilder(final String key,
+            final String path) throws ServiceException {
         try {
-            if (validator.isValidDocument(path)) {
+            if (validator.isValidValue(key)
+                || !validator.isValidDocument(path)) {
                 throw new ServiceException(
-                        "The path parameter for creating composite is not "
-                        + "valid");
+                        "The provided xml-document is not valid!");
             } else {
-                return repository.query(null);
+                return repository.query(
+                        new BuilderSpecification(key, path));
             }
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
