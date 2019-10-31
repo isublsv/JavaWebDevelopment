@@ -12,7 +12,7 @@ Servlet name or type: ${pageContext.errorData.servletName}
 Status code: ${pageContext.errorData.statusCode}
 <br/>
 Exception: ${pageContext.errorData.throwable}
-
+<br/>
 <a href="${pageContext.request.contextPath}/index.jsp">Index page</a>
 </body>
 </html>
