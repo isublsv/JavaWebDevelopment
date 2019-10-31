@@ -7,5 +7,6 @@
 </head>
 <body>
 
+<a href="${pageContext.request.contextPath}/index.jsp">Index page</a>
 </body>
 </html>

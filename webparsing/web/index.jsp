@@ -5,20 +5,22 @@
       <title>Index page</title>
   </head>
   <body>
-  <label for="file">Choose a xml-document:</label>
+  <label for="xml-document">Choose a xml-document:</label>
   <input type="file"
-         id="file" name="file"
+         id="xml-document" name="path"
          accept="application/xml">
-
-  <form name="parser" action="${pageContext.request.contextPath}/controller" method="post">
+  <br/>
+  <form name="parser-chooser" action="${pageContext.request.contextPath}/controller" method="post">
+      <input type="hidden" name="command" value="builder"/>
       <p>
           <label for="parser">Select xml-parser</label>
-          <select id="parser" size="1">
+          <select id="parser" size="1" name="key">
               <option value="DOM">DOM</option>
               <option value="SAX">SAX</option>
               <option value="STAX">StAX</option>
           </select>
       </p>
+      <br/>
       <div style="text-align: left">
           <input type="submit" value="Send">
       </div>
