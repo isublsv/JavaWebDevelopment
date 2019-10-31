@@ -8,28 +8,10 @@ package by.gartsmanovich.webparsing.controller.command;
 public enum CommandName {
 
     /**
-     * The singleton instance for the DOM command.
+     * The singleton instance for the builder command.
      * This has the numeric value of {@code 0}.
      */
-    DOM,
-
-    /**
-     * The singleton instance for the SAX command.
-     * This has the numeric value of {@code 1}.
-     */
-    SAX,
-
-    /**
-     * The singleton instance for the StAX command.
-     * This has the numeric value of {@code 2}.
-     */
-    STAX,
-
-    /**
-     The singleton instance for the wrong request command.
-     * This has the numeric value of {@code 3}.
-     */
-    WRONG_REQUEST;
+    BUILDER;
 
     @Override
     public String toString() {
