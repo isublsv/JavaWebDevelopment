@@ -26,7 +26,7 @@ public abstract class PackageType {
     /**
      * Default constructor.
      */
-    public PackageType() {
+    protected PackageType() {
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class PackageType {
      *
      * @param priceValue the price of the package.
      */
-    public PackageType(final double priceValue) {
+    protected PackageType(final double priceValue) {
         price = priceValue;
     }
 

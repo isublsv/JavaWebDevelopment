@@ -30,7 +30,7 @@ public abstract class AbstractDrugBuilder {
      *
      * @param drugsValue value of drugs.
      */
-    public void setDrugs(final List<Drug> drugsValue) {
+    protected void setDrugs(final List<Drug> drugsValue) {
         drugs = drugsValue;
     }
 
