@@ -24,6 +24,13 @@
       <div style="text-align: left">
           <input type="submit" value="Send">
       </div>
+      <br/>
+      ${errorMessage}
+      <br/>
+      ${wrongCommand}
+      <br/>
+      ${nullPage}
+      <br/>
   </form>
   </body>
 </html>
