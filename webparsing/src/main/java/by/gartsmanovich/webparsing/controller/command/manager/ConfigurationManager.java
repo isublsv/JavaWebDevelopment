@@ -16,7 +16,7 @@ public final class ConfigurationManager {
      */
     private static final ResourceBundle RESOURCE_BUNDLE =
             ResourceBundle.getBundle(
-            "resources.config");
+            "config");
 
     /**
      * The private constructor. Forbids the implicit creation of the

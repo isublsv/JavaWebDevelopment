@@ -99,6 +99,9 @@ public class Controller extends HttpServlet {
             IOException {
         String page;
 
+        String path = getServletContext().getContextPath() + "/WEB-INF/classes/data/Medicines.xml";
+        LOGGER.error(getServletContext().getContextPath() + "/WEB-INF/classes/data/");
+
         CommandFactory factory = new CommandFactory();
         Command command = factory.defineCommand(req);
 
