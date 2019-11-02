@@ -22,7 +22,8 @@ public class ServiceValidator {
     /**
      * The path to xml-schema.
      */
-    private static final String SCHEMA_NAME = "data/medicines.xsd";
+    private static final String SCHEMA_NAME = "WEB-INF/classes/data"
+                                              + "/Medicines.xsd";
 
     /**
      * Checks if the value is valid.
@@ -39,27 +40,32 @@ public class ServiceValidator {
      * {@link ServiceValidator#SCHEMA_NAME}.
      *
      * @param fileName the path to the xml-document.
+     * @param xsdValue the path to schema-document.
      * @return true if xml-document is valid, false - otherwise.
      * @throws ServiceException if error happens during execution.
      */
-    public boolean isValidDocument(final String fileName) throws
+    public boolean isValidDocument(final String fileName,
+            final String xsdValue) throws
             ServiceException {
-        String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+        if (!isValidValue(fileName) || !isValidValue(xsdValue)) {
+            String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 
-        SchemaFactory factory = SchemaFactory.newInstance(language);
-        File schemaLocation = new File(SCHEMA_NAME);
-        try {
-            Schema schema = factory.newSchema(schemaLocation);
-            Validator validator = schema.newValidator();
+            SchemaFactory factory = SchemaFactory.newInstance(language);
+            File schemaLocation = new File(xsdValue + SCHEMA_NAME);
+            try {
+                Schema schema = factory.newSchema(schemaLocation);
+                Validator validator = schema.newValidator();
 
-            validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+                validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
-            Source source = new StreamSource(fileName);
-            validator.validate(source);
-            return true;
-        } catch (SAXException | IOException e) {
-            throw new ServiceException(e.getMessage(), e);
+                Source source = new StreamSource(fileName);
+                validator.validate(source);
+                return true;
+            } catch (SAXException | IOException e) {
+                throw new ServiceException(e.getMessage(), e);
+            }
         }
+        return false;
     }
 }
