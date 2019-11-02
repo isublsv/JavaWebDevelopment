@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import java.io.IOException;
  * @author Dmitry Gartsmanovich
  */
 @WebServlet("/controller")
+@MultipartConfig()
 public class Controller extends HttpServlet {
 
     /**
@@ -97,10 +99,8 @@ public class Controller extends HttpServlet {
     private void processRequest(final HttpServletRequest req,
             final HttpServletResponse resp) throws ServletException,
             IOException {
-        String page;
 
-        String path = getServletContext().getContextPath() + "/WEB-INF/classes/data/Medicines.xml";
-        LOGGER.error(getServletContext().getContextPath() + "/WEB-INF/classes/data/");
+        String page;
 
         CommandFactory factory = new CommandFactory();
         Command command = factory.defineCommand(req);
