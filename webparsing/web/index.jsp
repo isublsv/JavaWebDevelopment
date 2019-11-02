@@ -23,11 +23,11 @@
           <input type="submit" value="Execute">
       </div>
       <br/>
-      ${errorMessage}
+      ${requestScope.errorMessage}
       <br/>
-      ${wrongCommand}
+      ${requestScope.wrongCommand}
       <br/>
-      ${nullPage}
+      ${requestScope.nullPage}
       <br/>
   </form>
   </body>
