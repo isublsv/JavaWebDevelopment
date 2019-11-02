@@ -6,7 +6,11 @@
     <display-name>webparsing</display-name>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list>    
+    <context-param>
+        <param-name>upload</param-name>
+        <param-value>upload</param-value>
+    </context-param>
     <error-page>
         <error-code>404</error-code>
         <location>/error.jsp</location>
