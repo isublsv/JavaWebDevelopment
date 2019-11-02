@@ -125,6 +125,15 @@ public class Drug {
     }
 
     /**
+     * Gets analogs.
+     *
+     * @return value of analogs.
+     */
+    public List<String> getAnalogs() {
+        return analogs;
+    }
+
+    /**
      * Appends the specified element to the end of this list.
      *
      * @param analog the element to be appended to this list.
@@ -143,6 +152,15 @@ public class Drug {
      */
     public boolean removeAnalog(final String analog) {
         return analogs.remove(analog);
+    }
+
+    /**
+     * Gets versions.
+     *
+     * @return value of versions.
+     */
+    public List<Form> getVersions() {
+        return versions;
     }
 
     /**
