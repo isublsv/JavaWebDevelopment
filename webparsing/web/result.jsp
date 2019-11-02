@@ -37,6 +37,7 @@
             border-color: #aabcfe;
             color: #039;
             background-color: #b9c9fe;
+            display: none;
         }
 
         .tg .tg-baqh {
@@ -91,10 +92,10 @@
             background: #FFFFFF;
         }
 
-        #tab_1:checked ~ #txt_1,
-        #tab_2:checked ~ #txt_2,
-        #tab_3:checked ~ #txt_3,
-        #tab_4:checked ~ #txt_4 {
+        .tab_1:checked ~ #txt_1,
+        .tab_2:checked ~ #txt_2,
+        .tab_3:checked ~ #txt_3,
+        .tab_4:checked ~ #txt_4 {
             display: block;
         }
     </style>
@@ -128,17 +129,17 @@
             </td>
             <td class="tg-0lax">
                 <div class="tabs">
-                    <input type="radio" name="inset" value="" id="tab_1" checked>
-                    <label for="tab_1">Tablets</label>
+                    <input type="radio" name="inset" value="" class="tab_1" id="tab_${drug.id}_1" checked>
+                    <label for="tab_${drug.id}_1">Tablets</label>
 
-                    <input type="radio" name="inset" value="" id="tab_2">
-                    <label for="tab_2">Drops</label>
+                    <input type="radio" name="inset" value="" class="tab_2" id="tab_${drug.id}_2">
+                    <label for="tab_${drug.id}_2">Drops</label>
 
-                    <input type="radio" name="inset" value="" id="tab_3">
-                    <label for="tab_3">Powder</label>
+                    <input type="radio" name="inset" value="" class="tab_3" id="tab_${drug.id}_3">
+                    <label for="tab_${drug.id}_3">Powder</label>
 
-                    <input type="radio" name="inset" value="" id="tab_4">
-                    <label for="tab_4">Ointment</label>
+                    <input type="radio" name="inset" value="" class="tab_4" id="tab_${drug.id}_4">
+                    <label for="tab_${drug.id}_4">Ointment</label>
 
                     <div id="txt_1">
                         <table class="tg">
