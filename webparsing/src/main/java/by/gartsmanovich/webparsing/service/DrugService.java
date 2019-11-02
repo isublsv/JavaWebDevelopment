@@ -16,11 +16,13 @@ public interface DrugService {
     /**
      * Creates the list of entities from provided xml-document.
      *
-     * @param path the path to xml-document.
      * @param key the key.
+     * @param path the path to xml-document.
+     * @param xsd the path to schema.
      * @return the list of drugs.
      * @throws ServiceException if error happens during execution.
      */
-    List<Drug> executeBuilder(String key, String path) throws ServiceException;
+    List<Drug> executeBuilder(String key, String path, String xsd) throws
+            ServiceException;
 }
 

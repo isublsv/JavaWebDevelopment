@@ -46,17 +46,18 @@ public class DrugServiceImpl implements DrugService {
     /**
      * Creates the list of entities from provided xml-document.
      *
-     * @param path the path to xml-document.
      * @param key the key.
+     * @param path the path to xml-document.
+     * @param xsd the path to schema.
      * @return the list of drugs.
      * @throws ServiceException if error happens during execution.
      */
     @Override
     public List<Drug> executeBuilder(final String key,
-            final String path) throws ServiceException {
+            final String path, final String xsd) throws ServiceException {
         try {
             if (validator.isValidValue(key)
-                || !validator.isValidDocument(path)) {
+                || !validator.isValidDocument(path, xsd)) {
                 throw new ServiceException(
                         "The provided xml-document is not valid!");
             } else {
