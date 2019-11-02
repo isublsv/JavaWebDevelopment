@@ -54,6 +54,15 @@ public class Form {
     }
 
     /**
+     * Gets pharmacies.
+     *
+     * @return value of pharmacies.
+     */
+    public List<Pharmacy> getPharmacies() {
+        return pharmacies;
+    }
+
+    /**
      * Appends the specified element to the end of this list.
      *
      * @param pharmacy the element to be appended to this list.
