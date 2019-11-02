@@ -5,10 +5,9 @@
       <title>Index page</title>
   </head>
   <body>
-  <form name="parser-chooser" action="${pageContext.request.contextPath}/controller" method="post"
-        enctype="multipart/form-data">
+  <form name="form" action="${pageContext.request.contextPath}/controller" method="post" enctype="multipart/form-data">
       <label for="xml-document">Choose a xml-document:</label>
-      <input type="file" id="xml-document" name="path" accept="application/xml">
+      <input type="file" id="xml-document" name="file" accept="application/xml" value="Upload">
       <br/>
       <input type="hidden" name="command" value="builder"/>
       <p>
@@ -21,7 +20,7 @@
       </p>
       <br/>
       <div style="text-align: left">
-          <input type="submit" value="Send">
+          <input type="submit" value="Execute">
       </div>
       <br/>
       ${errorMessage}
