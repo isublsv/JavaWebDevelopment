@@ -10,11 +10,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.testng.Assert.*;
-
 public class DrugDOMBuilderTest {
 
-    @Test
+    @Test(description = "Runs the DOM builder with provided xml-document")
     public void testDOMBuildSetDrugs() throws RepositoryException, URISyntaxException {
         URI uri = ClassLoader.getSystemResource("data/Medicines.xml").toURI();
         String pathToRead = Paths.get(uri).toString();

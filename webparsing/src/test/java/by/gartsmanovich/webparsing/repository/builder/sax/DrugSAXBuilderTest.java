@@ -10,11 +10,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.testng.Assert.*;
-
 public class DrugSAXBuilderTest {
 
-    @Test
+    @Test(description = "Runs the SAX builder with provided xml-document")
     public void testSAXBuildSetDrugs() throws RepositoryException,
             URISyntaxException {
         URI uri = ClassLoader.getSystemResource("data/Medicines.xml").toURI();

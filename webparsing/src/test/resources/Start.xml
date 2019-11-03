@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "Web-parsing suite" parallel = "false">
+    <test name = "DOM builder">
+        <classes>
+            <class name="by.gartsmanovich.webparsing.repository.builder.dom.DrugDOMBuilderTest"/>
+        </classes>
+    </test>
+    <test name = "SAX builder">
+        <classes>
+            <class name="by.gartsmanovich.webparsing.repository.builder.sax.DrugSAXBuilderTest"/>
+        </classes>
+    </test>
+    <test name = "StAX builder">
+        <classes>
+            <class name="by.gartsmanovich.webparsing.repository.builder.stax.DrugStaXBuilderTest"/>
+        </classes>
+    </test>
+</suite>
