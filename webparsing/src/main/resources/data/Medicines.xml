@@ -117,8 +117,6 @@
                         <quantity>10</quantity>
                     </package>
                 </pharmacy>
-            </tablets>
-            <tablets>
                 <pharmacy>
                     <certificate>
                         <number>987654321</number>
@@ -201,8 +199,6 @@
                         <concentration>8</concentration>
                     </package>
                 </pharmacy>
-            </ointment>
-            <ointment>
                 <pharmacy>
                     <certificate>
                         <number>789357951</number>
@@ -534,8 +530,6 @@
                         <weight>100</weight>
                     </package>
                 </pharmacy>
-            </powder>
-            <powder>
                 <pharmacy>
                     <certificate>
                         <number>159753852</number>
@@ -618,8 +612,6 @@
                         <volume>100</volume>
                     </package>
                 </pharmacy>
-            </drops>
-            <drops>
                 <pharmacy>
                     <certificate>
                         <number>844625972</number>

@@ -37,7 +37,7 @@
                             <element name="versions">
                                 <complexType>
                                     <sequence>
-                                        <element ref="md:form" maxOccurs="unbounded"/>
+                                        <element ref="md:form" maxOccurs="4"/>
                                     </sequence>
                                 </complexType>
                             </element>
