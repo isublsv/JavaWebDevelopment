@@ -16,7 +16,7 @@ import java.util.List;
 public interface Repository<T extends Drug> {
 
     /**
-     * Determines the business rules that applies to the composite.
+     * Determines the business rules that applies to the current specification.
      *
      * @param specification the concrete specification that query different
      *                      types of actions.
