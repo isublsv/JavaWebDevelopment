@@ -13,6 +13,8 @@ Status code: ${pageContext.errorData.statusCode}
 <br/>
 Exception: ${pageContext.errorData.throwable}
 <br/>
+Message from exception: ${pageContext.exception.message}
+<br/>
 <a href="${pageContext.request.contextPath}/index.jsp">Index page</a>
 </body>
 </html>

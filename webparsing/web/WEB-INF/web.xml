@@ -12,11 +12,19 @@
         <param-value>upload</param-value>
     </context-param>
     <error-page>
-        <error-code>404</error-code>
-        <location>/error.jsp</location>
+        <error-code>401</error-code>
+        <location>/jsp/error/error.jsp</location>
     </error-page>
     <error-page>
-        <exception-type>java.lang.RuntimeException</exception-type>
-        <location>/error.jsp</location>
+        <error-code>404</error-code>
+        <location>/jsp/error/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/error/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>by.gartsmanovich.webparsing.service.exception.ServiceException</exception-type>
+        <location>/jsp/error/error.jsp</location>
     </error-page>
 </web-app>

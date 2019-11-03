@@ -329,6 +329,6 @@
     </c:forEach>
 </table>
 <br/>
-<a href="${pageContext.request.contextPath}/index.jsp">Index page</a>
+<a href="<c:url value="/index.jsp"/>">Index page</a>
 </body>
 </html>

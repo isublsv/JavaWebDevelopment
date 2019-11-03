@@ -73,15 +73,17 @@ public class BuilderCommand implements Command {
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
 
+        String propertyKey = "path.page.index";
+
         if (fileName.isEmpty()) {
             request.setAttribute(ERROR_MESSAGE, MessageManager.getProperty(
                     "message.empty.filename"));
-            page = ConfigurationManager.getProperty("path.page.index");
+            page = ConfigurationManager.getProperty(propertyKey);
             return page;
         } else if (!fileName.endsWith("xml")) {
             request.setAttribute(ERROR_MESSAGE, MessageManager.getProperty(
                     "message.not.valid.file"));
-            page = ConfigurationManager.getProperty("path.page.index");
+            page = ConfigurationManager.getProperty(propertyKey);
             return page;
         }
 
@@ -107,7 +109,7 @@ public class BuilderCommand implements Command {
             LOGGER.error(e.getMessage());
             request.setAttribute(ERROR_MESSAGE, MessageManager.getProperty(
                     "message.null.page"));
-            page = ConfigurationManager.getProperty("path.page.error");
+            page = ConfigurationManager.getProperty(propertyKey);
         }
 
         return page;
