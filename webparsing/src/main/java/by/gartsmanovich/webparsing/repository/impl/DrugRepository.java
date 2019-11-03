@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * The repository interface implementation. Used to processing queries from
- * Services layer and applying to the composite instance.
+ * Services layer and applying to the Specification instance.
  *
  * @author Dmitry Gartsmanovich
  */
