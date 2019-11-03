@@ -153,13 +153,13 @@
                                 <td class="tg-j0tj" colspan="3">Package</td>
                             </tr>
                             <tr>
-                                <td class="tg-0lax">Number</td>
-                                <td class="tg-0lax">Issue date</td>
-                                <td class="tg-0lax">Expiration date</td>
-                                <td class="tg-0lax">Registration</td>
-                                <td class="tg-0lax">Type</td>
-                                <td class="tg-0lax">Quantity</td>
-                                <td class="tg-0lax">Price</td>
+                                <td class="tg-j0tj">Number</td>
+                                <td class="tg-j0tj">Issue date</td>
+                                <td class="tg-j0tj">Expiration date</td>
+                                <td class="tg-j0tj">Registration</td>
+                                <td class="tg-j0tj">Type</td>
+                                <td class="tg-j0tj">Quantity</td>
+                                <td class="tg-j0tj">Price</td>
                             </tr>
                             <c:forEach var="version" items="${drug.versions}">
                                 <c:choose>
@@ -198,13 +198,13 @@
                                 <td class="tg-j0tj" colspan="3">Package</td>
                             </tr>
                             <tr>
-                                <td class="tg-0lax">Number</td>
-                                <td class="tg-0lax">Issue date</td>
-                                <td class="tg-0lax">Expiration date</td>
-                                <td class="tg-0lax">Registration</td>
-                                <td class="tg-0lax">Type</td>
-                                <td class="tg-0lax">Volume</td>
-                                <td class="tg-0lax">Price</td>
+                                <td class="tg-j0tj">Number</td>
+                                <td class="tg-j0tj">Issue date</td>
+                                <td class="tg-j0tj">Expiration date</td>
+                                <td class="tg-j0tj">Registration</td>
+                                <td class="tg-j0tj">Type</td>
+                                <td class="tg-j0tj">Volume</td>
+                                <td class="tg-j0tj">Price</td>
                             </tr>
                             <c:forEach var="version" items="${drug.versions}">
                                 <c:choose>
@@ -243,13 +243,13 @@
                                 <td class="tg-j0tj" colspan="3">Package</td>
                             </tr>
                             <tr>
-                                <td class="tg-0lax">Number</td>
-                                <td class="tg-0lax">Issue date</td>
-                                <td class="tg-0lax">Expiration date</td>
-                                <td class="tg-0lax">Registration</td>
-                                <td class="tg-0lax">Type</td>
-                                <td class="tg-0lax">Weight</td>
-                                <td class="tg-0lax">Price</td>
+                                <td class="tg-j0tj">Number</td>
+                                <td class="tg-j0tj">Issue date</td>
+                                <td class="tg-j0tj">Expiration date</td>
+                                <td class="tg-j0tj">Registration</td>
+                                <td class="tg-j0tj">Type</td>
+                                <td class="tg-j0tj">Weight</td>
+                                <td class="tg-j0tj">Price</td>
                             </tr>
                             <c:forEach var="version" items="${drug.versions}">
                                 <c:choose>
@@ -288,14 +288,14 @@
                                 <td class="tg-j0tj" colspan="4">Package</td>
                             </tr>
                             <tr>
-                                <td class="tg-0lax">Number</td>
-                                <td class="tg-0lax">Issue date</td>
-                                <td class="tg-0lax">Expiration date</td>
-                                <td class="tg-0lax">Registration</td>
-                                <td class="tg-0lax">Type</td>
-                                <td class="tg-0lax">Weight</td>
-                                <td class="tg-0lax">Concentration</td>
-                                <td class="tg-0lax">Price</td>
+                                <td class="tg-j0tj">Number</td>
+                                <td class="tg-j0tj">Issue date</td>
+                                <td class="tg-j0tj">Expiration date</td>
+                                <td class="tg-j0tj">Registration</td>
+                                <td class="tg-j0tj">Type</td>
+                                <td class="tg-j0tj">Weight</td>
+                                <td class="tg-j0tj">Concentration</td>
+                                <td class="tg-j0tj">Price</td>
                             </tr>
                             <c:forEach var="version" items="${drug.versions}">
                                 <c:choose>
