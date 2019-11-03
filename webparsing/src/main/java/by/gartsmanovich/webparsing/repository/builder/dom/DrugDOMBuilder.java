@@ -114,8 +114,8 @@ public class DrugDOMBuilder extends AbstractDrugBuilder {
             Element forms = (Element) element.getElementsByTagName(formName)
                                              .item(0);
 
-            Form drugForm = new Form(formType);
             if (forms != null) {
+                Form drugForm = new Form(formType);
                 drug.addVersion(drugForm);
                 NodeList pharmacies = forms.getElementsByTagName("pharmacy");
 
