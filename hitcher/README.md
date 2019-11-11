@@ -43,3 +43,7 @@ Final Task. Web Project
 - Регистрация пользователя и/или добавление артефакта предметной области системы.
 - Просмотр информации (например: просмотр всех ставок тотализатора, статистики заказов, счетов и т.д.)
 - Удаление информации (например: отмена заказа, удаление сущности и т.д.)
+
+User case diagram:
+
+![alt text](https://github.com/isublsv/JavaWebDevelopment/blob/master/hitcher/data/usecase-diagram.png)
