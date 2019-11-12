@@ -38,13 +38,13 @@ VALUES (9, 'Selezneva', 'Olga', null, 'sell@gmail.com', '+375 (25) 577-28-74', '
 INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date)
 VALUES (10, 'Carlson', 'Carl', null, 'carlson@yahoo.com', '+375 (25) 520-44-44', '2015-04-19 23:56:36');
 
-INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, color)
+INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
 VALUES (2, 'AA 12345678', 'Mazda CRV', 'RED');
-INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, color)
+INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
 VALUES (4, 'AA 98765432', 'Volvo XC90', 'BLUE');
-INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, color)
+INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
 VALUES (5, 'AA 11223344', 'Nissan Qashqai', 'METALLIC');
-INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, color)
+INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
 VALUES (8, 'AA 55669977', 'LADA Sedan', 'YELLOW');
 
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
@@ -56,7 +56,7 @@ VALUES (3, 2, 'Все тип-топ, но есть ньюансы!', 4);
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
 VALUES (3, 6, 'Best!', 5);
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
-VALUES (3, 7, 'Опоздал на полчаса!', 3);
+VALUES (3, 7, 'Опоздание на полчаса!', 3);
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
 VALUES (4, 8, 'Проблема в общении!', 4);
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
@@ -68,72 +68,72 @@ VALUES (8, 4, 'Ужасный человек!', 1);
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
 VALUES (8, 5, 'Я хочу от него детей!', 5);
 
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (1, 'Минск', 'Москва', '2019-11-09 17:00:00', '2019-11-10 05:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (2, 'Брест', 'Витебск', '2019-11-11 13:00:00', '2019-11-11 22:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (3, 'Могилев', 'Минск', '2019-11-09 09:00:00', '2019-11-09 13:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (4, 'Минск ', 'Москва', '2019-11-09 12:00:00', '2019-11-09 22:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (5, 'Варшава', 'Берлин', '2019-11-15 15:00:00', '2019-11-15 21:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (6, 'Париж', 'Мадрид', '2019-11-12 15:00:00', '2019-11-13 15:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (7, 'Таллин', 'Вильнюс', '2019-11-20 09:00:00', '2019-11-20 11:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (8, 'Минск', 'Вильнюс', '2019-11-21 09:00:00', '2019-11-20 13:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (9, 'Москва', 'Смоленск', '2019-11-13 18:00:00', '2019-11-19 18:00:00');
-INSERT INTO hitcher_db.trips (id, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (10, 'Москва', 'Челябинск', '2019-11-14 09:00:00', '2019-11-17 18:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (1, 2, 'Минск', 'Москва', '2019-11-09 17:00:00', '2019-11-10 05:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (2, 4, 'Брест', 'Витебск', '2019-11-11 13:00:00', '2019-11-11 22:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (3, 5, 'Могилев', 'Минск', '2019-11-09 09:00:00', '2019-11-09 13:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (4, 8, 'Минск ', 'Москва', '2019-11-09 12:00:00', '2019-11-09 22:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (5, 4, 'Варшава', 'Берлин', '2019-11-15 15:00:00', '2019-11-15 21:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (6, 2, 'Париж', 'Мадрид', '2019-11-12 15:00:00', '2019-11-13 15:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (7, 8, 'Таллин', 'Вильнюс', '2019-11-20 09:00:00', '2019-11-20 11:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (8, 2, 'Минск', 'Вильнюс', '2019-11-21 09:00:00', '2019-11-20 13:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (9, 4, 'Москва', 'Смоленск', '2019-11-13 18:00:00', '2019-11-19 18:00:00');
+INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
+VALUES (10, 5, 'Москва', 'Челябинск', '2019-11-14 09:00:00', '2019-11-17 18:00:00');
 
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (1, 2, 1);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (1, 2, 3);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (1, 2, 5);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (2, 4, 2);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (2, 4, 5);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (2, 4, 7);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (3, 5, 10);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (3, 5, 2);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (3, 5, 3);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (4, 8, 1);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (4, 8, 5);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (5, 8, 3);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (5, 4, 8);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (6, 2, 6);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (7, 8, 4);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (8, 2, 1);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (9, 4, 9);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (9, 4, 10);
-INSERT INTO hitcher_db.trip_users (trip_id, driver_id, passenger_id)
-VALUES (10, 5, 3);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (1, 1);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (1, 3);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (1, 5);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (2, 2);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (2, 5);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (2, 7);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (3, 10);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (3, 2);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (3, 3);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (4, 1);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (4, 5);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (5, 3);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (5, 8);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (6, 6);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (7, 4);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (8, 1);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (9, 9);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (9, 10);
+INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
+VALUES (10, 3);
 
 INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (1, 2, 50, 1, 1);
+VALUES (1, 3, 50, 1, 1);
 INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
 VALUES (2, 3, 70, 0, 1);
 INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (3, 1, 55, 0, 1);
+VALUES (3, 3, 55, 0, 1);
 INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
 VALUES (4, 2, 45, 1, 1);
 INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)

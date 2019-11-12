@@ -24,19 +24,9 @@ CREATE TABLE `hitchers`
     `email`             VARCHAR(255) NOT NULL,
     `phone`             VARCHAR(255) NOT NULL,
     `registration_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT FOREIGN KEY (`user_id`)
-        REFERENCES `users` (`id`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
-) ENGINE = INNODB
-  DEFAULT CHARACTER SET utf8;
-
-CREATE TABLE `hitcher_info`
-(
-    `user_id`      INTEGER NOT NULL,
-    `address`      VARCHAR(255),
-    `music`        VARCHAR(255),
-    `conversation` VARCHAR(255),
+    `address`           VARCHAR(255),
+    `music`             VARCHAR(255),
+    `conversation`      VARCHAR(255),
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `users` (`id`)
         ON UPDATE CASCADE
@@ -49,7 +39,7 @@ CREATE TABLE `driver_info`
     `user_id`                INTEGER NOT NULL,
     `driving_licence_number` VARCHAR(255) UNIQUE,
     `car_model`              VARCHAR(255),
-    `color`                  VARCHAR(255),
+    `car_color`              VARCHAR(255),
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `users` (`id`)
         ON UPDATE CASCADE
@@ -62,7 +52,7 @@ CREATE TABLE `reviews`
     `about_id` INTEGER      NOT NULL,
     `who_id`   INTEGER      NOT NULL,
     `text`     VARCHAR(255) NOT NULL,
-    `rating`   INTEGER      NOT NULL,
+    `rating`   INTEGER      NOT NULL CHECK ( `rating` IN (1, 2, 3, 4, 5)),
     CONSTRAINT FOREIGN KEY (`about_id`)
         REFERENCES `users` (`id`)
         ON UPDATE CASCADE
@@ -77,25 +67,25 @@ CREATE TABLE `reviews`
 CREATE TABLE trips
 (
     `id`                 INTEGER      NOT NULL AUTO_INCREMENT,
+    `driver_id`          INTEGER      NOT NULL,
     `from`               VARCHAR(255) NOT NULL,
     `to`                 VARCHAR(255) NOT NULL,
     `departure_datetime` DATETIME     NOT NULL,
     `arrival_datetime`   DATETIME     NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    CONSTRAINT FOREIGN KEY (`driver_id`)
+        REFERENCES `users` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE trip_users
 (
     `trip_id`      INTEGER NOT NULL,
-    `driver_id`    INTEGER NOT NULL,
     `passenger_id` INTEGER NOT NULL,
     CONSTRAINT FOREIGN KEY (`trip_id`)
         REFERENCES `trips` (`id`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT,
-    CONSTRAINT FOREIGN KEY (`driver_id`)
-        REFERENCES `users` (`id`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
     CONSTRAINT FOREIGN KEY (`passenger_id`)
@@ -107,14 +97,30 @@ CREATE TABLE trip_users
 
 CREATE TABLE `trip_options`
 (
-    `trip_id`    INTEGER    NOT NULL,
-    `free_seats` INTEGER    NOT NULL,
-    `price`      INTEGER    NOT NULL,
-    `smoking`    TINYINT(1) NOT NULL,
-    `pets`       TINYINT(1) NOT NULL,
+    `trip_id`    INTEGER       NOT NULL,
+    `free_seats` INTEGER       NOT NULL,
+    `price`      DECIMAL(8, 2) NOT NULL,
+    `smoking`    TINYINT(1)    NOT NULL,
+    `pets`       TINYINT(1)    NOT NULL,
     CONSTRAINT FOREIGN KEY (`trip_id`)
         REFERENCES `trips` (`id`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
+
+CREATE TRIGGER `add_passenger`
+    AFTER INSERT
+    ON `trip_users`
+    FOR EACH ROW
+    UPDATE `trip_options`
+    SET `free_seats` = free_seats - 1
+    WHERE `trip_options`.trip_id = NEW.trip_id;
+
+CREATE TRIGGER `remove_passenger`
+    AFTER DELETE
+    ON `trip_users`
+    FOR EACH ROW
+    UPDATE `trip_options`
+    SET `free_seats` = free_seats + 1
+    WHERE `trip_options`.trip_id = OLD.trip_id;
