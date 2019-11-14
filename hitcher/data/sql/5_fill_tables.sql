@@ -19,23 +19,23 @@ VALUES (9, 'xtasy', '2ZP9O1L7/VLD5CTVDLVZGGUKLOVUYYO/FR4GDCBFXG4=', 'CNKV9T06ZKI
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
 VALUES (10, 'carl', 'OOGCRVRQQU+HOJJO/UHVCKHJBLN5SBZR2XUCUIZ84AE=', 'CIERROJQU1GFKPLWHIB8NVYWOAPRPQ', 1);
 
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (2, 'Smith', 'John', null, 'smith@gmail.com', '+375 (29) 123-45-67', '2018-07-08 21:34:13', 'Sovetskaya st., 13, 1', 'Electronic', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (3, 'Solovei', 'Anna', 'Alexeevna', 'solovei@gmail.com', '+375 (29) 222-55-55', '2018-07-15 21:35:54', 'Slobodskoi pr., 122', 'Radio', 'Dont want to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (4, 'Petrov', 'Vasya', 'Vasilievich', 'petrov@gmail.com', '+375 (25) 710-21-99', '2017-08-22 17:31:58', 'Pushkina pr., 14', 'Metal', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (5, 'Познева', 'Наталья', 'Петровна', 'pozn_@gmail.com', '+375 (25) 510-28-44', '2016-01-20 23:50:28', 'Козлова, 22', 'Depends on playlist', 'Dont want to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (6, 'Осипов', 'Олег', null, 'osipov@mail.by', '+375 (25) 192-21-39', '2017-09-13 23:51:50', null, 'Electronic', 'Always ready to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (7, 'Ivanov', 'Ivan', 'Ivanovich', 'ivan@tut.by', '+375 (27) 232-33-33', '2018-12-02 23:52:52', 'Odincova st, 15', 'Metal', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (8, 'Сидоров', 'Сидор', 'Сидорович', 'sidor@tut.by', '+375 (25) 788-28-94', '2016-10-11 23:53:57', 'пер. Пешеходов, 2', 'Depends on playlist', 'Dont want to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (9, 'Selezneva', 'Olga', null, 'sell@gmail.com', '+375 (25) 577-28-74', '2017-03-14 23:54:59', null, 'Radio', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, conversation)
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (10, 'Carlson', 'Carl', null, 'carlson@yahoo.com', '+375 (25) 520-44-44', '2015-04-19 23:56:36', null, 'Depends on playlist', 'Always ready to talk');
 
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)

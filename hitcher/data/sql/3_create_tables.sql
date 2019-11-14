@@ -26,7 +26,7 @@ CREATE TABLE `hitchers`
     `registration_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `address`           VARCHAR(255),
     `music`             VARCHAR(255),
-    `conversation`      VARCHAR(255),
+    `communication`      VARCHAR(255),
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `users` (`id`)
         ON UPDATE CASCADE
