@@ -164,7 +164,7 @@ public final class ConnectionPool {
      * @throws PoolException if impossible to take connection from the pool.
      */
     public Connection takeConnection() throws PoolException {
-        WrapperConnection connection = null;
+        WrapperConnection connection;
         try {
             connection = availableConnections.poll(poolTimeout,
                                                    TimeUnit.MILLISECONDS);
