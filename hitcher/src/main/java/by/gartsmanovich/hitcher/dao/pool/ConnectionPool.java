@@ -1,16 +1,29 @@
 package by.gartsmanovich.hitcher.dao.pool;
 
+import by.gartsmanovich.hitcher.dao.pool.exception.FatalPoolException;
 import by.gartsmanovich.hitcher.dao.pool.exception.PoolException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Objects;
+import java.util.Properties;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import static by.gartsmanovich.hitcher.dao.pool.DatabaseManager.DB_POOL_SIZE;
+import static by.gartsmanovich.hitcher.dao.pool.DatabaseManager.DB_TIMEOUT;
+import static by.gartsmanovich.hitcher.dao.pool.DatabaseManager.DB_URL;
+import static by.gartsmanovich.hitcher.dao.pool.DatabaseManager
+        .getDataBaseProperties;
+import static by.gartsmanovich.hitcher.dao.pool.DatabaseManager.getProperty;
 
 /**
  * Connection pool class for web application.
@@ -20,9 +33,21 @@ import java.util.concurrent.locks.ReentrantLock;
 public final class ConnectionPool {
 
     /**
+     * The logger for ConnectionPool class.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(
+            ConnectionPool.class);
+
+    /**
      * Maximum size of available connections.
      */
-    private static final int POOL_SIZE = 10;
+    private int poolSize;
+
+    /**
+     * Maximum time in milliseconds which provides to user to take available
+     *connection.
+     */
+    private int poolTimeout;
 
     /**
      * Lazy initialisation of class instance.
@@ -52,43 +77,26 @@ public final class ConnectionPool {
     /**
      * Instantiate connection pool.
      *
-     * @throws PoolException if there was created an incorrect connections
-     *                       number.
+     * @throws FatalPoolException if cannot access to database.
      */
-    private ConnectionPool() throws PoolException {
-        init();
+    private ConnectionPool() {
         try {
             Driver driver = new com.mysql.jdbc.Driver();
             DriverManager.registerDriver(driver);
-            String jdbcUrl = "jdbc:mysql://localhost/hitcher_db";
-            String login = "hitcher_user1";
-            String pass = "password";
-            for (int i = 0; i < POOL_SIZE; i++) {
-
-                Connection connection = DriverManager.getConnection(jdbcUrl,
-                                                                    login,
-                                                                    pass);
-                WrapperConnection wrapperConnection = new WrapperConnection(
-                        connection);
-                availableConnections.offer(wrapperConnection);
-            }
-            if (availableConnections.size() != POOL_SIZE) {
-                throw new PoolException("Incorrect number of connections"
-                                        + "during creation!");
-            }
         } catch (SQLException e) {
-            throw new PoolException(e.getMessage(), e);
+            String message = "Cannot access to database.";
+            LOGGER.fatal(message, e);
+            throw new FatalPoolException(message, e);
         }
+        init();
     }
 
     /**
      * Creates (if not exists) and returns threadsafe connection pool instance.
      *
      * @return threadsafe connection pool instance.
-     * @throws PoolException if there was created an incorrect connections
-     *                       number.
      */
-    public static ConnectionPool getInstance() throws PoolException {
+    public static ConnectionPool getInstance() {
         if (!isCreated.get()) {
             try {
                 lock.lock();
@@ -104,25 +112,75 @@ public final class ConnectionPool {
     }
 
     /**
-     *
+     * Initialises connection pool parameters.
      */
     private void init() {
-        availableConnections = new LinkedBlockingDeque<>(POOL_SIZE);
-        usedConnections = new LinkedBlockingDeque<>(POOL_SIZE);
+        Properties properties = getDataBaseProperties();
+
+        poolSize = Integer.parseInt(getProperty(DB_POOL_SIZE));
+        poolTimeout = Integer.parseInt(getProperty(DB_TIMEOUT));
+
+        availableConnections = new LinkedBlockingDeque<>(poolSize);
+        usedConnections = new LinkedBlockingDeque<>(poolSize);
+
+        createConnection(properties);
+
+        if (availableConnections.isEmpty()) {
+            String message =
+                    "Incorrect number of connections were created.";
+            LOGGER.fatal(message);
+            throw new FatalPoolException(message);
+        } else if (availableConnections.size() < poolSize) {
+            createConnection(properties);
+        }
+    }
+
+    /**
+     * Creates connections and adds them to the pool.
+     *
+     * @param properties the list of database parameters.
+     */
+    private void createConnection(final Properties properties) {
+        final String jdbcUrl = getProperty(DB_URL);
+        for (int i = 0; i < availableConnections.size(); i++) {
+            Connection connection;
+            try {
+                connection = DriverManager.getConnection(jdbcUrl, properties);
+                WrapperConnection wrapperConnection = new WrapperConnection(
+                        connection);
+                availableConnections.offer(wrapperConnection);
+            } catch (SQLException e) {
+                String message = "Cannot create connection.";
+                LOGGER.fatal(message);
+                throw new FatalPoolException(message);
+            }
+        }
     }
 
     /**
      * Returns connection from pool if available.
      *
      * @return available connection from connection pool.
+     * @throws PoolException if impossible to take connection from the pool.
      */
-    public Connection takeConnection() {
+    public Connection takeConnection() throws PoolException {
         WrapperConnection connection = null;
         try {
-            connection = availableConnections.take();
-            usedConnections.put(connection);
+            connection = availableConnections.poll(poolTimeout,
+                                                   TimeUnit.MILLISECONDS);
+            usedConnections.put(Objects.requireNonNull(connection));
+            String message = String.format(
+                    "Connection was taken from pool. Current pool"
+                    + " size: %d used connections; %d available connections.",
+                    usedConnections.size(),
+                    availableConnections.size());
+            LOGGER.debug(message);
         } catch (InterruptedException e) {
+            String message = "It is impossible to take connection from the"
+                             + " pool.";
+            LOGGER.warn(message, e);
             Thread.currentThread().interrupt();
+            throw new PoolException(message, e);
         }
         return connection;
     }
@@ -131,32 +189,49 @@ public final class ConnectionPool {
      * Releases used connection and returns it to the pool.
      *
      * @param connection used connection.
+     * @throws PoolException if impossible to release connection to the pool.
      */
-    public void releaseConnection(final Connection connection) {
+    public void releaseConnection(final Connection connection) throws
+            PoolException {
         if (connection instanceof WrapperConnection) {
             try {
                 if (usedConnections.remove(connection)) {
                     availableConnections.put((WrapperConnection) connection);
+                    String message = String.format(
+                            "Connection was returned into pool. Current pool"
+                            + " size: %d used connections; %d available"
+                            + " connections.",
+                            usedConnections.size(),
+                            availableConnections.size());
+                    LOGGER.debug(message);
                 }
             } catch (InterruptedException e) {
+                String message = "It is impossible to return database "
+                                 + "connection into pool";
+                LOGGER.warn(message, e);
                 Thread.currentThread().interrupt();
+                throw new PoolException(message, e);
             }
         }
     }
 
     /**
-     * Closes all connections in the pool.
+     * Closes all connections and clear the pool.
+     * @throws PoolException if impossible to close connection pool.
      */
-    public void closePool() {
+    public void closePool() throws PoolException {
         for (int i = 0; i < availableConnections.size(); i++) {
             try {
                 WrapperConnection connection = availableConnections.take();
                 connection.realClose();
-            } catch (InterruptedException eValue) {
+            } catch (InterruptedException | SQLException e) {
+                String message = "It is impossible to close the "
+                                 + "connection pool";
+                LOGGER.error(message, e);
                 Thread.currentThread().interrupt();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                throw new PoolException(message, e);
             }
         }
+        availableConnections.clear();
     }
 }
