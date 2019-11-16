@@ -1,4 +1,4 @@
-package by.gartsmanovich.hitcher.dao.mysql;
+package by.gartsmanovich.hitcher.dao.impl;
 
 import by.gartsmanovich.hitcher.bean.Role;
 import by.gartsmanovich.hitcher.bean.User;
@@ -92,12 +92,14 @@ public class MysqlUserDao implements UserDao {
     }
 
     /**
-     * Saves the provided entity in the data source.
+     * Saves the provided entity in the database.
      *
      * @param entity the provided entity.
+     * @throws DaoException if failed to create user in the database or
+     * to get auto-incremented key.
      */
     @Override
-    public void create(final User entity) throws DaoException, SQLException {
+    public void create(final User entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(
                 INSERT_USER, RETURN_GENERATED_KEYS)) {
             int counter = 1;
@@ -108,30 +110,32 @@ public class MysqlUserDao implements UserDao {
             statement.setInt(counter, entity.getRole().ordinal());
 
             statement.executeUpdate();
-            connection.commit();
             try (ResultSet keys = statement.getGeneratedKeys()) {
                 if (keys.next()) {
                     entity.setId(keys.getInt(1));
+                } else {
+                    String message = "Failed to get auto-incremented ID value"
+                                     + " during INSERT USER operation.";
+                    LOGGER.error(message);
+                    throw new DaoException(message);
                 }
             }
         } catch (SQLException e) {
-            connection.rollback();
-            LOGGER.error("Cannot create user!");
-            throw new DaoException("Cannot create user!", e);
-        } finally {
-            connection.close();
+            String message = "Failed to create user!";
+            LOGGER.error(message);
+            throw new DaoException(message, e);
         }
     }
 
     /**
-     * Finds entity in the data source by provided ID if present.
+     * Finds entity in the database by provided ID if present.
      *
      * @param id the provided ID.
      * @return the entity value if present.
+     * @throws DaoException if failed to find user by ID in the database.
      */
     @Override
-    public Optional<User> findById(final long id) throws SQLException,
-            DaoException {
+    public Optional<User> findById(final long id) throws DaoException {
         User user = null;
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_BY_ID)) {
@@ -143,22 +147,21 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            connection.rollback();
-            LOGGER.error("Cannot find user by ID!");
-            throw new DaoException("Cannot find user by ID!", e);
-        } finally {
-            connection.close();
+            String message = "Failed to find user by ID!";
+            LOGGER.error(message);
+            throw new DaoException(message, e);
         }
         return Optional.ofNullable(user);
     }
 
     /**
-     * Updates the provided entity in the data source.
+     * Updates the provided entity in the database.
      *
      * @param entity the provided entity.
+     * @throws DaoException if failed to update user in the database.
      */
     @Override
-    public void update(final User entity) throws DaoException, SQLException {
+    public void update(final User entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(
                 UPDATE_USER)) {
             int counter = 1;
@@ -175,46 +178,42 @@ public class MysqlUserDao implements UserDao {
             statement.setLong(counter, entity.getId());
 
             statement.executeUpdate();
-            connection.commit();
         } catch (SQLException e) {
-            connection.rollback();
-            LOGGER.error("Cannot update user!");
-            throw new DaoException("Cannot update user!", e);
-        } finally {
-            connection.close();
+            String message = "Failed to update user!";
+            LOGGER.error(message);
+            throw new DaoException(message, e);
         }
     }
 
     /**
-     * Deletes the provided entity from the data source.
+     * Deletes the provided entity from the database.
      *
      * @param entity the provided entity.
+     * @throws DaoException if failed to delete user from the database.
      */
     @Override
-    public void delete(final User entity) throws DaoException, SQLException {
+    public void delete(final User entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(
                 DELETE_USER)) {
 
             statement.setLong(1, entity.getId());
 
             statement.executeUpdate();
-            connection.commit();
         } catch (SQLException e) {
-            connection.rollback();
-            LOGGER.error("Cannot delete user!");
-            throw new DaoException("Cannot delete user!", e);
-        } finally {
-            connection.close();
+            String message = "Failed to delete user!";
+            LOGGER.error(message);
+            throw new DaoException(message, e);
         }
     }
 
     /**
-     * Finds all entity in the data source.
+     * Finds all entity in the database.
      *
      * @return the collection of found entities.
+     * @throws DaoException if failed to find all users in the database.
      */
     @Override
-    public Collection<User> findAll() throws SQLException, DaoException {
+    public Collection<User> findAll() throws DaoException {
         List<User> users = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_ALL_USERS)) {
@@ -224,13 +223,10 @@ public class MysqlUserDao implements UserDao {
                     users.add(user);
                 }
             }
-            connection.commit();
         } catch (SQLException e) {
-            connection.rollback();
-            LOGGER.error("Cannot find all users!");
-            throw new DaoException("Cannot find all users!", e);
-        } finally {
-            connection.close();
+            String message = "Failed to find all users!";
+            LOGGER.error(message);
+            throw new DaoException(message, e);
         }
         return users;
     }
@@ -241,12 +237,13 @@ public class MysqlUserDao implements UserDao {
      * @param login    the login of the user.
      * @param password the password of the user.
      * @param salt     the password salt.
-     * @return the user entity if present
+     * @return the user entity if present.
+     * @throws DaoException if failed to find user in the database by login
+     * and password.
      */
     @Override
     public Optional<User> findUserByLoginAndPass(final String login,
-            final String password, final String salt) throws SQLException,
-            DaoException {
+            final String password, final String salt) throws DaoException {
         User user = null;
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_USER_BY_LOGIN_AND_PASS)) {
@@ -262,16 +259,15 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            connection.rollback();
-            LOGGER.error("Cannot find user by login and password!");
-            throw new DaoException("Cannot find user by login and password!",
-                                   e);
+            String message = "Failed to find user by login and password!";
+            LOGGER.error(message);
+            throw new DaoException(message, e);
         }
         return Optional.ofNullable(user);
     }
 
     /**
-     * Creates User entity from provided result set data.
+     * Creates user entity from provided result set data.
      *
      * @param resultSet the provided result set data from database.
      * @return the result entity.
