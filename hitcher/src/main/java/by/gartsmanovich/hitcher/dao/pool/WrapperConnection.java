@@ -1,5 +1,7 @@
 package by.gartsmanovich.hitcher.dao.pool;
 
+import by.gartsmanovich.hitcher.dao.pool.exception.PoolException;
+
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
@@ -34,7 +36,7 @@ public class WrapperConnection implements Connection {
      *
      * @param connectionValue the provided connection to specific DB.
      */
-    public WrapperConnection(final Connection connectionValue) {
+    WrapperConnection(final Connection connectionValue) {
         connection = connectionValue;
     }
 
@@ -159,7 +161,11 @@ public class WrapperConnection implements Connection {
      */
     @Override
     public void close() throws SQLException {
-        ConnectionPool.getInstance().releaseConnection(this);
+        try {
+            ConnectionPool.getInstance().releaseConnection(this);
+        } catch (PoolException e) {
+            throw new SQLException("Cannot return connection to  the pool, e");
+        }
     }
 
 
