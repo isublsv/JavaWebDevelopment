@@ -1,17 +1,17 @@
 package by.gartsmanovich.hitcher.dao.pool.exception;
 
 /**
- * The Pool Exception class indicates that abnormal condition had
- * occurred during the connection pool execution.
+ * The Fatal Pool Exception class indicates that abnormal condition had
+ * occurred during the connection pool creation.
  *
  * @author Dmitry Gartsmanovich
  */
-public class PoolException extends Exception {
+public class FatalPoolException extends RuntimeException {
 
     /**
      * Constructs a new exception with {@code null} as its detail message.
      */
-    public PoolException() {
+    public FatalPoolException() {
         super();
     }
 
@@ -20,7 +20,7 @@ public class PoolException extends Exception {
      *
      * @param message the detail message.
      */
-    public PoolException(final String message) {
+    public FatalPoolException(final String message) {
         super(message);
     }
 
@@ -33,7 +33,7 @@ public class PoolException extends Exception {
      * @param cause   the cause (which is saved for later retrieval by the
      *                {@link #getCause()} method).
      */
-    public PoolException(final String message, final Throwable cause) {
+    public FatalPoolException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
@@ -44,7 +44,7 @@ public class PoolException extends Exception {
      * @param cause the cause (which is saved for later retrieval by the
      *              {@link #getCause()} method).
      */
-    public PoolException(final Throwable cause) {
+    public FatalPoolException(final Throwable cause) {
         super(cause);
     }
 }
