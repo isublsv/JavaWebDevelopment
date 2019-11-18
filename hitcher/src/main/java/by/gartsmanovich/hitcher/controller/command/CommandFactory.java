@@ -7,7 +7,7 @@ import by.gartsmanovich.hitcher.controller.command.manager.MessageManager;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class used to store and determine the different kind of commands.
+ * Class is used to store and determine the different kind of commands.
  *
  * @author Dmitry Gartsmanovich
  */

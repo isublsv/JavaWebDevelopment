@@ -3,7 +3,7 @@ package by.gartsmanovich.hitcher.controller.command.manager;
 import java.util.ResourceBundle;
 
 /**
- * Utility class used to manage the messages in the Controller layer of the
+ * Utility class is used to manage the messages in the Controller layer of the
  * application.
  *
  * @author Dmitry Gartsmanovich
