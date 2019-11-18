@@ -197,6 +197,7 @@ public final class ConnectionPool {
             try {
                 if (usedConnections.remove(connection)) {
                     availableConnections.put((WrapperConnection) connection);
+                    connection.setAutoCommit(true);
                     String message = String.format(
                             "Connection was returned into pool. Current pool"
                             + " size: %d used connections; %d available"
@@ -210,6 +211,11 @@ public final class ConnectionPool {
                                  + "connection into pool";
                 LOGGER.warn(message, e);
                 Thread.currentThread().interrupt();
+                throw new PoolException(message, e);
+            } catch (SQLException e) {
+                String message = "It is impossible to unable to" +
+                        " auto-commit mode";
+                LOGGER.error(message, e);
                 throw new PoolException(message, e);
             }
         }
