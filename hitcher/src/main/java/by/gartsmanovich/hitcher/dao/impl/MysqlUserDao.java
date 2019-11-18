@@ -4,22 +4,23 @@ import by.gartsmanovich.hitcher.bean.Role;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.dao.UserDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
-import by.gartsmanovich.hitcher.dao.pool.WrapperConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 /**
+ * The User DAO implementation is used to execute queries to the MySQL database.
+ *
  * @author Dmitry Gartsmanovich
  */
 public class MysqlUserDao implements UserDao {
@@ -71,30 +72,33 @@ public class MysqlUserDao implements UserDao {
      */
     private static final String FIND_ALL_USERS = FIND_USER + ";";
 
+    /*
+    private static final String FIND_USER_BY_LOGIN_AND_PASS =
+            FIND_USER + " WHERE u.login=? AND u.password=? AND u.salt=?;";*/
     /**
-     * Query to find user by login and password.
+     * Query to find user by login.
      */
     private static final String FIND_USER_BY_LOGIN_AND_PASS =
-            FIND_USER + " WHERE u.login=? AND u.password=? AND u.salt=?;";
+            FIND_USER + " WHERE u.login=?;";
 
     /**
      * Connection from a pool to MySQL database.
      */
-    private WrapperConnection connection;
+    private Connection connection;
 
     /**
      * Constructs an instance with specific connection.
      *
      * @param connectionValue the provided connection.
      */
-    public MysqlUserDao(final WrapperConnection connectionValue) {
+    public MysqlUserDao(final Connection connectionValue) {
         connection = connectionValue;
     }
 
     /**
-     * Saves the provided entity in the database.
+     * Saves the provided user entity to the database.
      *
-     * @param entity the provided entity.
+     * @param entity the provided user entity.
      * @throws DaoException if failed to create user in the database or
      * to get auto-incremented key.
      */
@@ -128,10 +132,10 @@ public class MysqlUserDao implements UserDao {
     }
 
     /**
-     * Finds entity in the database by provided ID if present.
+     * Finds user entity in the database by provided ID if present.
      *
      * @param id the provided ID.
-     * @return the entity value if present.
+     * @return the user value if present.
      * @throws DaoException if failed to find user by ID in the database.
      */
     @Override
@@ -155,10 +159,10 @@ public class MysqlUserDao implements UserDao {
     }
 
     /**
-     * Updates the provided entity in the database.
+     * Updates the provided user entity in the database.
      *
-     * @param entity the provided entity.
-     * @throws DaoException if failed to update user in the database.
+     * @param entity the provided user entity.
+     * @throws DaoException if failed to update user entity in the database.
      */
     @Override
     public void update(final User entity) throws DaoException {
@@ -186,17 +190,17 @@ public class MysqlUserDao implements UserDao {
     }
 
     /**
-     * Deletes the provided entity from the database.
+     * Deletes the provided user entity by ID from the database.
      *
-     * @param entity the provided entity.
-     * @throws DaoException if failed to delete user from the database.
+     * @param id the provided user ID.
+     * @throws DaoException if failed to delete user entity from the database.
      */
     @Override
-    public void delete(final User entity) throws DaoException {
+    public void delete(final long id) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(
                 DELETE_USER)) {
 
-            statement.setLong(1, entity.getId());
+            statement.setLong(1, id);
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -207,13 +211,13 @@ public class MysqlUserDao implements UserDao {
     }
 
     /**
-     * Finds all entity in the database.
+     * Finds all user entities in the database.
      *
-     * @return the collection of found entities.
+     * @return the list of found user entities.
      * @throws DaoException if failed to find all users in the database.
      */
     @Override
-    public Collection<User> findAll() throws DaoException {
+    public List<User> findAll() throws DaoException {
         List<User> users = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_ALL_USERS)) {
@@ -232,26 +236,25 @@ public class MysqlUserDao implements UserDao {
     }
 
     /**
-     * Returns User entity from database if present.
+     * Returns user entity from database if present.
      *
      * @param login    the login of the user.
-     * @param password the password of the user.
-     * @param salt     the password salt.
      * @return the user entity if present.
      * @throws DaoException if failed to find user in the database by login
      * and password.
      */
     @Override
-    public Optional<User> findUserByLoginAndPass(final String login,
-            final String password, final String salt) throws DaoException {
+    public Optional<User> findUserByLogin(final String login)
+            throws DaoException {
         User user = null;
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_USER_BY_LOGIN_AND_PASS)) {
 
-            int counter = 1;
-            statement.setString(counter++, login);
-            statement.setString(counter++, password);
-            statement.setString(counter, salt);
+            //int counter = 1;
+            statement.setString(1, login);
+            //statement.setString(counter++, login);
+            //statement.setString(counter, password);
+            //statement.setString(counter, salt);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -270,7 +273,7 @@ public class MysqlUserDao implements UserDao {
      * Creates user entity from provided result set data.
      *
      * @param resultSet the provided result set data from database.
-     * @return the result entity.
+     * @return the result user entity.
      * @throws SQLException if an error occurs during operation execution.
      */
     private User getUser(final ResultSet resultSet) throws SQLException {
