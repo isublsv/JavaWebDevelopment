@@ -3,7 +3,7 @@ package by.gartsmanovich.hitcher.dao;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
 
-import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,13 +12,22 @@ import java.util.Optional;
 public interface UserDao extends AbstractDao<User> {
 
     /**
-     * Returns User entity from database if present.
+     * Returns user from the data source if present.
      *
      * @param login    the login of the user.
-     * @param password the password of the user.
-     * @param salt     the password salt.
-     * @return the user entity if present
+     * @return the user entity if present.
+     * @throws DaoException if failed to find user in the data source by login
+     * and password.
      */
-    Optional<User> findUserByLoginAndPass(String login, String password,
-            String salt) throws SQLException, DaoException;
+    Optional<User> findUserByLogin(String login)
+            throws DaoException;
+
+
+    /**
+     * Finds all users in the data source.
+     *
+     * @return the list of found users.
+     * @throws DaoException if failed to find all users in the data source.
+     */
+    List<User> findAll() throws DaoException;
 }
