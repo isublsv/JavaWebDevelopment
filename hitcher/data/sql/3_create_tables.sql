@@ -21,7 +21,7 @@ CREATE TABLE `hitchers`
     `surname`           VARCHAR(255) NOT NULL,
     `name`              VARCHAR(255) NOT NULL,
     `patronymic`        VARCHAR(255),
-    `email`             VARCHAR(255) NOT NULL,
+    `email`             VARCHAR(255) NOT NULL UNIQUE,
     `phone`             VARCHAR(255) NOT NULL,
     `registration_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `address`           VARCHAR(255),
