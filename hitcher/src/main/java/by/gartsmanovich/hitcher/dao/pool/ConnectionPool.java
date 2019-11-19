@@ -45,7 +45,7 @@ public final class ConnectionPool {
 
     /**
      * Maximum time in milliseconds which provides to user to take available
-     *connection.
+     * connection.
      */
     private int poolTimeout;
 
@@ -67,12 +67,12 @@ public final class ConnectionPool {
     /**
      * Deque for available connections.
      */
-    private BlockingDeque<WrapperConnection> availableConnections;
+    private BlockingDeque<PooledConnection> availableConnections;
 
     /**
      * Deque for used connections.
      */
-    private BlockingDeque<WrapperConnection> usedConnections;
+    private BlockingDeque<PooledConnection> usedConnections;
 
     /**
      * Instantiate connection pool.
@@ -125,13 +125,11 @@ public final class ConnectionPool {
 
         createConnection(properties);
 
-        if (availableConnections.isEmpty()) {
+        if (availableConnections.size() != poolSize) {
             String message =
                     "Incorrect number of connections were created.";
             LOGGER.fatal(message);
             throw new FatalPoolException(message);
-        } else if (availableConnections.size() < poolSize) {
-            createConnection(properties);
         }
     }
 
@@ -146,15 +144,16 @@ public final class ConnectionPool {
             Connection connection;
             try {
                 connection = DriverManager.getConnection(jdbcUrl, properties);
-                WrapperConnection wrapperConnection = new WrapperConnection(
+                PooledConnection pooledConnection = new PooledConnection(
                         connection);
-                availableConnections.offer(wrapperConnection);
+                availableConnections.offer(pooledConnection);
             } catch (SQLException e) {
                 String message = "Cannot create connection.";
                 LOGGER.fatal(message);
                 throw new FatalPoolException(message);
             }
         }
+        LOGGER.info("Connection pool was created successfully!");
     }
 
     /**
@@ -164,7 +163,7 @@ public final class ConnectionPool {
      * @throws PoolException if impossible to take connection from the pool.
      */
     public Connection takeConnection() throws PoolException {
-        WrapperConnection connection;
+        PooledConnection connection;
         try {
             connection = availableConnections.poll(poolTimeout,
                                                    TimeUnit.MILLISECONDS);
@@ -193,10 +192,10 @@ public final class ConnectionPool {
      */
     public void releaseConnection(final Connection connection) throws
             PoolException {
-        if (connection instanceof WrapperConnection) {
+        if (connection instanceof PooledConnection) {
             try {
                 if (usedConnections.remove(connection)) {
-                    availableConnections.put((WrapperConnection) connection);
+                    availableConnections.put((PooledConnection) connection);
                     connection.setAutoCommit(true);
                     String message = String.format(
                             "Connection was returned into pool. Current pool"
@@ -213,8 +212,8 @@ public final class ConnectionPool {
                 Thread.currentThread().interrupt();
                 throw new PoolException(message, e);
             } catch (SQLException e) {
-                String message = "It is impossible to unable to" +
-                        " auto-commit mode";
+                String message = "It is impossible to unable to "
+                                 + "auto-commit mode";
                 LOGGER.error(message, e);
                 throw new PoolException(message, e);
             }
@@ -228,7 +227,7 @@ public final class ConnectionPool {
     public void closePool() throws PoolException {
         for (int i = 0; i < availableConnections.size(); i++) {
             try {
-                WrapperConnection connection = availableConnections.take();
+                PooledConnection connection = availableConnections.take();
                 connection.realClose();
             } catch (InterruptedException | SQLException e) {
                 String message = "It is impossible to close the "

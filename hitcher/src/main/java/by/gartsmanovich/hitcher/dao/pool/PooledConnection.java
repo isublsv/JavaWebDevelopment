@@ -22,9 +22,13 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
+ * Represents wrapper for database connection which forbid to close it.
+ * Methods {@link Connection#close()} and {@link Connection#abort(Executor)}
+ * are changed. User can only return connection to {@link ConnectionPool}.
+ *
  * @author Dmitry Gartsmanovich
  */
-public class WrapperConnection implements Connection {
+public class PooledConnection implements Connection {
 
     /**
      * A connection with a specific database.
@@ -36,7 +40,7 @@ public class WrapperConnection implements Connection {
      *
      * @param connectionValue the provided connection to specific DB.
      */
-    WrapperConnection(final Connection connectionValue) {
+    PooledConnection(final Connection connectionValue) {
         connection = connectionValue;
     }
 
@@ -1053,7 +1057,7 @@ public class WrapperConnection implements Connection {
     }
 
     /**
-     * Terminates an open connection.
+     * Use {@link ConnectionPool#releaseConnection(Connection)} instead.
      *
      * @param executor The <code>Executor</code>  implementation which will
      *                 be used by <code>abort</code>.
@@ -1066,7 +1070,7 @@ public class WrapperConnection implements Connection {
      */
     @Override
     public void abort(final Executor executor) throws SQLException {
-        connection.abort(executor);
+        throw new SQLException("Cannot abort connection");
     }
 
     /**
