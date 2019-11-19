@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * The interface describes the common structure for user type DAO.
+ *
  * @author Dmitry Gartsmanovich
  */
 public interface UserDao extends AbstractDao<User> {
