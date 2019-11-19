@@ -35,18 +35,21 @@ public class Review extends Entity {
     }
 
     /**
-     * Constructs the review instance with ID value which user review about,
+     * Constructs the review instance with ID value, user ID is review about,
      * ID value of the review owner, text and rating value.
      *
+     * @param idValue      the ID value.
      * @param aboutIdValue the user ID value which this review about.
      * @param whoIdValue   the user ID value of the review owner.
      * @param textValue    the text value.
      * @param ratingValue  the rating value.
      */
-    public Review(final long aboutIdValue, final long whoIdValue,
-            final String textValue, final int ratingValue) {
-        super(aboutIdValue);
-        whoId = whoIdValue;
+    public Review(final long idValue, final long aboutIdValue,
+            final long whoIdValue, final String textValue,
+            final int ratingValue) {
+        super(idValue);
+        aboutId = whoIdValue;
+        whoId = aboutIdValue;
         text = textValue;
         rating = ratingValue;
     }
