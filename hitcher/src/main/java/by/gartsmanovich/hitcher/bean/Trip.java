@@ -12,11 +12,6 @@ import java.time.LocalDate;
 public class Trip extends Entity {
 
     /**
-     * The trip ID value.
-     */
-    private long id;
-
-    /**
      * The user driver ID.
      */
     private long driverId;
@@ -247,7 +242,6 @@ public class Trip extends Entity {
     public int hashCode() {
         int result = super.hashCode();
         long temp;
-        result = PRIME * result + (int) (id ^ (id >>> SHIFT));
         result = PRIME * result + (int) (driverId ^ (driverId >>> SHIFT));
         result = PRIME * result + from.hashCode();
         result = PRIME * result + to.hashCode();
@@ -290,9 +284,6 @@ public class Trip extends Entity {
 
         Trip trip = (Trip) o;
 
-        if (id != trip.id) {
-            return false;
-        }
         if (driverId != trip.driverId) {
             return false;
         }
