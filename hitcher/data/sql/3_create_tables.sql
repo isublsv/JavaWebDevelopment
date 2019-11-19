@@ -49,10 +49,12 @@ CREATE TABLE `driver_info`
 
 CREATE TABLE `reviews`
 (
+    `id`       INTEGER      NOT NULL AUTO_INCREMENT,
     `about_id` INTEGER      NOT NULL,
     `who_id`   INTEGER      NOT NULL,
     `text`     VARCHAR(255) NOT NULL,
     `rating`   INTEGER      NOT NULL CHECK ( `rating` IN (1, 2, 3, 4, 5)),
+    PRIMARY KEY (`id`),
     CONSTRAINT FOREIGN KEY (`about_id`)
         REFERENCES `users` (`id`)
         ON UPDATE CASCADE
