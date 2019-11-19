@@ -53,6 +53,7 @@ public class MysqlUserDao implements UserDao {
      * Query to find a user by ID value in the database.
      */
     private static final String FIND_BY_ID = FIND_USER + " WHERE h.user_id=?;";
+
     /**
      * Query to update data of selected user in the database.
      */
@@ -72,9 +73,6 @@ public class MysqlUserDao implements UserDao {
      */
     private static final String FIND_ALL_USERS = FIND_USER + ";";
 
-    /*
-    private static final String FIND_USER_BY_LOGIN_AND_PASS =
-            FIND_USER + " WHERE u.login=? AND u.password=? AND u.salt=?;";*/
     /**
      * Query to find user by login.
      */
@@ -125,9 +123,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            String message = "Failed to create user!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to create user!", e);
         }
     }
 
@@ -151,9 +147,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            String message = "Failed to find user by ID!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to find user by ID!", e);
         }
         return Optional.ofNullable(user);
     }
@@ -183,9 +177,7 @@ public class MysqlUserDao implements UserDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            String message = "Failed to update user!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to update user!", e);
         }
     }
 
@@ -204,9 +196,7 @@ public class MysqlUserDao implements UserDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            String message = "Failed to delete user!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to delete user!", e);
         }
     }
 
@@ -228,9 +218,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            String message = "Failed to find all users!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to find all users!", e);
         }
         return users;
     }
@@ -250,11 +238,7 @@ public class MysqlUserDao implements UserDao {
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_USER_BY_LOGIN_AND_PASS)) {
 
-            //int counter = 1;
             statement.setString(1, login);
-            //statement.setString(counter++, login);
-            //statement.setString(counter, password);
-            //statement.setString(counter, salt);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -262,9 +246,8 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            String message = "Failed to find user by login and password!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException(
+                    "Failed to find user by login and password!", e);
         }
         return Optional.ofNullable(user);
     }

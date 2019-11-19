@@ -111,9 +111,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 }
             }
         } catch (SQLException e) {
-            String message = "Failed to create trip!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to create trip!", e);
         }
     }
 
@@ -137,9 +135,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 }
             }
         } catch (SQLException e) {
-            String message = "Failed to find trip by ID!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to find trip by ID!", e);
         }
         return Optional.ofNullable(trip);
     }
@@ -167,9 +163,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            String message = "Failed to update trip!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to update trip!", e);
         }
     }
 
@@ -188,9 +182,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            String message = "Failed to delete trip!";
-            LOGGER.error(message);
-            throw new DaoException(message, e);
+            throw new DaoException("Failed to delete trip!", e);
         }
     }
 
