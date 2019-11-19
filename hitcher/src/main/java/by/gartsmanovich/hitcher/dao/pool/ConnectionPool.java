@@ -222,9 +222,8 @@ public final class ConnectionPool {
 
     /**
      * Closes all connections and clear the pool.
-     * @throws PoolException if impossible to close connection pool.
      */
-    public void closePool() throws PoolException {
+    public void closePool() {
         for (int i = 0; i < availableConnections.size(); i++) {
             try {
                 PooledConnection connection = availableConnections.take();
@@ -234,7 +233,6 @@ public final class ConnectionPool {
                                  + "connection pool";
                 LOGGER.error(message, e);
                 Thread.currentThread().interrupt();
-                throw new PoolException(message, e);
             }
         }
         availableConnections.clear();
