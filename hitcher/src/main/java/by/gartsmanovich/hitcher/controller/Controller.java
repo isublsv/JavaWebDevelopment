@@ -1,13 +1,18 @@
 package by.gartsmanovich.hitcher.controller;
 
-import by.gartsmanovich.hitcher.controller.command.Command;
-import by.gartsmanovich.hitcher.controller.command.CommandFactory;
-import by.gartsmanovich.hitcher.controller.command.manager.ConfigurationManager;
-import by.gartsmanovich.hitcher.controller.command.manager.MessageManager;
+import by.gartsmanovich.hitcher.controller.action.ActionCommand;
+import by.gartsmanovich.hitcher.controller.action.ActionCommandFactory;
+import by.gartsmanovich.hitcher.controller.action.ActionManager;
+import by.gartsmanovich.hitcher.controller.action.ActionManagerFactory;
+import by.gartsmanovich.hitcher.dao.exception.DaoException;
+import by.gartsmanovich.hitcher.dao.pool.ConnectionPool;
+import by.gartsmanovich.hitcher.dao.transaction.factory.TransactionFactoryImpl;
+import by.gartsmanovich.hitcher.service.exception.ServiceException;
+import by.gartsmanovich.hitcher.service.factory.ServiceFactory;
+import by.gartsmanovich.hitcher.service.factory.ServiceFactoryImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +33,7 @@ public class Controller extends HttpServlet {
     /**
      * The logger for Controller class.
      */
-    private static final Logger LOGGER = LogManager.getLogger(
-            Controller.class);
+    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
 
     /**
      * Called by the server (via the <code>service</code> method) to
@@ -46,7 +50,7 @@ public class Controller extends HttpServlet {
     protected void doGet(final HttpServletRequest req,
             final HttpServletResponse resp) {
         try {
-            processRequest(req, resp);
+            process(req, resp);
         } catch (ServletException e) {
             LOGGER.error("request for the GET could not be handled", e);
         } catch (IOException e) {
@@ -70,13 +74,24 @@ public class Controller extends HttpServlet {
     protected void doPost(final HttpServletRequest req,
             final HttpServletResponse resp) {
         try {
-            processRequest(req, resp);
+            process(req, resp);
         } catch (ServletException e) {
             LOGGER.error("request for the POST could not be handled", e);
         } catch (IOException e) {
             LOGGER.error("I/O error is detected when the servlet handles"
                          + " the POST request", e);
         }
+    }
+
+    /**
+     * Creates Service Factory that gets a new connection to database from
+     * connection pool for every request.
+     *
+     * @return the service factory.
+     * @throws DaoException if failed to get connection.
+     */
+    private ServiceFactory getFactory() throws DaoException {
+        return new ServiceFactoryImpl(new TransactionFactoryImpl());
     }
 
     /**
@@ -94,27 +109,28 @@ public class Controller extends HttpServlet {
      * @throws ServletException if the request for the GET or POST
      *                          could not be handled
      */
-    private void processRequest(final HttpServletRequest req,
+    private void process(final HttpServletRequest req,
             final HttpServletResponse resp) throws ServletException,
             IOException {
+        try {
+            ActionManager actionManager = ActionManagerFactory.getManager(
+                    getFactory());
+            ActionCommandFactory factory = new ActionCommandFactory();
+            ActionCommand command = factory.defineCommand(req);
 
-        String page;
-
-        CommandFactory factory = new CommandFactory();
-        Command command = factory.defineCommand(req);
-
-        page = command.execute(req);
-
-        if (page != null) {
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher(page);
-            dispatcher.forward(req, resp);
-        } else {
-            page = ConfigurationManager.getProperty("path.page.index");
-            req.getSession().setAttribute("nullPage",
-                                          MessageManager.getProperty(
-                                                  "message.null.page"));
-            resp.sendRedirect(req.getContextPath() + page);
+            actionManager.execute(command, req, resp);
+            actionManager.close();
+        } catch (DaoException | ServiceException e) {
+            LOGGER.error("It is impossible to process request", e);
         }
+    }
+
+    /**
+     * Called by the servlet container to indicate to a servlet that the
+     * servlet is being taken out of service.
+     */
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().closePool();
     }
 }
