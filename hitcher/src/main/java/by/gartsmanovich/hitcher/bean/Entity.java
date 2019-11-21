@@ -1,11 +1,13 @@
 package by.gartsmanovich.hitcher.bean;
 
+import java.io.Serializable;
+
 /**
  * The basic DAO entity that store an ID.
  *
  * @author Dmitry Gartsmanovich
  */
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
     /**
      * The prime number for hashcode.
