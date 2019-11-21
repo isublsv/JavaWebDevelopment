@@ -1,4 +1,4 @@
-package by.gartsmanovich.hitcher.controller;
+package by.gartsmanovich.hitcher.controller.filter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
