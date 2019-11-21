@@ -4,15 +4,6 @@
 }
 
 .login,
-.image {
-    min-height: 100vh;
-}
-
-.bg-image {
-    background-image: url("images/sign-in.jpeg");
-    background-size: cover;
-    background-position: center;
-}
 
 .login-heading {
     font-weight: 300;
