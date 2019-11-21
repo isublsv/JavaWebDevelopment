@@ -2,8 +2,6 @@ package by.gartsmanovich.hitcher.service.impl;
 
 import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.service.TripService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * The realisation of Trip Service interface is used to describe of application
@@ -12,12 +10,6 @@ import org.apache.logging.log4j.Logger;
  * @author Dmitry Gartsmanovich
  */
 public class TripServiceImpl implements TripService {
-
-    /**
-     * The logger for TripServiceImpl class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(
-            TripServiceImpl.class);
 
     /**
      * Represents the transaction entity.

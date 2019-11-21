@@ -7,8 +7,6 @@ import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.service.UserService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import by.gartsmanovich.hitcher.service.util.PasswordUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +18,6 @@ import java.util.Optional;
  * @author Dmitry Gartsmanovich
  */
 public class UserServiceImpl implements UserService {
-
-    /**
-     * The logger for UserServiceImpl class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(
-            UserServiceImpl.class);
 
     /**
      * Represents the transaction entity.
@@ -62,14 +54,19 @@ public class UserServiceImpl implements UserService {
      * Finds user entity by provided ID value.
      *
      * @param id the provided user ID.
-     * @return the user entity if present.
+     * @return the user entity.
      * @throws ServiceException if failed to find user entity.
      */
     @Override
-    public Optional<User> findByID(final long id) throws ServiceException {
+    public User findByID(final long id) throws ServiceException {
         UserDao dao = transaction.getUserDao();
         try {
-            return dao.findById(id);
+            Optional<User> user = dao.findById(id);
+            if (user.isPresent()) {
+                return user.get();
+            } else {
+                throw new ServiceException("User not found!");
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -109,16 +106,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Finds user entity by login and password value if present.
+     * Finds user entity by login and password value.
      *
      * @param login    the provided user login.
      * @param password the provided user password.
-     * @return the user entity if present.
+     * @return the user entity.
      * @throws ServiceException if failed to find user entity in the
      *                          data source.
      */
     @Override
-    public Optional<User> findByLoginAndPassword(final String login,
+    public User findByLoginAndPassword(final String login,
             final String password) throws ServiceException {
         UserDao dao = transaction.getUserDao();
         try {
@@ -129,16 +126,12 @@ public class UserServiceImpl implements UserService {
                 String salt = user.getSalt();
                 if (PasswordUtils.verifyUserPassword(
                         password, savedPassword, salt)) {
-                    return optionalUser;
+                    return optionalUser.get();
                 } else {
-                    String message = "Wrong password!";
-                            LOGGER.error(message);
-                    throw new ServiceException(message);
+                    throw new ServiceException("Wrong password!");
                 }
             } else {
-                String message = "User does not exist!";
-                LOGGER.error(message);
-                throw new ServiceException(message);
+                throw new ServiceException("User does not exist!");
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
