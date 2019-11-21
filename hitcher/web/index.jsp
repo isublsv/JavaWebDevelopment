@@ -1,4 +1,4 @@
-<!--<%@ page contentType="text/html;charset=UTF-8"%>-->
+<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,9 +130,9 @@
                             <div class="col-lg-12 mx-auto">
                                 <form>
                                     <div class="form-label-group">
-                                        <input type="text" id="inputLoginUserame" class="form-control" placeholder="Username"
+                                        <input type="text" id="inputLoginUsername" class="form-control" placeholder="Username"
                                                required autofocus>
-                                        <label for="inputLoginUserame">Email address</label>
+                                        <label for="inputLoginUsername">Username</label>
                                     </div>
 
                                     <div class="form-label-group">
@@ -181,6 +181,7 @@
                                         <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username"
                                                required autofocus>
                                         <label for="inputRegisterUsername">Username</label>
+
                                     </div>
 
                                     <div class="form-label-group">
@@ -190,7 +191,7 @@
                                     </div>
 
                                     <hr>
-                                    
+
                                     <div class="form-label-group">
                                         <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password"
                                                required>
