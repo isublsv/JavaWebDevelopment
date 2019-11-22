@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -58,6 +59,14 @@ public class EncodingFilter implements Filter {
     public void doFilter(final ServletRequest req, final ServletResponse resp,
             final FilterChain chain) throws ServletException, IOException {
         req.setCharacterEncoding(defaultEncoding);
+        HttpServletResponse httpResponse = (HttpServletResponse) resp;
+        httpResponse.setCharacterEncoding(defaultEncoding);
+        //HTTP 1.1
+        httpResponse.setHeader("Cache-Control", "no-cache");
+        //HTTP 1.0
+        httpResponse.setHeader("Pragma", "no-cache");
+        //prevents caching at the proxy server
+        httpResponse.setDateHeader("Expires", 0);
         chain.doFilter(req, resp);
     }
 
