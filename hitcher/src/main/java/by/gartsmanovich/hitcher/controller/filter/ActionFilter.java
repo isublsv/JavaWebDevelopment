@@ -1,7 +1,9 @@
 package by.gartsmanovich.hitcher.controller.filter;
 
 import by.gartsmanovich.hitcher.action.ActionCommand;
-import by.gartsmanovich.hitcher.action.CommandName;
+import by.gartsmanovich.hitcher.action.impl.LoginActionCommand;
+import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
+import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,11 +16,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
  */
-//@WebFilter(filterName = "ActionFilter", urlPatterns = "/*")
+@WebFilter(filterName = "ActionFilter", urlPatterns = "*.go")
 public class ActionFilter implements Filter {
 
     /**
@@ -26,6 +30,49 @@ public class ActionFilter implements Filter {
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ActionFilter.class);
+
+    private static Map<String, ActionCommand> actions = new ConcurrentHashMap<>();
+
+    static {
+        actions.put("/", new MainActionCommand());
+        actions.put("/index", new MainActionCommand());
+        actions.put("/login", new LoginActionCommand());
+        actions.put("/logout", new LogoutActionCommand());
+
+        /*actions.put("/profile/edit", ProfileEditAction.class);
+        actions.put("/profile/save", ProfileSaveAction.class);
+
+        actions.put("/reader/list", ReaderListAction.class);
+        actions.put("/reader/edit", ReaderEditAction.class);
+        actions.put("/reader/save", ReaderSaveAction.class);
+        actions.put("/reader/delete", ReaderDeleteAction.class);
+
+        actions.put("/user/list", UserListAction.class);
+        actions.put("/user/edit", UserEditAction.class);
+        actions.put("/user/save", UserSaveAction.class);
+        actions.put("/user/delete", UserDeleteAction.class);
+
+        actions.put("/author/list", AuthorListAction.class);
+        actions.put("/author/edit", AuthorEditAction.class);
+        actions.put("/author/save", AuthorSaveAction.class);
+        actions.put("/author/delete", AuthorDeleteAction.class);
+
+        actions.put("/author/book/list", BookListAction.class);
+        actions.put("/author/book/edit", BookEditAction.class);
+        actions.put("/author/book/save", BookSaveAction.class);
+        actions.put("/author/book/delete", BookDeleteAction.class);
+
+        actions.put("/search/book/form", SearchBookFormAction.class);
+        actions.put("/search/book/result", SearchBookResultAction.class);
+        actions.put("/author/book/usages", BookUsageListAction.class);
+
+        actions.put("/search/reader/form", SearchReaderFormAction.class);
+        actions.put("/search/reader/result", SearchReaderResultAction.class);
+        actions.put("/reader/usages", ReaderUsageListAction.class);
+
+        actions.put("/author/book/deliver", DeliverBookAction.class);
+        actions.put("/author/book/return", ReturnBookAction.class);*/
+    }
 
     /**
      * Called by the web container to indicate to a filter that it is being
@@ -36,6 +83,7 @@ public class ActionFilter implements Filter {
      * @throws ServletException if an exception has occurred that interferes
      *                          with the filter's normal operation
      */
+    @Override
     public void init(final FilterConfig config) throws ServletException {
     }
 
@@ -55,6 +103,7 @@ public class ActionFilter implements Filter {
      * @throws ServletException if an exception occurs that interferes with the
      *                          filter's normal operation
      */
+    @Override
     public void doFilter(final ServletRequest request,
             final ServletResponse response, final FilterChain chain) throws
             ServletException, IOException {
@@ -65,19 +114,19 @@ public class ActionFilter implements Filter {
             String uri = req.getRequestURI();
 
             int beginAction = contextPath.length();
-            //int endAction = uri.lastIndexOf('.');
-            String actionName = uri.substring(beginAction);
+            int endAction = uri.lastIndexOf('.');
+            String actionName;
 
-/*            if (endAction >= 0) {
+            if (endAction >= 0) {
                 actionName = uri.substring(beginAction, endAction);
             } else {
                 actionName = uri.substring(beginAction);
-            }*/
+            }
 
-            ActionCommand command;
+            ActionCommand actionCommand;
             try {
-                command = CommandName.valueOf(actionName).getCommand();
-                req.setAttribute("command", command);
+                actionCommand = actions.get(actionName);
+                req.setAttribute("command", actionCommand);
                 chain.doFilter(request, response);
             } catch (IllegalArgumentException | NullPointerException e) {
                 LOGGER.error(
@@ -101,6 +150,7 @@ public class ActionFilter implements Filter {
      * Called by the web container to indicate to a filter that it is being
      * taken out of service.
      */
+    @Override
     public void destroy() {
     }
 

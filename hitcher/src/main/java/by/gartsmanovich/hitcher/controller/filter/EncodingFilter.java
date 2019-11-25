@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author Dmitry Gartsmanovich
  */
-@WebFilter(filterName = "EncodingFilter", urlPatterns = "/*",
+@WebFilter(filterName = "EncodingFilter", urlPatterns = "*.go",
         initParams = {@WebInitParam(name = "defaultEncoding", value = "UTF-8")})
 public class EncodingFilter implements Filter {
 
