@@ -27,7 +27,7 @@ import java.io.IOException;
  *
  * @author Dmitry Gartsmanovich
  */
-@WebServlet("/controller")
+@WebServlet(urlPatterns = {"*.go"})
 public class Controller extends HttpServlet {
 
     /**
