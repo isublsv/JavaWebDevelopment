@@ -41,6 +41,11 @@ final class DatabaseManager {
     private static final String DB_RECONNECT = "autoReconnect";
 
     /**
+     * Represents the value if the database can support autoReconnect.
+     */
+    private static final String DB_SERVERTIMEZONE = "serverTimezone";
+
+    /**
      * Represents the pool size.
      */
     static final String DB_POOL_SIZE = "poolSize";
@@ -77,6 +82,7 @@ final class DatabaseManager {
         properties.put(DB_ENCODING, getProperty(DB_ENCODING));
         properties.put(DB_UNICODE, getProperty(DB_UNICODE));
         properties.put(DB_RECONNECT, getProperty(DB_RECONNECT));
+        properties.put(DB_SERVERTIMEZONE, getProperty(DB_SERVERTIMEZONE));
         return properties;
     }
 

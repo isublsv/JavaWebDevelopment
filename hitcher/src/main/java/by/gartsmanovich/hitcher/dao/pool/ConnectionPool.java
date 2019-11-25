@@ -81,7 +81,7 @@ public final class ConnectionPool {
      */
     private ConnectionPool() {
         try {
-            Driver driver = new com.mysql.jdbc.Driver();
+            Driver driver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(driver);
         } catch (SQLException e) {
             String message = "Cannot access to database.";
@@ -140,7 +140,7 @@ public final class ConnectionPool {
      */
     private void createConnection(final Properties properties) {
         final String jdbcUrl = getProperty(DB_URL);
-        for (int i = 0; i < availableConnections.size(); i++) {
+        for (int i = 0; i < poolSize; i++) {
             Connection connection;
             try {
                 connection = DriverManager.getConnection(jdbcUrl, properties);
@@ -190,7 +190,7 @@ public final class ConnectionPool {
      * @param connection used connection.
      * @throws PoolException if impossible to release connection to the pool.
      */
-    public void releaseConnection(final Connection connection) throws
+     void releaseConnection(final Connection connection) throws
             PoolException {
         if (connection instanceof PooledConnection) {
             try {
