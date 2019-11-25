@@ -1,8 +1,8 @@
-<%@page contentType="text/html; UTF-8" language="java" %>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Navigation Bar -->
-<fmt:setLocale value="${cookie.locale}"/>
+<%--<fmt:setLocale value="${cookie.locale}"/>--%>
 <fmt:bundle basename="pagecontent" prefix="navbar.">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
@@ -17,12 +17,12 @@
                     <c:when test="${not empty sessionScope.user}">
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="<c:url value="/controller?command=profile&username=${sessionScope.user.username}"/>">
+                               href="<c:url value="/profile.go"/>">
                                 <fmt:message key="link.profile"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="<c:url value="/controller?command=logout"/>">
+                               href="<c:url value="/logout.go"/>">
                                 <fmt:message key="link.logout"/></a>
                         </li>
                     </c:when>
@@ -66,8 +66,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 mx-auto">
-                                <form method="post" action="${pageContext.request.contextPath}/controller">
-                                    <input type="hidden" name="command" value="login">
+                                <form method="post" action="${pageContext.request.contextPath}/login.go">
+                                   <%-- <input type="hidden" name="command" value="login.go">--%>
                                     <div class="form-label-group">
                                         <input type="text" id="inputLoginUsername" class="form-control" placeholder="Username" name="login"
                                                required autofocus>
@@ -117,8 +117,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 mx-auto">
-                                <form method="post" action="${pageContext.request.contextPath}/controller">
-                                    <input type="hidden" name="command" value="register">
+                                <form method="post" action="${pageContext.request.contextPath}/register.go">
+                                    <%--<input type="hidden" name="command" value="register">--%>
                                     <div class="form-label-group">
                                         <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username"
                                                required autofocus>
