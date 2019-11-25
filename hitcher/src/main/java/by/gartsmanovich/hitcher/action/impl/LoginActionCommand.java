@@ -1,7 +1,7 @@
-package by.gartsmanovich.hitcher.controller.action.impl;
+package by.gartsmanovich.hitcher.action.impl;
 
+import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.bean.User;
-import by.gartsmanovich.hitcher.controller.action.ActionCommand;
 import by.gartsmanovich.hitcher.service.UserService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -14,16 +14,16 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Class describes Builder command that proceed user request and
+ * Class describes login command that proceed user request and
  * invoke appropriate method from Service layer of the application. The result
  * depends on input parameters.
  *
  * @author Dmitry Gartsmanovich
  */
-public class LoginActionCommand extends ActionCommand {
+public class LoginActionCommand extends AuthorizedActionCommand {
 
     /**
-     * The logger for BuilderCommand class.
+     * The logger for LoginActionCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             LoginActionCommand.class);
@@ -41,7 +41,9 @@ public class LoginActionCommand extends ActionCommand {
      *                          could not be handled
      */
     @Override
-    public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    public void execute(final HttpServletRequest request,
+            final HttpServletResponse response)
+            throws ServletException, IOException {
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
         if (login != null && pass != null) {
@@ -50,11 +52,15 @@ public class LoginActionCommand extends ActionCommand {
                 User user = userService.findByLoginAndPassword(login, pass);
                 HttpSession session = request.getSession();
                 session.setAttribute("authorizedUser", user);
+                request.getRequestDispatcher(
+                        ConfigurationManager.getProperty("path.page.index"))
+                       .forward(request, response);
             } catch (ServiceException e) {
                 String message = e.getMessage();
                 LOGGER.warn(message);
                 request.setAttribute("errorMessage", message);
-                request.getRequestDispatcher("/WEB-INF/jsp/error/error.jsp")
+                request.getRequestDispatcher(
+                        ConfigurationManager.getProperty("path.page.error"))
                        .forward(request, response);
             }
         }

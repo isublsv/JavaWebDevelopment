@@ -1,4 +1,4 @@
-package by.gartsmanovich.hitcher.controller.action;
+package by.gartsmanovich.hitcher.action;
 
 import by.gartsmanovich.hitcher.service.factory.ServiceFactory;
 

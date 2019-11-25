@@ -1,6 +1,6 @@
-package by.gartsmanovich.hitcher.controller.action;
+package by.gartsmanovich.hitcher.action;
 
-import by.gartsmanovich.hitcher.controller.action.impl.EmptyActionCommand;
+import by.gartsmanovich.hitcher.action.impl.EmptyActionCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

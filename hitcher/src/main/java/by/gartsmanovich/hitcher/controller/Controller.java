@@ -1,9 +1,9 @@
 package by.gartsmanovich.hitcher.controller;
 
-import by.gartsmanovich.hitcher.controller.action.ActionCommand;
-import by.gartsmanovich.hitcher.controller.action.ActionCommandFactory;
-import by.gartsmanovich.hitcher.controller.action.ActionManager;
-import by.gartsmanovich.hitcher.controller.action.ActionManagerFactory;
+import by.gartsmanovich.hitcher.action.ActionCommand;
+import by.gartsmanovich.hitcher.action.ActionCommandFactory;
+import by.gartsmanovich.hitcher.action.ActionManager;
+import by.gartsmanovich.hitcher.action.ActionManagerFactory;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
 import by.gartsmanovich.hitcher.dao.pool.ConnectionPool;
 import by.gartsmanovich.hitcher.dao.transaction.factory.TransactionFactoryImpl;

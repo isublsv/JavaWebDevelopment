@@ -1,6 +1,6 @@
-package by.gartsmanovich.hitcher.controller.action.impl;
+package by.gartsmanovich.hitcher.action.impl;
 
-import by.gartsmanovich.hitcher.controller.action.ActionCommand;
+import by.gartsmanovich.hitcher.action.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

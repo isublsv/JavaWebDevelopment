@@ -1,4 +1,4 @@
 /**
  * Contains Command pattern and its utility classes.
  */
-package by.gartsmanovich.hitcher.controller.action;
+package by.gartsmanovich.hitcher.action;

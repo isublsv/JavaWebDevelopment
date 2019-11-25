@@ -1,5 +1,5 @@
 /**
- * Package contains the interface for Commands.
+ * Package contains the Controller and filter classes.
  */
 package by.gartsmanovich.hitcher.controller;
 

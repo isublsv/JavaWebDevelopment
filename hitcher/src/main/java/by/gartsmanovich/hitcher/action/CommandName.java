@@ -1,6 +1,9 @@
-package by.gartsmanovich.hitcher.controller.action;
+package by.gartsmanovich.hitcher.action;
 
-import by.gartsmanovich.hitcher.controller.action.impl.LoginActionCommand;
+import by.gartsmanovich.hitcher.action.impl.BanActionCommand;
+import by.gartsmanovich.hitcher.action.impl.LoginActionCommand;
+import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
+import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
 
 /**
  * Enum-class represents the list of commands that exists in the application.
@@ -19,19 +22,19 @@ public enum CommandName {
      * The singleton instance for the logout command.
      * This has the numeric value of {@code 1}.
      */
-    LOGOUT(new LoginActionCommand()),
+    LOGOUT(new LogoutActionCommand()),
 
     /**
      * The singleton instance for the register command.
      * This has the numeric value of {@code 2}.
      */
-    REGISTER(new LoginActionCommand()),
+    REGISTER(new RegisterActionCommand()),
 
     /**
      * The singleton instance for the ban command.
      * This has the numeric value of {@code 3}.
      */
-    BAN(new LoginActionCommand());
+    BAN(new BanActionCommand());
 
     /**
      * Represents Action Command.

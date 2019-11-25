@@ -1,4 +1,9 @@
+<%@page contentType="text/html; UTF-8" language="java" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Navigation Bar -->
+<fmt:setLocale value="${cookie.locale}"/>
+<fmt:bundle basename="pagecontent" prefix="navbar.">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">WhereUWannaGO</a>
@@ -8,35 +13,51 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                <c:choose>
+                    <c:when test="${not empty sessionScope.user}">
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="<c:url value="/controller?command=profile&username=${sessionScope.user.username}"/>">
+                                <fmt:message key="link.profile"/></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="<c:url value="/controller?command=logout"/>">
+                                <fmt:message key="link.logout"/></a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="#sign-in" data-toggle="modal"
+                               href="javascript:void(0)"><fmt:message key="link.login"/></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="#register" data-toggle="modal"
+                               href="javascript:void(0)"><fmt:message key="link.register"/></a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" data-target="#sign-in" data-toggle="modal"
-                       href="javascript:void(0)">Sign in</a>
+                    <a class="nav-link js-scroll-trigger" href="#about"><fmt:message key="link.about"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" data-target="#register" data-toggle="modal"
-                       href="javascript:void(0)">Register</a>
+                    <a class="nav-link js-scroll-trigger" href="#services"><fmt:message key="link.services"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    <a class="nav-link js-scroll-trigger" href="#contact"><fmt:message key="link.contract"/></a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- The Login Modal -->
+    <!-- The Login Modal -->
 <div class="modal fade" id="sign-in">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title">Welcome back!</h4>
+                <h4 class="modal-title"><fmt:message key="login.welcome"/></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -45,28 +66,31 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 mx-auto">
-                                <form>
+                                <form method="post" action="${pageContext.request.contextPath}/controller">
+                                    <input type="hidden" name="command" value="login">
                                     <div class="form-label-group">
                                         <input type="text" id="inputLoginUsername" class="form-control" placeholder="Username" name="login"
                                                required autofocus>
-                                        <label for="inputLoginUsername">Username</label>
+                                        <label for="inputLoginUsername"><fmt:message key="form.username"/></label>
                                     </div>
 
                                     <div class="form-label-group">
                                         <input type="password" id="inputLoginPassword" class="form-control" name="pass"
                                                placeholder="Password" required>
-                                        <label for="inputLoginPassword">Password</label>
+                                        <label for="inputLoginPassword"><fmt:message key="form.password"/></label>
                                     </div>
 
                                     <div class="custom-control custom-checkbox mb-3">
                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1">Remember password</label>
+                                        <label class="custom-control-label" for="customCheck1"><fmt:message
+                                                key="remember.pass"/></label>
                                     </div>
                                     <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                            type="submit">Sign in
+                                            type="submit"><fmt:message key="link.login"/>
                                     </button>
                                     <div class="text-center">
-                                        <a class="small" href="#">Forgot password?</a>
+                                        <a class="small" href="#"><fmt:message
+                                                key="link.forgot.pass"/></a>
                                     </div>
                                 </form>
                             </div>
@@ -78,13 +102,13 @@
     </div>
 </div>
 
-<!-- The Register Modal -->
+    <!-- The Register Modal -->
 <div class="modal fade" id="register">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title">Register</h4>
+                <h4 class="modal-title"><fmt:message key="link.register"/></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -93,11 +117,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 mx-auto">
-                                <form>
+                                <form method="post" action="${pageContext.request.contextPath}/controller">
+                                    <input type="hidden" name="command" value="register">
                                     <div class="form-label-group">
                                         <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username"
                                                required autofocus>
-                                        <label for="inputRegisterUsername">Username</label>
+                                        <label for="inputRegisterUsername"><fmt:message key="form.username"/></label>
                                     </div>
 
                                     <div class="form-label-group">
@@ -111,18 +136,19 @@
                                     <div class="form-label-group">
                                         <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password"
                                                required>
-                                        <label for="inputRegisterPassword">Password</label>
+                                        <label for="inputRegisterPassword"><fmt:message key="form.password"/></label>
                                     </div>
 
                                     <div class="form-label-group">
                                         <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password"
                                                required>
-                                        <label for="inputConfirmPassword">Confirm password</label>
+                                        <label for="inputConfirmPassword"><fmt:message key="form.password.confirm"/></label>
                                     </div>
                                     <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                            type="submit">Register
+                                            type="submit"><fmt:message key="link.register"/>
                                     </button>
-                                    <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal" data-dismiss="modal" href="#">Sign In</a>
+                                    <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal"
+                                       data-dismiss="modal" href="#"><fmt:message key="link.login"/></a>
                                 </form>
                             </div>
                         </div>
@@ -132,3 +158,4 @@
         </div>
     </div>
 </div>
+</fmt:bundle>

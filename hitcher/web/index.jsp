@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,200 +23,59 @@
 
 <body id="page-top">
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">WhereUWannaGO</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" data-target="#sign-in" data-toggle="modal" href="javascript:void(0)">Sign in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" data-target="#register" data-toggle="modal"
-                       href="javascript:void(0)">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<jsp:include page="WEB-INF/jsp/navbar.jsp"/>
 
+<fmt:bundle basename="pagecontent" prefix="index.">
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <h1>Welcome to Scrolling Nav</h1>
-        <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>
+        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                type="submit"><fmt:message key="find.trip"/>
+        </button>
     </div>
 </header>
 
-<section id="about">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2>About this page</h2>
-                <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled
-                    so you can use it as a boilerplate or starting point for you own landing page designs! This template
-                    features:</p>
-                <ul>
-                    <li>Clickable nav links that smooth scroll to page sections</li>
-                    <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-                    <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the
-                        navbar
-                    </li>
-                    <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="services" class="bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2>Services we offer</h2>
-                <p class="lead">We offer the service that provide</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2>Contact us</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem
-                    dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa
-                    exercitationem, in, quo totam.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; WhereUWannaGO 2019</p>
-    </div>
-    <!-- /.container -->
-</footer>
-
-<!-- The Sign-in Modal -->
-<div class="modal fade" id="sign-in">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h4 class="modal-title">Welcome back!</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <div class="login d-flex align-items-center py-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 mx-auto">
-                                <form>
-                                    <div class="form-label-group">
-                                        <input type="text" id="inputLoginUsername" class="form-control" placeholder="Username"
-                                               required autofocus>
-                                        <label for="inputLoginUsername">Username</label>
-                                    </div>
-
-                                    <div class="form-label-group">
-                                        <input type="password" id="inputLoginPassword" class="form-control"
-                                               placeholder="Password" required>
-                                        <label for="inputLoginPassword">Password</label>
-                                    </div>
-
-                                    <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1">Remember password</label>
-                                    </div>
-                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                            type="submit">Sign in
-                                    </button>
-                                    <div class="text-center">
-                                        <a class="small" href="#">Forgot password?</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>About this page</h2>
+                    <p class="lead">This is a great place to talk about your webpage. This template is purposefully
+                        unstyled
+                        so you can use it as a boilerplate or starting point for you own landing page designs! This
+                        template
+                        features:</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+</section>
 
-<!-- The Register Modal -->
-<div class="modal fade" id="register">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h4 class="modal-title">Register</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <div class="login d-flex align-items-center py-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 mx-auto">
-                                <form>
-                                    <div class="form-label-group">
-                                        <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username"
-                                               required autofocus>
-                                        <label for="inputRegisterUsername">Username</label>
-
-                                    </div>
-
-                                    <div class="form-label-group">
-                                        <input type="email" id="inputRegisterEmail" class="form-control" placeholder="Email address"
-                                               required>
-                                        <label for="inputRegisterEmail">Email address</label>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="form-label-group">
-                                        <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password"
-                                               required>
-                                        <label for="inputRegisterPassword">Password</label>
-                                    </div>
-
-                                    <div class="form-label-group">
-                                        <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password"
-                                               required>
-                                        <label for="inputConfirmPassword">Confirm password</label>
-                                    </div>
-                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                            type="submit">Register
-                                    </button>
-                                    <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal" data-dismiss="modal" href="#">Sign In</a>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+    <section id="services" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Services we offer</h2>
+                    <p class="lead">We offer the service that provide</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+</section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Contact us</h2>
+                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat
+                        voluptatem
+                        dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae
+                        ipsa
+                        exercitationem, in, quo totam.</p>
+                </div>
+            </div>
+        </div>
+</section>
+</fmt:bundle>
+<jsp:include page="WEB-INF/jsp/footer.jsp"/>
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>

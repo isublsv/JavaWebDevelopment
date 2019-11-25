@@ -1,4 +1,4 @@
-package by.gartsmanovich.hitcher.controller.action.manager;
+package by.gartsmanovich.hitcher.action.manager;
 
 import java.util.ResourceBundle;
 
