@@ -1,13 +1,18 @@
 package by.gartsmanovich.hitcher.controller.filter;
 
 import by.gartsmanovich.hitcher.action.ActionCommand;
+import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
 import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.bean.Role;
 import by.gartsmanovich.hitcher.bean.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +25,7 @@ import java.util.Set;
  *
  * @author Dmitry Gartsmanovich
  */
-@WebFilter(filterName = "SecurityFilter", urlPatterns = "*.go")
+@WebFilter(filterName = "SecurityFilter", urlPatterns = "*.do")
 public class SecurityFilter implements Filter {
 
     /**
@@ -30,17 +35,10 @@ public class SecurityFilter implements Filter {
             SecurityFilter.class);
 
     /**
-     * Called by the web container to indicate to a filter that it is being
-     * placed into service.
-     *
-     * @param config a <code>FilterConfig</code> object containing the
-     *               filter's configuration and initialization parameters
-     * @throws ServletException if an exception has occurred that interferes
-     *                          with the filter's normal operation
+     * Describes security message for attribute.
      */
-    @Override
-    public void init(final FilterConfig config) throws ServletException {
-    }
+    private static final String SECURITY_FILTER_MESSAGE =
+            "SecurityFilterMessage";
 
     /**
      * The <code>doFilter</code> method of the Filter is called by the
@@ -77,30 +75,39 @@ public class SecurityFilter implements Filter {
             HttpSession session = req.getSession(false);
 
             Set<Role> allowRoles = command.getAllowRoles();
+            User user = null;
+            if (session != null) {
+                user = (User) session.getAttribute("authorizedUser");
 
-            User user = (User) session.getAttribute("authorizedUser");
-            command.setAuthorizedUser(user);
-            String errorMessage = (String) session.getAttribute(
-                    "SecurityFilterMessage");
-            if (errorMessage != null) {
-                req.setAttribute("message", errorMessage);
-                session.removeAttribute("SecurityFilterMessage");
+                String errorMessage = (String) session.getAttribute(
+                        SECURITY_FILTER_MESSAGE);
+                if (errorMessage != null) {
+                    req.setAttribute("message", errorMessage);
+                    session.removeAttribute(SECURITY_FILTER_MESSAGE);
+                }
             }
-
-            boolean canExecute = allowRoles == null;
+            boolean canExecute = allowRoles.isEmpty();
 
             if (user != null) {
-                userName = "\"" + user.getLogin() + "\" user";
+                userName = String.format("\"%s\" user", user.getLogin());
                 canExecute = canExecute || allowRoles.contains(user.getRole());
             }
 
             if (canExecute) {
                 chain.doFilter(request, response);
             } else {
-                String message = String.format("%s is trying to access to " +
-                        "forbidden resource", userName);
+                String message = String.format(
+                        "%s is trying to access to forbidden"
+                        + " resource", userName);
                 LOGGER.info(message);
-                resp.sendRedirect(req.getContextPath() + ConfigurationManager.getProperty("path.page.index"));
+                if (session != null && command.getClass()
+                                       != MainActionCommand.class) {
+                    session.setAttribute(SECURITY_FILTER_MESSAGE,
+                                         "Access denied");
+                }
+                resp.sendRedirect(req.getContextPath()
+                                  + ConfigurationManager
+                                          .getProperty("path.page.index"));
             }
         } else {
             LOGGER.error("It is impossible to use HTTP filter");
@@ -109,13 +116,5 @@ public class SecurityFilter implements Filter {
                            ConfigurationManager.getProperty("path.page.error"))
                    .forward(request, response);
         }
-    }
-
-    /**
-     * Called by the web container to indicate to a filter that it is being
-     * taken out of service.
-     */
-    @Override
-    public void destroy() {
     }
 }
