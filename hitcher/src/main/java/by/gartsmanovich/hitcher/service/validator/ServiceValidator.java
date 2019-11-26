@@ -31,7 +31,7 @@ public class ServiceValidator {
      */
     public boolean isValidEmail(final String email) {
         Matcher matcher = EMAIL_REGEX.matcher(email);
-        return matcher.find();
+        return isValidValue(email) && matcher.find();
     }
 
     /**
@@ -42,6 +42,16 @@ public class ServiceValidator {
      */
     public boolean isValidLogin(final String login) {
         Matcher matcher = LOGIN_REGEX.matcher(login);
-        return matcher.find();
+        return isValidValue(login) && matcher.find();
+    }
+
+    /**
+     * Validates a provided parameter.
+     *
+     * @param param the provided value.
+     * @return true if parameter is valid, false - otherwise.
+     */
+    private boolean isValidValue(final String param) {
+        return param != null && !param.isEmpty();
     }
 }
