@@ -9,6 +9,7 @@ import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.service.UserService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import by.gartsmanovich.hitcher.service.util.PasswordUtils;
+import by.gartsmanovich.hitcher.service.validator.ServiceValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,12 @@ public class UserServiceImpl implements UserService {
     private Transaction transaction;
 
     /**
+     * The validator provides the different types of checks for a given
+     * parameters.
+     */
+    private ServiceValidator validator;
+
+    /**
      * Constructs the User Service realisation instance with provided
      * transaction value.
      *
@@ -34,6 +41,7 @@ public class UserServiceImpl implements UserService {
      */
     public UserServiceImpl(final Transaction transactionValue) {
         this.transaction = transactionValue;
+        this.validator = new ServiceValidator();
     }
 
     /**
@@ -53,6 +61,14 @@ public class UserServiceImpl implements UserService {
         UserDao dao = transaction.getUserDao();
         User user;
         try {
+            if (!validator.isValidLogin(login)) {
+                String message = "Username value is not valid";
+                throw new ServiceException(message);
+            }
+            if (!validator.isValidEmail(email)) {
+                String message = "Email value is not valid";
+                throw new ServiceException(message);
+            }
             if (dao.findUserByLogin(login).isPresent()) {
                 String message = "User with that username is already exists";
                 throw new ServiceException(message);
