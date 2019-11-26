@@ -7,7 +7,7 @@ CREATE TABLE `users`
     `password` CHAR(44)     NOT NULL,
     `salt`     CHAR(30)     NOT NULL,
     /*
-     * 0 - Role.ADMINISTRATOR
+     * 0 - Role.ADMIN
      * 1 - Role.USER
      */
     `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1)),
