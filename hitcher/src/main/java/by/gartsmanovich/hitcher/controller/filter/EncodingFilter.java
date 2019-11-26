@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Used to set default encoding to UTF-8.
+ * Filter used to set default encoding to UTF-8.
  *
  * @author Dmitry Gartsmanovich
  */
-@WebFilter(filterName = "EncodingFilter", urlPatterns = "*.go",
+@WebFilter(filterName = "EncodingFilter", urlPatterns = "*.do",
         initParams = {@WebInitParam(name = "defaultEncoding", value = "UTF-8")})
 public class EncodingFilter implements Filter {
 
