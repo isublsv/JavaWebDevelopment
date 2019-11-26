@@ -4,6 +4,7 @@ CREATE TABLE `users`
 (
     `id`       INTEGER      NOT NULL AUTO_INCREMENT,
     `login`    VARCHAR(255) NOT NULL UNIQUE,
+    `email`    VARCHAR(255) NOT NULL UNIQUE,
     `password` CHAR(44)     NOT NULL,
     `salt`     CHAR(30)     NOT NULL,
     /*
@@ -11,6 +12,11 @@ CREATE TABLE `users`
      * 1 - Role.USER
      */
     `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1)),
+    /*
+     * 0 - Status.BANNED
+     * 1 - Status.ACTIVE
+     */
+    `status`   TINYINT      NOT NULL DEFAULT 1 CHECK ( `status` IN (0, 1)),
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
@@ -21,7 +27,6 @@ CREATE TABLE `hitchers`
     `surname`           VARCHAR(255) NOT NULL,
     `name`              VARCHAR(255) NOT NULL,
     `patronymic`        VARCHAR(255),
-    `email`             VARCHAR(255) NOT NULL UNIQUE,
     `phone`             VARCHAR(255) NOT NULL,
     `registration_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `address`           VARCHAR(255),
