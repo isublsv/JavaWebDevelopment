@@ -6,14 +6,16 @@ import by.gartsmanovich.hitcher.bean.Role;
 import java.util.Arrays;
 
 /**
+ * Class used to define the list of default roles that action command supports.
+ *
  * @author Dmitry Gartsmanovich
  */
-public abstract  class AuthorizedActionCommand extends ActionCommand {
+abstract class AuthorizedActionCommand extends ActionCommand {
 
     /**
-     *
+     * Default constructor. Sets the list of default roles.
      */
-    public AuthorizedActionCommand() {
+    AuthorizedActionCommand() {
         getAllowRoles().addAll(Arrays.asList(Role.values()));
     }
 }
