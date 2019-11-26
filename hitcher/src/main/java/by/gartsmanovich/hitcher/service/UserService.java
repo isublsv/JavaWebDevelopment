@@ -14,12 +14,16 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * Saves the provided user entity to the data source.
+     * Creates and saves the provided user entity by given parameters
+     * to the data source.
      *
-     * @param user the provided entity
+     * @param login the provided entity login value
+     * @param email the provided entity email value
+     * @param pass the provided entity password value
+     * @return the new user value
      * @throws ServiceException if failed to create user.
      */
-    void save(User user) throws ServiceException;
+    User save(String login, String email, String pass) throws ServiceException;
 
     /**
      * Finds user entity by provided ID value.
