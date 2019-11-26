@@ -1,7 +1,6 @@
 package by.gartsmanovich.hitcher.action;
 
 import by.gartsmanovich.hitcher.bean.Role;
-import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.factory.ServiceFactory;
 
 import javax.servlet.ServletException;
@@ -24,14 +23,9 @@ public abstract class ActionCommand {
     private ServiceFactory factory;
 
     /**
-     *
+     * Set of roles that Action command supports.
      */
     private Set<Role> allowRoles = new HashSet<>();
-
-    /**
-     *
-     */
-    private User authorizedUser;
 
     /**
      * Gets factory.
@@ -67,23 +61,11 @@ public abstract class ActionCommand {
             HttpServletResponse response) throws IOException, ServletException;
 
     /**
-     * @return
+     * Gets the list of roles that Action command supports.
+     *
+     * @return the list of roles.
      */
     public Set<Role> getAllowRoles() {
         return allowRoles;
-    }
-
-    /**
-     * @return
-     */
-    public User getAuthorizedUser() {
-        return authorizedUser;
-    }
-
-    /**
-     * @param user
-     */
-    public void setAuthorizedUser(final User user) {
-        this.authorizedUser = user;
     }
 }
