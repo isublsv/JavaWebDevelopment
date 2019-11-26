@@ -15,9 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Class describes login action command that proceed user request and
- * invoke appropriate method from Service layer of the application. The result
- * depends on input parameters.
+ * Class describes login action command that used to login user in the system.
  *
  * @author Dmitry Gartsmanovich
  */
@@ -46,23 +44,22 @@ public class LoginActionCommand extends ActionCommand {
             throws ServletException, IOException {
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
-        if (login != null && pass != null) {
+
+        try {
             UserService userService = getFactory().getUserService();
-            try {
-                User user = userService.findByLoginAndPassword(login, pass);
-                HttpSession session = request.getSession();
-                session.setAttribute("authorizedUser", user);
-                request.getRequestDispatcher(
-                        ConfigurationManager.getProperty("path.page.index"))
-                       .forward(request, response);
-            } catch (ServiceException e) {
-                String message = e.getMessage();
-                LOGGER.warn(message);
-                request.setAttribute("errorMessage", message);
-                request.getRequestDispatcher(
-                        ConfigurationManager.getProperty("path.page.error"))
-                       .forward(request, response);
-            }
+            User user = userService.findByLoginAndPassword(login, pass);
+            HttpSession session = request.getSession();
+            session.setAttribute("authorizedUser", user);
+            request.getRequestDispatcher(
+                    ConfigurationManager.getProperty("path.page.index"))
+                   .forward(request, response);
+        } catch (ServiceException e) {
+            String message = e.getMessage();
+            LOGGER.warn(message);
+            request.setAttribute("errorMessage", message);
+            request.getRequestDispatcher(
+                    ConfigurationManager.getProperty("path.page.error"))
+                   .forward(request, response);
         }
     }
 }
