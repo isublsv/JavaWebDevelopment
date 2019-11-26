@@ -14,16 +14,22 @@ import java.util.Optional;
 public interface UserDao extends AbstractDao<User> {
 
     /**
-     * Returns user from the data source if present.
+     * Finds user by login in the data source if present.
      *
-     * @param login    the login of the user.
+     * @param login    the user login.
      * @return the user entity if present.
-     * @throws DaoException if failed to find user in the data source by login
-     * and password.
+     * @throws DaoException if failed to find user in the data source by login.
      */
-    Optional<User> findUserByLogin(String login)
-            throws DaoException;
+    Optional<User> findUserByLogin(String login) throws DaoException;
 
+    /**
+     * Finds user by email in the data source if present.
+     *
+     * @param email the user email.
+     * @return the user entity if present.
+     * @throws DaoException if failed to find user in the data source by email.
+     */
+    Optional<User> findUserByEmail(String email) throws DaoException;
 
     /**
      * Finds all users in the data source.
