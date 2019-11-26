@@ -18,6 +18,11 @@ public class User extends Entity {
     private String login;
 
     /**
+     * The user email.
+     */
+    private String email;
+
+    /**
      * The password hash value.
      */
     private String password;
@@ -33,6 +38,10 @@ public class User extends Entity {
     private Role role;
 
     /**
+     * The user status.
+     */
+    private Status status;
+    /**
      * The user surname.
      */
     private String surname;
@@ -47,10 +56,7 @@ public class User extends Entity {
      */
     private String patronymic;
 
-    /**
-     * The user email.
-     */
-    private String email;
+
 
     /**
      * The user phone number.
@@ -126,6 +132,24 @@ public class User extends Entity {
     }
 
     /**
+     * Gets email.
+     *
+     * @return value of email.
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets email.
+     *
+     * @param emailValue value of email.
+     */
+    public void setEmail(final String emailValue) {
+        email = emailValue;
+    }
+
+    /**
      * Gets password.
      *
      * @return value of password.
@@ -180,6 +204,24 @@ public class User extends Entity {
     }
 
     /**
+     * Gets status.
+     *
+     * @return value of status.
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets status.
+     *
+     * @param statusValue value of status.
+     */
+    public void setStatus(final Status statusValue) {
+        status = statusValue;
+    }
+
+    /**
      * Gets surname.
      *
      * @return value of surname.
@@ -231,24 +273,6 @@ public class User extends Entity {
      */
     public void setPatronymic(final String patronymicValue) {
         patronymic = patronymicValue;
-    }
-
-    /**
-     * Gets email.
-     *
-     * @return value of email.
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets email.
-     *
-     * @param emailValue value of email.
-     */
-    public void setEmail(final String emailValue) {
-        email = emailValue;
     }
 
     /**
@@ -404,9 +428,11 @@ public class User extends Entity {
     public int hashCode() {
         int result = super.hashCode();
         result = PRIME * result + login.hashCode();
+        result = PRIME * result + email.hashCode();
         result = PRIME * result + password.hashCode();
         result = PRIME * result + salt.hashCode();
         result = PRIME * result + role.hashCode();
+        result = PRIME * result + status.hashCode();
         result = PRIME * result + surname.hashCode();
         result = PRIME * result + name.hashCode();
         if (patronymic != null) {
@@ -414,7 +440,6 @@ public class User extends Entity {
         } else {
             result = PRIME * result;
         }
-        result = PRIME * result + email.hashCode();
         result = PRIME * result + phoneNumber.hashCode();
         if (registrationDate != null) {
             result = PRIME * result + registrationDate.hashCode();
@@ -476,6 +501,9 @@ public class User extends Entity {
         User user = (User) o;
 
         if (role != user.role) {
+            return false;
+        }
+        if (status != user.status) {
             return false;
         }
         if (!login.equals(user.login)) {
