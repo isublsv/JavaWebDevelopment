@@ -1,9 +1,11 @@
 package by.gartsmanovich.hitcher.controller.filter;
 
 import by.gartsmanovich.hitcher.action.ActionCommand;
+import by.gartsmanovich.hitcher.action.impl.BanActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LoginActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
 import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
+import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,9 +22,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Filter used to find Action Command in the request URI and set it to the
+ * request attribute.
  *
+ * @author Dmitry Gartsmanovich
  */
-@WebFilter(filterName = "ActionFilter", urlPatterns = "*.go")
+@WebFilter(filterName = "ActionFilter", urlPatterns = "*.do")
 public class ActionFilter implements Filter {
 
     /**
@@ -31,48 +36,11 @@ public class ActionFilter implements Filter {
     private static final Logger LOGGER = LogManager.getLogger(
             ActionFilter.class);
 
-    private static Map<String, ActionCommand> actions = new ConcurrentHashMap<>();
-
-    static {
-        actions.put("/", new MainActionCommand());
-        actions.put("/index", new MainActionCommand());
-        actions.put("/login", new LoginActionCommand());
-        actions.put("/logout", new LogoutActionCommand());
-
-        /*actions.put("/profile/edit", ProfileEditAction.class);
-        actions.put("/profile/save", ProfileSaveAction.class);
-
-        actions.put("/reader/list", ReaderListAction.class);
-        actions.put("/reader/edit", ReaderEditAction.class);
-        actions.put("/reader/save", ReaderSaveAction.class);
-        actions.put("/reader/delete", ReaderDeleteAction.class);
-
-        actions.put("/user/list", UserListAction.class);
-        actions.put("/user/edit", UserEditAction.class);
-        actions.put("/user/save", UserSaveAction.class);
-        actions.put("/user/delete", UserDeleteAction.class);
-
-        actions.put("/author/list", AuthorListAction.class);
-        actions.put("/author/edit", AuthorEditAction.class);
-        actions.put("/author/save", AuthorSaveAction.class);
-        actions.put("/author/delete", AuthorDeleteAction.class);
-
-        actions.put("/author/book/list", BookListAction.class);
-        actions.put("/author/book/edit", BookEditAction.class);
-        actions.put("/author/book/save", BookSaveAction.class);
-        actions.put("/author/book/delete", BookDeleteAction.class);
-
-        actions.put("/search/book/form", SearchBookFormAction.class);
-        actions.put("/search/book/result", SearchBookResultAction.class);
-        actions.put("/author/book/usages", BookUsageListAction.class);
-
-        actions.put("/search/reader/form", SearchReaderFormAction.class);
-        actions.put("/search/reader/result", SearchReaderResultAction.class);
-        actions.put("/reader/usages", ReaderUsageListAction.class);
-
-        actions.put("/author/book/deliver", DeliverBookAction.class);
-        actions.put("/author/book/return", ReturnBookAction.class);*/
-    }
+    /**
+     * Contains a full action list that exist int the application.
+     */
+    private static Map<String, ActionCommand> actions =
+            new ConcurrentHashMap<>();
 
     /**
      * Called by the web container to indicate to a filter that it is being
@@ -85,6 +53,14 @@ public class ActionFilter implements Filter {
      */
     @Override
     public void init(final FilterConfig config) throws ServletException {
+        actions.put("/", new MainActionCommand());
+        actions.put("/index", new MainActionCommand());
+        actions.put("/login", new LoginActionCommand());
+        actions.put("/register", new RegisterActionCommand());
+
+        actions.put("/logout", new LogoutActionCommand());
+
+        actions.put("/ban", new BanActionCommand());
     }
 
     /**
@@ -131,9 +107,9 @@ public class ActionFilter implements Filter {
             } catch (IllegalArgumentException | NullPointerException e) {
                 LOGGER.error(
                         "It is impossible to create action handler object", e);
-                req.setAttribute("errorMessage", String.format(
-                        "Запрошенный адрес %s не может быть"
-                        + " обработан сервером", uri));
+                String message = String.format(
+                        "Requested address %s cant be handled by server", uri);
+                req.setAttribute("errorMessage", message);
                 req.getServletContext()
                    .getRequestDispatcher("path.page.error")
                    .forward(request, response);
@@ -145,13 +121,4 @@ public class ActionFilter implements Filter {
                    .forward(request, response);
         }
     }
-
-    /**
-     * Called by the web container to indicate to a filter that it is being
-     * taken out of service.
-     */
-    @Override
-    public void destroy() {
-    }
-
 }
