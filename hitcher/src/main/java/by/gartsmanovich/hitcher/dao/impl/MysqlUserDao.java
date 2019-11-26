@@ -297,8 +297,8 @@ public class MysqlUserDao implements UserDao {
         int counter = 1;
 
         user.setId(resultSet.getLong(counter++));
-        user.setEmail(resultSet.getString(counter++));
         user.setLogin(resultSet.getString(counter++));
+        user.setEmail(resultSet.getString(counter++));
         user.setPassword(resultSet.getString(counter++));
         user.setSalt(resultSet.getString(counter++));
         user.setRole(Role.values()[(resultSet.getInt(counter++))]);
