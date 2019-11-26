@@ -7,6 +7,6 @@ INSERT INTO `users` (`id`,
                      `role`)
 VALUES (1,
         "admin",
-        "AZS4ST2SLGI/EGDRGCKQ4ISU3XV5VZ0OSUNMXPRPWKI=", /* PBKDF2WithHmacSHA1 hash пароля "password" */
-        "PEMGI4IBOSMWIO98OIIT36F1IEEE85", /* salt of "password" */
+        "fdGKFhv5EiPhcaRCILwuG0wfS6dBVN/PJH0QNqKrnCM=", /* PBKDF2WithHmacSHA1 hash пароля "password" */
+        "z9BryTA8A2JSenyVBXQrduaAFq92m8", /* salt of "password" */
         0);
