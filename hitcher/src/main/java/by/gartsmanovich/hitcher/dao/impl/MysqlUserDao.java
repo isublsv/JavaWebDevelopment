@@ -1,6 +1,7 @@
 package by.gartsmanovich.hitcher.dao.impl;
 
 import by.gartsmanovich.hitcher.bean.Role;
+import by.gartsmanovich.hitcher.bean.Status;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.dao.UserDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
@@ -11,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,19 +35,19 @@ public class MysqlUserDao implements UserDao {
      * Query to add a new user to the database.
      */
     private static final String INSERT_USER =
-            "INSERT INTO hitcher_db.users (login, password, salt, "
-            + "role) VALUES (?, ?, ?, ?);";
+            "INSERT INTO hitcher_db.users (login, email, password, salt, "
+            + "role, status) VALUES (?, ?, ?, ?, ?, ?);";
 
     /**
      * Common part of the find User query.
      */
     private static final String FIND_USER =
-            "SELECT u.id, u.login, u.password, u.salt, u.role, h.surname,"
-            + " h.name, h.patronymic, h.email, h.phone, h.registration_date,"
-            + " h.address, h.music, h.communication, di.driving_licence_number,"
-            + " di.car_model, di.car_color FROM hitchers AS h"
-            + " INNER JOIN users u ON h.user_id = u.id"
-            + " INNER JOIN driver_info di on u.id = di.user_id";
+            "SELECT u.id, u.login, u.email, u.password, u.salt, u.role,"
+            + " u.status, h.surname, h.name, h.patronymic, h.phone,"
+            + " h.registration_date, h.address, h.music, h.communication,"
+            + " di.driving_licence_number, di.car_model, di.car_color"
+            + " FROM hitchers AS h INNER JOIN users AS u ON h.user_id = u.id"
+            + " LEFT JOIN driver_info AS di ON u.id = di.user_id";
 
     /**
      * Query to find a user by ID value in the database.
@@ -59,7 +59,7 @@ public class MysqlUserDao implements UserDao {
      */
     private static final String UPDATE_USER =
             "UPDATE hitcher_db.hitchers AS h SET h.surname=?, "
-            + "h.name=?, h.patronymic=?, h.email=?, h.phone=?, h.address=?, "
+            + "h.name=?, h.patronymic=?, h.phone=?, h.address=?, "
             + "h.music=?, h.communication=? WHERE h.user_id=?;";
 
     /**
@@ -76,8 +76,14 @@ public class MysqlUserDao implements UserDao {
     /**
      * Query to find user by login.
      */
-    private static final String FIND_USER_BY_LOGIN_AND_PASS =
+    private static final String FIND_USER_BY_LOGIN =
             FIND_USER + " WHERE u.login=?;";
+
+    /**
+     * Query to find user by email.
+     */
+    private static final String FIND_USER_BY_EMAIL =
+            FIND_USER + " WHERE u.email=?;";
 
     /**
      * Connection from a pool to MySQL database.
@@ -107,9 +113,11 @@ public class MysqlUserDao implements UserDao {
             int counter = 1;
 
             statement.setString(counter++, entity.getLogin());
+            statement.setString(counter++, entity.getEmail());
             statement.setString(counter++, entity.getPassword());
             statement.setString(counter++, entity.getSalt());
-            statement.setInt(counter, entity.getRole().ordinal());
+            statement.setInt(counter++, entity.getRole().ordinal());
+            statement.setInt(counter, entity.getStatus().ordinal());
 
             statement.executeUpdate();
             try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -167,7 +175,6 @@ public class MysqlUserDao implements UserDao {
             statement.setString(counter++, entity.getSurname());
             statement.setString(counter++, entity.getName());
             statement.setString(counter++, entity.getPatronymic());
-            statement.setString(counter++, entity.getEmail());
             statement.setString(counter++, entity.getPhoneNumber());
             statement.setString(counter++, entity.getAddress());
             statement.setString(counter++, entity.getMusic());
@@ -236,7 +243,7 @@ public class MysqlUserDao implements UserDao {
             throws DaoException {
         User user = null;
         try (PreparedStatement statement = connection.prepareStatement(
-                FIND_USER_BY_LOGIN_AND_PASS)) {
+                FIND_USER_BY_LOGIN)) {
 
             statement.setString(1, login);
 
@@ -246,8 +253,34 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(
-                    "Failed to find user by login and password!", e);
+            throw new DaoException("Failed to find user by login", e);
+        }
+        return Optional.ofNullable(user);
+    }
+
+    /**
+     * Returns user from the data source if present.
+     *
+     * @param email the user email.
+     * @return the user entity if present.
+     * @throws DaoException if failed to find user in the data source by email.
+     */
+    @Override
+    public Optional<User> findUserByEmail(final String email) throws
+            DaoException {
+        User user = null;
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_USER_BY_EMAIL)) {
+
+            statement.setString(1, email);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    user = getUser(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find user by email", e);
         }
         return Optional.ofNullable(user);
     }
@@ -264,17 +297,17 @@ public class MysqlUserDao implements UserDao {
         int counter = 1;
 
         user.setId(resultSet.getLong(counter++));
+        user.setEmail(resultSet.getString(counter++));
         user.setLogin(resultSet.getString(counter++));
         user.setPassword(resultSet.getString(counter++));
         user.setSalt(resultSet.getString(counter++));
         user.setRole(Role.values()[(resultSet.getInt(counter++))]);
+        user.setStatus(Status.values()[(resultSet.getInt(counter++))]);
         user.setSurname(resultSet.getString(counter++));
         user.setName(resultSet.getString(counter++));
         user.setPatronymic(resultSet.getString(counter++));
-        user.setEmail(resultSet.getString(counter++));
         user.setPhoneNumber(resultSet.getString(counter++));
-        user.setRegistrationDate(
-                LocalDate.parse(resultSet.getString(counter++)));
+        user.setRegistrationDate((resultSet.getDate(counter++).toLocalDate()));
         user.setAddress(resultSet.getString(counter++));
         user.setMusic(resultSet.getString(counter++));
         user.setCommunication(resultSet.getString(counter++));
