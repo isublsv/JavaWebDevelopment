@@ -2,31 +2,31 @@ USE `hitcher_db`;
 
 /*password smith*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (2, 'smith', 'FPNBQCJQUVQOI7UU39XOC72JQL/EVFB9OQ7OHQVHTZG=', 'GQTHHXV3XQGA5SBBZMDAGDPBSDZHPP', 1);
+VALUES (2, 'smith', 'AyAurJOVwkp75h4/vlw1Rni/jI+km5uw+c9b9rHi1Ws=', '3Hfzs5SzuDLg3uD12X9CnyFD4rb5jB', 1);
 /*password anna*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (3, 'anna', '0BOCIJRZCVYMCRZAXALIHN6UTDERUOEYSUMIB8/V2Y8=', 'EYZ22SAUTCZ2SUSAA1XC3N5GBHYMMF', 1);
+VALUES (3, 'anna', '4BL8sAw1ZR81rkQihuIex6QDA5RD8eyz+Aa46q7MD4Y=', 'vggBdm1I60lE7YpK88Ywf5X0EsAGrR', 1);
 /*password petrov*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (4, 'petrov', 'XOJWQXMUCZIZRE4L1L42W4YSZ1J8LLB7H/GJ3B4FLBS=', 'L6LUECZUWHIEVFEA8WUUHFQSQDPGXM', 1);
+VALUES (4, 'petrov', 'cYkA4YVx2kMbcfEr+kcc+GpBKyBvK0nwzTU/jZi6Vb4=', '01z8BuDKet8dpW7HTCB34FgEUWzlQH', 1);
 /*password kamilla*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (5, 'kamilla', 'QX6M8MEY3BDNEAY7NWZUJZJ0+Z5AFWCDINNPY8TQGQ0=', 'GOHOKEGBPS3VXCCNZ4GTN0QWFZNR1E', 1);
+VALUES (5, 'kamilla', 'wfPQvpSRTMpNYyq4TP2sPiuy+/QdwzeWAXtohmJoXTI=', 'zMB9NTw7NeOAdFQjwNna87TuF6C0fB', 1);
 /*password tolik*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (6, 'tolik', '4B6WI3AMGYCEIPVSAWMEMKIV8LKETUF/UNRUKHOAN9G=', 'CK8243OQFUHGHESEWD1QHLEDTWTMUF', 1);
+VALUES (6, 'tolik', 'WQPload5K1lBRGE9uZIwgBQ3fuuv6ENqxwCbRprtN2c=', '5eIaelsUQ3tYpm2ygqYsJykgJCeUjq', 1);
 /*password boi*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (7, 'boi', 'JB26GUZKJJHGEYJZOH1J2JVKPXMVD/NDWQ9OVKQHYTW=', '3DX6QPHBFXUVA5YMOC2OIHPDOSQDMK', 1);
+VALUES (7, 'boi', 'Ls4rE7U2lXoLrbemVlnYSUW4/8WVemw603KLkF62Ht8=', 'iSIZRG4Yj4iv0DK2wKiUkCyZUt0yAY', 1);
 /*password bird*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (8, 'bird', 'ZNWGOQPPASIITXU02KAKSHEDE7WPYN6H7GVGIGZUPCU=', 'NHHU0JZCGDU9RYLWBV4ALO1JBLWCR6', 1);
+VALUES (8, 'bird', 'E/yg/B/ejZUe7VvpYQtLVs1B3kZiu7TwXPtln2enMVI=', 'YONpG7SKxNUgoEhIVRWRoXzmeFUEs1', 1);
 /*password xtasy*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (9, 'xtasy', 'UMRDP6KI01IEEXMPH8ERZHQP8IUEEKVVOIJOSDMJFL8=', 'JWWJ11IDIDLPBA98BQA3PU3APLQGRS', 1);
+VALUES (9, 'xtasy', 'jVv9sQyBOMyUrOrheOOU8vzkSV4sBv/Ky8N20lfxh/Q=', 'ykrYanEkiEMTCJHaoGkHmokg3CYwdt', 1);
 /*password carl*/
 INSERT INTO hitcher_db.users (id, login, password, salt, role)
-VALUES (10, 'carl', 'U/S/EC+JLVWK3WQAOXBNOC+SHCTAH9RHHPYVPRIVMM0=', 'ECXWSHJFQEDFXBNUHIPVUOCDNJBUQI', 1);
+VALUES (10, 'carl', '4mcBWw15Btu6wu/zdwNKNHtc90UEPf1zaqm+k09mMHE=', 'BQTgkFqXwp09pFjVukoX5RbLikQgrZ', 1);
 
 INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, email, phone, registration_date, address, music, communication)
 VALUES (2, 'Smith', 'John', null, 'smith@gmail.com', '+375 (29) 123-45-67', '2018-07-08 21:34:13', 'Sovetskaya st., 13, 1', 'Electronic', 'Depends on mood');
