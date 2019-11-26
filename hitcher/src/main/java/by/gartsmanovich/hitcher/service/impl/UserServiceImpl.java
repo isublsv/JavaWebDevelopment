@@ -50,20 +50,29 @@ public class UserServiceImpl implements UserService {
     public User save(final String login, final String email,
             final String pass) throws ServiceException {
 
-        User user = new User();
-        user.setLogin(login);
-        user.setEmail(email);
-
-        String salt = PasswordUtils.getSalt();
-        String newSecurePass = PasswordUtils.generateSecurePassword(pass, salt);
-
-        user.setPassword(newSecurePass);
-        user.setSalt(salt);
-        user.setRole(Role.USER);
-        user.setStatus(Status.ACTIVE);
-
         UserDao dao = transaction.getUserDao();
+        User user;
         try {
+            if (dao.findUserByLogin(login).isPresent()) {
+                String message = "User with that username is already exists";
+                throw new ServiceException(message);
+            }
+            if (dao.findUserByEmail(email).isPresent()) {
+                String message = "User with that email is already exists";
+                throw new ServiceException(message);
+            }
+            user = new User();
+            user.setLogin(login);
+            user.setEmail(email);
+
+            String salt = PasswordUtils.getSalt();
+            String newSecurePass = PasswordUtils
+                    .generateSecurePassword(pass, salt);
+
+            user.setPassword(newSecurePass);
+            user.setSalt(salt);
+            user.setRole(Role.USER);
+            user.setStatus(Status.ACTIVE);
             dao.create(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
