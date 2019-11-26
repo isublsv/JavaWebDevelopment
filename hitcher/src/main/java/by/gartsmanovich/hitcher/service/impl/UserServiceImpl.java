@@ -1,5 +1,7 @@
 package by.gartsmanovich.hitcher.service.impl;
 
+import by.gartsmanovich.hitcher.bean.Role;
+import by.gartsmanovich.hitcher.bean.Status;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.dao.UserDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
@@ -35,19 +37,38 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Saves the provided user entity to the data source.
+     * Creates and saves the provided user entity by given parameters
+     * to the data source.
      *
-     * @param user the provided entity
+     * @param login the provided entity login value
+     * @param email the provided entity email value
+     * @param pass the provided entity password value
+     * @return the new user value
      * @throws ServiceException if failed to create user.
      */
     @Override
-    public void save(final User user) throws ServiceException {
+    public User save(final String login, final String email,
+            final String pass) throws ServiceException {
+
+        User user = new User();
+        user.setLogin(login);
+        user.setEmail(email);
+
+        String salt = PasswordUtils.getSalt();
+        String newSecurePass = PasswordUtils.generateSecurePassword(pass, salt);
+
+        user.setPassword(newSecurePass);
+        user.setSalt(salt);
+        user.setRole(Role.USER);
+        user.setStatus(Status.ACTIVE);
+
         UserDao dao = transaction.getUserDao();
         try {
             dao.create(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+        return user;
     }
 
     /**
@@ -73,11 +94,11 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Deletes user entity by ID from the data source.
+     * Deletes user entity by ID from the database.
      *
      * @param id the provided user ID.
      * @throws ServiceException if failed to delete user entity from the
-     *                          data source.
+     *                          database.
      */
     @Override
     public void delete(final long id) throws ServiceException {
@@ -90,10 +111,10 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Finds all users in the data source.
+     * Finds all users in the database.
      *
      * @return the user list.
-     * @throws ServiceException if failed to find users in the data source.
+     * @throws ServiceException if failed to find users in the database.
      */
     @Override
     public List<User> findAll() throws ServiceException {
@@ -112,7 +133,7 @@ public class UserServiceImpl implements UserService {
      * @param password the provided user password.
      * @return the user entity.
      * @throws ServiceException if failed to find user entity in the
-     *                          data source.
+     *                          database.
      */
     @Override
     public User findByLoginAndPassword(final String login,
