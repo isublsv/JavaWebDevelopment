@@ -1,5 +1,6 @@
 package by.gartsmanovich.hitcher.action.impl;
 
+import by.gartsmanovich.hitcher.action.ActionCommand;
 import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.UserService;
@@ -14,20 +15,19 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Class describes login command that proceed user request and
+ * Class describes login action command that proceed user request and
  * invoke appropriate method from Service layer of the application. The result
  * depends on input parameters.
  *
  * @author Dmitry Gartsmanovich
  */
-public class LoginActionCommand extends AuthorizedActionCommand {
+public class LoginActionCommand extends ActionCommand {
 
     /**
      * The logger for LoginActionCommand class.
      */
     private static final Logger LOGGER = LogManager.getLogger(
             LoginActionCommand.class);
-
 
     /**
      * Handles the request parameters and passes its to the Service application
