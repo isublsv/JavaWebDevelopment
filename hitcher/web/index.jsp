@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,23 +13,22 @@
     <title>Where you want to go?</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/all.css" rel="stylesheet">
-
+    <link href="<c:url value="css/scrolling-nav.css"/>" rel="stylesheet">
+    <link href="<c:url value="css/index.css"/>" rel="stylesheet">
+    <link href="<c:url value="css/all.css"/>" rel="stylesheet">    
 </head>
 
 <body id="page-top">
 
-<jsp:include page="WEB-INF/jsp/navbar.jsp"/>
+<jsp:include page="WEB-INF/jsp/template/navbar.jsp"/>
 
 <fmt:bundle basename="pagecontent" prefix="index.">
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+        <button class="btn btn-lg btn-primary btn-block btn-find-trip text-uppercase font-weight-bold mb-2"
                 type="submit"><fmt:message key="find.trip"/>
         </button>
     </div>
@@ -75,17 +75,17 @@
         </div>
 </section>
 </fmt:bundle>
-<jsp:include page="WEB-INF/jsp/footer.jsp"/>
-
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<jsp:include page="WEB-INF/jsp/template/footer.jsp"/>
 
 <!-- Custom JavaScript for this theme -->
-<script src="js/scrolling-nav.js"></script>
+<script src="<c:url value="js/scrolling-nav.js"/>"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
+<script src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
+
+<!-- Plugin JavaScript -->
+<script src="<c:url value="/vendor/jquery-easing/jquery.easing.min.js"/>"></script>
 
 </body>
 
