@@ -2,7 +2,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Navigation Bar -->
-<%--<fmt:setLocale value="${cookie.locale}"/>--%>
 <fmt:bundle basename="pagecontent" prefix="navbar.">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
@@ -47,12 +46,12 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbar_lang" data-toggle="dropdown">
-                        Language
+                        <fmt:message key="link.language"/>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">English</a>
                         <a class="dropdown-item" href="#">Русский</a>
-                        <a class="dropdown-item" href="#">Беларускі</a>
+                        <a class="dropdown-item" href="#">Беларуская</a>
                     </div>
                 </li>
             </ul>
