@@ -14,16 +14,15 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <c:choose>
-                    <c:when test="${not empty sessionScope.user}">
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="<c:url value="/profile.go"/>">
-                                <fmt:message key="link.profile"/></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="<c:url value="/logout.go"/>">
-                                <fmt:message key="link.logout"/></a>
+                    <c:when test="${not empty sessionScope.authorizedUser}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbar_profile" data-toggle="dropdown">
+                                <fmt:message key="greetings"/>, ${sessionScope.authorizedUser.login}
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<c:url value="/profile.do"/>"><fmt:message key="link.profile"/></a>
+                                <a class="dropdown-item" href="<c:url value="/logout.do"/>"><fmt:message key="link.logout"/></a>
+                            </div>
                         </li>
                     </c:when>
                     <c:otherwise>
@@ -46,6 +45,16 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#contact"><fmt:message key="link.contract"/></a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbar_lang" data-toggle="dropdown">
+                        Language
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">English</a>
+                        <a class="dropdown-item" href="#">Русский</a>
+                        <a class="dropdown-item" href="#">Беларускі</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -66,8 +75,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 mx-auto">
-                                <form method="post" action="${pageContext.request.contextPath}/login.go">
-                                   <%-- <input type="hidden" name="command" value="login.go">--%>
+                                <form method="post" action="${pageContext.request.contextPath}/login.do">
                                     <div class="form-label-group">
                                         <input type="text" id="inputLoginUsername" class="form-control" placeholder="Username" name="login"
                                                required autofocus>
@@ -75,8 +83,8 @@
                                     </div>
 
                                     <div class="form-label-group">
-                                        <input type="password" id="inputLoginPassword" class="form-control" name="pass"
-                                               placeholder="Password" required>
+                                        <input type="password" id="inputLoginPassword" class="form-control" placeholder="Password" name="pass"
+                                               required>
                                         <label for="inputLoginPassword"><fmt:message key="form.password"/></label>
                                     </div>
 
@@ -117,24 +125,23 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 mx-auto">
-                                <form method="post" action="${pageContext.request.contextPath}/register.go">
-                                    <%--<input type="hidden" name="command" value="register">--%>
+                                <form method="post" action="${pageContext.request.contextPath}/register.do">
                                     <div class="form-label-group">
-                                        <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username"
+                                        <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username" name="login"
                                                required autofocus>
                                         <label for="inputRegisterUsername"><fmt:message key="form.username"/></label>
                                     </div>
 
                                     <div class="form-label-group">
-                                        <input type="email" id="inputRegisterEmail" class="form-control" placeholder="Email address"
+                                        <input type="email" id="inputRegisterEmail" class="form-control" placeholder="Email address" name="email"
                                                required>
-                                        <label for="inputRegisterEmail">Email address</label>
+                                        <label for="inputRegisterEmail"><fmt:message key="form.email"/></label>
                                     </div>
 
                                     <hr>
 
                                     <div class="form-label-group">
-                                        <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password"
+                                        <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password" name="pass"
                                                required>
                                         <label for="inputRegisterPassword"><fmt:message key="form.password"/></label>
                                     </div>
