@@ -5,6 +5,7 @@ import by.gartsmanovich.hitcher.action.impl.BanActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LoginActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
 import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
+import by.gartsmanovich.hitcher.action.impl.ProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,6 +58,7 @@ public class ActionFilter implements Filter {
         actions.put("/register", new RegisterActionCommand());
 
         actions.put("/logout", new LogoutActionCommand());
+        actions.put("/profile", new ProfileActionCommand());
 
         actions.put("/ban", new BanActionCommand());
     }
