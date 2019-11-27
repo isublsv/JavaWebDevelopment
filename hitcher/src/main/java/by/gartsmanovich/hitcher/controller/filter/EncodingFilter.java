@@ -6,8 +6,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -16,8 +14,6 @@ import java.io.IOException;
  *
  * @author Dmitry Gartsmanovich
  */
-@WebFilter(filterName = "EncodingFilter", urlPatterns = "*.do",
-        initParams = {@WebInitParam(name = "defaultEncoding", value = "UTF-8")})
 public class EncodingFilter implements Filter {
 
     /**

@@ -15,7 +15,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
@@ -27,7 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Dmitry Gartsmanovich
  */
-@WebFilter(filterName = "ActionFilter", urlPatterns = "*.do")
 public class ActionFilter implements Filter {
 
     /**
