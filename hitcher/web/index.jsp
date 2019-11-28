@@ -1,8 +1,11 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="pagecontent"/>
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="${cookie['lang'].value}">
 
 <head>
     <meta charset="utf-8">
