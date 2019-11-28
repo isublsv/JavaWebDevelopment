@@ -1,7 +1,6 @@
 package by.gartsmanovich.hitcher.controller;
 
 import by.gartsmanovich.hitcher.action.ActionCommand;
-import by.gartsmanovich.hitcher.action.ActionCommandFactory;
 import by.gartsmanovich.hitcher.action.ActionManager;
 import by.gartsmanovich.hitcher.action.ActionManagerFactory;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
@@ -27,7 +26,7 @@ import java.io.IOException;
  *
  * @author Dmitry Gartsmanovich
  */
-@WebServlet(urlPatterns = {"*.go"})
+@WebServlet(urlPatterns = {"*.do"})
 public class Controller extends HttpServlet {
 
     /**
@@ -112,16 +111,20 @@ public class Controller extends HttpServlet {
     private void process(final HttpServletRequest req,
             final HttpServletResponse resp) throws ServletException,
             IOException {
+        ActionCommand command = (ActionCommand) req.getAttribute("command");
         try {
             ActionManager actionManager = ActionManagerFactory.getManager(
                     getFactory());
-            ActionCommandFactory factory = new ActionCommandFactory();
-            ActionCommand command = factory.defineCommand(req);
+/*            ActionCommandFactory factory = new ActionCommandFactory();
+            ActionCommand command = factory.defineCommand(req);*/
 
             actionManager.execute(command, req, resp);
             actionManager.close();
         } catch (DaoException | ServiceException e) {
             LOGGER.error("It is impossible to process request", e);
+            req.setAttribute("errorMessage", "Data processing error");
+            getServletContext().getRequestDispatcher("path.page.error")
+                               .forward(req, resp);
         }
     }
 
