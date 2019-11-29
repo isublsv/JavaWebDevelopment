@@ -138,11 +138,13 @@ public final class ConnectionPool {
      *
      * @param properties the list of database parameters.
      */
+    @SuppressWarnings({"squid:S2095", "squid:S899"})
     private void createConnection(final Properties properties) {
         final String jdbcUrl = getProperty(DB_URL);
         for (int i = 0; i < poolSize; i++) {
             Connection connection;
             try {
+                //cant use try-with resources
                 connection = DriverManager.getConnection(jdbcUrl, properties);
                 PooledConnection pooledConnection = new PooledConnection(
                         connection);
@@ -162,12 +164,13 @@ public final class ConnectionPool {
      * @return available connection from connection pool.
      * @throws PoolException if impossible to take connection from the pool.
      */
+    @SuppressWarnings({"squid:S899"})
     public Connection takeConnection() throws PoolException {
         PooledConnection connection;
         try {
             connection = availableConnections.poll(poolTimeout,
                                                    TimeUnit.MILLISECONDS);
-            usedConnections.put(Objects.requireNonNull(connection));
+            usedConnections.offer(Objects.requireNonNull(connection));
             String message = String.format(
                     "Connection was taken from pool. Current pool"
                     + " size: %d used connections; %d available connections.",
@@ -246,7 +249,7 @@ public final class ConnectionPool {
         DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {
                 DriverManager.deregisterDriver(driver);
-            } catch (SQLException eValue) {
+            } catch (SQLException e) {
                 LOGGER.error("Cant deregister SQL drivers");
             }
         });
