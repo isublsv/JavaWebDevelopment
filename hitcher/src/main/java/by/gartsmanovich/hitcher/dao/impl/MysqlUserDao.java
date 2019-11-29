@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -216,9 +217,8 @@ public class MysqlUserDao implements UserDao {
     @Override
     public List<User> findAll() throws DaoException {
         List<User> users = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(
-                FIND_ALL_USERS)) {
-            try (ResultSet resultSet = statement.executeQuery()) {
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(FIND_ALL_USERS)) {
                 while (resultSet.next()) {
                     User user = getUser(resultSet);
                     users.add(user);
