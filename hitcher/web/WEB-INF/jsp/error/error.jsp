@@ -1,31 +1,37 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:bundle basename="pagecontent" prefix="error.">
-<html>
-<head>
-    <title>Error page</title>
-</head>
+    <!DOCTYPE html>
+    <html lang="${cookie['lang'].value}">
+    <head>
+        <title><fmt:message key="title"/></title>
+        <style type="text/css">
+            .error-template {
+                padding: 40px 15px;
+                text-align: center;
+            }
 
-<body>
-<jsp:include page="../template/navbar.jsp"/>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="error-template">
-                <h1><fmt:message key="oops"/></h1>
-                <div class="error-details">
-                    <fmt:message key="${requestScope.errorMessage}"/>
-                </div>
-                <div class="error-actions">
-                    <a href="<c:url value="/"/>" class="btn btn-primary btn-lg">
-                        <span class="glyphicon glyphicon-home"></span> <fmt:message key="button.takeMeHome"/>
-                    </a>
+            .error-actions .btn {
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+    <jsp:include page="../template/navbar.jsp"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <div class="error-details">
+                        <fmt:message key="${requestScope.errorMessage}"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<jsp:include page="../template/footer.jsp"/>
-</body>
-</html>
+    <jsp:include page="../template/footer.jsp"/>
+    </body>
+    </html>
 </fmt:bundle>
