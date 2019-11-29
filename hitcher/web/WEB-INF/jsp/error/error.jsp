@@ -12,10 +12,6 @@
                 padding: 40px 15px;
                 text-align: center;
             }
-
-            .error-actions .btn {
-                margin-right: 10px;
-            }
         </style>
     </head>
     <body>
