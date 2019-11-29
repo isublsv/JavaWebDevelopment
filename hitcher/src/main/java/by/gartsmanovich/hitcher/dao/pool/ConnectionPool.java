@@ -224,7 +224,7 @@ public final class ConnectionPool {
      * Closes all connections and clear the pool.
      */
     public void closePool() {
-        for (int i = 0; i < availableConnections.size(); i++) {
+        for (int i = 0; i < poolSize; i++) {
             try {
                 PooledConnection connection = availableConnections.take();
                 connection.realClose();
@@ -236,5 +236,19 @@ public final class ConnectionPool {
             }
         }
         availableConnections.clear();
+        deregisterDrivers();
+    }
+
+    /**
+     * Deregister all used drivers.
+     */
+    private void deregisterDrivers() {
+        DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
+            try {
+                DriverManager.deregisterDriver(driver);
+            } catch (SQLException eValue) {
+                LOGGER.error("Cant deregister SQL drivers");
+            }
+        });
     }
 }
