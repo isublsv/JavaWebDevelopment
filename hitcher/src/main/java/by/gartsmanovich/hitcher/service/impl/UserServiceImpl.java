@@ -11,6 +11,7 @@ import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import by.gartsmanovich.hitcher.service.util.PasswordUtils;
 import by.gartsmanovich.hitcher.service.validator.ServiceValidator;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,6 +90,8 @@ public class UserServiceImpl implements UserService {
             user.setSalt(salt);
             user.setRole(Role.USER);
             user.setStatus(Status.ACTIVE);
+            user.setRegistrationDate(LocalDate.now());
+
             dao.create(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -172,6 +175,9 @@ public class UserServiceImpl implements UserService {
                 String salt = user.getSalt();
                 if (PasswordUtils.verifyUserPassword(
                         password, savedPassword, salt)) {
+                    //clear pass and salt
+                    user.setPassword(null);
+                    user.setSalt(null);
                     return optionalUser.get();
                 } else {
                     throw new ServiceException("Wrong password!");
