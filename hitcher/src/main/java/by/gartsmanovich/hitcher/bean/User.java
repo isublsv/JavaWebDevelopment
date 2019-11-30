@@ -41,6 +41,12 @@ public class User extends Entity {
      * The user status.
      */
     private Status status;
+
+    /**
+     * The user registration date in the system.
+     */
+    private LocalDate registrationDate;
+
     /**
      * The user surname.
      */
@@ -56,17 +62,10 @@ public class User extends Entity {
      */
     private String patronymic;
 
-
-
     /**
      * The user phone number.
      */
     private String phoneNumber;
-
-    /**
-     * The user registration date in the system.
-     */
-    private LocalDate registrationDate;
 
     /**
      * The user address.
@@ -222,6 +221,24 @@ public class User extends Entity {
     }
 
     /**
+     * Gets registrationDate.
+     *
+     * @return value of registrationDate.
+     */
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    /**
+     * Sets registrationDate.
+     *
+     * @param registrationDateValue value of registrationDate.
+     */
+    public void setRegistrationDate(final LocalDate registrationDateValue) {
+        registrationDate = registrationDateValue;
+    }
+
+    /**
      * Gets surname.
      *
      * @return value of surname.
@@ -291,24 +308,6 @@ public class User extends Entity {
      */
     public void setPhoneNumber(final String phoneNumberValue) {
         phoneNumber = phoneNumberValue;
-    }
-
-    /**
-     * Gets registrationDate.
-     *
-     * @return value of registrationDate.
-     */
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
-    }
-
-    /**
-     * Sets registrationDate.
-     *
-     * @param registrationDateValue value of registrationDate.
-     */
-    public void setRegistrationDate(final LocalDate registrationDateValue) {
-        registrationDate = registrationDateValue;
     }
 
     /**
