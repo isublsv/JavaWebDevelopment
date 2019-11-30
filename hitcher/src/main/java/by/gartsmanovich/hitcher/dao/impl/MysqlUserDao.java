@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,23 +38,31 @@ public class MysqlUserDao implements UserDao {
      */
     private static final String INSERT_USER =
             "INSERT INTO hitcher_db.users (login, email, password, salt, "
-            + "role, status) VALUES (?, ?, ?, ?, ?, ?);";
+            + "role, status, registration_date) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
     /**
-     * Common part of the find User query.
+     * Common part of the find User query with full data.
      */
-    private static final String FIND_USER =
+    private static final String FIND_FULL_DATA_USER =
             "SELECT u.id, u.login, u.email, u.password, u.salt, u.role,"
-            + " u.status, h.surname, h.name, h.patronymic, h.phone,"
-            + " h.registration_date, h.address, h.music, h.communication,"
+            + " u.status, u.registration_date, h.surname, h.name, h.patronymic,"
+            + " h.phone, h.address, h.music, h.communication,"
             + " di.driving_licence_number, di.car_model, di.car_color"
             + " FROM hitchers AS h INNER JOIN users AS u ON h.user_id = u.id"
             + " LEFT JOIN driver_info AS di ON u.id = di.user_id";
 
     /**
+     * Common part of the find User query with compact data.
+     */
+    private static final String FIND_COMPACT_DATA_USER =
+            "SELECT u.id, u.login, u.email, u.password, u.salt, u.role,"
+            + " u.status FROM users AS u";
+
+    /**
      * Query to find a user by ID value in the database.
      */
-    private static final String FIND_BY_ID = FIND_USER + " WHERE h.user_id=?;";
+    private static final String FIND_BY_ID = FIND_FULL_DATA_USER
+                                             + " WHERE h.user_id=?;";
 
     /**
      * Query to update data of selected user in the database.
@@ -67,24 +76,24 @@ public class MysqlUserDao implements UserDao {
      * Query to delete selected user from the database.
      */
     private static final String DELETE_USER = "DELETE FROM hitcher_db.users "
-                                              + "WHERE users.id = ?;";
+                                              + "WHERE users.id=?;";
 
     /**
      * Query to find all users in the database.
      */
-    private static final String FIND_ALL_USERS = FIND_USER + ";";
+    private static final String FIND_ALL_USERS = FIND_COMPACT_DATA_USER + ";";
 
     /**
      * Query to find user by login.
      */
     private static final String FIND_USER_BY_LOGIN =
-            FIND_USER + " WHERE u.login=?;";
+            FIND_COMPACT_DATA_USER + " WHERE u.login=?;";
 
     /**
      * Query to find user by email.
      */
     private static final String FIND_USER_BY_EMAIL =
-            FIND_USER + " WHERE u.email=?;";
+            FIND_COMPACT_DATA_USER + " WHERE u.email=?;";
 
     /**
      * Connection from a pool to MySQL database.
@@ -118,7 +127,9 @@ public class MysqlUserDao implements UserDao {
             statement.setString(counter++, entity.getPassword());
             statement.setString(counter++, entity.getSalt());
             statement.setInt(counter++, entity.getRole().ordinal());
-            statement.setInt(counter, entity.getStatus().ordinal());
+            statement.setInt(counter++, entity.getStatus().ordinal());
+            statement.setDate(counter,
+                              Date.valueOf(entity.getRegistrationDate()));
 
             statement.executeUpdate();
             try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -152,7 +163,7 @@ public class MysqlUserDao implements UserDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = getUser(resultSet);
+                    user = getFullUserData(resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -220,7 +231,7 @@ public class MysqlUserDao implements UserDao {
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(FIND_ALL_USERS)) {
                 while (resultSet.next()) {
-                    User user = getUser(resultSet);
+                    User user = getCompactUserData(resultSet);
                     users.add(user);
                 }
             }
@@ -249,7 +260,7 @@ public class MysqlUserDao implements UserDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    user = getUser(resultSet);
+                    user = getCompactUserData(resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -276,7 +287,7 @@ public class MysqlUserDao implements UserDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    user = getUser(resultSet);
+                    user = getFullUserData(resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -286,13 +297,14 @@ public class MysqlUserDao implements UserDao {
     }
 
     /**
-     * Creates user entity from provided result set data.
+     * Creates full version of user entity from provided result set data.
      *
      * @param resultSet the provided result set data from database.
      * @return the result user entity.
      * @throws SQLException if an error occurs during operation execution.
      */
-    private User getUser(final ResultSet resultSet) throws SQLException {
+    private User getFullUserData(final ResultSet resultSet)
+            throws SQLException {
         User user = new User();
         int counter = 1;
 
@@ -303,17 +315,40 @@ public class MysqlUserDao implements UserDao {
         user.setSalt(resultSet.getString(counter++));
         user.setRole(Role.values()[(resultSet.getInt(counter++))]);
         user.setStatus(Status.values()[(resultSet.getInt(counter++))]);
+        user.setRegistrationDate((resultSet.getDate(counter++).toLocalDate()));
         user.setSurname(resultSet.getString(counter++));
         user.setName(resultSet.getString(counter++));
         user.setPatronymic(resultSet.getString(counter++));
         user.setPhoneNumber(resultSet.getString(counter++));
-        user.setRegistrationDate((resultSet.getDate(counter++).toLocalDate()));
         user.setAddress(resultSet.getString(counter++));
         user.setMusic(resultSet.getString(counter++));
         user.setCommunication(resultSet.getString(counter++));
         user.setDriverLicenseNumber(resultSet.getString(counter++));
         user.setCarModel(resultSet.getString(counter++));
         user.setCarColor(resultSet.getString(counter));
+
+        return user;
+    }
+
+    /**
+     * Creates compact version of user entity from provided result set data.
+     *
+     * @param resultSet the provided result set data from database.
+     * @return the result user entity.
+     * @throws SQLException if an error occurs during operation execution.
+     */
+    private User getCompactUserData(final ResultSet resultSet)
+            throws SQLException {
+        User user = new User();
+        int counter = 1;
+
+        user.setId(resultSet.getLong(counter++));
+        user.setLogin(resultSet.getString(counter++));
+        user.setEmail(resultSet.getString(counter++));
+        user.setPassword(resultSet.getString(counter++));
+        user.setSalt(resultSet.getString(counter++));
+        user.setRole(Role.values()[(resultSet.getInt(counter++))]);
+        user.setStatus(Status.values()[(resultSet.getInt(counter))]);
 
         return user;
     }
