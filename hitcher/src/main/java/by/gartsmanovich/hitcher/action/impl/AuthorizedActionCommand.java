@@ -6,7 +6,7 @@ import by.gartsmanovich.hitcher.bean.Role;
 import java.util.Arrays;
 
 /**
- * Class used to define the list of default roles that action command supports.
+ * Class used to define the list of authorized action commands.
  *
  * @author Dmitry Gartsmanovich
  */
