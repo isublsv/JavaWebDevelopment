@@ -17,6 +17,7 @@ CREATE TABLE `users`
      * 1 - Status.ACTIVE
      */
     `status`   TINYINT      NOT NULL DEFAULT 1 CHECK ( `status` IN (0, 1)),
+    `registration_date` DATETIME     DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
@@ -28,10 +29,9 @@ CREATE TABLE `hitchers`
     `name`              VARCHAR(255) NOT NULL,
     `patronymic`        VARCHAR(255),
     `phone`             VARCHAR(255) NOT NULL,
-    `registration_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `address`           VARCHAR(255),
     `music`             VARCHAR(255),
-    `communication`      VARCHAR(255),
+    `communication`     VARCHAR(255),
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `users` (`id`)
         ON UPDATE CASCADE
