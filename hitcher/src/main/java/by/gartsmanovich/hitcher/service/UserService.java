@@ -19,18 +19,29 @@ public interface UserService {
      *
      * @param login the provided entity login value
      * @param email the provided entity email value
-     * @param pass the provided entity password value
+     * @param pass  the provided entity password value
      * @return the new user value
-     * @throws ServiceException if failed to create user.
+     * @throws ServiceException if failed to create user entity in the data
+     *                          source.
      */
     User save(String login, String email, String pass) throws ServiceException;
+
+    /**
+     * Updates personal user information in the data source.
+     *
+     * @param user the provided user entity with a new personal information.
+     * @throws ServiceException if failed to update user entity in the data
+     *                          source.
+     */
+    void updatePersonalData(User user) throws ServiceException;
 
     /**
      * Finds user entity by provided ID value.
      *
      * @param id the provided user ID.
      * @return the user entity.
-     * @throws ServiceException if failed to find user entity.
+     * @throws ServiceException if failed to find user entity in the data
+     *                          source.
      */
     User findByID(long id) throws ServiceException;
 
