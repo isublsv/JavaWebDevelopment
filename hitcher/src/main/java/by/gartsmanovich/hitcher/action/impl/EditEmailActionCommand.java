@@ -14,9 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Class describes edit personal data action command that used to edit
- * a personal user information such as name, surname, patronymic, phone
- * and address.
+ * Class describes edit email action command that used to edit user email.
  *
  * @author Dmitry Gartsmanovich
  */
