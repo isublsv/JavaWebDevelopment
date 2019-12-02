@@ -4,6 +4,10 @@
 <c:set var="language"
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}"/>
+<br/>
+<br/>
+<br/>
+<br/>
 <fmt:bundle basename="pagecontent" prefix="profile.preferences.">
     <br/>    
     <form method="post" action="${pageContext.request.contextPath}/profile/edit/preferences.do">
