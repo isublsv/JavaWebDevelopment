@@ -75,12 +75,12 @@ public class User extends Entity {
     /**
      * The favorite user music type.
      */
-    private String music;
+    private int music;
 
     /**
      * The communication skill of the user.
      */
-    private String communication;
+    private int communication;
 
     /**
      * The driver license number.
@@ -333,7 +333,7 @@ public class User extends Entity {
      *
      * @return value of music.
      */
-    public String getMusic() {
+    public int getMusic() {
         return music;
     }
 
@@ -342,7 +342,7 @@ public class User extends Entity {
      *
      * @param musicValue value of music.
      */
-    public void setMusic(final String musicValue) {
+    public void setMusic(final int musicValue) {
         music = musicValue;
     }
 
@@ -351,7 +351,7 @@ public class User extends Entity {
      *
      * @return value of communication.
      */
-    public String getCommunication() {
+    public int getCommunication() {
         return communication;
     }
 
@@ -360,7 +360,7 @@ public class User extends Entity {
      *
      * @param communicationValue value of communication.
      */
-    public void setCommunication(final String communicationValue) {
+    public void setCommunication(final int communicationValue) {
         communication = communicationValue;
     }
 
@@ -432,6 +432,7 @@ public class User extends Entity {
         result = PRIME * result + salt.hashCode();
         result = PRIME * result + role.hashCode();
         result = PRIME * result + status.hashCode();
+        result = PRIME * result + registrationDate.hashCode();
         result = PRIME * result + surname.hashCode();
         result = PRIME * result + name.hashCode();
         if (patronymic != null) {
@@ -439,9 +440,8 @@ public class User extends Entity {
         } else {
             result = PRIME * result;
         }
-        result = PRIME * result + phoneNumber.hashCode();
-        if (registrationDate != null) {
-            result = PRIME * result + registrationDate.hashCode();
+        if (phoneNumber != null) {
+            result = PRIME * result + phoneNumber.hashCode();
         } else {
             result = PRIME * result;
         }
@@ -450,16 +450,8 @@ public class User extends Entity {
         } else {
             result = PRIME * result;
         }
-        if (music != null) {
-            result = PRIME * result + music.hashCode();
-        } else {
-            result = PRIME * result;
-        }
-        if (communication != null) {
-            result = PRIME * result + communication.hashCode();
-        } else {
-            result = PRIME * result;
-        }
+        result = PRIME * result + music;
+        result = PRIME * result + communication;
         if (driverLicenseNumber != null) {
             result = PRIME * result + driverLicenseNumber.hashCode();
         } else {
@@ -485,6 +477,7 @@ public class User extends Entity {
      * @return {@code true} if this object is the same as the obj
      * argument; {@code false} otherwise.
      */
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -499,19 +492,31 @@ public class User extends Entity {
 
         User user = (User) o;
 
-        if (role != user.role) {
+        if (music != user.music) {
             return false;
         }
-        if (status != user.status) {
+        if (communication != user.communication) {
             return false;
         }
         if (!login.equals(user.login)) {
+            return false;
+        }
+        if (!email.equals(user.email)) {
             return false;
         }
         if (!password.equals(user.password)) {
             return false;
         }
         if (!salt.equals(user.salt)) {
+            return false;
+        }
+        if (role != user.role) {
+            return false;
+        }
+        if (status != user.status) {
+            return false;
+        }
+        if (!registrationDate.equals(user.registrationDate)) {
             return false;
         }
         if (!surname.equals(user.surname)) {
@@ -523,22 +528,10 @@ public class User extends Entity {
         if (!Objects.equals(patronymic, user.patronymic)) {
             return false;
         }
-        if (!email.equals(user.email)) {
-            return false;
-        }
-        if (!phoneNumber.equals(user.phoneNumber)) {
-            return false;
-        }
-        if (!Objects.equals(registrationDate, user.registrationDate)) {
+        if (!Objects.equals(phoneNumber, user.phoneNumber)) {
             return false;
         }
         if (!Objects.equals(address, user.address)) {
-            return false;
-        }
-        if (!Objects.equals(music, user.music)) {
-            return false;
-        }
-        if (!Objects.equals(communication, user.communication)) {
             return false;
         }
         if (!Objects.equals(driverLicenseNumber, user.driverLicenseNumber)) {
