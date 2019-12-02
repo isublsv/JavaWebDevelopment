@@ -29,19 +29,19 @@ public class ServiceValidator {
      * Describes a pattern that validates user name value.
      */
     private static final Pattern NAME_REGEX = Pattern.compile(
-            "^[A-ZА-Я]{2,20}$", Pattern.CASE_INSENSITIVE);
+            "^[A-ZА-ЯЎІ]{2,20}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Describes a pattern that validates user surname value.
      */
     private static final Pattern SURNAME_REGEX = Pattern.compile(
-            "^[A-ZА-Я]{2,60}$", Pattern.CASE_INSENSITIVE);
+            "^[A-ZА-ЯЎІ]{2,60}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Describes a pattern that validates user patronymic value.
      */
     private static final Pattern PATRONYMIC_REGEX = Pattern.compile(
-            "^[A-ZА-Я]{0,60}$", Pattern.CASE_INSENSITIVE);
+            "^[A-ZА-ЯЎІ]{0,60}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Describes a pattern that validates user phone value.
@@ -54,7 +54,13 @@ public class ServiceValidator {
      * Describes a pattern that validates user address value.
      */
     private static final Pattern ADDRESS_REGEX = Pattern.compile(
-            "^[A-ZА-Я\\-,.\\d /]{0,100}$", Pattern.CASE_INSENSITIVE);
+            "^[A-ZА-ЯЎІ\\-,.\\d /]{0,100}$", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Describes a pattern that validates user address value.
+     */
+    private static final Pattern PREFERENCES_REGEX = Pattern.compile(
+            "[1-3]", Pattern.CASE_INSENSITIVE);
 
     /**
      * Validates user email.
@@ -134,6 +140,22 @@ public class ServiceValidator {
     }
 
     /**
+     * Validates user preferences.
+     *
+     * @param preferences the provided user preferences.
+     * @return true if preferences values is valid, false - otherwise.
+     */
+    public boolean isValidPreferences(final String preferences) {
+        Matcher matcher = PREFERENCES_REGEX.matcher(preferences);
+        try {
+            Integer.parseInt(preferences);
+            return matcher.find();
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
      * Validates a provided parameter.
      *
      * @param param the provided value.
@@ -142,6 +164,5 @@ public class ServiceValidator {
     private boolean isValidValue(final String param) {
         return param != null && !param.isEmpty();
     }
-
 
 }
