@@ -48,7 +48,7 @@ public class MysqlUserDao implements UserDao {
             + " u.status, u.registration_date, h.surname, h.name, h.patronymic,"
             + " h.phone, h.address, h.music, h.communication,"
             + " di.driving_licence_number, di.car_model, di.car_color"
-            + " FROM hitchers AS h INNER JOIN users AS u ON h.user_id = u.id"
+            + " FROM users AS u LEFT JOIN hitchers AS h ON u.id = h.user_id"
             + " LEFT JOIN driver_info AS di ON u.id = di.user_id";
 
     /**
@@ -62,7 +62,7 @@ public class MysqlUserDao implements UserDao {
      * Query to find a user by ID value in the database.
      */
     private static final String FIND_BY_ID = FIND_FULL_DATA_USER
-                                             + " WHERE h.user_id=?;";
+                                             + " WHERE u.id=?;";
 
     /**
      * Query to update data of selected user in the database.
