@@ -22,18 +22,42 @@ CREATE TABLE `users`
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
+CREATE TABLE `music`
+(
+    `id`          INTEGER      NOT NULL AUTO_INCREMENT,
+    `description` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARACTER SET utf8;
+
+CREATE TABLE `communication`
+(
+    `id`          INTEGER      NOT NULL AUTO_INCREMENT,
+    `description` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARACTER SET utf8;
+
 CREATE TABLE `hitchers`
 (
-    `user_id`           INTEGER      NOT NULL,
-    `surname`           VARCHAR(255) NOT NULL,
-    `name`              VARCHAR(255) NOT NULL,
-    `patronymic`        VARCHAR(255),
-    `phone`             VARCHAR(255) NOT NULL,
-    `address`           VARCHAR(255),
-    `music`             VARCHAR(255),
-    `communication`     VARCHAR(255),
+    `user_id`          INTEGER      NOT NULL,
+    `surname`          VARCHAR(255) NOT NULL,
+    `name`             VARCHAR(255) NOT NULL,
+    `patronymic`       VARCHAR(255),
+    `phone`            VARCHAR(255) NOT NULL,
+    `address`          VARCHAR(255),
+    `music_id`         INTEGER,
+    `communication_id` INTEGER,
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `users` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT FOREIGN KEY (`music_id`)
+        REFERENCES `music` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT FOREIGN KEY (`communication_id`)
+        REFERENCES `communication` (`id`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 ) ENGINE = INNODB

@@ -28,7 +28,7 @@ VALUES ('xtasy', 'sell@gmail.com', 'jVv9sQyBOMyUrOrheOOU8vzkSV4sBv/Ky8N20lfxh/Q=
 INSERT INTO hitcher_db.users (login, email, password, salt, role, status, registration_date)
 VALUES ('carl', 'carlson@yahoo.com', '4mcBWw15Btu6wu/zdwNKNHtc90UEPf1zaqm+k09mMHE=', 'BQTgkFqXwp09pFjVukoX5RbLikQgrZ', 1, 1, '2015-04-19 23:56:36');
 
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
+/*INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
 VALUES (2, 'Smith', 'John', null,  '+375 (29) 123-45-67', 'Sovetskaya st., 13, 1', 'Electronic', 'Depends on mood');
 INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
 VALUES (3, 'Solovei', 'Anna', 'Alexeevna', '+375 (29) 222-55-55', 'Slobodskoi pr., 122', 'Radio', 'Dont want to talk');
@@ -45,7 +45,41 @@ VALUES (8, 'Сидоров', 'Сидор', 'Сидорович', '+375 (25) 788-
 INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
 VALUES (9, 'Selezneva', 'Olga', null, '+375 (25) 577-28-74', null, 'Radio', 'Depends on mood');
 INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (10, 'Carlson', 'Carl', null, '+375 (25) 520-44-44', null, 'Depends on playlist', 'Always ready to talk');
+VALUES (10, 'Carlson', 'Carl', null, '+375 (25) 520-44-44', null, 'Depends on playlist', 'Always ready to talk');*/
+
+INSERT INTO hitcher_db.music (description)
+    VALUE ('music.negative');
+INSERT INTO hitcher_db.music (description)
+    VALUE ('music.neutral');
+INSERT INTO hitcher_db.music (description)
+    VALUE ('music.positive');
+
+INSERT INTO hitcher_db.communication (description)
+VALUES ('com.negative');
+INSERT INTO hitcher_db.communication (description)
+VALUES ('com.neutral');
+INSERT INTO hitcher_db.communication (description)
+VALUES ('com.positive');
+
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (2, 'Smith', 'John', null,  '+375 (29) 123-45-67', 'Sovetskaya st., 13, 1', 1, 3);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (3, 'Solovei', 'Anna', 'Alexeevna', '+375 (29) 222-55-55', 'Slobodskoi pr., 122', 3, 2);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (4, 'Petrov', 'Vasya', 'Vasilievich', '+375 (25) 710-21-99', 'Pushkina pr., 14', 2, 3);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (5, 'Познева', 'Наталья', 'Петровна', '+375 (25) 510-28-44', 'Козлова, 22', 2, 1);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (6, 'Осипов', 'Олег', null, '+375 (25) 192-21-39', null, 2, 2);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (7, 'Ivanov', 'Ivan', 'Ivanovich', '+375 (27) 232-33-33', 'Odincova st, 15', 2, 3);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (8, 'Сидоров', 'Сидор', 'Сидорович', '+375 (25) 788-28-94', 'пер. Пешеходов, 2', 3, 2);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (9, 'Selezneva', 'Olga', null, '+375 (25) 577-28-74', null, 2, 1);
+INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
+VALUES (10, 'Carlson', 'Carl', null, '+375 (25) 520-44-44', null, 1, 2);
+
 
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
 VALUES (2, 'AA 12345678', 'Mazda CRV', 'RED');
