@@ -5,7 +5,7 @@
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="pagecontent" prefix="profile.preferences.">
-    <br/>
+    <br/>    
     <form method="post" action="${pageContext.request.contextPath}/profile/edit/preferences.do">
         <div class="group-wrapper">
             <div class="form-group row">
@@ -38,10 +38,9 @@
         </fmt:bundle>
     </form>
 </fmt:bundle>
-<script type="javascript">
+<script type="text/javascript">
     $(document).ready(function () {
         $("#inputGroupSelect01").val('${sessionScope.authorizedUser.communication}');
         $("#inputGroupSelect02").val('${sessionScope.authorizedUser.music}');
     });
 </script>
-<%--<script type="javascript" src="<c:url value="/js/pref.js"/>"></script>--%>
