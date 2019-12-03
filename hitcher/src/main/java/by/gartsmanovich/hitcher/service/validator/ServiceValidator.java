@@ -3,8 +3,6 @@ package by.gartsmanovich.hitcher.service.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.util.Objects.isNull;
-
 /**
  * Utility class used to validate provided data.
  *
@@ -24,6 +22,21 @@ public class ServiceValidator {
      */
     private static final Pattern LOGIN_REGEX = Pattern.compile(
             "^[A-Z0-9._\\-]{4,45}$", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Describes a pattern that validates user password value.
+     * ^                 # start-of-string
+     * (?=.*[0-9])       # a digit must occur at least once
+     * (?=.*[a-z])       # a lower case letter must occur at least once
+     * (?=.*[A-Z])       # an upper case letter must occur at least once
+     * (?=.*[@#$%^&+=])  # a special character must occur at least once
+     * (?=\S+$)          # no whitespace allowed in the entire string
+     * .{8,}             # anything, at least eight places though
+     * $                 # end-of-string
+     */
+    //anna aaZZa44@
+    private static final Pattern PASS_REGEX = Pattern.compile(
+          "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
 
     /**
      * Describes a pattern that validates user name value.
@@ -70,7 +83,7 @@ public class ServiceValidator {
      */
     public boolean isValidEmail(final String email) {
         Matcher matcher = EMAIL_REGEX.matcher(email);
-        return isValidValue(email) && matcher.find();
+        return matcher.find();
     }
 
     /**
@@ -114,7 +127,7 @@ public class ServiceValidator {
      */
     public boolean isValidPatronymic(final String patronymic) {
         Matcher matcher = PATRONYMIC_REGEX.matcher(patronymic);
-        return isNull(patronymic) || matcher.find();
+        return matcher.find();
     }
 
     /**
@@ -125,7 +138,7 @@ public class ServiceValidator {
      */
     public boolean isValidPhone(final String phoneNumber) {
         Matcher matcher = PHONE_REGEX.matcher(phoneNumber);
-        return isNull(phoneNumber) || matcher.find();
+        return matcher.find();
     }
 
     /**
@@ -136,7 +149,7 @@ public class ServiceValidator {
      */
     public boolean isValidAddress(final String address) {
         Matcher matcher = ADDRESS_REGEX.matcher(address);
-        return isNull(address) || matcher.find();
+        return matcher.find();
     }
 
     /**
@@ -153,6 +166,17 @@ public class ServiceValidator {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    /**
+     * Validates user preferences.
+     *
+     * @param pass the provided user preferences.
+     * @return true if preferences values is valid, false - otherwise.
+     */
+    public boolean isValidPassword(final String pass) {
+        Matcher matcher = PASS_REGEX.matcher(pass);
+        return matcher.find();
     }
 
     /**
