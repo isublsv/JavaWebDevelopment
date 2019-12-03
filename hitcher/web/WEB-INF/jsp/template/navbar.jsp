@@ -68,111 +68,123 @@
     </div>
 </nav>
 
-    <!-- The Login Modal -->
-<div class="modal fade" id="sign-in">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <c:if test="${not param.isProfileNavbar}">
+        <!-- The Login Modal -->
+        <div class="modal fade" id="sign-in">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-            <div class="modal-header">
-                <h4 class="modal-title"><fmt:message key="login.welcome"/></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title"><fmt:message key="login.welcome"/></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
 
-            <div class="modal-body">
-                <div class="login d-flex align-items-center py-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 mx-auto">
-                                <form method="post" action="${pageContext.request.contextPath}/login.do">
-                                    ${requestScope.errorMessage}
-                                    <div class="form-label-group">
-                                        <input type="text" id="inputLoginUsername" class="form-control" placeholder="Username" name="login"
-                                               required autofocus>
-                                        <label for="inputLoginUsername"><fmt:message key="form.username"/></label>
-                                    </div>
+                    <div class="modal-body">
+                        <div class="login d-flex align-items-center">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 mx-auto">
+                                        <form method="post" action="${pageContext.request.contextPath}/login.do"
+                                              id="login-form">
+                                            <div id="warning-message">
+                                                <p class="text-danger text-center">${requestScope.warningMessage}</p>
+                                            </div>
+                                            <div id="error-message">
+                                                <p class="text-danger text-center">${requestScope.errorMessage}</p>
+                                            </div>
+                                            <div class="form-label-group">
+                                                <input type="text" id="inputLoginUsername" class="form-control"
+                                                       placeholder="Username" name="login" required autofocus>
+                                                <label for="inputLoginUsername"><fmt:message
+                                                        key="form.username"/></label>
+                                            </div>
 
-                                    <div class="form-label-group">
-                                        <input type="password" id="inputLoginPassword" class="form-control" placeholder="Password" name="pass"
-                                               required>
-                                        <label for="inputLoginPassword"><fmt:message key="form.password"/></label>
-                                    </div>
+                                            <div class="form-label-group">
+                                                <input type="password" id="inputLoginPassword" class="form-control"
+                                                       placeholder="Password" name="pass" required>
+                                                <label for="inputLoginPassword"><fmt:message
+                                                        key="form.password"/></label>
+                                            </div>
 
-                                    <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1"><fmt:message
-                                                key="remember.pass"/></label>
+                                            <div class="custom-control custom-checkbox mb-3">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                <label class="custom-control-label" for="customCheck1"><fmt:message
+                                                        key="remember.pass"/></label>
+                                            </div>
+                                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                    type="submit"><fmt:message key="link.login"/>
+                                            </button>
+                                            <div class="text-center">
+                                                <a class="small" href="#"><fmt:message
+                                                        key="link.forgot.pass"/></a>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                            type="submit"><fmt:message key="link.login"/>
-                                    </button>
-                                    <div class="text-center">
-                                        <a class="small" href="#"><fmt:message
-                                                key="link.forgot.pass"/></a>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </c:if>
 
-    <!-- The Register Modal -->
-<div class="modal fade" id="register">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <c:if test="${not param.isProfileNavbar}">
+        <!-- The Register Modal -->
+        <div class="modal fade" id="register">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-            <div class="modal-header">
-                <h4 class="modal-title"><fmt:message key="link.register"/></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title"><fmt:message key="link.register"/></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
 
-            <div class="modal-body">
-                <div class="login d-flex align-items-center py-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 mx-auto">
-                                <form method="post" action="${pageContext.request.contextPath}/register.do">
-                                    <div class="form-label-group">
-                                        <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username" name="login"
-                                               required autofocus>
-                                        <label for="inputRegisterUsername"><fmt:message key="form.username"/></label>
+                    <div class="modal-body">
+                        <div class="login d-flex align-items-center">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 mx-auto">
+                                        <form method="post" action="${pageContext.request.contextPath}/register.do">
+                                            <div class="form-label-group">
+                                                <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username" name="login"
+                                                       required autofocus>
+                                                <label for="inputRegisterUsername"><fmt:message key="form.username"/></label>
+                                            </div>
+
+                                            <div class="form-label-group">
+                                                <input type="email" id="inputRegisterEmail" class="form-control" placeholder="Email address" name="email"
+                                                       required>
+                                                <label for="inputRegisterEmail"><fmt:message key="form.email"/></label>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="form-label-group">
+                                                <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password" name="pass"
+                                                       required>
+                                                <label for="inputRegisterPassword"><fmt:message key="form.password"/></label>
+                                            </div>
+
+                                            <div class="form-label-group">
+                                                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password"
+                                                       required>
+                                                <label for="inputConfirmPassword"><fmt:message key="form.password.confirm"/></label>
+                                            </div>
+                                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                    type="submit"><fmt:message key="link.register"/>
+                                            </button>
+                                            <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal"
+                                               data-dismiss="modal" href="#"><fmt:message key="link.login"/></a>
+                                        </form>
                                     </div>
-
-                                    <div class="form-label-group">
-                                        <input type="email" id="inputRegisterEmail" class="form-control" placeholder="Email address" name="email"
-                                               required>
-                                        <label for="inputRegisterEmail"><fmt:message key="form.email"/></label>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="form-label-group">
-                                        <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password" name="pass"
-                                               required>
-                                        <label for="inputRegisterPassword"><fmt:message key="form.password"/></label>
-                                    </div>
-
-                                    <div class="form-label-group">
-                                        <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password"
-                                               required>
-                                        <label for="inputConfirmPassword"><fmt:message key="form.password.confirm"/></label>
-                                    </div>
-                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                            type="submit"><fmt:message key="link.register"/>
-                                    </button>
-                                    <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal"
-                                       data-dismiss="modal" href="#"><fmt:message key="link.login"/></a>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </c:if>
 </fmt:bundle>
-
+<script type="text/javascript" src="<c:url value="/js/login.js"/>"></script>
