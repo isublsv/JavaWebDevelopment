@@ -32,6 +32,15 @@ public interface UserDao extends AbstractDao<User> {
     void updateDriverInfo(User user) throws DaoException;
 
     /**
+     * Adds an user driver information to the data source.
+     *
+     * @param user the provided user entity.
+     * @throws DaoException if failed to add user driver information to the
+     *                      data source.
+     */
+    void addDriverInfo(User user) throws DaoException;
+
+    /**
      * Finds user by login in the data source if present.
      *
      * @param login the user login.
