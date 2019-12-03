@@ -18,7 +18,6 @@
                 <div class="col-sm-7">
                     <input type="password" class="form-control" id="currentPassInput" name="currentpass"
                            autocomplete="off" required>
-                    <small 
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
