@@ -52,7 +52,7 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
             session.setAttribute("authorizedUser", user);
             String message = String.format(
                     "Full data %s was loaded successfully", user.getLogin());
-            LOGGER.warn(message);
+            LOGGER.debug(message);
             request.getServletContext().getRequestDispatcher(
                     ConfigurationManager.getProperty("path.page.profile"))
                    .forward(request, response);
