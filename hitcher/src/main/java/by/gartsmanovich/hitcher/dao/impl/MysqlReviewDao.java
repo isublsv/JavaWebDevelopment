@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,11 +33,18 @@ public class MysqlReviewDao implements ReviewDao {
             + "who_id, text, rating) VALUES ( ?, ?, ?, ?)";
 
     /**
-     * Query to find a review by ID of the subject in the database.
+     * Query to find a review by ID in the database.
      */
     private static final String FIND_BY_ID =
             "SELECT r.about_id, r.who_id, r.text, r.rating "
             + "FROM reviews AS r WHERE r.id=?;";
+
+    /**
+     * Query to find all reviews in the database.
+     */
+    private static final String FIND_ALL =
+            "SELECT r.id, r.about_id, r.who_id, r.text, r.rating "
+            + "FROM reviews AS r;";
 
     /**
      * Query to update data of selected review in the database.
@@ -123,6 +132,30 @@ public class MysqlReviewDao implements ReviewDao {
         return Optional.ofNullable(review);
     }
 
+    /**
+     * Finds all reviews in the database.
+     *
+     * @return the list of reviews.
+     * @throws DaoException if failed to find all reviews entity in the
+     *                      database.
+     */
+    @Override
+    public List<Review> findAllReviews() throws DaoException {
+        List<Review> reviewList = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_ALL)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Review review = getReview(resultSet);
+                    reviewList.add(review);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find review list!", e);
+        }
+        return reviewList;
+    }
 
     /**
      * Updates the provided review entity in the database.
@@ -187,4 +220,5 @@ public class MysqlReviewDao implements ReviewDao {
 
         return review;
     }
+
 }
