@@ -47,14 +47,14 @@ public class ServiceValidator {
     /**
      * Describes a pattern that validates user surname value.
      */
-    private static final Pattern SURNAME_REGEX = Pattern.compile(
-            "^[A-ZА-ЯЎІ]{2,60}$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern SURNAME_PATRONYMIC_REGEX = Pattern.compile(
+            "^[A-ZА-ЯЎІ]{0,60}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Describes a pattern that validates user patronymic value.
      */
     private static final Pattern OTHER_VALUES_REGEX = Pattern.compile(
-            "^[A-ZА-ЯЎІ]{0,60}$", Pattern.CASE_INSENSITIVE);
+            "^[A-ZА-Я ,.]{0,60}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Describes a pattern that validates user phone value.
@@ -79,7 +79,7 @@ public class ServiceValidator {
      * Describes a pattern that validates user driver license number value.
      */
     private static final Pattern DRIVER_LICENSE_REGEX = Pattern.compile(
-            "^\\d[\\w]{2}\\s[\\d]{6}", Pattern.CASE_INSENSITIVE);
+            "^\\d[A-Z]{2} [\\d]{6}$");
 
     /**
      * Validates user email.
@@ -121,7 +121,7 @@ public class ServiceValidator {
      * @return true if surname value is valid, false - otherwise.
      */
     public boolean isValidSurname(final String surname) {
-        Matcher matcher = SURNAME_REGEX.matcher(surname);
+        Matcher matcher = SURNAME_PATRONYMIC_REGEX.matcher(surname);
         return matcher.find();
     }
 
@@ -132,7 +132,7 @@ public class ServiceValidator {
      * @return true if patronymic value is valid, false - otherwise.
      */
     public boolean isValidPatronymic(final String patronymic) {
-        Matcher matcher = OTHER_VALUES_REGEX.matcher(patronymic);
+        Matcher matcher = SURNAME_PATRONYMIC_REGEX.matcher(patronymic);
         return matcher.find();
     }
 
