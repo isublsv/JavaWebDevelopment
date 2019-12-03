@@ -54,7 +54,7 @@ public class EditPersonalDataActionCommand extends AuthorizedActionCommand {
         try {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService.updatePersonalData(editedUser);
-            session.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("authorizedUser", updatedUser);
             LOGGER.debug("Personal user information was updated successfully");
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(

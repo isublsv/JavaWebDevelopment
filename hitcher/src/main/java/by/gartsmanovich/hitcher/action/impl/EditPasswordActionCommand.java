@@ -53,7 +53,7 @@ public class EditPasswordActionCommand extends AuthorizedActionCommand {
             User updatedUser = userService
                     .updatePassword(authorizedUser.getId(),
                                     currentPass, newPass);
-            session.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("authorizedUser", updatedUser);
             LOGGER.debug("Personal user password were updated successfully");
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(

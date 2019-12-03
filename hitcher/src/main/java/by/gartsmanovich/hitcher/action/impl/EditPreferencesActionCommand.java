@@ -53,7 +53,7 @@ public class EditPreferencesActionCommand extends AuthorizedActionCommand {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService.updatePreferences(
                     authorizedUser.getId(), music, communication);
-            session.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("authorizedUser", updatedUser);
             LOGGER.debug("Personal user preferences were updated successfully");
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(

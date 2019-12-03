@@ -55,7 +55,7 @@ public class EditDriverInfoActionCommand extends AuthorizedActionCommand {
             User updatedUser = userService
                     .updateDriverInfo(authorizedUser.getId(),
                                     license, carModel, carColor);
-            session.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("authorizedUser", updatedUser);
             LOGGER.debug("Personal user driver info were updated successfully");
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(

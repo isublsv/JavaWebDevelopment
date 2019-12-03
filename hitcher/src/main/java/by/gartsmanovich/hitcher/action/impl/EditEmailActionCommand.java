@@ -51,7 +51,7 @@ public class EditEmailActionCommand extends AuthorizedActionCommand {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService.updateEmail(authorizedUser.getId(),
                                                        email);
-            session.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("authorizedUser", updatedUser);
             LOGGER.debug("Personal user email were updated successfully");
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(

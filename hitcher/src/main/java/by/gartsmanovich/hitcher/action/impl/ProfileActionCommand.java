@@ -1,7 +1,9 @@
 package by.gartsmanovich.hitcher.action.impl;
 
 import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
+import by.gartsmanovich.hitcher.bean.Review;
 import by.gartsmanovich.hitcher.bean.User;
+import by.gartsmanovich.hitcher.service.ReviewService;
 import by.gartsmanovich.hitcher.service.UserService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Class describes profile action command that used to display full information
@@ -49,12 +52,23 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
         try {
             UserService userService = getFactory().getUserService();
             user = userService.findByID(user.getId());
-            session.setAttribute("authorizedUser", user);
+            request.setAttribute("authorizedUser", user);
+
+            ReviewService reviewService = getFactory().getReviewService();
+            Map<Review, User> aboutIdMap = reviewService.findReviewsByAboutID(
+                    user.getId());
+            request.setAttribute("received", aboutIdMap);
+
+            Map<Review, User> byWhoID = reviewService.findReviewsByWhoID(
+                    user.getId());
+            request.setAttribute("left", byWhoID);
+
             String message = String.format(
                     "Full data %s was loaded successfully", user.getLogin());
             LOGGER.debug(message);
-            request.getServletContext().getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.profile"))
+            request.getServletContext()
+                   .getRequestDispatcher(ConfigurationManager.getProperty(
+                           "path.page.profile"))
                    .forward(request, response);
         } catch (ServiceException e) {
             String message = e.getMessage();
