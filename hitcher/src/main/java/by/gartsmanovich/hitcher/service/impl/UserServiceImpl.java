@@ -8,12 +8,32 @@ import by.gartsmanovich.hitcher.dao.exception.DaoException;
 import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.service.UserService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
-import by.gartsmanovich.hitcher.service.util.PasswordUtils;
 import by.gartsmanovich.hitcher.service.validator.ServiceValidator;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.EMAIL_EXISTS;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_ADDRESS;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_CURRENT_PASS;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_DRIVER_INFO;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_EMAIL;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_LOGIN;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_NAME;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PASS;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PATRONYMIC;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PHONE_NUMBER;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PREFERENCES;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_SURNAME;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_DOES_NOT_EXIST;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_EXISTS;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_NOT_FOUND;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.WRONG_LOGIN_OR_PASS;
+import static by.gartsmanovich.hitcher.service.util.PasswordUtils.generateSecurePassword;
+import static by.gartsmanovich.hitcher.service.util.PasswordUtils.getSalt;
+import static by.gartsmanovich.hitcher.service.util.PasswordUtils.verifyUserPassword;
 
 /**
  * The realisation of User Service interface is used to describe of application
@@ -51,9 +71,10 @@ public class UserServiceImpl implements UserService {
      *
      * @param login the provided entity login value
      * @param email the provided entity email value
-     * @param pass the provided entity password value
+     * @param pass  the provided entity password value
      * @return the new user value
-     * @throws ServiceException if failed to create user.
+     * @throws ServiceException if failed to create user entity in the data
+     *                          source.
      */
     @Override
     public User save(final String login, final String email,
@@ -63,28 +84,23 @@ public class UserServiceImpl implements UserService {
         User user;
         try {
             if (!validator.isValidLogin(login)) {
-                String message = "Username value is not valid";
-                throw new ServiceException(message);
+                throw new ServiceException(INVALID_LOGIN);
             }
             if (!validator.isValidEmail(email)) {
-                String message = "Email value is not valid";
-                throw new ServiceException(message);
+                throw new ServiceException(INVALID_EMAIL);
             }
             if (dao.findUserByLogin(login).isPresent()) {
-                String message = "User with that username is already exists";
-                throw new ServiceException(message);
+                throw new ServiceException(USER_EXISTS);
             }
             if (dao.findUserByEmail(email).isPresent()) {
-                String message = "User with that email is already exists";
-                throw new ServiceException(message);
+                throw new ServiceException(EMAIL_EXISTS);
             }
             user = new User();
             user.setLogin(login);
             user.setEmail(email);
 
-            String salt = PasswordUtils.getSalt();
-            String newSecurePass = PasswordUtils
-                    .generateSecurePassword(pass, salt);
+            String salt = getSalt();
+            String newSecurePass = generateSecurePassword(pass, salt);
 
             user.setPassword(newSecurePass);
             user.setSalt(salt);
@@ -94,9 +110,224 @@ public class UserServiceImpl implements UserService {
 
             dao.create(user);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, SQL_ERROR);
         }
-        return user;
+        return clearPassword(user);
+    }
+
+    /**
+     * Updates personal user information in the data source.
+     *
+     * @param user the provided user entity with a new personal information.
+     * @return the updated user value
+     * @throws ServiceException if failed to update user entity in the data
+     *                          source.
+     */
+    @Override
+    public User updatePersonalData(final User user) throws ServiceException {
+        UserDao dao = transaction.getUserDao();
+        try {
+            if (!validator.isValidName(user.getName())) {
+                throw new ServiceException(INVALID_NAME);
+            }
+            if (!validator.isValidSurname(user.getSurname())) {
+                throw new ServiceException(INVALID_SURNAME);
+            }
+            if (!validator.isValidPatronymic(user.getPatronymic())) {
+                throw new ServiceException(INVALID_PATRONYMIC);
+            }
+            if (!validator.isValidPhone(user.getPhoneNumber())) {
+                throw new ServiceException(INVALID_PHONE_NUMBER);
+            }
+            if (!validator.isValidAddress(user.getAddress())) {
+                throw new ServiceException(INVALID_ADDRESS);
+            }
+
+            Optional<User> optionalUser = dao.findById(user.getId());
+            if (optionalUser.isPresent()) {
+                User userToUpdate = optionalUser.get();
+
+                userToUpdate.setName(user.getName());
+                userToUpdate.setSurname(user.getSurname());
+                userToUpdate.setPatronymic(user.getPatronymic());
+                userToUpdate.setPhoneNumber(user.getPhoneNumber());
+                userToUpdate.setAddress(user.getAddress());
+
+                dao.update(userToUpdate);
+
+                return userToUpdate;
+            } else {
+                throw new ServiceException(USER_NOT_FOUND);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Updates music and communication user preferences in the data source.
+     *
+     *
+     * @param id the provided user ID.
+     * @param music the provided music preferences.
+     * @param communication the provided communication preferences.
+     * @return the updated user value
+     * @throws ServiceException if failed to update user entity in the data
+     *                          source.
+     */
+    @Override
+    public User updatePreferences(final long id, final String music,
+            final String communication) throws ServiceException {
+        UserDao dao = transaction.getUserDao();
+        try {
+            if (!validator.isValidPreferences(music)
+                || !validator.isValidPreferences(communication)) {
+                throw new ServiceException(INVALID_PREFERENCES);
+            }
+            Optional<User> optionalUser = dao.findById(id);
+            if (optionalUser.isPresent()) {
+                User userToUpdate = optionalUser.get();
+
+                userToUpdate.setMusic(Integer.parseInt(music));
+                userToUpdate.setCommunication(Integer.parseInt(communication));
+
+                dao.update(userToUpdate);
+
+                return userToUpdate;
+            } else {
+                throw new ServiceException(USER_NOT_FOUND);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Updates user email in the data source.
+     *
+     * @param id    the provided user ID.
+     * @param email the provided email value.
+     * @return the updated user entity.
+     * @throws ServiceException if failed to update user entity in the data
+     *                          source.
+     */
+    @Override
+    public User updateEmail(final long id, final String email) throws
+            ServiceException {
+        UserDao dao = transaction.getUserDao();
+        try {
+            if (!validator.isValidEmail(email)) {
+                throw new ServiceException(INVALID_EMAIL);
+            }
+            Optional<User> optionalUser = dao.findById(id);
+            if (optionalUser.isPresent()) {
+                User userToUpdate = optionalUser.get();
+
+                userToUpdate.setEmail(email);
+
+                dao.update(userToUpdate);
+
+                return userToUpdate;
+            } else {
+                throw new ServiceException(USER_NOT_FOUND);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Updates user password in the data source.
+     *
+     * @param id          the provided user ID.
+     * @param currentPass the provided current password value.
+     * @param newPass     the provided new password value.
+     * @return the updated user entity.
+     * @throws ServiceException if failed to update user entity in the data
+     *                          source.
+     */
+    @Override
+    public User updatePassword(final long id, final String currentPass,
+                              final String newPass) throws
+            ServiceException {
+        UserDao dao = transaction.getUserDao();
+        try {
+            if (!validator.isValidPassword(newPass)) {
+                throw new ServiceException(INVALID_PASS);
+            }
+            Optional<User> optionalUser = dao.findById(id);
+            if (optionalUser.isPresent()) {
+                User userToUpdate = optionalUser.get();
+
+                String currentSalt = userToUpdate.getSalt();
+                String currentDbPass = userToUpdate.getPassword();
+
+                if (verifyUserPassword(currentPass, currentDbPass,
+                                       currentSalt)) {
+                    String salt = getSalt();
+                    String newPassHash = generateSecurePassword(newPass, salt);
+
+                    userToUpdate.setPassword(newPassHash);
+                    userToUpdate.setSalt(salt);
+
+                    dao.updatePassword(userToUpdate);
+                } else {
+                    throw new ServiceException(INVALID_CURRENT_PASS);
+                }
+
+                return clearPassword(userToUpdate);
+            } else {
+                throw new ServiceException(SQL_ERROR);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Updates user driver information in the data source.
+     *
+     * @param id       the provided user ID.
+     * @param license  the provided driver license.
+     * @param carModel the provided car model.
+     * @param carColor the provided car color.
+     * @return the updated user entity.
+     * @throws ServiceException if failed to update user entity in the data
+     *                          source.
+     */
+    @Override
+    public User updateDriverInfo(final long id, final String license,
+            final String carModel, final String carColor) throws
+            ServiceException {
+        UserDao dao = transaction.getUserDao();
+        try {
+            if (!validator.isValidLicense(license)
+                || !validator.isValidValues(carColor, carModel)) {
+                throw new ServiceException(INVALID_DRIVER_INFO);
+            }
+            Optional<User> optionalUser = dao.findById(id);
+            if (optionalUser.isPresent()) {
+                User userToUpdate = optionalUser.get();
+
+                boolean isUpdatable = userToUpdate
+                                              .getDriverLicenseNumber() != null;
+
+                userToUpdate.setDriverLicenseNumber(license);
+                userToUpdate.setCarModel(carModel);
+                userToUpdate.setCarColor(carColor);
+
+                if (isUpdatable) {
+                    dao.updateDriverInfo(userToUpdate);
+                } else {
+                    dao.addDriverInfo(userToUpdate);
+                }
+                return userToUpdate;
+            } else {
+                throw new ServiceException(USER_NOT_FOUND);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
     }
 
     /**
@@ -114,10 +345,10 @@ public class UserServiceImpl implements UserService {
             if (user.isPresent()) {
                 return user.get();
             } else {
-                throw new ServiceException("User not found!");
+                throw new ServiceException(USER_NOT_FOUND);
             }
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, SQL_ERROR);
         }
     }
 
@@ -134,7 +365,7 @@ public class UserServiceImpl implements UserService {
         try {
             dao.delete(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, SQL_ERROR);
         }
     }
 
@@ -150,7 +381,7 @@ public class UserServiceImpl implements UserService {
         try {
             return dao.findAll();
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, SQL_ERROR);
         }
     }
 
@@ -173,20 +404,31 @@ public class UserServiceImpl implements UserService {
                 User user = optionalUser.get();
                 String savedPassword = user.getPassword();
                 String salt = user.getSalt();
-                if (PasswordUtils.verifyUserPassword(
+                if (verifyUserPassword(
                         password, savedPassword, salt)) {
-                    //clear pass and salt
-                    user.setPassword(null);
-                    user.setSalt(null);
-                    return optionalUser.get();
+                    return clearPassword(user);
                 } else {
-                    throw new ServiceException("Wrong password!");
+                    throw new ServiceException(WRONG_LOGIN_OR_PASS);
                 }
             } else {
-                throw new ServiceException("User does not exist!");
+                throw new ServiceException(USER_DOES_NOT_EXIST);
             }
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, SQL_ERROR);
         }
+    }
+
+    /**
+     * Clears password and salt values to store user entity to the session.
+     *
+     * @param user the provided user entity.
+     * @return the user entity.
+     */
+    private User clearPassword(final User user) {
+        //clear pass and salt to store user in the session
+        user.setPassword(null);
+        user.setSalt(null);
+
+        return user;
     }
 }
