@@ -115,8 +115,6 @@ public class Controller extends HttpServlet {
         try {
             ActionManager actionManager = ActionManagerFactory.getManager(
                     getFactory());
-/*            ActionCommandFactory factory = new ActionCommandFactory();
-            ActionCommand command = factory.defineCommand(req);*/
 
             actionManager.execute(command, req, resp);
             actionManager.close();
