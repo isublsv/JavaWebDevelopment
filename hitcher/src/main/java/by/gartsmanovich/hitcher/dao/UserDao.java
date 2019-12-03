@@ -14,9 +14,27 @@ import java.util.Optional;
 public interface UserDao extends AbstractDao<User> {
 
     /**
+     * Updates password and salt of the user entity in the data source.
+     *
+     * @param user the provided user entity.
+     * @throws DaoException if failed to update user password in the
+     *                      data source.
+     */
+    void updatePassword(User user) throws DaoException;
+
+    /**
+     * Updates a driver information of the user entity in the data source.
+     *
+     * @param user the provided user entity.
+     * @throws DaoException if failed to update user driver information in the
+     *                      data source.
+     */
+    void updateDriverInfo(User user) throws DaoException;
+
+    /**
      * Finds user by login in the data source if present.
      *
-     * @param login    the user login.
+     * @param login the user login.
      * @return the user entity if present.
      * @throws DaoException if failed to find user in the data source by login.
      */
@@ -38,4 +56,5 @@ public interface UserDao extends AbstractDao<User> {
      * @throws DaoException if failed to find all users in the data source.
      */
     List<User> findAll() throws DaoException;
+
 }
