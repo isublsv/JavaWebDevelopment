@@ -27,7 +27,7 @@ public class MainActionCommand extends AuthorizedActionCommand {
     @Override
     public void execute(final HttpServletRequest request,
             final HttpServletResponse response) throws IOException {
-        response.sendRedirect(
-                ConfigurationManager.getProperty("path.page.index"));
+        response.sendRedirect(request.getContextPath()
+                + ConfigurationManager.getProperty("path.page.index"));
     }
 }
