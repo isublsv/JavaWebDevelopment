@@ -46,7 +46,7 @@ public class MysqlUserDao implements UserDao {
     private static final String FIND_FULL_DATA_USER =
             "SELECT u.id, u.login, u.email, u.password, u.salt, u.role,"
             + " u.status, u.registration_date, h.surname, h.name, h.patronymic,"
-            + " h.phone, h.address, h.music, h.communication,"
+            + " h.phone, h.address, h.music_id, h.communication_id,"
             + " di.driving_licence_number, di.car_model, di.car_color"
             + " FROM users AS u LEFT JOIN hitchers AS h ON u.id = h.user_id"
             + " LEFT JOIN driver_info AS di ON u.id = di.user_id";
@@ -68,9 +68,24 @@ public class MysqlUserDao implements UserDao {
      * Query to update data of selected user in the database.
      */
     private static final String UPDATE_USER =
-            "UPDATE hitcher_db.hitchers AS h SET h.surname=?, "
-            + "h.name=?, h.patronymic=?, h.phone=?, h.address=?, "
-            + "h.music=?, h.communication=? WHERE h.user_id=?;";
+            "UPDATE users AS u INNER JOIN"
+            + " hitchers AS h ON u.id = h.user_id SET "
+            + " u.email=?, h.surname=?, h.name=?, h.patronymic=?, h.phone=?,"
+            + " h.address=?, h.music_id=?, h.communication_id=? WHERE u.id=?;";
+
+    /**
+     * Query to update user password and salt in the database.
+     */
+    private static final String UPDATE_USER_PASSWORD =
+            "UPDATE users AS u SET u.password=?, u.salt=? WHERE u.id=?";
+
+    /**
+     * Query to update user driver info in the database.
+     */
+    private static final String UPDATE_DRIVER_INFO =
+            "UPDATE users AS u LEFT JOIN driver_info AS di ON"
+            + " u.id = di.user_id SET di.driving_licence_number=?,"
+            + " di.car_model=?, di.car_color=? WHERE u.id=?;";
 
     /**
      * Query to delete selected user from the database.
@@ -143,7 +158,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to create user!", e);
+            throw new DaoException("Failed to create user.", e);
         }
     }
 
@@ -167,7 +182,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find user by ID!", e);
+            throw new DaoException("Failed to find user by ID", e);
         }
         return Optional.ofNullable(user);
     }
@@ -184,19 +199,66 @@ public class MysqlUserDao implements UserDao {
                 UPDATE_USER)) {
             int counter = 1;
 
+            statement.setString(counter++, entity.getEmail());
             statement.setString(counter++, entity.getSurname());
             statement.setString(counter++, entity.getName());
             statement.setString(counter++, entity.getPatronymic());
             statement.setString(counter++, entity.getPhoneNumber());
             statement.setString(counter++, entity.getAddress());
-            statement.setString(counter++, entity.getMusic());
-            statement.setString(counter++, entity.getCommunication());
+            statement.setInt(counter++, entity.getMusic());
+            statement.setInt(counter++, entity.getCommunication());
 
             statement.setLong(counter, entity.getId());
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Failed to update user!", e);
+            throw new DaoException("Failed to update user.", e);
+        }
+    }
+
+    /**
+     * Updates password and salt of the user entity in the database.
+     *
+     * @param user the provided user entity.
+     * @throws DaoException if failed to update user password in the database.
+     */
+    @Override
+    public void updatePassword(final User user) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(
+                UPDATE_USER_PASSWORD)) {
+            int counter = 1;
+
+            statement.setString(counter++, user.getPassword());
+            statement.setString(counter++, user.getSalt());
+            statement.setLong(counter, user.getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Failed to update user password.", e);
+        }
+    }
+
+    /**
+     * Updates a driver information of the user entity in the data source.
+     *
+     * @param user the provided user entity.
+     * @throws DaoException if failed to update user driver information in the
+     *                      data source.
+     */
+    @Override
+    public void updateDriverInfo(final User user) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(
+                UPDATE_DRIVER_INFO)) {
+            int counter = 1;
+
+            statement.setString(counter++, user.getDriverLicenseNumber());
+            statement.setString(counter++, user.getCarModel());
+            statement.setString(counter++, user.getCarColor());
+            statement.setLong(counter, user.getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Failed to update user driver info.", e);
         }
     }
 
@@ -215,7 +277,7 @@ public class MysqlUserDao implements UserDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Failed to delete user!", e);
+            throw new DaoException("Failed to delete user.", e);
         }
     }
 
@@ -236,7 +298,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find all users!", e);
+            throw new DaoException("Failed to find all users.", e);
         }
         return users;
     }
@@ -264,7 +326,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find user by login", e);
+            throw new DaoException("Failed to find user by login.", e);
         }
         return Optional.ofNullable(user);
     }
@@ -291,7 +353,7 @@ public class MysqlUserDao implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find user by email", e);
+            throw new DaoException("Failed to find user by email.", e);
         }
         return Optional.ofNullable(user);
     }
@@ -321,8 +383,8 @@ public class MysqlUserDao implements UserDao {
         user.setPatronymic(resultSet.getString(counter++));
         user.setPhoneNumber(resultSet.getString(counter++));
         user.setAddress(resultSet.getString(counter++));
-        user.setMusic(resultSet.getString(counter++));
-        user.setCommunication(resultSet.getString(counter++));
+        user.setMusic(resultSet.getInt(counter++));
+        user.setCommunication(resultSet.getInt(counter++));
         user.setDriverLicenseNumber(resultSet.getString(counter++));
         user.setCarModel(resultSet.getString(counter++));
         user.setCarColor(resultSet.getString(counter));
