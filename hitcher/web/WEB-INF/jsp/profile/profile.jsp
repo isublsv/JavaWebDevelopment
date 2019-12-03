@@ -84,11 +84,11 @@
                     </div>
                     <div class="tab-pane fade" id="review-received" role="tabpanel" aria-labelledby="review-tab">
                         <h3><fmt:message key="review.header.received"/></h3>
-
+                        <jsp:include page="review/review_about.jsp"/>
                     </div>
                     <div class="tab-pane fade" id="review-left" role="tabpanel" aria-labelledby="review-tab">
                         <h3><fmt:message key="review.header.left"/></h3>
-
+                        <jsp:include page="review/my_reviews.jsp"/>
                     </div>
                     <div class="tab-pane fade" id="pass" role="tabpanel" aria-labelledby="pass-tab">
                         <h3><fmt:message key="pass.header"/></h3>
