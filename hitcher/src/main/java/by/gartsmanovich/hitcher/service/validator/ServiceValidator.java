@@ -53,7 +53,7 @@ public class ServiceValidator {
     /**
      * Describes a pattern that validates user patronymic value.
      */
-    private static final Pattern PATRONYMIC_REGEX = Pattern.compile(
+    private static final Pattern OTHER_VALUES_REGEX = Pattern.compile(
             "^[A-ZА-ЯЎІ]{0,60}$", Pattern.CASE_INSENSITIVE);
 
     /**
@@ -72,8 +72,14 @@ public class ServiceValidator {
     /**
      * Describes a pattern that validates user address value.
      */
-    private static final Pattern PREFERENCES_REGEX = Pattern.compile(
-            "[1-3]", Pattern.CASE_INSENSITIVE);
+    private static final Pattern PREFERENCES_REGEX =
+            Pattern.compile("[1-3]", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Describes a pattern that validates user driver license number value.
+     */
+    private static final Pattern DRIVER_LICENSE_REGEX = Pattern.compile(
+            "^\\d[\\w]{2}\\s[\\d]{6}", Pattern.CASE_INSENSITIVE);
 
     /**
      * Validates user email.
@@ -94,7 +100,7 @@ public class ServiceValidator {
      */
     public boolean isValidLogin(final String login) {
         Matcher matcher = LOGIN_REGEX.matcher(login);
-        return isValidValue(login) && matcher.find();
+        return matcher.find();
     }
 
     /**
@@ -105,7 +111,7 @@ public class ServiceValidator {
      */
     public boolean isValidName(final String name) {
         Matcher matcher = NAME_REGEX.matcher(name);
-        return isValidValue(name) && matcher.find();
+        return matcher.find();
     }
 
     /**
@@ -116,7 +122,7 @@ public class ServiceValidator {
      */
     public boolean isValidSurname(final String surname) {
         Matcher matcher = SURNAME_REGEX.matcher(surname);
-        return isValidValue(surname) && matcher.find();
+        return matcher.find();
     }
 
     /**
@@ -126,7 +132,7 @@ public class ServiceValidator {
      * @return true if patronymic value is valid, false - otherwise.
      */
     public boolean isValidPatronymic(final String patronymic) {
-        Matcher matcher = PATRONYMIC_REGEX.matcher(patronymic);
+        Matcher matcher = OTHER_VALUES_REGEX.matcher(patronymic);
         return matcher.find();
     }
 
@@ -169,10 +175,10 @@ public class ServiceValidator {
     }
 
     /**
-     * Validates user preferences.
+     * Validates user password.
      *
-     * @param pass the provided user preferences.
-     * @return true if preferences values is valid, false - otherwise.
+     * @param pass the provided user password.
+     * @return true if password values is valid, false - otherwise.
      */
     public boolean isValidPassword(final String pass) {
         Matcher matcher = PASS_REGEX.matcher(pass);
@@ -180,13 +186,29 @@ public class ServiceValidator {
     }
 
     /**
-     * Validates a provided parameter.
+     * Validates user driver license.
      *
-     * @param param the provided value.
-     * @return true if parameter is valid, false - otherwise.
+     * @param license the provided user driver license.
+     * @return true if driver license values is valid, false - otherwise.
      */
-    private boolean isValidValue(final String param) {
-        return param != null && !param.isEmpty();
+    public boolean isValidLicense(final String license) {
+        Matcher matcher = DRIVER_LICENSE_REGEX.matcher(license);
+        return matcher.find();
     }
 
+    /**
+     * Validates provided parameters.
+     *
+     * @param param the provided values.
+     * @return true if parameters are valid, false - otherwise.
+     */
+    public boolean isValidValues(final String... param) {
+        for (String value : param) {
+            Matcher matcher = OTHER_VALUES_REGEX.matcher(value);
+            if (!matcher.find()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
