@@ -83,9 +83,17 @@ public class MysqlUserDao implements UserDao {
      * Query to update user driver info in the database.
      */
     private static final String UPDATE_DRIVER_INFO =
-            "UPDATE users AS u LEFT JOIN driver_info AS di ON"
+            "UPDATE users AS u INNER JOIN driver_info AS di ON"
             + " u.id = di.user_id SET di.driving_licence_number=?,"
             + " di.car_model=?, di.car_color=? WHERE u.id=?;";
+
+    /**
+     * Query to create user driver info in the database.
+     */
+    private static final String CREATE_DRIVER_INFO =
+            "INSERT INTO hitcher_db.driver_info"
+            + " (user_id, driving_licence_number, car_model, car_color)"
+            + " VALUES (?, ?, ?, ?)";
 
     /**
      * Query to delete selected user from the database.
@@ -259,6 +267,30 @@ public class MysqlUserDao implements UserDao {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Failed to update user driver info.", e);
+        }
+    }
+
+    /**
+     * Adds an user driver information to the data source.
+     *
+     * @param user the provided user entity.
+     * @throws DaoException if failed to add user driver information to the
+     *                      data source.
+     */
+    @Override
+    public void addDriverInfo(final User user) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(
+                CREATE_DRIVER_INFO)) {
+            int counter = 1;
+
+            statement.setLong(counter++, user.getId());
+            statement.setString(counter++, user.getDriverLicenseNumber());
+            statement.setString(counter++, user.getCarModel());
+            statement.setString(counter, user.getCarColor());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Failed to create user driver info.", e);
         }
     }
 
