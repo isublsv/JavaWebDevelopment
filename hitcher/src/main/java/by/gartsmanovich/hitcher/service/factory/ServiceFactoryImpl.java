@@ -6,6 +6,7 @@ import by.gartsmanovich.hitcher.dao.transaction.factory.TransactionFactory;
 import by.gartsmanovich.hitcher.service.ReviewService;
 import by.gartsmanovich.hitcher.service.TripService;
 import by.gartsmanovich.hitcher.service.UserService;
+import by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes;
 import by.gartsmanovich.hitcher.service.impl.ReviewServiceImpl;
 import by.gartsmanovich.hitcher.service.impl.TripServiceImpl;
 import by.gartsmanovich.hitcher.service.impl.UserServiceImpl;
@@ -76,7 +77,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
         try {
             factory.close();
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, ServiceErrorCodes.SQL_ERROR);
         }
     }
 }
