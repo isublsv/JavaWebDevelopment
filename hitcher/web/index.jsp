@@ -16,13 +16,10 @@
 
     <title>Where you want to go?</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<c:url value="vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="<c:url value="css/scrolling-nav.css"/>" rel="stylesheet">
     <link href="<c:url value="css/index.css"/>" rel="stylesheet">
-    <link href="<c:url value="css/all.css"/>" rel="stylesheet">
+    <jsp:include page="WEB-INF/jsp/template/links.jsp"/>
 </head>
 
 <body id="page-top">
@@ -77,12 +74,5 @@
     <jsp:include page="WEB-INF/jsp/template/footer.jsp"/>
 </fmt:bundle>
 
-<!-- Bootstrap core JavaScript -->
-<script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
-<script src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
-
-<!-- Plugin JavaScript -->
-<script src="<c:url value="/vendor/jquery-easing/jquery.easing.min.js"/>"></script>
 </body>
-
 </html>
