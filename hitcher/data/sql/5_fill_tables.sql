@@ -82,13 +82,13 @@ VALUES (10, 'Carlson', 'Carl', null, '+375 (25) 520-44-44', null, 1, 2);
 
 
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
-VALUES (2, 'AA 12345678', 'Mazda CRV', 'RED');
+VALUES (2, '1AA 987654', 'Mazda CRV', 'RED');
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
-VALUES (4, 'AA 98765432', 'Volvo XC90', 'BLUE');
+VALUES (4, '2AA 123456', 'Volvo XC90', 'BLUE');
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
-VALUES (5, 'AA 11223344', 'Nissan Qashqai', 'METALLIC');
+VALUES (5, '5AA 112233', 'Nissan Qashqai', 'METALLIC');
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
-VALUES (8, 'AA 55669977', 'LADA Sedan', 'YELLOW');
+VALUES (8, '3AA 556699', 'LADA Sedan', 'YELLOW');
 
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
 VALUES (2, 3, 'Приятный человек!', 5);
