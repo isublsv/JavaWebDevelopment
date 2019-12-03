@@ -33,18 +33,28 @@ public class MysqlReviewDao implements ReviewDao {
             + "who_id, text, rating) VALUES ( ?, ?, ?, ?)";
 
     /**
-     * Query to find a review by ID in the database.
+     * Common part of the find review query.
      */
-    private static final String FIND_BY_ID =
-            "SELECT r.about_id, r.who_id, r.text, r.rating "
-            + "FROM reviews AS r WHERE r.id=?;";
+    private static final String FIND_BY =
+            "SELECT r.id, r.about_id, r.who_id, r.text, r.rating "
+            + "FROM reviews AS r ";
 
     /**
-     * Query to find all reviews in the database.
+     * Query to find a review by ID in the database.
      */
-    private static final String FIND_ALL =
-            "SELECT r.id, r.about_id, r.who_id, r.text, r.rating "
-            + "FROM reviews AS r;";
+    private static final String FIND_BY_ID = FIND_BY + " WHERE r.id=?;";
+
+    /**
+     * Query to find all reviews by "who_id" (an author) in the database.
+     */
+    private static final String FIND_ALL_BY_WHO_ID =
+            FIND_BY + " WHERE r.who_id=?;";
+
+    /**
+     * Query to find all reviews by "about_id" (a subject) in the database.
+     */
+    private static final String FIND_ALL_BY_ABOUT_ID =
+            FIND_BY + " WHERE r.about_id=?;";
 
     /**
      * Query to update data of selected review in the database.
@@ -133,17 +143,48 @@ public class MysqlReviewDao implements ReviewDao {
     }
 
     /**
-     * Finds all reviews in the database.
+     * Finds all reviews by author ID in the database.
      *
+     * @param id the of the author of the review.
      * @return the list of reviews.
      * @throws DaoException if failed to find all reviews entity in the
      *                      database.
      */
     @Override
-    public List<Review> findAllReviews() throws DaoException {
+    public List<Review> findAllReviewsByWhoId(final long id) throws
+            DaoException {
+        return getReviews(id, FIND_ALL_BY_WHO_ID);
+    }
+
+    /**
+     * Finds all reviews by subject ID in the database.
+     *
+     * @param id the of the subject of the review.
+     * @return the list of reviews.
+     * @throws DaoException if failed to find all reviews entity in the
+     *                      database.
+     */
+    @Override
+    public List<Review> findAllReviewsByAboutId(final long id) throws
+            DaoException {
+        return getReviews(id, FIND_ALL_BY_ABOUT_ID);
+    }
+
+    /**
+     * Gets the reviews list by ID from the database.
+     *
+     * @param id             the provided ID.
+     * @param findAllByIdSql the sql query.
+     * @return the review list.
+     * @throws DaoException if failed to find all reviews entity in the
+     *                      database.
+     */
+    private List<Review> getReviews(final long id,
+            final String findAllByIdSql) throws DaoException {
         List<Review> reviewList = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(
-                FIND_ALL)) {
+                findAllByIdSql)) {
+            statement.setLong(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
