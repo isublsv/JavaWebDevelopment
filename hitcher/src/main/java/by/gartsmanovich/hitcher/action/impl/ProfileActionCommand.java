@@ -48,8 +48,11 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
 
         try {
             UserService userService = getFactory().getUserService();
-            userService.findByID(user.getId());
+            user = userService.findByID(user.getId());
             session.setAttribute("authorizedUser", user);
+            String message = String.format(
+                    "Full data %s was loaded successfully", user.getLogin());
+            LOGGER.warn(message);
             request.getServletContext().getRequestDispatcher(
                     ConfigurationManager.getProperty("path.page.profile"))
                    .forward(request, response);
