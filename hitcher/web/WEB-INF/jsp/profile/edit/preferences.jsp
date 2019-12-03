@@ -44,7 +44,7 @@
 </fmt:bundle>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#inputGroupSelect01").val('${sessionScope.authorizedUser.communication}');
-        $("#inputGroupSelect02").val('${sessionScope.authorizedUser.music}');
+        $("#inputGroupSelect01").val('${requestScope.authorizedUser.communication}');
+        $("#inputGroupSelect02").val('${requestScope.authorizedUser.music}');
     });
 </script>

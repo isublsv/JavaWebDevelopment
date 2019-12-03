@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" id="nameInput" placeholder="Name" name="name"
-                           value="${sessionScope.authorizedUser.name}" required>
+                           value="${requestScope.authorizedUser.name}" required>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" id="surnameInput" placeholder="Surname" name="surname"
-                           value="${sessionScope.authorizedUser.surname}" required>
+                           value="${requestScope.authorizedUser.surname}" required>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -37,7 +37,7 @@
                 <div class="col-sm-7">
                     <input type="text" class="form-control" id="patronymicInput" placeholder="Patronymic"
                            name="patronymic"
-                           value="${sessionScope.authorizedUser.patronymic}">
+                           value="${requestScope.authorizedUser.patronymic}">
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="col-sm-7">
                     <input type="tel" class="form-control" id="phoneInput" placeholder="(xx) xxx-xx-xx" name="phone"
                            pattern="[\+]\d{1,3}\s[\(]\d{2,3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}" minlength="17" maxlength="20"
-                           value="${sessionScope.authorizedUser.phoneNumber}" required>
+                           value="${requestScope.authorizedUser.phoneNumber}" required>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -65,7 +65,7 @@
                 <div class="col-sm-7">
                     <input type="text" class="form-control" id="addressInput" placeholder="name@example.com"
                            name="address"
-                           value="${sessionScope.authorizedUser.address}">
+                           value="${requestScope.authorizedUser.address}">
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>

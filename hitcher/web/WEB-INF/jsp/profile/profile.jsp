@@ -58,8 +58,8 @@
                     </li>
                     <li class="nav-item">
                         <h4 class="dropdown-header"><fmt:message key="registration"/></h4>
-                        <p class="text-center ">${sessionScope.authorizedUser.registrationDate.month} / 
-                                ${sessionScope.authorizedUser.registrationDate.year}</p>
+                        <p class="text-center ">${requestScope.authorizedUser.registrationDate.month} / 
+                                ${requestScope.authorizedUser.registrationDate.year}</p>
                     </li>
                 </ul>
             </div>

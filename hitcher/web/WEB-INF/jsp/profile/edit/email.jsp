@@ -9,7 +9,7 @@
 <br/>
 <br/>
 <fmt:bundle basename="pagecontent" prefix="profile.">
-<form method="post" action="${pageContext.request.contextPath}/profile/edit/email.do"
+<form method="post" action="${requestScope.request.contextPath}/profile/edit/email.do"
       class="needs-validation" novalidate>
     <div class="group-wrapper">
         <div class="form-group row">
@@ -18,7 +18,7 @@
             </div>
             <div class="col-sm-7">
                 <input type="email" class="form-control" id="emailInput" placeholder="Email" name="email"
-                       value="${sessionScope.authorizedUser.email}" required>
+                       value="${requestScope.authorizedUser.email}" required>
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>

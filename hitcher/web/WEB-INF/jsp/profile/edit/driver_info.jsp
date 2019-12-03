@@ -19,7 +19,7 @@
                 <div class="col-sm-7">
                     <input type="text" class="form-control" id="numberInput" placeholder="<fmt:message key="number"/>"
                            name="number"
-                           value="${sessionScope.authorizedUser.driverLicenseNumber}" required>
+                           value="${requestScope.authorizedUser.driverLicenseNumber}" required>
                     <small><fmt:message key="number.example"/>1AA 123456</small>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
@@ -32,7 +32,7 @@
                 <div class="col-sm-7">
                     <input type="text" class="form-control" id="modelInput" placeholder="<fmt:message key="model"/>"
                            name="model"
-                           value="${sessionScope.authorizedUser.carModel}" required>
+                           value="${requestScope.authorizedUser.carModel}" required>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="col-sm-7">
                     <input type="text" class="form-control" id="colorInput" placeholder="<fmt:message key="color"/>"
                            name="color"
-                           value="${sessionScope.authorizedUser.carColor}" required>
+                           value="${requestScope.authorizedUser.carColor}" required>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
