@@ -20,7 +20,9 @@ public interface AbstractDao<T extends Entity> {
      * @param entity the provided entity.
      * @throws DaoException if failed to create entity in the data source.
      */
-    void create(T entity) throws DaoException;
+    default void create(T entity) throws DaoException {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Finds entity in the data source by provided ID if present.
@@ -29,7 +31,9 @@ public interface AbstractDao<T extends Entity> {
      * @return the entity value if present.
      * @throws DaoException if failed to find entity by ID.
      */
-    Optional<T> findById(long id) throws DaoException;
+    default Optional<T> findById(long id) throws DaoException {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Updates the provided entity in the data source.
@@ -37,7 +41,9 @@ public interface AbstractDao<T extends Entity> {
      * @param entity the provided entity.
      * @throws DaoException if failed to update entity in the data source.
      */
-    void update(T entity) throws DaoException;
+    default void update(T entity) throws DaoException {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Deletes the provided entity by ID from the data source.
@@ -45,5 +51,7 @@ public interface AbstractDao<T extends Entity> {
      * @param id the provided entity ID.
      * @throws DaoException if failed to delete entity by ID.
      */
-    void delete(long id) throws DaoException;
+    default void delete(long id) throws DaoException {
+        throw new UnsupportedOperationException();
+    }
 }
