@@ -29,9 +29,9 @@
 <fmt:bundle basename="pagecontent" prefix="index.">
     <header class="bg-primary text-white">
         <div class="container text-center">
-            <button class="btn btn-lg btn-primary btn-block btn-find-trip text-uppercase font-weight-bold mb-2"
-                    type="submit"><fmt:message key="find.trip"/>
-            </button>
+            <a class="btn btn-lg btn-primary btn-block btn-find-trip text-uppercase font-weight-bold mb-2"
+                    href="<c:url value="/find_trip.do"/>"><fmt:message key="find.trip"/>
+            </a>
         </div>
     </header>
 
