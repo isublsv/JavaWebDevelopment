@@ -14,7 +14,7 @@ public class Review extends Entity {
     private long aboutId;
 
     /**
-     * The ID of the review owner.
+     * The ID of the review author.
      */
     private long whoId;
 
@@ -36,11 +36,11 @@ public class Review extends Entity {
 
     /**
      * Constructs the review instance with ID value, user ID is review about,
-     * ID value of the review owner, text and rating value.
+     * ID value of the review author, text and rating value.
      *
      * @param idValue      the ID value.
      * @param aboutIdValue the user ID value which this review about.
-     * @param whoIdValue   the user ID value of the review owner.
+     * @param whoIdValue   the user ID value of the review author.
      * @param textValue    the text value.
      * @param ratingValue  the rating value.
      */
