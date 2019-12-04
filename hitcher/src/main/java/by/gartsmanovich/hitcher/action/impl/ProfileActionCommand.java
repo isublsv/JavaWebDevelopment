@@ -64,7 +64,8 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
             request.setAttribute("left", byWhoID);
 
             String message = String.format(
-                    "Full data %s was loaded successfully", user.getLogin());
+                    "Full data for user \"%s\" was loaded successfully",
+                    user.getLogin());
             LOGGER.debug(message);
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(
