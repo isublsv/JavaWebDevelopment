@@ -13,22 +13,22 @@ import java.util.List;
 public interface ReviewDao extends AbstractDao<Review> {
 
     /**
-     * Finds all reviews by author ID in the database.
+     * Finds all reviews by author ID in the data source.
      *
      * @param id the of the author of the review.
      * @return the list of reviews.
      * @throws DaoException if failed to find all reviews entity in the
-     *                      database.
+     *                      data source.
      */
     List<Review> findAllReviewsByWhoId(long id) throws DaoException;
 
     /**
-     * Finds all reviews by subject ID in the database.
+     * Finds all reviews by subject ID in the data source.
      *
      * @param id the of the subject of the review.
      * @return the list of reviews.
      * @throws DaoException if failed to find all reviews entity in the
-     *                      database.
+     *                      data source.
      */
     List<Review> findAllReviewsByAboutId(long id) throws DaoException;
 }
