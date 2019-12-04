@@ -54,7 +54,7 @@ public class RatingTag extends SimpleTagSupport {
                         Review::getRating).sum();
                 rating = sum / reviewUserMap.size();
             }
-            getJspContext().getOut().write(rating);
+            getJspContext().getOut().write(String.valueOf(rating));
         } catch (Exception e) {
             String message = "Cannot execute tag body";
             LOGGER.error(message, e);
