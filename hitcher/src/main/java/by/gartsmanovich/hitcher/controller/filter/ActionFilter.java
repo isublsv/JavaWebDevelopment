@@ -2,6 +2,12 @@ package by.gartsmanovich.hitcher.controller.filter;
 
 import by.gartsmanovich.hitcher.action.ActionCommand;
 import by.gartsmanovich.hitcher.action.impl.BanActionCommand;
+import by.gartsmanovich.hitcher.action.impl.EditDriverInfoActionCommand;
+import by.gartsmanovich.hitcher.action.impl.EditEmailActionCommand;
+import by.gartsmanovich.hitcher.action.impl.EditPasswordActionCommand;
+import by.gartsmanovich.hitcher.action.impl.EditPersonalDataActionCommand;
+import by.gartsmanovich.hitcher.action.impl.EditPreferencesActionCommand;
+import by.gartsmanovich.hitcher.action.impl.LoadTripInfoActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LoginActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
 import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
@@ -47,19 +53,27 @@ public class ActionFilter implements Filter {
      *
      * @param config a <code>FilterConfig</code> object containing the
      *               filter's configuration and initialization parameters
-     * @throws ServletException if an exception has occurred that interferes
-     *                          with the filter's normal operation
      */
     @Override
-    public void init(final FilterConfig config) throws ServletException {
+    public void init(final FilterConfig config) {
+        //unauthorized user actions
         actions.put("/", new MainActionCommand());
         actions.put("/index", new MainActionCommand());
         actions.put("/login", new LoginActionCommand());
         actions.put("/register", new RegisterActionCommand());
-
+        actions.put("/trip/load", new LoadTripInfoActionCommand());
+        //user actions
         actions.put("/logout", new LogoutActionCommand());
         actions.put("/profile", new ProfileActionCommand());
-
+        actions.put("/profile/edit/personal_data",
+                    new EditPersonalDataActionCommand());
+        actions.put("/profile/edit/preferences",
+                    new EditPreferencesActionCommand());
+        actions.put("/profile/edit/email", new EditEmailActionCommand());
+        actions.put("/profile/edit/password", new EditPasswordActionCommand());
+        actions.put("/profile/edit/driver_info",
+                    new EditDriverInfoActionCommand());
+        //admin actions
         actions.put("/ban", new BanActionCommand());
     }
 
@@ -99,14 +113,12 @@ public class ActionFilter implements Filter {
                 actionName = uri.substring(beginAction);
             }
 
-            ActionCommand actionCommand;
-            try {
-                actionCommand = actions.get(actionName);
-                req.setAttribute("command", actionCommand);
+            if (actions.get(actionName) != null) {
+                req.setAttribute("command", actions.get(actionName));
                 chain.doFilter(request, response);
-            } catch (IllegalArgumentException | NullPointerException e) {
+            } else {
                 LOGGER.error(
-                        "It is impossible to create action handler object", e);
+                        "It is impossible to create action handler object");
                 String message = String.format(
                         "Requested address %s cant be handled by server", uri);
                 req.setAttribute("errorMessage", message);
