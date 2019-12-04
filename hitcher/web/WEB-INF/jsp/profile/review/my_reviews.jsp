@@ -9,7 +9,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3"><fmt:message key="rating"/></div>
-            <div class="col-sm-3"><rt:ratingTag map="${requestScope.left}"/></div>
+            <div class="col-sm-3">
+                <span class="badge badge-warning badge-pill"><rt:ratingTag map="${requestScope.left}"/></span>
+            </div>
         </div>
     </div>
     <div class="container">
