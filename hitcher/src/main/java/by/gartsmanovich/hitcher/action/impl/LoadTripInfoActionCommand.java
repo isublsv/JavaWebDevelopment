@@ -52,7 +52,7 @@ public class LoadTripInfoActionCommand extends ActionCommand {
             LOGGER.debug("Destination list was successfully loaded");
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.profile"))
+                           "path.page.find.trip"))
                    .forward(request, response);
         } catch (ServiceException e) {
             String message = e.getCode().getMessage();
