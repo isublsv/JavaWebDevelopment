@@ -56,8 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
             UserDao userDao = transaction.getUserDao();
             for (Review review : reviewList) {
                 Optional<User> user = userDao.findById(review.getAboutId());
-                user.ifPresent(
-                        userValue -> reviewUserMap.put(review, userValue));
+                user.ifPresent(value -> reviewUserMap.put(review, value));
             }
         } catch (DaoException e) {
             throw new ServiceException(SQL_ERROR);
@@ -83,8 +82,7 @@ public class ReviewServiceImpl implements ReviewService {
             UserDao userDao = transaction.getUserDao();
             for (Review review : reviewList) {
                 Optional<User> user = userDao.findById(review.getWhoId());
-                user.ifPresent(
-                        userValue -> reviewUserMap.put(review, userValue));
+                user.ifPresent(value -> reviewUserMap.put(review, value));
             }
         } catch (DaoException e) {
             throw new ServiceException(SQL_ERROR);
