@@ -28,25 +28,6 @@ VALUES ('xtasy', 'sell@gmail.com', 'jVv9sQyBOMyUrOrheOOU8vzkSV4sBv/Ky8N20lfxh/Q=
 INSERT INTO hitcher_db.users (login, email, password, salt, role, status, registration_date)
 VALUES ('carl', 'carlson@yahoo.com', '4mcBWw15Btu6wu/zdwNKNHtc90UEPf1zaqm+k09mMHE=', 'BQTgkFqXwp09pFjVukoX5RbLikQgrZ', 1, 1, '2015-04-19 23:56:36');
 
-/*INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (2, 'Smith', 'John', null,  '+375 (29) 123-45-67', 'Sovetskaya st., 13, 1', 'Electronic', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (3, 'Solovei', 'Anna', 'Alexeevna', '+375 (29) 222-55-55', 'Slobodskoi pr., 122', 'Radio', 'Dont want to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (4, 'Petrov', 'Vasya', 'Vasilievich', '+375 (25) 710-21-99', 'Pushkina pr., 14', 'Metal', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (5, 'Познева', 'Наталья', 'Петровна', '+375 (25) 510-28-44', 'Козлова, 22', 'Depends on playlist', 'Dont want to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (6, 'Осипов', 'Олег', null, '+375 (25) 192-21-39', null, 'Electronic', 'Always ready to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (7, 'Ivanov', 'Ivan', 'Ivanovich', '+375 (27) 232-33-33', 'Odincova st, 15', 'Metal', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (8, 'Сидоров', 'Сидор', 'Сидорович', '+375 (25) 788-28-94', 'пер. Пешеходов, 2', 'Depends on playlist', 'Dont want to talk');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (9, 'Selezneva', 'Olga', null, '+375 (25) 577-28-74', null, 'Radio', 'Depends on mood');
-INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music, communication)
-VALUES (10, 'Carlson', 'Carl', null, '+375 (25) 520-44-44', null, 'Depends on playlist', 'Always ready to talk');*/
-
 INSERT INTO hitcher_db.music (description)
     VALUE ('music.negative');
 INSERT INTO hitcher_db.music (description)
@@ -80,7 +61,6 @@ VALUES (9, 'Selezneva', 'Olga', null, '+375 (25) 577-28-74', null, 2, 1);
 INSERT INTO hitcher_db.hitchers (user_id, surname, name, patronymic, phone, address, music_id, communication_id)
 VALUES (10, 'Carlson', 'Carl', null, '+375 (25) 520-44-44', null, 1, 2);
 
-
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
 VALUES (2, '1AA 987654', 'Mazda CRV', 'RED');
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
@@ -111,26 +91,67 @@ VALUES (8, 4, 'Ужасный человек!', 1);
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
 VALUES (8, 5, 'Я хочу от него детей!', 5);
 
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (1, 2, 'Минск', 'Москва', '2019-11-09 17:00:00', '2019-11-10 05:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (2, 4, 'Брест', 'Витебск', '2019-11-11 13:00:00', '2019-11-11 22:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (3, 5, 'Могилев', 'Минск', '2019-11-09 09:00:00', '2019-11-09 13:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (4, 8, 'Минск ', 'Москва', '2019-11-09 12:00:00', '2019-11-09 22:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (5, 4, 'Варшава', 'Берлин', '2019-11-15 15:00:00', '2019-11-15 21:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (6, 2, 'Париж', 'Мадрид', '2019-11-12 15:00:00', '2019-11-13 15:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (7, 8, 'Таллин', 'Вильнюс', '2019-11-20 09:00:00', '2019-11-20 11:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (8, 2, 'Минск', 'Вильнюс', '2019-11-21 09:00:00', '2019-11-20 13:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (9, 4, 'Москва', 'Смоленск', '2019-11-13 18:00:00', '2019-11-19 18:00:00');
-INSERT INTO hitcher_db.trips (id, `driver_id`, `from`, `to`, departure_datetime, arrival_datetime)
-VALUES (10, 5, 'Москва', 'Челябинск', '2019-11-14 09:00:00', '2019-11-17 18:00:00');
+INSERT INTO hitcher_db.country (id, name) VALUES (1, 'Russia');
+INSERT INTO hitcher_db.country (id, name) VALUES (2, 'Belarus');
+INSERT INTO hitcher_db.country (id, name) VALUES (3, 'Ukraine');
+INSERT INTO hitcher_db.country (id, name) VALUES (4, 'Poland');
+
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (1, 'Moscow', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (2, 'Saint Petersburg', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (3, 'Novosibirsk', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (4, 'Yekaterinburg', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (5, 'Nizhny Novgorod', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (6, 'Kazan', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (7, 'Chelyabinsk', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (8, 'Omsk', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (9, 'Samara', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (10, 'Ufa', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (11, 'Perm', 1);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (12, 'Minsk', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (13, 'Barysaw', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (14, 'Salihorsk', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (15, 'Maladzyechna', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (16, 'Zhodzina', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (17, 'Slutsk', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (18, 'Vitebsk', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (19, 'Orsha', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (20, 'Mogilev', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (21, 'Babruysk', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (22, 'Gomel', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (23, 'Mazyr', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (24, 'Brest', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (25, 'Pinsk', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (26, 'Grodno', 2);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (27, 'Kiev', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (28, 'Kharkiv', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (29, 'Odessa', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (30, 'Dnipropetrovsk', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (31, 'Donetsk', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (32, 'Zaporizhia', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (33, 'Lviv', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (34, 'Mykolaiv', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (35, 'Donetsk', 3);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (36, 'Warsaw', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (37, 'Legnica', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (38, 'Olsztyn', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (39, 'Opole', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (40, 'Rybnik', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (41, 'Szczecin', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (42, 'Bydgoszcz', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (43, 'Lublin', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (44, 'Katowice', 4);
+INSERT INTO hitcher_db.city (id, name, country_id) VALUES (45, 'Kielce', 4);
+
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (1, 2, 1, 2, '2019-11-09 17:00:00', '2019-11-10 05:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (2, 4, 5, 2, '2019-11-11 13:00:00', '2019-11-11 22:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (3, 5, 12, 19, '2019-11-09 09:00:00', '2019-11-09 13:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (4, 8, 1, 27, '2019-11-09 12:00:00', '2019-11-09 22:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (5, 4, 29, 30, '2019-11-15 15:00:00', '2019-11-15 21:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (6, 2, 38, 17, '2019-11-12 15:00:00', '2019-11-13 15:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (7, 8, 15, 42, '2019-11-20 09:00:00', '2019-11-20 11:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (8, 2, 3, 10, '2019-11-21 09:00:00', '2019-11-20 13:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (9, 4, 22, 1, '2019-11-13 18:00:00', '2019-11-19 18:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (10, 5, 37, 25, '2019-11-14 09:00:00', '2019-11-17 18:00:00');
 
 INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
 VALUES (1, 1);

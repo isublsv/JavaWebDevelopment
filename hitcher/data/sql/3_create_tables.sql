@@ -95,17 +95,46 @@ CREATE TABLE `reviews`
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
+CREATE TABLE country
+(
+    `id`   INTEGER      NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARACTER SET utf8;
+
+CREATE TABLE city
+(
+    `id`         INTEGER      NOT NULL AUTO_INCREMENT,
+    `name`       VARCHAR(255) NOT NULL,
+    `country_id` INTEGER      NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT FOREIGN KEY (`country_id`)
+        REFERENCES `country` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+) ENGINE = INNODB
+  DEFAULT CHARACTER SET utf8;
+
 CREATE TABLE trips
 (
-    `id`                 INTEGER      NOT NULL AUTO_INCREMENT,
-    `driver_id`          INTEGER      NOT NULL,
-    `from`               VARCHAR(255) NOT NULL,
-    `to`                 VARCHAR(255) NOT NULL,
-    `departure_datetime` DATETIME     NOT NULL,
-    `arrival_datetime`   DATETIME     NOT NULL,
+    `id`                 INTEGER  NOT NULL AUTO_INCREMENT,
+    `driver_id`          INTEGER  NOT NULL,
+    `from_city_id`       INTEGER  NOT NULL,
+    `to_city_id`         INTEGER  NOT NULL,
+    `departure_datetime` DATETIME NOT NULL,
+    `arrival_datetime`   DATETIME NOT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT FOREIGN KEY (`driver_id`)
         REFERENCES `users` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT FOREIGN KEY (`from_city_id`)
+        REFERENCES `city` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT FOREIGN KEY (`to_city_id`)
+        REFERENCES `city` (`id`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 ) ENGINE = INNODB
