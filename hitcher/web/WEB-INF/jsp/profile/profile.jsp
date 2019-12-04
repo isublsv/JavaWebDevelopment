@@ -15,7 +15,6 @@
         <title>Where you want to go?</title>
 
         <link href="<c:url value="/css/profile.css"/>" rel="stylesheet">
-        <link href="<c:url value="/css/index.css"/>" rel="stylesheet">
 
         <jsp:include page="/WEB-INF/jsp/template/links.jsp"/>
     </head>
