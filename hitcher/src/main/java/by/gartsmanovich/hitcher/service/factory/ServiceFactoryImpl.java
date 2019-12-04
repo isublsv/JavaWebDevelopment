@@ -3,10 +3,12 @@ package by.gartsmanovich.hitcher.service.factory;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
 import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.dao.transaction.factory.TransactionFactory;
+import by.gartsmanovich.hitcher.service.DestinationService;
 import by.gartsmanovich.hitcher.service.ReviewService;
 import by.gartsmanovich.hitcher.service.TripService;
 import by.gartsmanovich.hitcher.service.UserService;
 import by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes;
+import by.gartsmanovich.hitcher.service.impl.DestinationServiceImpl;
 import by.gartsmanovich.hitcher.service.impl.ReviewServiceImpl;
 import by.gartsmanovich.hitcher.service.impl.TripServiceImpl;
 import by.gartsmanovich.hitcher.service.impl.UserServiceImpl;
@@ -65,6 +67,18 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public ReviewService getReviewService() {
         Transaction transaction = factory.createTransaction();
         return new ReviewServiceImpl(transaction);
+    }
+
+    /**
+     * Creates the destination Service instance that defines business logic
+     * over the destination entity.
+     *
+     * @return the review destination realisation.
+     */
+    @Override
+    public DestinationService getDestinationService() {
+        Transaction transaction = factory.createTransaction();
+        return new DestinationServiceImpl(transaction);
     }
 
     /**

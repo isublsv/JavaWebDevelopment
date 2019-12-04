@@ -1,5 +1,6 @@
 package by.gartsmanovich.hitcher.service.factory;
 
+import by.gartsmanovich.hitcher.service.DestinationService;
 import by.gartsmanovich.hitcher.service.ReviewService;
 import by.gartsmanovich.hitcher.service.TripService;
 import by.gartsmanovich.hitcher.service.UserService;
@@ -36,6 +37,14 @@ public interface ServiceFactory {
      * @return the review service realisation.
      */
     ReviewService getReviewService();
+
+    /**
+     * Creates the destination Service instance that defines business logic
+     * over the destination entity.
+     *
+     * @return the review destination realisation.
+     */
+    DestinationService getDestinationService();
 
     /**
      * Closes the factory.
