@@ -1,9 +1,11 @@
 package by.gartsmanovich.hitcher.dao.transaction;
 
+import by.gartsmanovich.hitcher.dao.DestinationDao;
 import by.gartsmanovich.hitcher.dao.ReviewDao;
 import by.gartsmanovich.hitcher.dao.TripDao;
 import by.gartsmanovich.hitcher.dao.UserDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
+import by.gartsmanovich.hitcher.dao.impl.MysqlDestinationDao;
 import by.gartsmanovich.hitcher.dao.impl.MysqlReviewDao;
 import by.gartsmanovich.hitcher.dao.impl.MysqlTripDao;
 import by.gartsmanovich.hitcher.dao.impl.MysqlUserDao;
@@ -71,6 +73,17 @@ public class TransactionImpl implements Transaction {
     @Override
     public ReviewDao getReviewDao() {
         return new MysqlReviewDao(connection);
+    }
+
+    /**
+     * Returns a new instance of destination DAO Implementation for the
+     * concrete database.
+     *
+     * @return the concrete destination DAO implementation.
+     */
+    @Override
+    public DestinationDao getDestinationDao() {
+        return new MysqlDestinationDao(connection);
     }
 
     /**

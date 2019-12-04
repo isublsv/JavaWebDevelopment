@@ -1,5 +1,6 @@
 package by.gartsmanovich.hitcher.dao.transaction;
 
+import by.gartsmanovich.hitcher.dao.DestinationDao;
 import by.gartsmanovich.hitcher.dao.ReviewDao;
 import by.gartsmanovich.hitcher.dao.TripDao;
 import by.gartsmanovich.hitcher.dao.UserDao;
@@ -36,6 +37,14 @@ public interface Transaction {
      * @return the concrete review DAO implementation.
      */
     ReviewDao getReviewDao();
+
+    /**
+     * Returns a new instance of destination DAO Implementation for the concrete
+     * database.
+     *
+     * @return the concrete destination DAO implementation.
+     */
+    DestinationDao getDestinationDao();
 
     /**
      * Makes all changes made since the previous commit/rollback permanent and
