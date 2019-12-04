@@ -49,7 +49,8 @@
                     <label for="phoneInput" class="col-sm-3"><fmt:message key="phone"/></label>
                 </div>
                 <div class="col-sm-7">
-                    <input type="tel" class="form-control" id="phoneInput" placeholder="(xx) xxx-xx-xx" name="phone"
+                    <input type="tel" class="form-control" id="phoneInput" placeholder="+375 (XX) XXX-XX-XX" 
+                           name="phone"
                            pattern="[\+]\d{1,3}\s[\(]\d{2,3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}" minlength="17" maxlength="20"
                            value="${requestScope.authorizedUser.phoneNumber}" required>
                     <div class="valid-feedback">Valid.</div>
