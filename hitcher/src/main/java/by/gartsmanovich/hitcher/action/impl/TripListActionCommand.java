@@ -53,7 +53,7 @@ public class TripListActionCommand extends ActionCommand {
             TripService tripService = getFactory().getTripService();
             List<Trip> trips = tripService
                     .findTripsByValues(cityFrom, cityTo, departure);
-            request.setAttribute("dest", trips);
+            request.setAttribute("trips", trips);
             LOGGER.debug("Trip list was successfully loaded");
 
             if (trips.isEmpty()) {
