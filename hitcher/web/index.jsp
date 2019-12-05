@@ -30,7 +30,7 @@
     <header class="bg-primary text-white">
         <div class="container text-center">
             <a class="btn btn-lg btn-primary btn-block btn-find-trip text-uppercase font-weight-bold mb-2"
-                    href="<c:url value="/trip/load.do"/>"><fmt:message key="find.trip"/>
+                    href="<c:url value="/trip/load.do?action=find"/>"><fmt:message key="trip.find"/>
             </a>
         </div>
     </header>
