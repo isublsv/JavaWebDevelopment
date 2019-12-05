@@ -5,64 +5,124 @@
 <c:set var="language" value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="pagecontent" prefix="navbar.">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="<c:url value="/index.do"/>">WhereUWannaGO</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <c:choose>
-                    <c:when test="${not empty sessionScope.authorizedUser}">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbar_profile" data-toggle="dropdown">
-                                <fmt:message key="greetings"/>, ${sessionScope.authorizedUser.login}
-                            </a>
-                            <div class="dropdown-menu">
-                                <c:if test="${not param.isProfileNavbar}">
-                                <a class="dropdown-item" href="<c:url value="/profile.do"/>"><fmt:message key="link.profile"/></a>
-                                </c:if>
-                                <c:if test="${sessionScope.authorizedUser.role eq 'ADMIN'}">
-                                    <a class="dropdown-item" href="<c:url value="/user_list.do"/>"><fmt:message key="link.user.list"/></a>
-                                </c:if>
-                                <a class="dropdown-item" href="<c:url value="/logout.do"/>"><fmt:message key="link.logout"/></a>
-                            </div>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="nav-item">
-                            <a class="nav-link" data-target="#sign-in" data-toggle="modal"
-                               href="javascript:void(0)"><fmt:message key="link.login"/></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-target="#register" data-toggle="modal"
-                               href="javascript:void(0)"><fmt:message key="link.register"/></a>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-                <c:if test="${not param.isProfileNavbar}">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about"><fmt:message key="link.about"/></a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="<c:url value="/index.do"/>">WhereUWannaGO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <c:choose>
+                        <c:when test="${not param.isProfileNavbar}"> <%--index page--%>
+                            <%--find trip--%>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.authorizedUser}"> <%--user exist--%>
+                                    <%--hello, user dropdown--%>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbar_profile_index" 
+                                           data-toggle="dropdown">
+                                            <fmt:message key="greetings"/>, ${sessionScope.authorizedUser.login}
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="<c:url value="/trip/load.do?action=offer"/>">
+                                                <fmt:message key="trip.offer"/></a>
+                                            <c:if test="${not param.isProfileNavbar}">
+                                                <a class="dropdown-item" href="<c:url value="/profile.do"/>"><fmt:message
+                                                        key="link.profile"/></a>
+                                            </c:if>
+                                                <%--if admin, show user list--%>
+                                            <c:if test="${sessionScope.authorizedUser.role eq 'ADMIN'}">
+                                                <a class="dropdown-item" href="<c:url value="/user_list.do"/>"><fmt:message
+                                                        key="link.user.list"/></a>
+                                            </c:if>
+                                            <a class="dropdown-item" href="<c:url value="/logout.do"/>"><fmt:message
+                                                    key="link.logout"/></a>
+                                        </div>
+                                    </li>
+                                    <%--about--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link js-scroll-trigger" href="#about"><fmt:message key="link.about"/></a>
+                                    </li>
+                                    <%--services--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link js-scroll-trigger" href="#services"><fmt:message key="link.services"/></a>
+                                    </li>
+                                    <%--contacts--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link js-scroll-trigger" href="#contact"><fmt:message key="link.contract"/></a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <%--login--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-target="#sign-in" data-toggle="modal"
+                                           href="javascript:void(0)"><fmt:message key="link.login"/></a>
+                                    </li>
+                                    <%--register--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-target="#register" data-toggle="modal"
+                                           href="javascript:void(0)"><fmt:message key="link.register"/></a>
+                                    </li>
+                                    <%--about--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link js-scroll-trigger" href="#about"><fmt:message key="link.about"/></a>
+                                    </li>
+                                    <%--services--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link js-scroll-trigger" href="#services"><fmt:message key="link.services"/></a>
+                                    </li>
+                                    <%--contacts--%>
+                                    <li class="nav-item">
+                                        <a class="nav-link js-scroll-trigger" href="#contact"><fmt:message key="link.contract"/></a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise> <%--profile page--%>
+                            <%--find trip--%>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="<c:url value="/trip/load.do?action=find"/>">
+                                    <fmt:message key="trip.find"/></a>
+                            </li>
+                            <%--create trip--%>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="<c:url value="/trip/load.do?action=offer"/>">
+                                    <fmt:message key="trip.offer"/></a>
+                            </li>
+                            <%--hello, user dropdown--%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbar_profile_profile" 
+                                   data-toggle="dropdown">
+                                    <fmt:message key="greetings"/>, ${sessionScope.authorizedUser.login}
+                                </a>
+                                <div class="dropdown-menu">
+                                    <c:if test="${not param.isProfileNavbar}">
+                                        <a class="dropdown-item" href="<c:url value="/profile.do"/>"><fmt:message key="link.profile"/></a>
+                                    </c:if>
+                                        <%--if admin, show user list--%>
+                                    <c:if test="${sessionScope.authorizedUser.role eq 'ADMIN'}">
+                                        <a class="dropdown-item" href="<c:url value="/user_list.do"/>"><fmt:message key="link.user.list"/></a>
+                                    </c:if>
+                                    <a class="dropdown-item" href="<c:url value="/logout.do"/>"><fmt:message key="link.logout"/></a>
+                                </div>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                        <%--choose language--%>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbar_lang" data-toggle="dropdown">
+                            <fmt:message key="link.language"/>
+                        </a>
+                        <div class="dropdown-menu" id="langDrop" onchange="submit()">
+                            <a class="dropdown-item" href="<c:url value="?locale=en"/>">English</a>
+                            <a class="dropdown-item" href="<c:url value="?locale=ru"/>">Русский</a>
+                            <a class="dropdown-item" href="<c:url value="?locale=be"/>">Беларуская</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#services"><fmt:message key="link.services"/></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contact"><fmt:message key="link.contract"/></a>
-                    </li>
-                </c:if>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbar_lang" data-toggle="dropdown">
-                        <fmt:message key="link.language"/>
-                    </a>
-                    <div class="dropdown-menu" id="langDrop" onchange="submit()">
-                        <a class="dropdown-item" href="<c:url value="?locale=en"/>">English</a>
-                        <a class="dropdown-item" href="<c:url value="?locale=ru"/>">Русский</a>
-                        <a class="dropdown-item" href="<c:url value="?locale=be"/>">Беларуская</a>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
