@@ -47,6 +47,8 @@
                         const country = $('#countryFrom').val();
                         const city = $('#cityFrom');
 
+                        city.empty();
+                        
                         <c:forEach var="item" items="${requestScope.dest}">
                         if ((country === "${item.id}")) {
                             <c:forEach var="city" items="${item.cities}">
@@ -86,6 +88,8 @@
                         const country = $('#countryTo').val();
                         const city = $('#cityTo');
 
+                        city.empty();
+                        
                         <c:forEach var="item" items="${requestScope.dest}">
                         if ((country === "${item.id}")) {
                             <c:forEach var="city" items="${item.cities}">
