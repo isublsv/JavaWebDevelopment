@@ -13,6 +13,7 @@ import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
 import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
+import by.gartsmanovich.hitcher.action.impl.TripListActionCommand;
 
 /**
  * Utility class for Action filter used to find Action command by provided uri.
@@ -41,6 +42,8 @@ public enum ActionCommandProvider {
                 return new RegisterActionCommand();
             case "/trip/load":
                 return new LoadTripInfoActionCommand();
+            case "/trip/result_list":
+                return new TripListActionCommand();
             case "/logout":
                 return new LogoutActionCommand();
             case "/profile":
