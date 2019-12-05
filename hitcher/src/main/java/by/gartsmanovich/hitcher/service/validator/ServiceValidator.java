@@ -1,5 +1,7 @@
 package by.gartsmanovich.hitcher.service.validator;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,6 +82,11 @@ public class ServiceValidator {
      */
     private static final Pattern DRIVER_LICENSE_REGEX = Pattern.compile(
             "^\\d[A-Z]{2} [\\d]{6}$");
+
+    /**
+     * Describes a pattern that validates numbers.
+     */
+    private static final Pattern NUMBERS_REGEX = Pattern.compile("[\\d]+");
 
     /**
      * Validates user email.
@@ -166,12 +173,7 @@ public class ServiceValidator {
      */
     public boolean isValidPreferences(final String preferences) {
         Matcher matcher = PREFERENCES_REGEX.matcher(preferences);
-        try {
-            Integer.parseInt(preferences);
             return matcher.find();
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 
     /**
@@ -197,7 +199,7 @@ public class ServiceValidator {
     }
 
     /**
-     * Validates provided parameters.
+     * Validates provided string parameters.
      *
      * @param param the provided values.
      * @return true if parameters are valid, false - otherwise.
@@ -208,6 +210,40 @@ public class ServiceValidator {
             if (!matcher.find()) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    /**
+     * Validates provided numeric parameters.
+     *
+     * @param numbers the provided numeric parameters.
+     * @return true if numeric parameters are valid, false - otherwise.
+     */
+    public boolean isValidNumbers(final String... numbers) {
+        for (String value : numbers) {
+            Matcher matcher = NUMBERS_REGEX.matcher(value);
+            if (!matcher.find()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validates provided date value.
+     *
+     * @param value the provided date.
+     * @return true if date is valid, false - otherwise.
+     */
+    public boolean isValidDate(final String value) {
+        try {
+            LocalDate date = LocalDate.parse(value);
+            if (date.isBefore(LocalDate.now())) {
+                return false;
+            }
+        } catch (DateTimeParseException e) {
+            return false;
         }
         return true;
     }
