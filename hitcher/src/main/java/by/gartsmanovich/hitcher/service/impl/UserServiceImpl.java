@@ -80,8 +80,6 @@ public class UserServiceImpl implements UserService {
     public User save(final String login, final String email,
             final String pass) throws ServiceException {
 
-        UserDao dao = transaction.getUserDao();
-        User user;
         try {
             if (!validator.isValidLogin(login)) {
                 throw new ServiceException(INVALID_LOGIN);
@@ -89,13 +87,17 @@ public class UserServiceImpl implements UserService {
             if (!validator.isValidEmail(email)) {
                 throw new ServiceException(INVALID_EMAIL);
             }
+
+            UserDao dao = transaction.getUserDao();
+
             if (dao.findUserByLogin(login).isPresent()) {
                 throw new ServiceException(USER_EXISTS);
             }
             if (dao.findUserByEmail(email).isPresent()) {
                 throw new ServiceException(EMAIL_EXISTS);
             }
-            user = new User();
+
+            User user = new User();
             user.setLogin(login);
             user.setEmail(email);
 
@@ -109,10 +111,10 @@ public class UserServiceImpl implements UserService {
             user.setRegistrationDate(LocalDate.now());
 
             dao.create(user);
+            return clearPassword(user);
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
-        return clearPassword(user);
     }
 
     /**
@@ -125,7 +127,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User updatePersonalData(final User user) throws ServiceException {
-        UserDao dao = transaction.getUserDao();
+
         try {
             if (!validator.isValidName(user.getName())) {
                 throw new ServiceException(INVALID_NAME);
@@ -143,6 +145,7 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException(INVALID_ADDRESS);
             }
 
+            UserDao dao = transaction.getUserDao();
             Optional<User> optionalUser = dao.findById(user.getId());
             if (optionalUser.isPresent()) {
                 User userToUpdate = optionalUser.get();
@@ -178,12 +181,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updatePreferences(final long id, final String music,
             final String communication) throws ServiceException {
-        UserDao dao = transaction.getUserDao();
+
         try {
             if (!validator.isValidPreferences(music)
                 || !validator.isValidPreferences(communication)) {
                 throw new ServiceException(INVALID_PREFERENCES);
             }
+
+            UserDao dao = transaction.getUserDao();
             Optional<User> optionalUser = dao.findById(id);
             if (optionalUser.isPresent()) {
                 User userToUpdate = optionalUser.get();
@@ -214,11 +219,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateEmail(final long id, final String email) throws
             ServiceException {
-        UserDao dao = transaction.getUserDao();
+
         try {
             if (!validator.isValidEmail(email)) {
                 throw new ServiceException(INVALID_EMAIL);
             }
+
+            UserDao dao = transaction.getUserDao();
             Optional<User> optionalUser = dao.findById(id);
             if (optionalUser.isPresent()) {
                 User userToUpdate = optionalUser.get();
@@ -250,11 +257,13 @@ public class UserServiceImpl implements UserService {
     public User updatePassword(final long id, final String currentPass,
                               final String newPass) throws
             ServiceException {
-        UserDao dao = transaction.getUserDao();
+
         try {
             if (!validator.isValidPassword(newPass)) {
                 throw new ServiceException(INVALID_PASS);
             }
+
+            UserDao dao = transaction.getUserDao();
             Optional<User> optionalUser = dao.findById(id);
             if (optionalUser.isPresent()) {
                 User userToUpdate = optionalUser.get();
@@ -299,12 +308,14 @@ public class UserServiceImpl implements UserService {
     public User updateDriverInfo(final long id, final String license,
             final String carModel, final String carColor) throws
             ServiceException {
-        UserDao dao = transaction.getUserDao();
+
         try {
             if (!validator.isValidLicense(license)
                 || !validator.isValidValues(carColor, carModel)) {
                 throw new ServiceException(INVALID_DRIVER_INFO);
             }
+
+            UserDao dao = transaction.getUserDao();
             Optional<User> optionalUser = dao.findById(id);
             if (optionalUser.isPresent()) {
                 User userToUpdate = optionalUser.get();
