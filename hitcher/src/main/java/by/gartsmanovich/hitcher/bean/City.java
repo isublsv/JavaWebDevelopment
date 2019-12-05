@@ -1,29 +1,29 @@
 package by.gartsmanovich.hitcher.bean;
 
-import java.util.List;
+import java.util.Objects;
 
 /**
- * Class represents Destination entity. Each destination describes by
- * country ID, country name and city list.
+ * Class represents City entity. Each destination describes by ID,
+ * country ID and city name.
  *
  * @author Dmitry Gartsmanovich
  */
-public class Destination extends Entity {
+public class City extends Entity {
 
     /**
-     * The country name.
+     * The country ID.
      */
-    private String countryName;
+    private long countryID;
 
     /**
-     * The city list.
+     * The city name.
      */
-    private List<City> cities;
+    private String cityName;
 
     /**
      * Default constructor.
      */
-    public Destination() {
+    public City() {
     }
 
     /**
@@ -31,35 +31,26 @@ public class Destination extends Entity {
      *
      * @param idValue the ID value.
      */
-    public Destination(final long idValue) {
+    public City(final long idValue) {
         super(idValue);
     }
 
     /**
-     * Gets countryName.
+     * Gets countryID.
      *
-     * @return value of countryName.
+     * @return value of countryID.
      */
-    public String getCountryName() {
-        return countryName;
+    public long getCountryID() {
+        return countryID;
     }
 
     /**
-     * Sets countryName.
+     * Sets countryID.
      *
-     * @param countryNameValue value of countryName.
+     * @param countryIDValue value of countryID.
      */
-    public void setCountryName(final String countryNameValue) {
-        countryName = countryNameValue;
-    }
-
-    /**
-     * Sets cities.
-     *
-     * @param citiesValue value of cities.
-     */
-    public void setCities(final List<City> citiesValue) {
-        cities = citiesValue;
+    public void setCountryID(final long countryIDValue) {
+        countryID = countryIDValue;
     }
 
     /**
@@ -67,8 +58,17 @@ public class Destination extends Entity {
      *
      * @return value of cityName.
      */
-    public List<City> getCities() {
-        return cities;
+    public String getCityName() {
+        return cityName;
+    }
+
+    /**
+     * Sets cityName.
+     *
+     * @param cityNameValue value of cityName.
+     */
+    public void setCityName(final String cityNameValue) {
+        cityName = cityNameValue;
     }
 
     /**
@@ -79,8 +79,12 @@ public class Destination extends Entity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = PRIME * result + countryName.hashCode();
-        result = PRIME * result + cities.hashCode();
+        result = PRIME * result + (int) (countryID ^ (countryID >>> SHIFT));
+        if (cityName != null) {
+            result = PRIME * result + cityName.hashCode();
+        } else {
+            result = PRIME * result;
+        }
         return result;
     }
 
@@ -103,11 +107,11 @@ public class Destination extends Entity {
             return false;
         }
 
-        Destination that = (Destination) o;
+        City city = (City) o;
 
-        if (!countryName.equals(that.countryName)) {
+        if (countryID != city.countryID) {
             return false;
         }
-        return cities.equals(that.cities);
+        return Objects.equals(cityName, city.cityName);
     }
 }

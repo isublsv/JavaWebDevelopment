@@ -1,5 +1,6 @@
 package by.gartsmanovich.hitcher.service.impl;
 
+import by.gartsmanovich.hitcher.bean.City;
 import by.gartsmanovich.hitcher.bean.Destination;
 import by.gartsmanovich.hitcher.dao.DestinationDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
@@ -44,7 +45,12 @@ public class DestinationServiceImpl implements DestinationService {
     public List<Destination> findAll() throws ServiceException {
         DestinationDao dao = transaction.getDestinationDao();
         try {
-            return dao.findAll();
+            List<Destination> destinations = dao.findAllDestinations();
+            for (Destination destination : destinations) {
+                List<City> cities = dao.findAllCitiesByID(destination.getId());
+                destination.setCities(cities);
+            }
+            return destinations;
         } catch (DaoException e) {
             throw new ServiceException(e, ServiceErrorCodes.SQL_ERROR);
         }
