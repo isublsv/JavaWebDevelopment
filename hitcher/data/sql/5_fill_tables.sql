@@ -69,6 +69,8 @@ INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, 
 VALUES (5, '5AA 112233', 'Nissan Qashqai', 'METALLIC');
 INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
 VALUES (8, '3AA 556699', 'LADA Sedan', 'YELLOW');
+INSERT INTO hitcher_db.driver_info (user_id, driving_licence_number, car_model, car_color)
+VALUES (3, '1AA 123456', 'LADA Calina', 'BLUE');
 
 INSERT INTO hitcher_db.reviews (about_id, who_id, text, rating)
 VALUES (2, 3, 'Приятный человек!', 5);
@@ -152,6 +154,16 @@ INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure
 INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (8, 2, 3, 10, '2019-11-21 09:00:00', '2019-11-20 13:00:00');
 INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (9, 4, 22, 1, '2019-11-13 18:00:00', '2019-11-19 18:00:00');
 INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (10, 5, 37, 25, '2019-11-14 09:00:00', '2019-11-17 18:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (11, 2, 2, 15, '2019-12-05 23:00:00', '2019-12-15 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (12, 2, 22, 24, '2019-12-12 23:00:00', '2019-12-15 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (13, 3, 2, 8, '2019-12-12 23:00:00', '2019-12-14 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (14, 2, 40, 44, '2019-12-12 23:00:00', '2019-12-14 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (15, 3, 2, 8, '2019-12-13 23:00:00', '2019-12-14 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (16, 3, 2, 8, '2019-12-14 23:00:00', '2019-12-15 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (17, 3, 2, 8, '2019-12-15 23:00:00', '2019-12-16 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (18, 3, 2, 8, '2019-12-16 23:00:00', '2019-12-17 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (19, 3, 2, 8, '2019-12-17 23:00:00', '2019-12-18 23:00:00');
+INSERT INTO hitcher_db.trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (20, 3, 2, 8, '2019-12-18 23:00:00', '2019-12-22 23:00:00');
 
 INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
 VALUES (1, 1);
