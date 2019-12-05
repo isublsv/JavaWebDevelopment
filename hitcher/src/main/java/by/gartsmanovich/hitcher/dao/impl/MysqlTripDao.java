@@ -12,6 +12,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
@@ -40,16 +43,25 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Common part of the find trip query.
      */
     private static final String FIND_USER =
-            "SELECT t.id, t.driver_id, t.`from`, t.`to`, t.departure_datetime,"
+            "SELECT t.id, t.driver_id, c.name, c2.name, t.departure_datetime,"
             + " t.arrival_datetime, top.free_seats, top.price, top.smoking,"
             + " top.pets FROM trips AS t"
-            + " INNER JOIN trip_options top on t.id = top.trip_id";
+            + " INNER JOIN trip_options AS top ON t.id = top.trip_id"
+            + " INNER JOIN city AS c ON t.from_city_id = c.id"
+            + " INNER JOIN city AS c2 ON t.to_city_id = c2.id";
 
     /**
      * Query to find a trip by ID value in the database.
      */
     private static final String FIND_BY_ID = FIND_USER + " WHERE t.id=?;";
 
+    /**
+     * Query to find a trips by values in the database.
+     */
+    private static final String FIND_BY_PARAMS =
+            FIND_USER + " WHERE c.name=? AND c2.name=?"
+            + " AND t.departure_datetime > ?;";
+    
     /**
      * Query to update data of the trip in the database.
      */
@@ -184,6 +196,41 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
         } catch (SQLException e) {
             throw new DaoException("Failed to delete trip!", e);
         }
+    }
+
+    /**
+     * Returns trip list from city {@param fromId} to city {@param toId}
+     * at the day of {@param departureDate} in the database.
+     *
+     * @param fromId        the provided city value ID from which the trip
+     *                      will begin.
+     * @param toId          the provided city value ID of trip destination.
+     * @param departureDate the departure day.
+     * @return the trip list.
+     * @throws DaoException if failed to find trip list in the database.
+     */
+    @Override
+    public List<Trip> findByValues(final int fromId, final int toId,
+            final LocalDate departureDate) throws DaoException {
+        List<Trip> trips = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_BY_PARAMS)) {
+            int counter = 1;
+
+            statement.setLong(counter++, fromId);
+            statement.setLong(counter++, toId);
+            statement.setDate(counter, Date.valueOf(departureDate));
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Trip trip = getTrip(resultSet);
+                    trips.add(trip);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find trip by ID!", e);
+        }
+        return trips;
     }
 
     /**
