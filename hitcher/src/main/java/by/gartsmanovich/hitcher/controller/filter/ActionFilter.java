@@ -1,31 +1,17 @@
 package by.gartsmanovich.hitcher.controller.filter;
 
 import by.gartsmanovich.hitcher.action.ActionCommand;
-import by.gartsmanovich.hitcher.action.impl.BanActionCommand;
-import by.gartsmanovich.hitcher.action.impl.EditDriverInfoActionCommand;
-import by.gartsmanovich.hitcher.action.impl.EditEmailActionCommand;
-import by.gartsmanovich.hitcher.action.impl.EditPasswordActionCommand;
-import by.gartsmanovich.hitcher.action.impl.EditPersonalDataActionCommand;
-import by.gartsmanovich.hitcher.action.impl.EditPreferencesActionCommand;
-import by.gartsmanovich.hitcher.action.impl.LoadTripInfoActionCommand;
-import by.gartsmanovich.hitcher.action.impl.LoginActionCommand;
-import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
-import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
-import by.gartsmanovich.hitcher.action.impl.ProfileActionCommand;
-import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
+import by.gartsmanovich.hitcher.controller.util.ActionCommandProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Filter used to find Action Command in the request URI and set it to the
@@ -40,42 +26,6 @@ public class ActionFilter implements Filter {
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ActionFilter.class);
-
-    /**
-     * Contains a full action list that exist int the application.
-     */
-    private static Map<String, ActionCommand> actions =
-            new ConcurrentHashMap<>();
-
-    /**
-     * Called by the web container to indicate to a filter that it is being
-     * placed into service.
-     *
-     * @param config a <code>FilterConfig</code> object containing the
-     *               filter's configuration and initialization parameters
-     */
-    @Override
-    public void init(final FilterConfig config) {
-        //unauthorized user actions
-        actions.put("/", new MainActionCommand());
-        actions.put("/index", new MainActionCommand());
-        actions.put("/login", new LoginActionCommand());
-        actions.put("/register", new RegisterActionCommand());
-        actions.put("/trip/load", new LoadTripInfoActionCommand());
-        //user actions
-        actions.put("/logout", new LogoutActionCommand());
-        actions.put("/profile", new ProfileActionCommand());
-        actions.put("/profile/edit/personal_data",
-                    new EditPersonalDataActionCommand());
-        actions.put("/profile/edit/preferences",
-                    new EditPreferencesActionCommand());
-        actions.put("/profile/edit/email", new EditEmailActionCommand());
-        actions.put("/profile/edit/password", new EditPasswordActionCommand());
-        actions.put("/profile/edit/driver_info",
-                    new EditDriverInfoActionCommand());
-        //admin actions
-        actions.put("/ban", new BanActionCommand());
-    }
 
     /**
      * The <code>doFilter</code> method of the Filter is called by the
@@ -113,19 +63,11 @@ public class ActionFilter implements Filter {
                 actionName = uri.substring(beginAction);
             }
 
-            if (actions.get(actionName) != null) {
-                req.setAttribute("command", actions.get(actionName));
-                chain.doFilter(request, response);
-            } else {
-                LOGGER.error(
-                        "It is impossible to create action handler object");
-                String message = String.format(
-                        "Requested address %s cant be handled by server", uri);
-                req.setAttribute("errorMessage", message);
-                req.getServletContext()
-                   .getRequestDispatcher("path.page.error")
-                   .forward(request, response);
-            }
+            ActionCommand actionCommand =
+                    ActionCommandProvider.INSTANCE.findAction(
+                    actionName);
+            req.setAttribute("command", actionCommand);
+            chain.doFilter(request, response);
         } else {
             LOGGER.error("It is impossible to use HTTP filter");
             request.getServletContext()
