@@ -21,7 +21,7 @@ public class ActionManagerImpl implements ActionManager {
     private ServiceFactory factory;
 
     /**
-     * Constructs Actrion Manager Implementation instance with provided Service
+     * Constructs Action Manager Implementation instance with provided Service
      * factory.
      *
      * @param factoryValue the provided Service factory instance.
