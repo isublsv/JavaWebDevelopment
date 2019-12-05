@@ -1,5 +1,6 @@
 package by.gartsmanovich.hitcher.action.impl;
 
+import by.gartsmanovich.hitcher.action.ActionCommand;
 import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import java.io.IOException;
  *
  * @author Dmitry Gartsmanovich
  */
-public class MainActionCommand extends AuthorizedActionCommand {
+public class MainActionCommand extends ActionCommand {
 
     /**
      * Handles the request and response and invoke appropriate method in the
