@@ -49,8 +49,8 @@
                     <a href="#" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-md-2 text-center">${trip.driver.name}</div>
-                            <div class="col-md-2 text-center">${trip.from}</div>
-                            <div class="col-md-2 text-center">${trip.to}</div>
+                            <div class="col-md-2 text-center">${trip.from.cityName}</div>
+                            <div class="col-md-2 text-center">${trip.to.cityName}</div>
                             <div class="col-md-2 text-center">${trip.departureDatetime}</div>
                             <div class="col-md-2 text-center">${trip.arrivalDatetime}</div>
                             <div class="col-md-2 text-center">${trip.price}</div>
