@@ -13,14 +13,15 @@
       class="needs-validation" novalidate>
     <div class="group-wrapper">
         <div class="form-group row">
-            <div class="col-sm-3 pl-0">
-                <label for="emailInput" class="col-sm-3"><fmt:message key="email"/></label>
+            <div class="col-md-5">
+                <label for="emailInput" class="col-md-5"><fmt:message key="email"/></label>
             </div>
-            <div class="col-sm-7">
+            <div class="col-md-7">
                 <input type="email" class="form-control" id="emailInput" placeholder="Email" name="email"
-                       value="${requestScope.authorizedUser.email}" required>
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
+                       value="${requestScope.authorizedUser.email}" pattern="^[\w._-]+@[\w.-]+\.[\w]{2,6}$" required>
+                <fmt:bundle basename="pagecontent" prefix="profile.">
+                    <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                </fmt:bundle>
             </div>
         </div>
     </div>
