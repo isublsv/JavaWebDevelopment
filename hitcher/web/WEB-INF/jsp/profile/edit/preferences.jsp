@@ -45,6 +45,7 @@
         </div>
         <fmt:bundle basename="pagecontent" prefix="profile.">
             <input type="submit" class="btn btn-primary" value="<fmt:message key="save"/>">
+            <input type="reset" class="btn btn-danger" value="<fmt:message key="reset"/>">
         </fmt:bundle>
     </form>
 </fmt:bundle>

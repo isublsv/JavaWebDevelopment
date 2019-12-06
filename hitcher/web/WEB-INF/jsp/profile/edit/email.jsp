@@ -9,7 +9,7 @@
 <br/>
 <br/>
 <fmt:bundle basename="pagecontent" prefix="profile.">
-<form method="post" action="${requestScope.request.contextPath}/profile/edit/email.do"
+<form method="post" action="${pageContext.request.contextPath}/profile/edit/email.do"
       class="needs-validation" novalidate>
     <div class="group-wrapper">
         <div class="form-group row">
@@ -27,6 +27,7 @@
     </div>
     <fmt:bundle basename="pagecontent" prefix="profile.">
         <input type="submit" class="btn btn-primary" value="<fmt:message key="save"/>">
+        <input type="reset" class="btn btn-danger" value="<fmt:message key="reset"/>">
     </fmt:bundle>
 </form>
 </fmt:bundle>
