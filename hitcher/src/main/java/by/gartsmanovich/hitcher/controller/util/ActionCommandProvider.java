@@ -14,6 +14,7 @@ import by.gartsmanovich.hitcher.action.impl.MainActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
 import by.gartsmanovich.hitcher.action.impl.TripListActionCommand;
+import by.gartsmanovich.hitcher.action.impl.UserListActionCommand;
 
 /**
  * Utility class for Action filter used to find Action command by provided uri.
@@ -60,6 +61,8 @@ public enum ActionCommandProvider {
                 return new EditDriverInfoActionCommand();
             case "/ban":
                 return new BanActionCommand();
+            case "/admin/user_list":
+                return new UserListActionCommand();
             default:
                 return new MainActionCommand();
         }
