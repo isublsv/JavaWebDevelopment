@@ -201,24 +201,32 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 mx-auto">
-                                        <form method="post" action="${pageContext.request.contextPath}/login.do"
+                                        <form class="needs-validation-login" novalidate method="post"
+                                              action="${pageContext.request.contextPath}/login.do"
                                               id="login-form">
-                                            <div id="warning-message">
-                                                <p class="text-danger text-center">${requestScope.warningMessage}</p>
-                                            </div>
-                                            <div id="error-message">
-                                                <p class="text-danger text-center">${requestScope.errorMessage}</p>
-                                            </div>
+                                            <span id="warning-message" class="text-danger text-center">
+                                                ${requestScope.warningMessage}
+                                            </span>
+                                            <span id="error-message" class="text-danger text-center">
+                                                ${requestScope.errorMessage}
+                                            </span>
                                             <div class="form-label-group">
                                                 <input type="text" id="inputLoginUsername" class="form-control"
-                                                       placeholder="Username" name="login" required autofocus>
-                                                <label for="inputLoginUsername"><fmt:message
+                                                       placeholder="Username" name="login" 
+                                                       pattern="^[\w]{4,45}$" required autofocus>
+                                                <div 
+                                                        class="invalid-feedback"><fmt:message 
+                                                        key="form.invalid.feedback"/></div>
+                                                <label
+                                                        for="inputLoginUsername"><fmt:message
                                                         key="form.username"/></label>
                                             </div>
 
                                             <div class="form-label-group">
                                                 <input type="password" id="inputLoginPassword" class="form-control"
                                                        placeholder="Password" name="pass" required>
+                                                <div class="invalid-feedback"><fmt:message
+                                                        key="form.invalid.feedback"/></div>
                                                 <label for="inputLoginPassword"><fmt:message
                                                         key="form.password"/></label>
                                             </div>
@@ -228,13 +236,17 @@
                                                 <label class="custom-control-label" for="customCheck1"><fmt:message
                                                         key="remember.pass"/></label>
                                             </div>
-                                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                                    type="submit"><fmt:message key="link.login"/>
-                                            </button>
-<%--                                            <div class="text-center">
-                                                <a class="small" href="#"><fmt:message
-                                                        key="link.forgot.pass"/></a>
-                                            </div>--%>
+                                            
+                                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                        type="submit"><fmt:message key="link.login"/>
+                                                </button>
+                                                <%-- <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                        type="reset"><fmt:message key="link.reset"/>
+                                                </button>
+                                                                                               <div class="text-center">
+                                                                                                    <a class="small" href="#"><fmt:message
+                                                                                                            key="link.forgot.pass"/></a>
+                                                                                                </div>--%>
                                         </form>
                                     </div>
                                 </div>
@@ -244,7 +256,26 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            // Disable form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Get the forms we want to add validation styles to
+                    const forms = document.getElementsByClassName('needs-validation-login');
+                    // Loop over them and prevent submission
+                    const validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
         <script type="text/javascript" src="<c:url value="/js/login.js"/>"></script>
     </c:if>
 
@@ -264,16 +295,24 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 mx-auto">
-                                        <form method="post" action="${pageContext.request.contextPath}/register.do">
+                                        <form class="needs-validation-registration" method="post" 
+                                              action="${pageContext.request.contextPath}/register.do" 
+                                              novalidate>
                                             <div class="form-label-group">
                                                 <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username" name="login"
-                                                       required autofocus>
+                                                       pattern="^[\w]{4,45}$" required autofocus>
+                                                <div
+                                                        class="invalid-feedback"><fmt:message
+                                                        key="form.invalid.feedback"/></div>
                                                 <label for="inputRegisterUsername"><fmt:message key="form.username"/></label>
                                             </div>
 
                                             <div class="form-label-group">
                                                 <input type="email" id="inputRegisterEmail" class="form-control" placeholder="Email address" name="email"
-                                                       required>
+                                                       pattern="^[\w._-]+@[\w.-]+\.[\w]{2,6}$" required>
+                                                <div
+                                                        class="invalid-feedback"><fmt:message
+                                                        key="form.invalid.feedback"/></div>
                                                 <label for="inputRegisterEmail"><fmt:message key="form.email"/></label>
                                             </div>
 
@@ -281,18 +320,29 @@
 
                                             <div class="form-label-group">
                                                 <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password" name="pass"
-                                                       required>
+                                                       pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$" required>
+                                                <div class="small text-center"><fmt:message key="password.span"/></div>
+                                                <div
+                                                        class="invalid-feedback"><fmt:message
+                                                        key="form.invalid.feedback"/></div>
                                                 <label for="inputRegisterPassword"><fmt:message key="form.password"/></label>
                                             </div>
 
                                             <div class="form-label-group">
-                                                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password"
-                                                       required>
+                                                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
+                                                <div
+                                                        class="invalid-feedback"><fmt:message
+                                                        key="form.invalid.feedback"/></div>
                                                 <label for="inputConfirmPassword"><fmt:message key="form.password.confirm"/></label>
                                             </div>
                                             <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                                    type="submit"><fmt:message key="link.register"/>
+                                                    type="submit" id="submit_register"><fmt:message 
+                                                    key="link.register"/>
                                             </button>
+<%--                                            <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                    type="reset" id="submit_reset"><fmt:message
+                                                    key="link.reset"/>
+                                            </button>--%>
                                             <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal"
                                                data-dismiss="modal" href="#"><fmt:message key="link.login"/></a>
                                         </form>
@@ -304,5 +354,40 @@
                 </div>
             </div>
         </div>
+        <script>
+            const password = document.getElementById("inputRegisterPassword")
+                , confirm_password = document.getElementById("inputConfirmPassword");
+
+            function validatePassword(){
+                if(password.value !== confirm_password.value) {
+                    confirm_password.setCustomValidity("Passwords Don't Match");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
+            }
+
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+        </script>        
+        <script>
+            // Disable form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Get the forms we want to add validation styles to
+                    const forms = document.getElementsByClassName('needs-validation-registration');
+                    // Loop over them and prevent submission
+                    const validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
     </c:if>
 </fmt:bundle>
