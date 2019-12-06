@@ -48,12 +48,12 @@
                 <c:forEach var="trip" items="${requestScope.trips}">
                     <a href="#" class="list-group-item list-group-item-action">
                         <div class="row">
-                            <div class="col-sm-2 text-center">${trip.driver.name}</div>
-                            <div class="col-sm-2 text-center">${trip.from}</div>
-                            <div class="col-sm-2 text-center">${trip.to}</div>
-                            <div class="col-sm-2 text-center">${trip.departureDatetime}</div>
-                            <div class="col-sm-2 text-center">${trip.arrivalDatetime}</div>
-                            <div class="col-sm-2 text-center">${trip.price}</div>
+                            <div class="col-md-2 text-center">${trip.driver.name}</div>
+                            <div class="col-md-2 text-center">${trip.from}</div>
+                            <div class="col-md-2 text-center">${trip.to}</div>
+                            <div class="col-md-2 text-center">${trip.departureDatetime}</div>
+                            <div class="col-md-2 text-center">${trip.arrivalDatetime}</div>
+                            <div class="col-md-2 text-center">${trip.price}</div>
                         </div>
                     </a>
                 </c:forEach>
