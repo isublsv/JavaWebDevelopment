@@ -14,7 +14,7 @@ public class Trip extends Entity {
     /**
      * The user driver ID.
      */
-    private long driverId;
+    private User driver;
 
     /**
      * The place of departure value.
@@ -72,21 +72,21 @@ public class Trip extends Entity {
     }
 
     /**
-     * Gets driverId.
+     * Gets driver.
      *
-     * @return value of driverId.
+     * @return value of driver.
      */
-    public long getDriverId() {
-        return driverId;
+    public User getDriver() {
+        return driver;
     }
 
     /**
-     * Sets driverId.
+     * Sets driver.
      *
-     * @param driverIdValue value of driverId.
+     * @param driverValue value of driver.
      */
-    public void setDriverId(final long driverIdValue) {
-        driverId = driverIdValue;
+    public void setDriver(final User driverValue) {
+        driver = driverValue;
     }
 
     /**
@@ -242,7 +242,7 @@ public class Trip extends Entity {
     public int hashCode() {
         int result = super.hashCode();
         long temp;
-        result = PRIME * result + (int) (driverId ^ (driverId >>> SHIFT));
+        result = PRIME * result + driver.hashCode();
         result = PRIME * result + from.hashCode();
         result = PRIME * result + to.hashCode();
         result = PRIME * result + departureDatetime.hashCode();
@@ -284,7 +284,7 @@ public class Trip extends Entity {
 
         Trip trip = (Trip) o;
 
-        if (driverId != trip.driverId) {
+        if (!driver.equals(trip.driver)) {
             return false;
         }
         if (freeSeats != trip.freeSeats) {
