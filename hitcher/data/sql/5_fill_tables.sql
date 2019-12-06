@@ -204,25 +204,25 @@ VALUES (9, 10);
 INSERT INTO hitcher_db.trip_users (trip_id, passenger_id)
 VALUES (10, 3);
 
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (1, 3, 50, 1, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (2, 3, 70, 0, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (3, 3, 55, 0, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (4, 2, 45, 1, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (5, 3, 25, 1, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (6, 4, 44, 1, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (7, 2, 30, 1, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (8, 3, 62, 1, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (9, 4, 88, 0, 1);
-INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets)
-VALUES (10, 1, 100, 0, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (1, 3, 50.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (2, 3, 70.00, 0, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (3, 3, 55.00, 0, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (4, 2, 45.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (5, 3, 25.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (6, 4, 44.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (7, 2, 30.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (8, 3, 62.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (9, 4, 88.00, 0, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (10, 1, 100.00, 0, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (11, 1, 20.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (12, 2, 10.00, 0, 0);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (13, 2, 20.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (14, 3, 15.00, 0, 0);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (15, 4, 50.00, 1, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (16, 5, 11.00, 0, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (17, 1, 22.00, 1, 0);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (18, 2, 30.00, 0, 1);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (19, 3, 45.00, 1, 0);
+INSERT INTO hitcher_db.trip_options (trip_id, free_seats, price, smoking, pets) VALUES (20, 4, 22.00, 0, 1);
 
 
