@@ -60,7 +60,7 @@ public class LoadTripInfoActionCommand extends ActionCommand {
             LOGGER.debug("Destination list was successfully loaded");
 
             String forward;
-            if (key.contains("offer")) {
+            if (key != null && key.contains("offer")) {
                 if (user != null && user.getStatus() != Status.BANNED) {
                     forward = ConfigurationManager.getProperty(
                             "path.page.offer.trip");
