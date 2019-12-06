@@ -26,4 +26,14 @@ public interface TripDao extends AbstractDao<Trip> {
      */
     List<Trip> findByValues(int fromId, int toId,
             LocalDate departureDate) throws DaoException;
+
+    /**
+     * Returns user trip list from the data source.
+     *
+     * @param id the provided user ID.
+     * @return the trip list.
+     * @throws DaoException if failed to find trip list by ID from the
+     *                      data source.
+     */
+    List<Trip> findByUserId(long id) throws DaoException;
 }
