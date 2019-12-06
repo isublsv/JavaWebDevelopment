@@ -19,7 +19,7 @@
     </head>
     <body>
     <jsp:include page="../template/navbar.jsp">
-        <jsp:param name="isProfileNavbar" value="true"/>
+        <jsp:param name="isTripNavbar" value="true"/>
     </jsp:include>
     <br/>
     <br/>
