@@ -25,4 +25,13 @@ public interface TripService {
      */
     List<Trip> findTripsByValues(String cityFrom, String cityTo,
             String departure) throws ServiceException;
+
+    /**
+     * Returns user trip list.
+     *
+     * @param id the provided user ID.
+     * @return the trip list.
+     * @throws ServiceException if failed to find trip list by ID.
+     */
+    List<Trip> findTripsById(long id) throws ServiceException;
 }
