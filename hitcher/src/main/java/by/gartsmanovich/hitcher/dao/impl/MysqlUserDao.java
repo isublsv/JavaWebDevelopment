@@ -137,11 +137,12 @@ public class MysqlUserDao implements UserDao {
      * Saves the provided user entity to the database.
      *
      * @param entity the provided user entity.
+     * @return user entity.
      * @throws DaoException if failed to create user in the database or
      * to get auto-incremented key.
      */
     @Override
-    public void create(final User entity) throws DaoException {
+    public User create(final User entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(
                 INSERT_USER, RETURN_GENERATED_KEYS)) {
             int counter = 1;
@@ -169,6 +170,7 @@ public class MysqlUserDao implements UserDao {
         } catch (SQLException e) {
             throw new DaoException("Failed to create user.", e);
         }
+        return entity;
     }
 
     /**

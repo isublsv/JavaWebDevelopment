@@ -18,9 +18,10 @@ public interface AbstractDao<T extends Entity> {
      * Saves the provided entity in the data source.
      *
      * @param entity the provided entity.
+     * @return entity value.
      * @throws DaoException if failed to create entity in the data source.
      */
-    default void create(T entity) throws DaoException {
+    default T create(T entity) throws DaoException {
         throw new UnsupportedOperationException();
     }
 

@@ -87,10 +87,11 @@ public class MysqlReviewDao implements ReviewDao {
      * Saves the provided review entity in the database.
      *
      * @param entity the provided review entity.
+     * @return review entity.
      * @throws DaoException if failed to create review entity in the database.
      */
     @Override
-    public void create(final Review entity) throws DaoException {
+    public Review create(final Review entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(
                 INSERT_REVIEW)) {
 
@@ -115,6 +116,7 @@ public class MysqlReviewDao implements ReviewDao {
         } catch (SQLException e) {
             throw new DaoException("Failed to create review!", e);
         }
+        return entity;
     }
 
     /**
