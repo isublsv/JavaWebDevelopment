@@ -19,12 +19,12 @@ public class Trip extends Entity {
     /**
      * The place of departure value.
      */
-    private String from;
+    private City from;
 
     /**
      * The place of destination value.
      */
-    private String to;
+    private City to;
 
     /**
      * The departure datetime value.
@@ -94,7 +94,7 @@ public class Trip extends Entity {
      *
      * @return value of form.
      */
-    public String getFrom() {
+    public City getFrom() {
         return from;
     }
 
@@ -103,7 +103,7 @@ public class Trip extends Entity {
      *
      * @param fromValue value of form.
      */
-    public void setFrom(final String fromValue) {
+    public void setFrom(final City fromValue) {
         from = fromValue;
     }
 
@@ -112,7 +112,7 @@ public class Trip extends Entity {
      *
      * @return value of to.
      */
-    public String getTo() {
+    public City getTo() {
         return to;
     }
 
@@ -121,7 +121,7 @@ public class Trip extends Entity {
      *
      * @param toValue value of to.
      */
-    public void setTo(final String toValue) {
+    public void setTo(final City toValue) {
         to = toValue;
     }
 
