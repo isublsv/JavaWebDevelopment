@@ -116,6 +116,9 @@ CREATE TABLE city
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
+CREATE INDEX city_name_index
+    ON city (`name`);
+
 CREATE TABLE trips
 (
     `id`                 INTEGER  NOT NULL AUTO_INCREMENT,
