@@ -59,7 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
                 user.ifPresent(value -> reviewUserMap.put(review, value));
             }
         } catch (DaoException e) {
-            throw new ServiceException(SQL_ERROR);
+            throw new ServiceException(e, SQL_ERROR);
         }
 
         return reviewUserMap;
@@ -85,7 +85,7 @@ public class ReviewServiceImpl implements ReviewService {
                 user.ifPresent(value -> reviewUserMap.put(review, value));
             }
         } catch (DaoException e) {
-            throw new ServiceException(SQL_ERROR);
+            throw new ServiceException(e, SQL_ERROR);
         }
 
         return reviewUserMap;
