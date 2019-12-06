@@ -12,44 +12,82 @@
           class="needs-validation" novalidate>
         <div class="group-wrapper">
             <div class="form-group row">
-                <div class="col-sm-3 pl-0">
-                    <label for="currentPassInput" class="col-sm-3"><fmt:message key="current"/></label>
+                <div class="col-md-5">
+                    <label for="currentPassInput" class="col-md-5"><fmt:message key="current"/></label>
                 </div>
-                <div class="col-sm-7">
+                <div class="col-md-7">
                     <input type="password" class="form-control" id="currentPassInput" name="currentpass"
-                           autocomplete="off" required>
-                    <div class="valid-feedback">Valid.</div>
-                    <div class="invalid-feedback">Please fill out this field.</div>
+                           pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$" required>
+                    <fmt:bundle basename="pagecontent" prefix="navbar.">
+                        <div class="small text-center"><fmt:message key="password.span"/></div>
+                    </fmt:bundle>
+                    <fmt:bundle basename="pagecontent" prefix="profile.">
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                    </fmt:bundle>
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-3 pl-0">
-                    <label for="newPassInput" class="col-sm-3"><fmt:message key="new"/></label>
+                <div class="col-md-5">
+                    <label for="newPassInput" class="col-md-5"><fmt:message key="new"/></label>
                 </div>
-                <div class="col-sm-7">
-                    <input type="password" class="form-control" id="newPassInput" name="newpass" onchange="confirmPass()" required>
-                    <div class="valid-feedback">Valid.</div>
-                    <div class="invalid-feedback">Please fill out this field.</div>
+                <div class="col-md-7">
+                    <input type="password" class="form-control" id="newPassInput" name="newpass" 
+                           pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$" required>
+                    <fmt:bundle basename="pagecontent" prefix="profile.">
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                    </fmt:bundle>
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-3 pl-0">
-                    <label for="newPassConfirmInput" class="col-sm-3"><fmt:message key="new.confirm"/></label>
+                <div class="col-md-5">
+                    <label for="newPassConfirmInput" class="col-md-5 text-justify"><fmt:message key="new.confirm"/></label>
                 </div>
-                <div class="col-sm-7">
-                    <input type="password" class="form-control" id="newPassConfirmInput" onchange="confirmPass()" required>
-                    <div class="valid-feedback">Valid.</div>
-                    <div class="invalid-feedback">Please fill out this field.</div>
+                <div class="col-md-7">
+                    <input type="password" class="form-control" id="newPassConfirmInput"
+                           required>
+                    <fmt:bundle basename="pagecontent" prefix="profile.">
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                    </fmt:bundle>
                 </div>
             </div>
         </div>
         <fmt:bundle basename="pagecontent" prefix="profile.">
-            <input type="submit" class="btn btn-primary" id="submit" value="<fmt:message key="save"/>" disabled>
+            <input type="submit" class="btn btn-primary" id="submit" value="<fmt:message key="save"/>">
         </fmt:bundle>
     </form>
 </fmt:bundle>
 <script type="text/javascript">
-    function confirmPass() {
-        document.getElementById('submit').disabled = document.getElementById('newPassInput').value !== document.getElementById('newPassConfirmInput').value;
+    const password = document.getElementById("newPassInput")
+        , confirm_password = document.getElementById("newPassConfirmInput");
+
+    function validatePassword(){
+        if(password.value !== confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
     }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
+<script>
+    // Disable form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Get the forms we want to add validation styles to
+            const forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            const validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
 </script>
