@@ -14,10 +14,13 @@ import by.gartsmanovich.hitcher.service.validator.ServiceValidator;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_CITY_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_DATE_FORMAT;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETERS_NUMBER;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 
 /**
@@ -97,7 +100,7 @@ public class TripServiceImpl implements TripService {
             }
             return trips;
         } catch (DaoException e) {
-            throw new ServiceException(SQL_ERROR);
+            throw new ServiceException(e, SQL_ERROR);
         }
     }
 
@@ -125,7 +128,122 @@ public class TripServiceImpl implements TripService {
             }
             return trips;
         } catch (DaoException e) {
-            throw new ServiceException(SQL_ERROR);
+            throw new ServiceException(e, SQL_ERROR);
         }
+    }
+
+    /**
+     * Saves a new user trip.
+     *
+     * @param id  the provided user ID.
+     * @param map the parameters map.
+     * @throws ServiceException if failed to save a new user trip.
+     */
+    @Override
+    public void save(final long id, final Map<String, String[]> map) throws
+            ServiceException {
+
+        Trip trip = buildTrip(id, map);
+        TripDao tripDao = transaction.getTripDao();
+        try {
+            Trip tripWithId = tripDao.create(trip);
+            tripDao.addTripInfo(tripWithId);
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Builds and validates trip entity from provided request parameters.
+     *
+     * @param id  the provided driver ID.
+     * @param map the provided parameters map.
+     * @return the trip entity.
+     * @throws ServiceException if failed to build trip entity.
+     */
+    private Trip buildTrip(final long id,
+            final Map<String, String[]> map) throws ServiceException {
+
+        Trip trip = new Trip();
+        User driver = new User(id);
+        trip.setDriver(driver);
+
+        for (final Map.Entry<String, String[]> entry : map.entrySet()) {
+            final String key = entry.getKey();
+            String[] value;
+            switch (key) {
+                case "from":
+                    value = entry.getValue();
+                    if (!validator.isValidNumbers(value)) {
+                        throw new ServiceException(INVALID_CITY_VALUES);
+                    } else {
+                        City city = new City(Long.parseLong(value[0]));
+                        trip.setFrom(city);
+                    }
+                    break;
+                case "to":
+                    value = entry.getValue();
+                    if (!validator.isValidNumbers(value)) {
+                        throw new ServiceException(INVALID_CITY_VALUES);
+                    } else {
+                        City city = new City(Long.parseLong(value[0]));
+                        trip.setTo(city);
+                    }
+                    break;
+                case "departure":
+                    value = entry.getValue();
+                    String depDate = value[0];
+                    if (!validator.isValidDate(depDate)) {
+                        throw new ServiceException(INVALID_DATE_FORMAT);
+                    } else {
+                        trip.setDepartureDatetime(LocalDate.parse(depDate));
+                    }
+                    break;
+                case "arrival":
+                    value = entry.getValue();
+                    String arrDate = value[0];
+                    if (!validator.isValidDate(arrDate)) {
+                        throw new ServiceException(INVALID_DATE_FORMAT);
+                    } else {
+                        trip.setArrivalDatetime(LocalDate.parse(arrDate));
+                    }
+                    break;
+                case "seats":
+                    value = entry.getValue();
+                    if (!validator.isValidNumbers(value)) {
+                        throw new ServiceException(INVALID_VALUES);
+                    } else {
+                        trip.setFreeSeats(Integer.parseInt(value[0]));
+                    }
+                    break;
+                case "price":
+                    value = entry.getValue();
+                    if (!validator.isValidDecimal(value)) {
+                        throw new ServiceException(INVALID_VALUES);
+                    } else {
+                        trip.setPrice(Double.parseDouble(value[0]));
+                    }
+                    break;
+                case "smoking":
+                    value = entry.getValue();
+                    if (!validator.isValidNumbers(value)) {
+                        throw new ServiceException(INVALID_VALUES);
+                    } else {
+                        trip.setSmokingAllowed(Boolean.parseBoolean(value[0]));
+                    }
+                    break;
+                case "pets":
+                    value = entry.getValue();
+                    if (!validator.isValidNumbers(value)) {
+                        throw new ServiceException(INVALID_VALUES);
+                    } else {
+                        trip.setPetsAllowed(Boolean.parseBoolean(value[0]));
+                    }
+                    break;
+                default:
+                    throw new ServiceException(INVALID_PARAMETERS_NUMBER);
+            }
+        }
+        return trip;
     }
 }

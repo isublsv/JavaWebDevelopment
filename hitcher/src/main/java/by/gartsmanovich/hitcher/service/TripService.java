@@ -4,6 +4,7 @@ import by.gartsmanovich.hitcher.bean.Trip;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The interface is used to determine the common structure of Trip Service Layer
@@ -34,4 +35,13 @@ public interface TripService {
      * @throws ServiceException if failed to find trip list by ID.
      */
     List<Trip> findTripsById(long id) throws ServiceException;
+
+    /**
+     * Saves a new user trip.
+     *
+     * @param id the provided user ID.
+     * @param map the parameters map.
+     * @throws ServiceException if failed to save a new user trip.
+     */
+    void save(long id, Map<String, String[]> map) throws ServiceException;
 }
