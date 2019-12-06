@@ -23,7 +23,7 @@ public class ServiceValidator {
      * Describes a pattern that validates user login value.
      */
     private static final Pattern LOGIN_REGEX = Pattern.compile(
-            "^[A-Z0-9._\\-]{4,45}$", Pattern.CASE_INSENSITIVE);
+            "^[\\w]{4,45}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Describes a pattern that validates user password value.
