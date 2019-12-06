@@ -88,14 +88,40 @@ public class TripServiceImpl implements TripService {
                 driver.ifPresent(trip::setDriver);
 
                 Optional<City> cityFromEntity = destinationDao
-                        .findByCityId(cityFromId);
+                        .findCityById(cityFromId);
                 Optional<City> cityToEntity = destinationDao
-                        .findByCityId(cityToId);
+                        .findCityById(cityToId);
 
-                cityFromEntity.ifPresent(
-                        city -> trip.setFrom(city.getCityName()));
-                cityToEntity.ifPresent(
-                        city -> trip.setTo(city.getCityName()));
+                cityFromEntity.ifPresent(trip::setFrom);
+                cityToEntity.ifPresent(trip::setTo);
+            }
+            return trips;
+        } catch (DaoException e) {
+            throw new ServiceException(SQL_ERROR);
+        }
+    }
+
+    /**
+     * Returns user trip list.
+     *
+     * @param id the provided user ID.
+     * @return the trip list.
+     * @throws ServiceException if failed to find trip list by ID.
+     */
+    @Override
+    public List<Trip> findTripsById(final long id) throws ServiceException {
+        TripDao tripDao = transaction.getTripDao();
+        DestinationDao destinationDao = transaction.getDestinationDao();
+        try {
+            List<Trip> trips = tripDao.findByUserId(id);
+            for (Trip trip : trips) {
+                Optional<City> from = destinationDao.findCityById(
+                        trip.getFrom().getId());
+                Optional<City> to = destinationDao.findCityById(
+                        trip.getTo().getId());
+
+                from.ifPresent(trip::setFrom);
+                to.ifPresent(trip::setTo);
             }
             return trips;
         } catch (DaoException e) {
