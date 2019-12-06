@@ -56,11 +56,6 @@ public class TripListActionCommand extends ActionCommand {
             request.setAttribute("trips", trips);
             LOGGER.debug("Trip list was successfully loaded");
 
-            if (trips.isEmpty()) {
-                request.setAttribute("emptyTripList", "trip.show.empty");
-                LOGGER.debug("No trips found");
-            }
-
             request.getServletContext()
                    .getRequestDispatcher(ConfigurationManager.getProperty(
                            "path.page.find.list"))
