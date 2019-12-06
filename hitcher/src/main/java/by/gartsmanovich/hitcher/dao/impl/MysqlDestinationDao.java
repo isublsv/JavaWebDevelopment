@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The realisation of Destination Service interface is used to describe of
@@ -28,11 +29,21 @@ public class MysqlDestinationDao implements DestinationDao {
             "SELECT c.id, c.name FROM country AS c ";
 
     /**
+     * Common part of query to find city in the database.
+     */
+    private static final String FIND_BY =
+            "SELECT id, name, country_id FROM city";
+
+    /**
+     * Query to find city in the database by ID.
+     */
+    private static final String FIND_CITY_BY_ID = FIND_BY + " WHERE id=?;";
+
+    /**
      * Query to find all cities in the database by destination ID.
      */
-    private static final String FIND_ALL_CITY_BY_ID =
-            "SELECT c.id, c.country_id, c.name FROM city AS c "
-            + "WHERE c.country_id=?";
+    private static final String FIND_ALL_CITY_BY_ID = FIND_BY
+                                                      + " WHERE country_id=?";
 
     /**
      * Connection from a pool to MySQL database.
@@ -86,20 +97,15 @@ public class MysqlDestinationDao implements DestinationDao {
      *                      ID in the database.
      */
     @Override
-    public List<City> findAllCitiesByID(final long id) throws DaoException {
+    public List<City> findAllCitiesById(final long id) throws DaoException {
         List<City> cities = new ArrayList<>();
-        try (PreparedStatement statement = connection
-                .prepareStatement(FIND_ALL_CITY_BY_ID)) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_ALL_CITY_BY_ID)) {
             statement.setLong(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    int counter = 1;
-
-                    City city = new City(resultSet.getInt(counter++));
-                    city.setCountryID(resultSet.getInt(counter++));
-                    city.setCityName(resultSet.getString(counter));
-
+                    City city = getCity(resultSet);
                     cities.add(city);
                 }
             }
@@ -107,5 +113,49 @@ public class MysqlDestinationDao implements DestinationDao {
             throw new DaoException("Failed to find all cities by ID", e);
         }
         return cities;
+    }
+
+    /**
+     * Finds city by ID in the data source if present.
+     *
+     * @param id the provided city ID.
+     * @return the city entity if present.
+     * @throws DaoException if failed to find city entity by ID in the
+     *                      data source.
+     */
+    @Override
+    public Optional<City> findByCityId(final long id) throws DaoException {
+        City city = null;
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_CITY_BY_ID)) {
+            statement.setLong(1, id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    city = getCity(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find city by ID", e);
+        }
+        return Optional.ofNullable(city);
+    }
+
+    /**
+     * Creates city entity from provided result data set.
+     *
+     * @param resultSet the provided result data set from database.
+     * @return the result city entity.
+     * @throws SQLException if an error occurs during operation execution.
+     */
+    private City getCity(final ResultSet resultSet) throws SQLException {
+        City city = new City();
+        int counter = 1;
+
+        city.setId(resultSet.getInt(counter++));
+        city.setCityName(resultSet.getString(counter++));
+        city.setCountryID(resultSet.getInt(counter));
+
+        return city;
     }
 }

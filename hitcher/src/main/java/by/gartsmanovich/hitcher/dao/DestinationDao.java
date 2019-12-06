@@ -5,6 +5,7 @@ import by.gartsmanovich.hitcher.bean.Destination;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The interface describes the common structure for destination type DAO.
@@ -30,5 +31,15 @@ public interface DestinationDao extends AbstractDao<Destination> {
      * @throws DaoException if failed to find all city entities by destination
      *                      ID in the data source.
      */
-    List<City> findAllCitiesByID(long id) throws DaoException;
+    List<City> findAllCitiesById(long id) throws DaoException;
+
+    /**
+     * Finds city by ID in the data source if present.
+     *
+     * @param id the provided city ID.
+     * @return the city entity if present.
+     * @throws DaoException if failed to find city entity by ID in the
+     *                      data source.
+     */
+    Optional<City> findByCityId(long id) throws DaoException;
 }
