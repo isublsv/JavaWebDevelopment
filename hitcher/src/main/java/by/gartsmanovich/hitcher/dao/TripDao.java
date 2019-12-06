@@ -36,4 +36,13 @@ public interface TripDao extends AbstractDao<Trip> {
      *                      data source.
      */
     List<Trip> findByUserId(long id) throws DaoException;
+
+    /**
+     * Insert additional info of the provided trip in the data source.
+     *
+     * @param trip the provided entity.
+     * @throws DaoException if failed to insert additional info of the provided
+     *                      trip in the data source.
+     */
+    void addTripInfo(Trip trip) throws DaoException;
 }

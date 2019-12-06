@@ -38,9 +38,17 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to add a new trip to the database.
      */
     private static final String INSERT_TRIP =
-            "INSERT INTO hitcher_db.trips (driver_id, `from_city_id`,"
-            + " `to_city_id`, departure_datetime, arrival_datetime)"
+            "INSERT INTO hitcher_db.trips (driver_id, from_city_id,"
+            + " to_city_id, departure_datetime, arrival_datetime)"
             + " VALUES (?, ?, ?, ?, ?);";
+
+    /**
+     * Query to add a trip info to the database.
+     */
+    private static final String INSERT_TRIP_INFO =
+            "INSERT INTO hitcher_db.trip_options"
+            + " (trip_id, free_seats, price, smoking, pets)"
+            + " VALUES (?, ?, ?, ?, ?)";
 
     /**
      * Common part of the find trip query.
@@ -101,18 +109,20 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Saves the provided trip entity to the database.
      *
      * @param entity the provided trip entity.
+     * @return trip entity.
      * @throws DaoException if failed to create trip in the database or
      * to get auto-incremented key.
      */
     @Override
-    public void create(final Trip entity) throws DaoException {
+    public Trip create(final Trip entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(
                 INSERT_TRIP, RETURN_GENERATED_KEYS)) {
             int counter = 1;
 
             statement.setLong(counter++, entity.getDriver().getId());
-            /*statement.setString(counter++, entity.getFrom());
-            statement.setString(counter++, entity.getTo());*/
+            statement.setLong(counter++, entity.getFrom().getId());
+            statement.setLong(counter++, entity.getTo().getId());
+
             Date departureDatetime = Date.valueOf(
                     entity.getDepartureDatetime());
             statement.setDate(counter++, departureDatetime);
@@ -131,7 +141,32 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to create trip!", e);
+            throw new DaoException("Failed to create trip", e);
+        }
+        return entity;
+    }
+
+    /**
+     * Insert additional info of the provided trip in the database.
+     *
+     * @param trip the provided entity.
+     * @throws DaoException if failed to insert additional info of the provided
+     *                      trip in the database.
+     */
+    public void addTripInfo(final Trip trip) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(
+                INSERT_TRIP_INFO)) {
+            int counter = 1;
+
+            statement.setLong(counter++, trip.getId());
+            statement.setInt(counter++, trip.getFreeSeats());
+            statement.setDouble(counter++, trip.getPrice());
+            statement.setBoolean(counter++, trip.isSmokingAllowed());
+            statement.setBoolean(counter, trip.isPetsAllowed());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Failed to insert trip info", e);
         }
     }
 
@@ -155,7 +190,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find trip by ID!", e);
+            throw new DaoException("Failed to find trip by ID", e);
         }
         return Optional.ofNullable(trip);
     }
@@ -172,8 +207,8 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 UPDATE_TRIP)) {
             int counter = 1;
 
-            /*statement.setString(counter++, entity.getFrom());
-            statement.setString(counter++, entity.getTo());*/
+            statement.setLong(counter++, entity.getFrom().getId());
+            statement.setLong(counter++, entity.getTo().getId());
             statement.setDate(counter++,
                               Date.valueOf(entity.getDepartureDatetime()));
             statement.setDate(counter++,
@@ -183,7 +218,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Failed to update trip!", e);
+            throw new DaoException("Failed to update trip", e);
         }
     }
 
@@ -202,7 +237,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Failed to delete trip!", e);
+            throw new DaoException("Failed to delete trip", e);
         }
     }
 
@@ -236,7 +271,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find trips by Values!", e);
+            throw new DaoException("Failed to find trips by values", e);
         }
         return trips;
     }
@@ -264,7 +299,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find trips by id!", e);
+            throw new DaoException("Failed to find trips by id", e);
         }
         return trips;
     }
