@@ -89,6 +89,12 @@ public class ServiceValidator {
     private static final Pattern NUMBERS_REGEX = Pattern.compile("[\\d]+");
 
     /**
+     * Describes a pattern that validates decimal.
+     */
+    private static final Pattern DECIMAL_REGEX =
+            Pattern.compile("^\\d*\\.?\\d*$");
+
+    /**
      * Validates user email.
      *
      * @param email the provided user email.
@@ -244,6 +250,22 @@ public class ServiceValidator {
             }
         } catch (DateTimeParseException e) {
             return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validates provided decimal numbers.
+     *
+     * @param decimals the provided decimal numbers.
+     * @return true if decimal numbers are valid, false - otherwise.
+     */
+    public boolean isValidDecimal(final String... decimals) {
+        for (String value : decimals) {
+            Matcher matcher = DECIMAL_REGEX.matcher(value);
+            if (!matcher.find()) {
+                return false;
+            }
         }
         return true;
     }
