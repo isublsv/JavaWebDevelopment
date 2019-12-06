@@ -1,7 +1,11 @@
 package by.gartsmanovich.hitcher.service.impl;
 
+import by.gartsmanovich.hitcher.bean.City;
 import by.gartsmanovich.hitcher.bean.Trip;
+import by.gartsmanovich.hitcher.bean.User;
+import by.gartsmanovich.hitcher.dao.DestinationDao;
 import by.gartsmanovich.hitcher.dao.TripDao;
+import by.gartsmanovich.hitcher.dao.UserDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
 import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.service.TripService;
@@ -10,6 +14,7 @@ import by.gartsmanovich.hitcher.service.validator.ServiceValidator;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_CITY_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_DATE_FORMAT;
@@ -68,11 +73,31 @@ public class TripServiceImpl implements TripService {
         }
 
         TripDao tripDao = transaction.getTripDao();
+        UserDao userDao = transaction.getUserDao();
+        DestinationDao destinationDao = transaction.getDestinationDao();
         try {
             int cityFromId = Integer.parseInt(cityFrom);
             int cityToId = Integer.parseInt(cityTo);
             LocalDate departureDate = LocalDate.parse(departure);
-            return tripDao.findByValues(cityFromId, cityToId, departureDate);
+            List<Trip> trips = tripDao.findByValues(cityFromId, cityToId,
+                                                       departureDate);
+
+            for (Trip trip : trips) {
+                Optional<User> driver = userDao.findById(
+                        trip.getDriver().getId());
+                driver.ifPresent(trip::setDriver);
+
+                Optional<City> cityFromEntity = destinationDao
+                        .findByCityId(cityFromId);
+                Optional<City> cityToEntity = destinationDao
+                        .findByCityId(cityToId);
+
+                cityFromEntity.ifPresent(
+                        city -> trip.setFrom(city.getCityName()));
+                cityToEntity.ifPresent(
+                        city -> trip.setTo(city.getCityName()));
+            }
+            return trips;
         } catch (DaoException e) {
             throw new ServiceException(SQL_ERROR);
         }
