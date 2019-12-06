@@ -110,8 +110,7 @@ public class UserServiceImpl implements UserService {
             user.setStatus(Status.ACTIVE);
             user.setRegistrationDate(LocalDate.now());
 
-            dao.create(user);
-            return clearPassword(user);
+            return clearPassword(dao.create(user));
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
