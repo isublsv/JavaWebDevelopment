@@ -1,16 +1,16 @@
 package by.gartsmanovich.hitcher.action.impl;
 
-import by.gartsmanovich.hitcher.action.ActionCommand;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Class describes ban action command that used to ban users.
+ *
  * @author Dmitry Gartsmanovich
  */
-public class BanActionCommand extends ActionCommand {
+public class BanActionCommand extends AdminActionCommand {
     /**
      * Handles the request and response and invoke appropriate method in the
      * Service Layer.
