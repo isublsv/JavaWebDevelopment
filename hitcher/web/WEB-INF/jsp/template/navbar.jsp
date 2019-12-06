@@ -27,6 +27,8 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="<c:url value="/trip/load.do?action=offer"/>">
                                             <fmt:message key="trip.offer"/></a>
+                                        <a class="dropdown-item" href="<c:url value="/trip/my_trips.do"/>">
+                                            <fmt:message key="trip.mine"/></a>
                                         <a class="dropdown-item" href="<c:url value="/profile.do"/>">
                                             <fmt:message key="link.profile"/></a>
                                             <%--if admin, show user list--%>
@@ -107,6 +109,8 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="<c:url  value="/profile.do"/>">
                                             <fmt:message key="link.profile"/></a>
+                                        <a class="dropdown-item" href="<c:url value="/trip/my_trips.do"/>">
+                                            <fmt:message key="trip.mine"/></a>
                                             <%--if admin, show user list--%>
                                         <c:if test="${sessionScope.authorizedUser.role eq 'ADMIN'}">
                                             <a class="dropdown-item" href="<c:url value="/admin/user_list.do"/>"><fmt:message
@@ -159,6 +163,8 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item"
                                    href="<c:url value="/profile.do"/>"><fmt:message key="link.profile"/></a>
+                                <a class="dropdown-item" href="<c:url value="/trip/my_trips.do"/>">
+                                    <fmt:message key="trip.mine"/></a>
                                     <%--if admin, show user list--%>
                                 <c:if test="${sessionScope.authorizedUser.role eq 'ADMIN'}">
                                     <a class="dropdown-item" href="<c:url value="/admin/user_list.do"/>"><fmt:message
