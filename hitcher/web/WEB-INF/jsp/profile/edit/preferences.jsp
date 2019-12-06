@@ -10,7 +10,7 @@
 <br/>
 <fmt:bundle basename="pagecontent" prefix="profile.preferences.">
     <br/>    
-    <form method="post" action="${pageContext.request.contextPath}/profile/edit/preferences.do">
+    <form method="post" action="${pageContext.request.contextPath}/profile/edit/preferences.do" class="needs-validation" novalidate>
         <div class="group-wrapper">
             <div class="form-group row">
                 <div class="input-group mb-3">
@@ -22,6 +22,9 @@
                         <option value="2"><fmt:message key="com.neutral"/></option>
                         <option value="3"><fmt:message key="com.positive"/></option>
                     </select>
+                    <fmt:bundle basename="pagecontent" prefix="profile.">
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                    </fmt:bundle>
                 </div>
             </div>
             <div class="form-group row">
@@ -34,6 +37,9 @@
                         <option value="2"><fmt:message key="music.neutral"/></option>
                         <option value="3"><fmt:message key="music.positive"/></option>
                     </select>
+                    <fmt:bundle basename="pagecontent" prefix="profile.">
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                    </fmt:bundle>
                 </div>
             </div>
         </div>
@@ -47,4 +53,24 @@
         $("#inputGroupSelect01").val('${requestScope.authorizedUser.communication}');
         $("#inputGroupSelect02").val('${requestScope.authorizedUser.music}');
     });
+</script>
+<script>
+    // Disable form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Get the forms we want to add validation styles to
+            const forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            const validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
 </script>
