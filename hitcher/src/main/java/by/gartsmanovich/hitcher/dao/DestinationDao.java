@@ -41,5 +41,5 @@ public interface DestinationDao extends AbstractDao<Destination> {
      * @throws DaoException if failed to find city entity by ID in the
      *                      data source.
      */
-    Optional<City> findByCityId(long id) throws DaoException;
+    Optional<City> findCityById(long id) throws DaoException;
 }

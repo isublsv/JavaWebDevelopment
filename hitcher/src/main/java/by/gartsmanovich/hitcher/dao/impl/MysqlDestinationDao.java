@@ -124,7 +124,7 @@ public class MysqlDestinationDao implements DestinationDao {
      *                      data source.
      */
     @Override
-    public Optional<City> findByCityId(final long id) throws DaoException {
+    public Optional<City> findCityById(final long id) throws DaoException {
         City city = null;
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_CITY_BY_ID)) {
