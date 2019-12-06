@@ -1,6 +1,8 @@
 package by.gartsmanovich.hitcher.dao.impl;
 
+import by.gartsmanovich.hitcher.bean.City;
 import by.gartsmanovich.hitcher.bean.Trip;
+import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.dao.AbstractDao;
 import by.gartsmanovich.hitcher.dao.TripDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
@@ -36,38 +38,43 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to add a new trip to the database.
      */
     private static final String INSERT_TRIP =
-            "INSERT INTO hitcher_db.trips (driver_id, `from`, `to`,"
-            + " departure_datetime, arrival_datetime) VALUES (?, ?, ?, ?, ?);";
+            "INSERT INTO hitcher_db.trips (driver_id, `from_city_id`,"
+            + " `to_city_id`, departure_datetime, arrival_datetime)"
+            + " VALUES (?, ?, ?, ?, ?);";
 
     /**
      * Common part of the find trip query.
      */
-    private static final String FIND_USER =
-            "SELECT t.id, t.driver_id, c.name, c2.name, t.departure_datetime,"
-            + " t.arrival_datetime, top.free_seats, top.price, top.smoking,"
-            + " top.pets FROM trips AS t"
-            + " INNER JOIN trip_options AS top ON t.id = top.trip_id"
-            + " INNER JOIN city AS c ON t.from_city_id = c.id"
-            + " INNER JOIN city AS c2 ON t.to_city_id = c2.id";
+    private static final String FIND_TRIP =
+            "SELECT t.id, t.driver_id, t.from_city_id, t.to_city_id,"
+            + " t.departure_datetime, t.arrival_datetime, top.free_seats,"
+            + " top.price, top.smoking, top.pets FROM trips AS t"
+            + " LEFT JOIN trip_options AS top ON t.id = top.trip_id";
 
     /**
      * Query to find a trip by ID value in the database.
      */
-    private static final String FIND_BY_ID = FIND_USER + " WHERE t.id=?;";
+    private static final String FIND_BY_ID = FIND_TRIP + " WHERE t.id=?;";
 
     /**
      * Query to find a trips by values in the database.
      */
     private static final String FIND_BY_PARAMS =
-            FIND_USER + " WHERE c.name=? AND c2.name=?"
+            FIND_TRIP + " WHERE t.from_city_id=? AND t.to_city_id=?"
             + " AND t.departure_datetime > ?;";
-    
+
+    /**
+     * Query to find a trips by user ID in the database.
+     */
+    private static final String FIND_TRIP_BY_USER_ID =
+            FIND_TRIP + " WHERE t.driver_id=?;";
+
     /**
      * Query to update data of the trip in the database.
      */
     private static final String UPDATE_TRIP =
-            "UPDATE hitcher_db.trips AS t SET t.`from`=?, "
-            + "t.`to`=?, t.departure_datetime=?, t.arrival_datetime=?"
+            "UPDATE hitcher_db.trips AS t SET t.`from_city_id`=?, "
+            + "t.`to_city_id`=?, t.departure_datetime=?, t.arrival_datetime=?"
             + " WHERE t.id=?;";
 
     /**
@@ -103,10 +110,11 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 INSERT_TRIP, RETURN_GENERATED_KEYS)) {
             int counter = 1;
 
-            statement.setLong(counter++, entity.getDriverId());
-            statement.setString(counter++, entity.getFrom());
-            statement.setString(counter++, entity.getTo());
-            Date departureDatetime = Date.valueOf(entity.getArrivalDatetime());
+            statement.setLong(counter++, entity.getDriver().getId());
+            /*statement.setString(counter++, entity.getFrom());
+            statement.setString(counter++, entity.getTo());*/
+            Date departureDatetime = Date.valueOf(
+                    entity.getDepartureDatetime());
             statement.setDate(counter++, departureDatetime);
             Date arrivalDatetime = Date.valueOf(entity.getArrivalDatetime());
             statement.setDate(counter, arrivalDatetime);
@@ -164,8 +172,8 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 UPDATE_TRIP)) {
             int counter = 1;
 
-            statement.setString(counter++, entity.getFrom());
-            statement.setString(counter++, entity.getTo());
+            /*statement.setString(counter++, entity.getFrom());
+            statement.setString(counter++, entity.getTo());*/
             statement.setDate(counter++,
                               Date.valueOf(entity.getDepartureDatetime()));
             statement.setDate(counter++,
@@ -222,13 +230,41 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
             statement.setDate(counter, Date.valueOf(departureDate));
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Trip trip = getTrip(resultSet);
                     trips.add(trip);
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find trip by ID!", e);
+            throw new DaoException("Failed to find trips by Values!", e);
+        }
+        return trips;
+    }
+
+    /**
+     * Returns user trip list from the database.
+     *
+     * @param id the provided user ID.
+     * @return the trip list.
+     * @throws DaoException if failed to find trip list by ID from the
+     *                      database.
+     */
+    @Override
+    public List<Trip> findByUserId(final long id) throws DaoException {
+        List<Trip> trips = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_TRIP_BY_USER_ID)) {
+
+            statement.setLong(1, id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Trip trip = getTrip(resultSet);
+                    trips.add(trip);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find trips by id!", e);
         }
         return trips;
     }
@@ -245,9 +281,19 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
         int counter = 1;
 
         trip.setId(resultSet.getLong(counter++));
-        trip.setDriverId(resultSet.getLong(counter++));
-        trip.setFrom(resultSet.getString(counter++));
-        trip.setTo(resultSet.getString(counter++));
+
+        User driver = new User();
+        driver.setId(resultSet.getLong(counter++));
+        trip.setDriver(driver);
+
+        City from = new City();
+        from.setId(resultSet.getLong(counter++));
+        trip.setFrom(from);
+
+        City to = new City();
+        to.setId(resultSet.getLong(counter++));
+        trip.setTo(to);
+
         trip.setDepartureDatetime(resultSet.getDate(counter++).toLocalDate());
         trip.setArrivalDatetime(resultSet.getDate(counter++).toLocalDate());
         trip.setFreeSeats(resultSet.getInt(counter++));
