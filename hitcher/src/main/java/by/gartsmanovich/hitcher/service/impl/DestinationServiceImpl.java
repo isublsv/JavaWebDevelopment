@@ -47,7 +47,7 @@ public class DestinationServiceImpl implements DestinationService {
         try {
             List<Destination> destinations = dao.findAllDestinations();
             for (Destination destination : destinations) {
-                List<City> cities = dao.findAllCitiesByID(destination.getId());
+                List<City> cities = dao.findAllCitiesById(destination.getId());
                 destination.setCities(cities);
             }
             return destinations;
