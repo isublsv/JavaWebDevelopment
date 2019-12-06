@@ -25,7 +25,7 @@
     <br/>
     <br/>
     <div class="container">
-        <form action="${pageContext.request.contextPath}/trip/result_list.do">
+        <form action="${pageContext.request.contextPath}/trip/result_list.do" class="needs-validation" novalidate>
             <div class="group-wrapper" id="from">
                 <div class="row">
                     <div class="col-lg-3 py-2"><fmt:message key="from"/></div>
@@ -64,6 +64,7 @@
                             <label class="input-group-text" for="cityFrom"><fmt:message key="city"/></label>
                         </div>
                         <select class="custom-select" id="cityFrom" name="city_from" required></select>
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>
                 </div>
             </div>
@@ -105,6 +106,7 @@
                             <label class="input-group-text" for="cityTo"><fmt:message key="city"/></label>
                         </div>
                         <select class="custom-select" id="cityTo" name="city_to" required></select>
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>
                 </div>
             </div>
@@ -116,8 +118,7 @@
                     <div class="col-sm-7">
                         <input type="date" class="form-control" id="departure" name="departure"
                                required>
-                        <div class="valid-feedback">Valid.</div>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>
                 </div>
             </div>
@@ -126,7 +127,28 @@
     </div>
     <br/>
     <jsp:include page="/WEB-INF/jsp/template/footer.jsp"/>
-        <script src="<c:url value="/js/find.js"/>"></script>
+
+    <script>
+        // Disable form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Get the forms we want to add validation styles to
+                const forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                const validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script src="<c:url value="/js/find.js"/>"></script>
     </body>
     </html>
 </fmt:bundle>
