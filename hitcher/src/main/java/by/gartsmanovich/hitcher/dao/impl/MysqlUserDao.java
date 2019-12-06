@@ -104,7 +104,8 @@ public class MysqlUserDao implements UserDao {
     /**
      * Query to find all users in the database.
      */
-    private static final String FIND_ALL_USERS = FIND_COMPACT_DATA_USER + ";";
+    private static final String FIND_ALL_USERS = FIND_COMPACT_DATA_USER
+                                                 + " WHERE u.role != 0;";
 
     /**
      * Query to find user by login.
