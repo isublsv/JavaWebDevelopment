@@ -139,7 +139,7 @@
                     <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                 </div>
                 <div class="custom-control-input form-check-inline">
-                    <input type="number" class="input-group-text" id="price" min="0" name="seats">
+                    <input type="number" class="input-group-text" id="price" min="0" name="price">
                     <label class="custom-control-label" for="price"><fmt:message key="show.price"/></label>
                     <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                 </div>
