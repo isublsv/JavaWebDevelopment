@@ -135,19 +135,23 @@
             <div class="group-wrapper" id="numbers">
                 <div class="custom-control-input form-check-inline">
                     <input type="number" class="input-group-text" id="seats" min="0" name="seats">
+                    <label class="custom-control-label" for="seats"><fmt:message key="free.seat"/></label>
+                    <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                 </div>
                 <div class="custom-control-input form-check-inline">
                     <input type="number" class="input-group-text" id="price" min="0" name="seats">
+                    <label class="custom-control-label" for="price"><fmt:message key="show.price"/></label>
+                    <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                 </div>
             </div>
             <div class="group-wrapper" id="switches">
                 <div class="custom-control custom-switch form-check-inline">
                     <input type="checkbox" class="custom-control-input" id="smoking" name="smoking" value="true">
-                    <label class="custom-control-label" for="smoking">Smoking is allowed</label>
+                    <label class="custom-control-label" for="smoking"><fmt:message key="smoking"/></label>
                 </div>
                 <div class="custom-control custom-switch form-check-inline">
                     <input type="checkbox" class="custom-control-input" id="pets" name="pets" value="true">
-                    <label class="custom-control-label" for="pets">Pets are allowed</label>
+                    <label class="custom-control-label" for="pets"><fmt:message key="pets"/></label>
                 </div>
             </div>
             <input type="submit" class="btn btn-primary align-content-center" value="<fmt:message key="offer"/>">
