@@ -14,19 +14,13 @@
 
         <title>Where you want to go?</title>
 
-        <link href="<c:url value="/css/profile.css"/>" rel="stylesheet">
-
         <jsp:include page="/WEB-INF/jsp/template/links.jsp"/>
     </head>
     <body>
     <jsp:include page="../template/navbar.jsp">
         <jsp:param name="isProfileNavbar" value="true"/>
     </jsp:include>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <br/><br/><br/><br/><br/>
     <div class="container" id="profile-panel">
         <div class="row">
             <div class="col-md-4 mb-3">
