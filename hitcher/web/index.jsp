@@ -31,7 +31,7 @@
 <fmt:bundle basename="pagecontent" prefix="index.">
     <header class="bg-primary text-white">
         <div class="container text-center">
-            <a class="btn btn-lg btn-primary btn-block btn-find-trip text-uppercase font-weight-bold mb-2"
+            <a class="btn btn-lg btn-info btn-block btn-find-trip text-uppercase font-weight-bold mb-2"
                     href="<c:url value="/trip/load.do?action=find&isTripNavbar=true"/>"><fmt:message key="trip.find"/>
             </a>
         </div>
