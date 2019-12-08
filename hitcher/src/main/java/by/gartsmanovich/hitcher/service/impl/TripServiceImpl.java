@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.DRIVER_EXIST;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_CITY_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_DATE_FORMAT;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETERS_NUMBER;
@@ -143,9 +144,17 @@ public class TripServiceImpl implements TripService {
     public void save(final long id, final Map<String, String[]> map) throws
             ServiceException {
 
-        Trip trip = buildTrip(id, map);
+        UserDao userDao = transaction.getUserDao();
         TripDao tripDao = transaction.getTripDao();
         try {
+            Optional<User> optionalUser = userDao.findById(id);
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                if (user.getDriverLicenseNumber() == null) {
+                    throw new ServiceException(DRIVER_EXIST);
+                }
+            }
+            Trip trip = buildTrip(id, map);
             Trip tripWithId = tripDao.create(trip);
             tripDao.addTripInfo(tripWithId);
         } catch (DaoException e) {
@@ -170,10 +179,9 @@ public class TripServiceImpl implements TripService {
 
         for (final Map.Entry<String, String[]> entry : map.entrySet()) {
             final String key = entry.getKey();
-            String[] value;
+            String[] value = entry.getValue();
             switch (key) {
                 case "from":
-                    value = entry.getValue();
                     if (!validator.isValidNumbers(value)) {
                         throw new ServiceException(INVALID_CITY_VALUES);
                     } else {
@@ -182,7 +190,6 @@ public class TripServiceImpl implements TripService {
                     }
                     break;
                 case "to":
-                    value = entry.getValue();
                     if (!validator.isValidNumbers(value)) {
                         throw new ServiceException(INVALID_CITY_VALUES);
                     } else {
@@ -191,7 +198,6 @@ public class TripServiceImpl implements TripService {
                     }
                     break;
                 case "departure":
-                    value = entry.getValue();
                     String depDate = value[0];
                     if (!validator.isValidDate(depDate)) {
                         throw new ServiceException(INVALID_DATE_FORMAT);
@@ -200,7 +206,6 @@ public class TripServiceImpl implements TripService {
                     }
                     break;
                 case "arrival":
-                    value = entry.getValue();
                     String arrDate = value[0];
                     if (!validator.isValidDate(arrDate)) {
                         throw new ServiceException(INVALID_DATE_FORMAT);
@@ -209,7 +214,6 @@ public class TripServiceImpl implements TripService {
                     }
                     break;
                 case "seats":
-                    value = entry.getValue();
                     if (!validator.isValidNumbers(value)) {
                         throw new ServiceException(INVALID_VALUES);
                     } else {
@@ -217,7 +221,6 @@ public class TripServiceImpl implements TripService {
                     }
                     break;
                 case "price":
-                    value = entry.getValue();
                     if (!validator.isValidDecimal(value)) {
                         throw new ServiceException(INVALID_VALUES);
                     } else {
@@ -225,16 +228,14 @@ public class TripServiceImpl implements TripService {
                     }
                     break;
                 case "smoking":
-                    value = entry.getValue();
-                    if (!validator.isValidNumbers(value)) {
+                    if (!validator.isValidValues(value)) {
                         throw new ServiceException(INVALID_VALUES);
                     } else {
                         trip.setSmokingAllowed(Boolean.parseBoolean(value[0]));
                     }
                     break;
                 case "pets":
-                    value = entry.getValue();
-                    if (!validator.isValidNumbers(value)) {
+                    if (!validator.isValidValues(value)) {
                         throw new ServiceException(INVALID_VALUES);
                     } else {
                         trip.setPetsAllowed(Boolean.parseBoolean(value[0]));
