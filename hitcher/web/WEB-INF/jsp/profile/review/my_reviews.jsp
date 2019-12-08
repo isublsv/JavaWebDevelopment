@@ -6,6 +6,7 @@
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="pagecontent" prefix="review.">
+    <br/><br/>
     <div class="container">
         <div class="row">
             <div class="col-sm-3"><fmt:message key="rating"/></div>

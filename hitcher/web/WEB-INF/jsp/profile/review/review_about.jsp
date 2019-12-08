@@ -5,6 +5,7 @@
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="pagecontent" prefix="review.">
+    <br/><br/>
     <div class="container">
         <c:if test="${empty requestScope.received}">
             <div class="list-group">
