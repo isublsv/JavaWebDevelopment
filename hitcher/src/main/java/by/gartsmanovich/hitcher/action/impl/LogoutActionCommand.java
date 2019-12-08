@@ -1,7 +1,5 @@
 package by.gartsmanovich.hitcher.action.impl;
 
-import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,8 +26,7 @@ public class LogoutActionCommand extends AuthorizedActionCommand {
     public void execute(final HttpServletRequest request,
             final HttpServletResponse response) throws IOException {
         request.getSession(false).invalidate();
-        response.sendRedirect(
-                request.getContextPath()
-                + ConfigurationManager.getProperty("path.page.index"));
+        String redirect = request.getHeader("referer");
+        response.sendRedirect(redirect);
     }
 }
