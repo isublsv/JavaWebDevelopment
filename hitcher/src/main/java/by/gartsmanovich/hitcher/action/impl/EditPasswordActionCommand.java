@@ -54,11 +54,11 @@ public class EditPasswordActionCommand extends AuthorizedActionCommand {
                     .updatePassword(authorizedUser.getId(),
                                     currentPass, newPass);
             request.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("activeTab", "passwordTab");
             LOGGER.debug("Personal user password were updated successfully");
-            request.getServletContext()
-                   .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.profile"))
-                   .forward(request, response);
+            response.sendRedirect(
+                    request.getContextPath() + ConfigurationManager
+                            .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
             String message = e.getCode().getMessage();
             LOGGER.warn(message);

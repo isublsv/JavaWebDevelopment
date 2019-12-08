@@ -52,11 +52,11 @@ public class EditEmailActionCommand extends AuthorizedActionCommand {
             User updatedUser = userService.updateEmail(authorizedUser.getId(),
                                                        email);
             request.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("activeTab", "emailTab");
             LOGGER.debug("Personal user email were updated successfully");
-            request.getServletContext()
-                   .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.profile"))
-                   .forward(request, response);
+            response.sendRedirect(
+                    request.getContextPath() + ConfigurationManager
+                            .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
             String message = e.getCode().getMessage();
             LOGGER.warn(message);

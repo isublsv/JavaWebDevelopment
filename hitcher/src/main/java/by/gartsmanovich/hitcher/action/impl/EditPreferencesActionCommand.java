@@ -54,11 +54,11 @@ public class EditPreferencesActionCommand extends AuthorizedActionCommand {
             User updatedUser = userService.updatePreferences(
                     authorizedUser.getId(), music, communication);
             request.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("activeTab", "preferencesTab");
             LOGGER.debug("Personal user preferences were updated successfully");
-            request.getServletContext()
-                   .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.profile"))
-                   .forward(request, response);
+            response.sendRedirect(
+                    request.getContextPath() + ConfigurationManager
+                            .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
             String message = e.getCode().getMessage();
             LOGGER.warn(message);

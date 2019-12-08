@@ -55,11 +55,11 @@ public class EditPersonalDataActionCommand extends AuthorizedActionCommand {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService.updatePersonalData(editedUser);
             request.setAttribute("authorizedUser", updatedUser);
+            request.setAttribute("activeTab", "personalDataTab");
             LOGGER.debug("Personal user information was updated successfully");
-            request.getServletContext()
-                   .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.profile"))
-                   .forward(request, response);
+            response.sendRedirect(
+                    request.getContextPath() + ConfigurationManager
+                            .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
             String message = e.getCode().getMessage();
             LOGGER.warn(message);
