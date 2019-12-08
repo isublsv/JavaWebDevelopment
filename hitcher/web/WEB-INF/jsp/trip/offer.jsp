@@ -25,7 +25,7 @@
     <br/>
     <br/>
     <div class="container">
-        <form action="${pageContext.request.contextPath}/trip/result_list.do" class="needs-validation" novalidate>
+        <form action="${pageContext.request.contextPath}/trip/offer.do" class="needs-validation" novalidate>
             <div class="group-wrapper" id="from">
                 <div class="row">
                     <div class="col-lg-3 py-2"><fmt:message key="from"/></div>
@@ -112,46 +112,56 @@
             </div>
             <div class="group-wrapper" id="date">
                 <div class="form-group row">
-                    <div class="col-sm-5 pl-0">
-                        <label for="departure" class="col-sm-5"><fmt:message key="departure.datetime"/></label>
+                    <div class="col-md-5">
+                        <label for="departure" class="col-md-5"><fmt:message key="departure.datetime"/></label>
                     </div>
-                    <div class="col-sm-7">
+                    <div class="col-md-7">
                         <input type="date" class="form-control" id="departure" name="departure"
                                required>
                         <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-5 pl-0">
-                        <label for="arrival" class="col-sm-5"><fmt:message key="arrival.datetime"/></label>
+                    <div class="col-md-5">
+                        <label for="arrival" class="col-md-5"><fmt:message key="arrival.datetime"/></label>
                     </div>
-                    <div class="col-sm-7">
-                        <input type="date" class="form-control" id="arrival" name="arrival"
+                    <div class="col-md-7">
+                        <input type="date" class="form-control" id="arrival" name="arrival" max="2020-12-31"
                                required>
                         <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>
                 </div>
             </div>
             <div class="group-wrapper" id="numbers">
-                <div class="custom-control-input form-check-inline">
-                    <input type="number" class="input-group-text" id="seats" min="0" name="seats">
-                    <label class="custom-control-label" for="seats"><fmt:message key="free.seat"/></label>
-                    <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                <div class="form-group row">
+                    <div class="col-md-5">
+                        <label class="col-md-5" for="seats"><fmt:message key="free.seat"/></label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="seats" min="1" name="seats" required>
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                    </div>
                 </div>
-                <div class="custom-control-input form-check-inline">
-                    <input type="number" class="input-group-text" id="price" min="0" name="price">
-                    <label class="custom-control-label" for="price"><fmt:message key="show.price"/></label>
-                    <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                <div class="form-group row">
+                    <div class="col-md-5">
+                        <label class="col-md-5" for="price"><fmt:message key="show.price"/></label>
+                    </div>
+                    <div class="col-md-7">
+                        <input type="number" class="form-control" id="price" min="0" step="0.5" name="price" required>
+                        <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
+                    </div>
                 </div>
             </div>
             <div class="group-wrapper" id="switches">
-                <div class="custom-control custom-switch form-check-inline">
-                    <input type="checkbox" class="custom-control-input" id="smoking" name="smoking" value="true">
-                    <label class="custom-control-label" for="smoking"><fmt:message key="smoking"/></label>
-                </div>
-                <div class="custom-control custom-switch form-check-inline">
-                    <input type="checkbox" class="custom-control-input" id="pets" name="pets" value="true">
-                    <label class="custom-control-label" for="pets"><fmt:message key="pets"/></label>
+                <div class="form-group row">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="smoking" name="smoking" value="true">
+                        <label class="custom-control-label" for="smoking"><fmt:message key="smoking"/></label>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="pets" name="pets" value="true">
+                        <label class="custom-control-label" for="pets"><fmt:message key="pets"/></label>
+                    </div>
                 </div>
             </div>
             <input type="submit" class="btn btn-primary align-content-center" value="<fmt:message key="offer"/>">
