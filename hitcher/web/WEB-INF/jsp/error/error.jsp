@@ -9,30 +9,15 @@
     <html lang="${language}">
     <head>
         <title><fmt:message key="title"/></title>
-        <style type="text/css">
-            .error-template {
-                padding: 40px 15px;
-                text-align: center;
-            }
-        </style>
         <jsp:include page="/WEB-INF/jsp/template/links.jsp"/>
     </head>
     <body>
-    <jsp:include page="../template/navbar.jsp">
-        <jsp:param name="isProfileNavbar" value="true"/>
-    </jsp:include>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <jsp:include page="../template/navbar.jsp"/>
+    <br/><br/><br/><br/>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="error-template">
-                    <div class="error-details">
-                        ${requestScope.errorMessage}
-                    </div>
-                </div>
+                    ${requestScope.errorMessage}
             </div>
         </div>
     </div>
