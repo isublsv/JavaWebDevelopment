@@ -38,7 +38,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to add a new trip to the database.
      */
     private static final String INSERT_TRIP =
-            "INSERT INTO hitcher_db.trips (driver_id, from_city_id,"
+            "INSERT INTO trips (driver_id, from_city_id,"
             + " to_city_id, departure_datetime, arrival_datetime)"
             + " VALUES (?, ?, ?, ?, ?);";
 
@@ -46,7 +46,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to add a trip info to the database.
      */
     private static final String INSERT_TRIP_INFO =
-            "INSERT INTO hitcher_db.trip_options"
+            "INSERT INTO trip_options"
             + " (trip_id, free_seats, price, smoking, pets)"
             + " VALUES (?, ?, ?, ?, ?)";
 
@@ -81,14 +81,14 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to update data of the trip in the database.
      */
     private static final String UPDATE_TRIP =
-            "UPDATE hitcher_db.trips AS t SET t.`from_city_id`=?, "
+            "UPDATE trips AS t SET t.`from_city_id`=?, "
             + "t.`to_city_id`=?, t.departure_datetime=?, t.arrival_datetime=?"
             + " WHERE t.id=?;";
 
     /**
      * Query to delete selected trip from the database.
      */
-    private static final String DELETE_TRIP = "DELETE FROM hitcher_db.trips "
+    private static final String DELETE_TRIP = "DELETE FROM trips "
                                               + "WHERE trips.id = ?;";
 
     /**

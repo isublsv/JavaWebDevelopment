@@ -37,7 +37,7 @@ public class MysqlUserDao implements UserDao {
      * Query to add a new user to the database.
      */
     private static final String INSERT_USER =
-            "INSERT INTO hitcher_db.users (login, email, password, salt, "
+            "INSERT INTO users (login, email, password, salt, "
             + "role, status, registration_date) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
     /**
@@ -91,14 +91,14 @@ public class MysqlUserDao implements UserDao {
      * Query to create user driver info in the database.
      */
     private static final String CREATE_DRIVER_INFO =
-            "INSERT INTO hitcher_db.driver_info"
+            "INSERT INTO driver_info"
             + " (user_id, driving_licence_number, car_model, car_color)"
             + " VALUES (?, ?, ?, ?)";
 
     /**
      * Query to delete selected user from the database.
      */
-    private static final String DELETE_USER = "DELETE FROM hitcher_db.users "
+    private static final String DELETE_USER = "DELETE FROM users "
                                               + "WHERE users.id=?;";
 
     /**

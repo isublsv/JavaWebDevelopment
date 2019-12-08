@@ -29,7 +29,7 @@ public class MysqlReviewDao implements ReviewDao {
      * Query to add a new review to the database.
      */
     private static final String INSERT_REVIEW =
-            "INSERT INTO hitcher_db.reviews (about_id, "
+            "INSERT INTO reviews (about_id, "
             + "who_id, text, rating) VALUES ( ?, ?, ?, ?)";
 
     /**
@@ -60,14 +60,14 @@ public class MysqlReviewDao implements ReviewDao {
      * Query to update data of selected review in the database.
      */
     private static final String UPDATE_REVIEW =
-            "UPDATE hitcher_db.reviews AS r SET r.about_id=?, r.who_id=?,"
+            "UPDATE reviews AS r SET r.about_id=?, r.who_id=?,"
             + " r.text=?, r.rating=? WHERE r.id=?;";
 
     /**
      * Query to delete selected user from the database.
      */
     private static final String DELETE_REVIEW =
-            "DELETE FROM hitcher_db.reviews WHERE reviews.id = ?;";
+            "DELETE FROM reviews WHERE reviews.id = ?;";
 
     /**
      * Connection from a pool to MySQL database.
