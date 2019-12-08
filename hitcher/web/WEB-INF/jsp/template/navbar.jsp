@@ -141,7 +141,7 @@
                             </c:otherwise>
                         </c:choose>
                     </c:if>
-                    <c:if test="${param.isProfileNavbar eq 'true'}."> <%--profile page--%>
+                    <c:if test="${param.isProfileNavbar eq 'true'}"> <%--profile page--%>
                         <%--find trip--%>
                         <li class="nav-item">
                             <a class="nav-link"
@@ -246,13 +246,6 @@
                                                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                                                         type="submit"><fmt:message key="link.login"/>
                                                 </button>
-                                                <%-- <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                                        type="reset"><fmt:message key="link.reset"/>
-                                                </button>
-                                                                                               <div class="text-center">
-                                                                                                    <a class="small" href="#"><fmt:message
-                                                                                                            key="link.forgot.pass"/></a>
-                                                                                                </div>--%>
                                         </form>
                                     </div>
                                 </div>
@@ -345,10 +338,6 @@
                                                     type="submit" id="submit_register"><fmt:message 
                                                     key="link.register"/>
                                             </button>
-<%--                                            <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                                    type="reset" id="submit_reset"><fmt:message
-                                                    key="link.reset"/>
-                                            </button>--%>
                                             <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal"
                                                data-dismiss="modal" href="#"><fmt:message key="link.login"/></a>
                                         </form>
