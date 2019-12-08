@@ -7,6 +7,15 @@
 <fmt:bundle basename="pagecontent" prefix="review.">
     <br/><br/>
     <div class="container">
+        <div class="row">
+            <div class="col-sm-3"><fmt:message key="rating"/></div>
+            <div class="col-sm-3">
+                <span class="badge badge-warning badge-pill"><rt:ratingTag map="${requestScope.left}"/></span>
+            </div>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="container">
         <c:if test="${empty requestScope.received}">
             <div class="list-group">
                 <div class="row">
