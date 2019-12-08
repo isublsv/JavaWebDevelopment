@@ -54,11 +54,9 @@ public class OfferTripActionCommand extends AuthorizedActionCommand {
             TripService tripService = getFactory().getTripService();
             tripService.save(user.getId(), parameterMap);
             LOGGER.debug("Trip was created successfully");
-
-            request.getServletContext()
-                   .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.my.trips"))
-                   .forward(request, response);
+            response.sendRedirect(request.getContextPath()
+                    + ConfigurationManager.getProperty(
+                            "path.page.my.trips.action"));
         } catch (ServiceException e) {
             String message = e.getCode().getMessage();
             LOGGER.warn(message);
