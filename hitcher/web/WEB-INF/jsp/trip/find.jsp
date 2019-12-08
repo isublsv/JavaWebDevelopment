@@ -110,13 +110,13 @@
                     </div>
                 </div>
             </div>
-            <div class="group-wrapper" id="time">
+            <div class="group-wrapper" id="date">
                 <div class="form-group row">
                     <div class="col-sm-5 pl-0">
                         <label for="departure" class="col-sm-5"><fmt:message key="departure.datetime"/></label>
                     </div>
                     <div class="col-sm-7">
-                        <input type="date" class="form-control" id="departure" name="departure"
+                        <input type="date" class="form-control" id="departure" name="departure" max="2021-12-31"
                                required>
                         <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>
