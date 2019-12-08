@@ -37,11 +37,11 @@
             <div class="list-group">
                 <div class="list-group-item">
                     <div class="row">
-                        <div class="col-md-2 text-center"><fmt:message key="show.from"/></div>
-                        <div class="col-md-2 text-center"><fmt:message key="show.to"/></div>
+                        <div class="col-md-3 text-center"><fmt:message key="show.from"/></div>
+                        <div class="col-md-3 text-center"><fmt:message key="show.to"/></div>
                         <div class="col-md-2 text-center"><fmt:message key="show.departure"/></div>
                         <div class="col-md-2 text-center"><fmt:message key="show.arrival"/></div>
-                        <div class="col-md-2 text-center"><fmt:message key="show.price"/>Price</div>
+                        <div class="col-md-2 text-center"><fmt:message key="show.price"/></div>
                     </div>
                 </div>
                 <jsp:useBean id="now" class="java.util.Date"/>
