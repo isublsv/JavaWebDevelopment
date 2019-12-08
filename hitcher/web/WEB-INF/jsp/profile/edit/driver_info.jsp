@@ -5,10 +5,7 @@
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="pagecontent" prefix="profile.driver.">
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <br/><br/>
     <form method="post" action="${pageContext.request.contextPath}/profile/edit/driver_info.do"
           class="needs-validation" novalidate>
         <div class="group-wrapper">
