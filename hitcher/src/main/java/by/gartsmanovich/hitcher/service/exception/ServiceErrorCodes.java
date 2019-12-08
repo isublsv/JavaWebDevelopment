@@ -42,6 +42,8 @@ public enum ServiceErrorCodes {
     INVALID_PARAMETERS_NUMBER("Parameters number are not valid"),
     
     USER_EXISTS("User with that username is already exists"),
+    
+    DRIVER_EXIST("User dont have a driver license"),
 
     EMAIL_EXISTS("User with that email is already exists"),
     
