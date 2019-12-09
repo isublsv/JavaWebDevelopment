@@ -51,7 +51,7 @@ public class MyTripsActionCommand extends AuthorizedActionCommand {
 
         try {
             TripService tripService = getFactory().getTripService();
-            List<Trip> trips = tripService.findTripsById(user.getId());
+            List<Trip> trips = tripService.findTripsByUserId(user.getId());
             request.setAttribute("trips", trips);
             LOGGER.debug("Personal user trip list was loaded successfully");
             request.getServletContext()
