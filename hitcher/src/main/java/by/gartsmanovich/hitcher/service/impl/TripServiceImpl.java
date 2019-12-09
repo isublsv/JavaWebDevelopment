@@ -23,6 +23,7 @@ import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVAL
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETERS_NUMBER;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.TRIP_NOT_FOUND;
 
 /**
  * The realisation of Trip Service interface is used to describe of application
@@ -62,7 +63,7 @@ public class TripServiceImpl implements TripService {
      * @param cityTo the provided city value of trip destination.
      * @param departure the departure day.
      * @return the trip list.
-     * @throws ServiceException if failed to find trip list.
+     * @throws ServiceException if failed to find trip list in the data source.
      */
     @Override
     public List<Trip> findTripsByValues(final String cityFrom,
@@ -106,14 +107,15 @@ public class TripServiceImpl implements TripService {
     }
 
     /**
-     * Returns user trip list.
+     * Returns user trip list from the data source.
      *
      * @param id the provided user ID.
      * @return the trip list.
-     * @throws ServiceException if failed to find trip list by ID.
+     * @throws ServiceException if failed to find trip list by ID from the data
+     *                          source.
      */
     @Override
-    public List<Trip> findTripsById(final long id) throws ServiceException {
+    public List<Trip> findTripsByUserId(final long id) throws ServiceException {
         TripDao tripDao = transaction.getTripDao();
         DestinationDao destinationDao = transaction.getDestinationDao();
         try {
@@ -134,11 +136,12 @@ public class TripServiceImpl implements TripService {
     }
 
     /**
-     * Saves a new user trip.
+     * Saves a new user trip in the data source.
      *
      * @param id  the provided user ID.
      * @param map the parameters map.
-     * @throws ServiceException if failed to save a new user trip.
+     * @throws ServiceException if failed to save a new user trip in the data
+     *                          source.
      */
     @Override
     public void save(final long id, final Map<String, String[]> map) throws
@@ -157,6 +160,52 @@ public class TripServiceImpl implements TripService {
             Trip trip = buildTrip(id, map);
             Trip tripWithId = tripDao.create(trip);
             tripDao.addTripInfo(tripWithId);
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Finds trip and user IDs in the data source.
+     *
+     * @param userId the provided user ID
+     * @param tripId the provided trip ID.
+     * @return the trip entity.
+     * @throws ServiceException if failed to find trip and user IDs in the data
+     *                          source.
+     */
+    @Override
+    public Trip findTripById(final long userId, final String tripId)
+            throws ServiceException {
+
+        TripDao tripDao = transaction.getTripDao();
+        try {
+            if (!validator.isValidNumbers(tripId)) {
+                throw new ServiceException(INVALID_VALUES);
+            }
+
+            Optional<Trip> optionalTrip = tripDao
+                    .findById(Long.parseLong(tripId));
+            if (optionalTrip.isPresent()) {
+                Trip trip = optionalTrip.get();
+
+                if (trip.getDriver().getId() != userId) {
+                    throw new ServiceException(INVALID_VALUES);
+                } else {
+                    DestinationDao destinationDao = transaction
+                            .getDestinationDao();
+                    Optional<City> from = destinationDao.findCityById(
+                            trip.getFrom().getId());
+                    Optional<City> to = destinationDao.findCityById(
+                            trip.getTo().getId());
+
+                    from.ifPresent(trip::setFrom);
+                    to.ifPresent(trip::setTo);
+                }
+                return trip;
+            } else {
+                throw new ServiceException(TRIP_NOT_FOUND);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }

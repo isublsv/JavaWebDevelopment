@@ -22,26 +22,39 @@ public interface TripService {
      * @param cityTo the provided city value of trip destination.
      * @param departure the departure day.
      * @return the trip list.
-     * @throws ServiceException if failed to find trip list.
+     * @throws ServiceException if failed to find trip list in the data source.
      */
     List<Trip> findTripsByValues(String cityFrom, String cityTo,
             String departure) throws ServiceException;
 
     /**
-     * Returns user trip list.
+     * Returns user trip list from the data source.
      *
      * @param id the provided user ID.
      * @return the trip list.
-     * @throws ServiceException if failed to find trip list by ID.
+     * @throws ServiceException if failed to find trip list by ID from the data
+     *                          source.
      */
-    List<Trip> findTripsById(long id) throws ServiceException;
+    List<Trip> findTripsByUserId(long id) throws ServiceException;
 
     /**
-     * Saves a new user trip.
+     * Saves a new user trip in the data source.
      *
-     * @param id the provided user ID.
+     * @param id  the provided user ID.
      * @param map the parameters map.
-     * @throws ServiceException if failed to save a new user trip.
+     * @throws ServiceException if failed to save a new user trip in the data
+     *                          source.
      */
     void save(long id, Map<String, String[]> map) throws ServiceException;
+
+    /**
+     * Finds trip and user IDs in the data source.
+     *
+     * @param userId the provided user ID
+     * @param tripId the provided trip ID.
+     * @return the trip entity.
+     * @throws ServiceException if failed to find trip and user IDs in the data
+     *                          source.
+     */
+    Trip findTripById(long userId, String tripId) throws ServiceException;
 }
