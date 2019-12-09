@@ -71,7 +71,7 @@ public class ServiceException extends Exception {
      *
      * @return value of code.
      */
-    public ServiceErrorCodes getCode() {
+    public ServiceErrorCodes getErrorCode() {
         return code;
     }
 }
