@@ -141,8 +141,13 @@ public enum ServiceErrorCodes {
      * The singleton instance for the "wrong login or password" code.
      * This has the numeric value of {@code 22}.
      */
-    WRONG_LOGIN_OR_PASS("Wrong login or password");
+    WRONG_LOGIN_OR_PASS("Wrong login or password"),
 
+    /**
+     * The singleton instance for the "trip not found" code.
+     * This has the numeric value of {@code 23}.
+     */
+    TRIP_NOT_FOUND("Trip not found");
     /**
      * Contains the message value.
      */
