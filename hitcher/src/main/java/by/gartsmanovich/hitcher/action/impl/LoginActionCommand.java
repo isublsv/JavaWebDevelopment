@@ -6,6 +6,7 @@ import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.UserService;
 import by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
+import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.WRONG_LOGIN_OR_PASS;
 
 /**
  * Class describes login action command that used to login user in the system.
@@ -27,11 +32,6 @@ public class LoginActionCommand extends ActionCommand {
      */
     private static final Logger LOGGER = LogManager.getLogger(
             LoginActionCommand.class);
-
-    /**
-     * Indicates about successful result.
-     */
-    private static final String IS_SUCCESS = "isSuccess";
 
     /**
      * Handles the request parameters and passes its to the Service application
@@ -50,32 +50,42 @@ public class LoginActionCommand extends ActionCommand {
             throws ServletException, IOException {
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
-
+        Map<String, String> messageMap = new HashMap<>();
+        String json;
         try {
             if (login != null && pass != null) {
                 UserService userService = getFactory().getUserService();
                 User user = userService.findByLoginAndPassword(login, pass);
                 HttpSession session = request.getSession();
                 session.setAttribute("authorizedUser", user);
-                request.setAttribute(IS_SUCCESS, true);
-                String message = String.format("User \"%s\" is logged in",
-                                              user.getLogin());
-                LOGGER.debug(message);
+                String successMessage = String.format(
+                        "User \"%s\" is logged in", user.getLogin());
+                LOGGER.debug(successMessage);
+
+                String redirect = request.getHeader("referer");
+                messageMap.put("redirect", redirect);
+                json = new Gson().toJson(messageMap);
             } else {
-                String message = ServiceErrorCodes.INVALID_LOGIN_OR_PASS
-                        .getMessage();
-                LOGGER.warn(message);
-                request.setAttribute("warningMessage", message);
-                request.setAttribute(IS_SUCCESS, false);
+                throw new ServiceException(WRONG_LOGIN_OR_PASS);
             }
         } catch (ServiceException e) {
-            String message = e.getCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.setAttribute(IS_SUCCESS, false);
+            ServiceErrorCodes code = e.getErrorCode();
+            LOGGER.warn(code.getMessage());
+            switch (code) {
+                case WRONG_LOGIN_OR_PASS:
+                case USER_DOES_NOT_EXIST:
+                    messageMap.put(code.getCodeValue(), code.getMessage());
+                    break;
+                default:
+                    request.setAttribute("errorMessage", e.getMessage());
+                    request.getRequestDispatcher(
+                            ConfigurationManager.getProperty("path.page.error"))
+                           .forward(request, response);
+            }
+            json = new Gson().toJson(messageMap);
         }
-        request.getRequestDispatcher(
-                ConfigurationManager.getProperty("path.page.index"))
-               .forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 }

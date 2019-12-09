@@ -4,7 +4,9 @@ import by.gartsmanovich.hitcher.action.ActionCommand;
 import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.UserService;
+import by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
+import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class describes register action command that used to register user in the
@@ -48,21 +52,41 @@ public class RegisterActionCommand extends ActionCommand {
         String email = request.getParameter("email");
         String pass = request.getParameter("pass");
 
+        Map<String, String> messageMap = new HashMap<>();
+        String json;
         try {
             UserService userService = getFactory().getUserService();
             User user = userService.save(login, email, pass);
             HttpSession session = request.getSession();
             session.setAttribute("authorizedUser", user);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.index"))
-                   .forward(request, response);
+            String successMessage = String.format(
+                    "User \"%s\" is successfully registered", user.getLogin());
+            LOGGER.debug(successMessage);
+
+            String redirect = request.getHeader("referer");
+            messageMap.put("redirect", redirect);
+            json = new Gson().toJson(messageMap);
         } catch (ServiceException e) {
-            String message = e.getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            ServiceErrorCodes code = e.getErrorCode();
+            LOGGER.error(code.getMessage());
+            switch (code) {
+                case INVALID_LOGIN:
+                case INVALID_EMAIL:
+                case USER_EXISTS:
+                case EMAIL_EXISTS:
+                    messageMap.put(code.getCodeValue(), code.getMessage());
+                    break;
+                default:
+                    request.setAttribute("errorMessage", e.getMessage());
+                    request.getRequestDispatcher(
+                            ConfigurationManager.getProperty("path.page.error"))
+                           .forward(request, response);
+            }
+
+            json = new Gson().toJson(messageMap);
         }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 }
