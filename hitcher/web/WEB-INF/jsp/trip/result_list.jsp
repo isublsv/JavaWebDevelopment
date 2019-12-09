@@ -42,21 +42,40 @@
                         <div class="col-md-2 text-center"><fmt:message key="show.to"/></div>
                         <div class="col-md-2 text-center"><fmt:message key="show.departure"/></div>
                         <div class="col-md-2 text-center"><fmt:message key="show.arrival"/></div>
-                        <div class="col-md-2 text-center"><fmt:message key="show.price"/>Price</div>
+                        <div class="col-md-2 text-center"><fmt:message key="show.price"/></div>
                     </div>
                 </div>
-                <c:forEach var="trip" items="${requestScope.trips}">
-                    <a href="<c:url value="/trip/show.do?id=${trip.id}"/>" class="list-group-item list-group-item-action">
-                        <div class="row">
-                            <div class="col-md-2 text-center">${trip.driver.name}</div>
-                            <div class="col-md-2 text-center">${trip.from.cityName}</div>
-                            <div class="col-md-2 text-center">${trip.to.cityName}</div>
-                            <div class="col-md-2 text-center">${trip.departureDatetime}</div>
-                            <div class="col-md-2 text-center">${trip.arrivalDatetime}</div>
-                            <div class="col-md-2 text-center">${trip.price}</div>
-                        </div>
-                    </a>
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.authorizedUser}">
+                        <c:forEach var="trip" items="${requestScope.trips}">
+                            <a href="<c:url value="/trip/show.do?id=${trip.id}"/>"
+                               class="list-group-item list-group-item-action">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">${trip.driver.name}</div>
+                                    <div class="col-md-2 text-center">${trip.from.cityName}</div>
+                                    <div class="col-md-2 text-center">${trip.to.cityName}</div>
+                                    <div class="col-md-2 text-center">${trip.departureDatetime}</div>
+                                    <div class="col-md-2 text-center">${trip.arrivalDatetime}</div>
+                                    <div class="col-md-2 text-center">${trip.price}</div>
+                                </div>
+                            </a>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="trip" items="${requestScope.trips}">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">${trip.driver.name}</div>
+                                    <div class="col-md-2 text-center">${trip.from.cityName}</div>
+                                    <div class="col-md-2 text-center">${trip.to.cityName}</div>
+                                    <div class="col-md-2 text-center">${trip.departureDatetime}</div>
+                                    <div class="col-md-2 text-center">${trip.arrivalDatetime}</div>
+                                    <div class="col-md-2 text-center">${trip.price}</div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </c:if>
     </div>
