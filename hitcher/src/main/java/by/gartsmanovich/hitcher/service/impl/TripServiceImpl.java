@@ -201,6 +201,11 @@ public class TripServiceImpl implements TripService {
 
                     from.ifPresent(trip::setFrom);
                     to.ifPresent(trip::setTo);
+
+                    UserDao userDao = transaction.getUserDao();
+                    Optional<User> optionalUser = userDao.findById(userId);
+
+                    optionalUser.ifPresent(trip::setDriver);
                 }
                 return trip;
             } else {
