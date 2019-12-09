@@ -210,18 +210,15 @@
                                         <form class="needs-validation-login" novalidate method="post"
                                               action="${pageContext.request.contextPath}/login.do"
                                               id="login-form">
-                                            <span id="warning-message" class="text-danger text-center">
-                                                ${requestScope.warningMessage}
-                                            </span>
-                                            <span id="error-message" class="text-danger text-center">
-                                                ${requestScope.errorMessage}
-                                            </span>
+                                            <div class="form-label-group" id="error-login" hidden>
+                                                <div class="text-danger text-center" id="error-message-login"></div>
+                                            </div>
                                             <div class="form-label-group">
                                                 <input type="text" id="inputLoginUsername" class="form-control"
-                                                       placeholder="Username" name="login" 
+                                                       placeholder="Username" name="login"
                                                        pattern="^[\w]{4,45}$" required autofocus>
-                                                <div 
-                                                        class="invalid-feedback"><fmt:message 
+                                                <div
+                                                        class="invalid-feedback"><fmt:message
                                                         key="form.invalid.feedback"/></div>
                                                 <label
                                                         for="inputLoginUsername"><fmt:message
@@ -242,10 +239,12 @@
                                                 <label class="custom-control-label" for="customCheck1"><fmt:message
                                                         key="remember.pass"/></label>
                                             </div>
-                                            
-                                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                                        type="submit"><fmt:message key="link.login"/>
-                                                </button>
+                                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                    type="submit"><fmt:message key="link.login"/>
+                                            </button>
+                                            <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                    type="reset"><fmt:message key="link.reset"/>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -275,7 +274,42 @@
                 }, false);
             })();
         </script>
-        <script type="text/javascript" src="<c:url value="/js/login.js"/>"></script>
+        <script>
+            jQuery(function ($) {
+                
+                $('button').click(function () {
+                    $('#error-message-login').empty();
+                });
+
+                $('#login-form').submit(function (e) {
+                    e.preventDefault();
+                    let frm = $(this);
+
+                    $.ajax({
+                        url: frm.attr('action'),
+                        type: frm.attr(`method`),
+                        data: frm.serialize(),
+                        success: function (response) {
+                            const stringified = JSON.stringify(response);
+                            const json = JSON.parse(stringified);
+
+                            if (json['redirect'] != null) {
+                                window.location.href = json['redirect'];
+                            } else if (json['22'] != null) {
+                                $('#error-login').removeAttr('hidden');
+                                $('#error-message-login').append('<fmt:message key="error.wrong.login"/>');
+                            } else {
+                                $('#error-login').removeAttr('hidden');
+                                $('#error-message-login').append('<fmt:message key="error.user.not.exist"/>');
+                            }
+                        },
+                        error: function (request, status, error) {
+                            alert("<fmt:message key="ajax.error"/>");
+                        }
+                    });
+                });
+            });
+        </script>
     </c:if>
 
     <c:if test="${not param.isProfileNavbar}">
@@ -296,22 +330,21 @@
                                     <div class="col-lg-12 mx-auto">
                                         <form class="needs-validation-registration" method="post" 
                                               action="${pageContext.request.contextPath}/register.do" 
-                                              novalidate>
+                                              novalidate id="register-form">
+                                            <div class="form-label-group" id="error-register" hidden>
+                                                <div class="text-danger text-center" id="error-message-register"></div>
+                                            </div>
                                             <div class="form-label-group">
                                                 <input type="text" id="inputRegisterUsername" class="form-control" placeholder="Username" name="login"
                                                        pattern="^[\w]{4,45}$" required autofocus>
-                                                <div
-                                                        class="invalid-feedback"><fmt:message
-                                                        key="form.invalid.feedback"/></div>
+                                                <div class="invalid-feedback"><fmt:message  key="form.invalid.feedback"/></div>
                                                 <label for="inputRegisterUsername"><fmt:message key="form.username"/></label>
                                             </div>
 
                                             <div class="form-label-group">
                                                 <input type="email" id="inputRegisterEmail" class="form-control" placeholder="Email address" name="email"
                                                        pattern="^[\w._-]+@[\w.-]+\.[\w]{2,6}$" required>
-                                                <div
-                                                        class="invalid-feedback"><fmt:message
-                                                        key="form.invalid.feedback"/></div>
+                                                <div class="invalid-feedback"><fmt:message key="form.invalid.feedback"/></div>
                                                 <label for="inputRegisterEmail"><fmt:message key="form.email"/></label>
                                             </div>
 
@@ -321,22 +354,20 @@
                                                 <input type="password" id="inputRegisterPassword" class="form-control" placeholder="Password" name="pass"
                                                        pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$" required>
                                                 <div class="small text-center"><fmt:message key="password.span"/></div>
-                                                <div
-                                                        class="invalid-feedback"><fmt:message
-                                                        key="form.invalid.feedback"/></div>
+                                                <div class="invalid-feedback"><fmt:message key="form.invalid.feedback"/></div>
                                                 <label for="inputRegisterPassword"><fmt:message key="form.password"/></label>
                                             </div>
 
                                             <div class="form-label-group">
                                                 <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
-                                                <div
-                                                        class="invalid-feedback"><fmt:message
-                                                        key="form.invalid.feedback"/></div>
+                                                <div class="invalid-feedback"><fmt:message key="form.invalid.feedback"/></div>
                                                 <label for="inputConfirmPassword"><fmt:message key="form.password.confirm"/></label>
                                             </div>
                                             <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                                    type="submit" id="submit_register"><fmt:message 
-                                                    key="link.register"/>
+                                                    type="submit" id="submit_register"><fmt:message key="link.register"/>
+                                            </button>
+                                            <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                    type="reset" id><fmt:message key="link.reset"/>
                                             </button>
                                             <a class="d-block text-center mt-2 small" data-target="#sign-in" data-toggle="modal"
                                                data-dismiss="modal" href="#"><fmt:message key="link.login"/></a>
@@ -383,6 +414,48 @@
                     });
                 }, false);
             })();
+        </script>
+        <script>
+            jQuery(function ($) {
+
+                $('button').click(function () {
+                    $('#error-message-register').empty();
+                });
+
+                $('#register-form').submit(function (e) {
+                    e.preventDefault();
+                    let frm = $(this);
+
+                    $.ajax({
+                        url: frm.attr('action'),
+                        type: frm.attr(`method`),
+                        data: frm.serialize(),
+                        success: function (response) {
+                            const stringified = JSON.stringify(response);
+                            const json = JSON.parse(stringified);
+
+                            if (json['redirect'] != null) {
+                                window.location.href = json['redirect'];
+                            } else if (json['7'] != null) {
+                                $('#error-register').removeAttr('hidden');
+                                $('#error-message-register').append('<fmt:message key="error.invalid.email"/>');
+                            } else if (json['8'] != null) {
+                                $('#error-register').removeAttr('hidden');
+                                $('#error-message-register').append('<fmt:message key="error.invalid.login"/>');
+                            } else if (json['20'] != null) {
+                                $('#error-register').removeAttr('hidden');
+                                $('#error-message-register').append('<fmt:message key="error.user.exist"/>');
+                            } else {
+                                $('#error-register').removeAttr('hidden');
+                                $('#error-message-register').append('<fmt:message key="error.email.exist"/>');
+                            }
+                        },
+                        error: function (request, status, error) {
+                            alert("<fmt:message key="ajax.error"/>");
+                        }
+                    });
+                });
+            });
         </script>
     </c:if>
 </fmt:bundle>
