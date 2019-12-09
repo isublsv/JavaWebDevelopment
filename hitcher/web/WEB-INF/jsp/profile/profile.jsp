@@ -27,14 +27,17 @@
                 <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
                     <li class="nav-item">
                         <h4 class="dropdown-header"><fmt:message key="info"/></h4>
-                        <a class="nav-link active" id="personal-data-tab" data-toggle="tab" href="#personal-data"
-                           role="tab"
+                        <a class="nav-link <c:if test="${requestScope.activeTab eq 'personalDataTab'}">active</c:if>" 
+                           id="personal-data-tab" data-toggle="tab" href="#personal-data" role="tab"
                            aria-controls="home" aria-selected="true"><fmt:message key="personal.data"/></a>
-                        <a class="nav-link" id="preferences-tab" data-toggle="tab" href="#preferences" role="tab"
+                        <a class="nav-link <c:if test="${requestScope.activeTab eq 'preferencesTab'}">active</c:if>"
+                           id="preferences-tab" data-toggle="tab" href="#preferences" role="tab"
                            aria-controls="profile" aria-selected="false"><fmt:message key="preferences"/></a>
-                        <a class="nav-link" id="license-tab" data-toggle="tab" href="#license" role="tab"
+                        <a class="nav-link <c:if test="${requestScope.activeTab eq 'driverInfoTab'}">active</c:if>"
+                           id="license-tab" data-toggle="tab" href="#license" role="tab"
                            aria-controls="contact" aria-selected="false"><fmt:message key="driver.license"/></a>
-                        <a class="nav-link" id="email-tab" data-toggle="tab" href="#email" role="tab"
+                        <a class="nav-link <c:if test="${requestScope.activeTab eq 'emailTab'}">active</c:if>"
+                           id="email-tab" data-toggle="tab" href="#email" role="tab"
                            aria-controls="contact" aria-selected="false"><fmt:message key="email"/></a>
                     </li>
                     <li class="nav-item">
@@ -46,7 +49,8 @@
                     </li>
                     <li class="nav-item">
                         <h4 class="dropdown-header"><fmt:message key="account"/></h4>
-                        <a class="nav-link" id="pass-tab" data-toggle="tab" href="#pass" role="tab"
+                        <a class="nav-link <c:if test="${requestScope.activeTab eq 'passwordTab'}">active</c:if>"
+                           id="pass-tab" data-toggle="tab" href="#pass" role="tab"
                            aria-controls="contact" aria-selected="false"><fmt:message key="pass"/></a>
                     </li>
                     <li class="nav-item">
@@ -58,20 +62,23 @@
             </div>
             <div class="col-md-8">
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="personal-data" role="tabpanel"
-                         aria-labelledby="personal-data-tab">
+                    <div class="tab-pane fade <c:if test="${requestScope.activeTab eq 'personalDataTab'}">active</c:if>"
+                         id="personal-data" role="tabpanel" aria-labelledby="personal-data-tab">
                         <h3><fmt:message key="personal.data.header"/></h3>
                         <jsp:include page="edit/personal_data.jsp"/>
                     </div>
-                    <div class="tab-pane fade" id="preferences" role="tabpanel" aria-labelledby="preferences-tab">
+                    <div class="tab-pane fade <c:if test="${requestScope.activeTab eq 'preferencesTab'}">active</c:if>"
+                         id="preferences" role="tabpanel" aria-labelledby="preferences-tab">
                         <h3><fmt:message key="preferences.header"/></h3>
                         <jsp:include page="edit/preferences.jsp"/>
                     </div>
-                    <div class="tab-pane fade" id="license" role="tabpanel" aria-labelledby="license-tab">
+                    <div class="tab-pane fade <c:if test="${requestScope.activeTab eq 'driverInfoTab'}">active</c:if>"
+                         id="license" role="tabpanel" aria-labelledby="license-tab">
                         <h3><fmt:message key="driver.license.header"/></h3>
                         <jsp:include page="edit/driver_info.jsp"/>
                     </div>
-                    <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">
+                    <div class="tab-pane fade <c:if test="${requestScope.activeTab eq 'emailTab'}">active</c:if>"
+                         id="email" role="tabpanel" aria-labelledby="email-tab">
                         <h3><fmt:message key="email.header"/></h3>
                         <jsp:include page="edit/email.jsp"/>
                     </div>
@@ -83,7 +90,8 @@
                         <h3><fmt:message key="review.header.left"/></h3>
                         <jsp:include page="review/my_reviews.jsp"/>
                     </div>
-                    <div class="tab-pane fade" id="pass" role="tabpanel" aria-labelledby="pass-tab">
+                    <div class="tab-pane fade <c:if test="${requestScope.activeTab eq 'passwordTab'}">active</c:if>"
+                         id="pass" role="tabpanel" aria-labelledby="pass-tab">
                         <h3><fmt:message key="pass.header"/></h3>
                         <jsp:include page="edit/password.jsp"/>
                     </div>

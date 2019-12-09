@@ -1,6 +1,6 @@
 jQuery(function ($) {
 
-    $('#login-form').submit(function (e) {
+    $('#register-form').submit(function (e) {
         e.preventDefault();
         let frm = $(this);
 
@@ -11,19 +11,16 @@ jQuery(function ($) {
             success: function (response) {
                 const stringified = JSON.stringify(response);
                 const json = JSON.parse(stringified);
-               
+
                 if (json['redirect'] != null) {
                     window.location.href = json['redirect'];
-                } else if (json['22']) {
-                    $('#error-login').removeAttr('hidden');
-                    $('#error-message-login').append('<span><fmt:message key="error.wrong.login"/></span>');
                 } else {
-                    $('#error-login').removeAttr('hidden');
-                    $('#error-message-login').html(Object.values(json)[0]);
+                    $('#error-register').removeAttr('hidden');
+                    $('#error-message-register').html(Object.values(json)[0]);
                 }
             },
             error: function (request, status, error) {
-                //alert("<fmt:messagekey="ajax.error"/>");
+                alert('<fmt:messagekey="ajax.error"/>');
             }
         });
     });

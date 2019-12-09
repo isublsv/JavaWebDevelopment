@@ -62,7 +62,7 @@ public class EditDriverInfoActionCommand extends AuthorizedActionCommand {
                     request.getContextPath() + ConfigurationManager
                             .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
-            String message = e.getCode().getMessage();
+            String message = e.getErrorCode().getMessage();
             LOGGER.warn(message);
             request.setAttribute("errorMessage", message);
             request.getRequestDispatcher(

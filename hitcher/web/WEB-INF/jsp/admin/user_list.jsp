@@ -22,9 +22,7 @@
     <jsp:include page="../template/navbar.jsp">
         <jsp:param name="isTripNavbar" value="true"/>
     </jsp:include>
-    <br/>
-    <br/>
-    <br/>
+    <br/><br/><br/>
     <div class="container">
         <c:if test="${empty requestScope.users}">
             <div class="list-group">

@@ -59,7 +59,7 @@ public class MyTripsActionCommand extends AuthorizedActionCommand {
                            "path.page.my.trips"))
                    .forward(request, response);
         } catch (ServiceException e) {
-            String message = e.getCode().getMessage();
+            String message = e.getErrorCode().getMessage();
             LOGGER.warn(message);
             request.setAttribute("errorMessage", message);
             request.getRequestDispatcher(
