@@ -50,7 +50,7 @@
                     <c:choose>
                         <c:when test="${trip.arrivalDatetime le currentDate}">
                         <c:set var="dis" value="disabled"/>
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <a href="<c:url value="/trip/show.do?id=${trip.id}"/>" class="list-group-item list-group-item-action">
                             <div class="row">
                                 <div class="col-md-3 text-center ${dis}">${trip.from.cityName}</div>
                                 <div class="col-md-3 text-center ${dis}">${trip.to.cityName}</div>
@@ -61,7 +61,7 @@
                         </a>
                     </c:when>
                         <c:otherwise>
-                            <a href="#" class="list-group-item list-group-item-action">
+                            <a href="<c:url value="/trip/show.do?id=${trip.id}"/>" class="list-group-item list-group-item-action">
                                 <div class="row">
                                     <div class="col-md-3 text-center text-primary">${trip.from.cityName}</div>
                                     <div class="col-md-3 text-center text-primary">${trip.to.cityName}</div>

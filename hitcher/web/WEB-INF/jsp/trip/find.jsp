@@ -148,7 +148,7 @@
             }, false);
         })();
     </script>
-    <script src="<c:url value="/js/find.js"/>"></script>
+    <script src="<c:url value="/js/trip.js"/>"></script>
     </body>
     </html>
 </fmt:bundle>

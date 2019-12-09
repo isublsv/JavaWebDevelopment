@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <c:forEach var="trip" items="${requestScope.trips}">
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="<c:url value="/trip/show.do?id=${trip.id}"/>" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-md-2 text-center">${trip.driver.name}</div>
                             <div class="col-md-2 text-center">${trip.from.cityName}</div>
