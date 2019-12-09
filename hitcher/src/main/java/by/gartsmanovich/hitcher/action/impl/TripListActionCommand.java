@@ -50,16 +50,20 @@ public class TripListActionCommand extends ActionCommand {
         String departure = request.getParameter("departure");
 
         try {
-            TripService tripService = getFactory().getTripService();
-            List<Trip> trips = tripService
-                    .findTripsByValues(cityFrom, cityTo, departure);
-            request.setAttribute("trips", trips);
-            LOGGER.debug("Trip list was successfully loaded");
-
-            request.getServletContext()
-                   .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.find.list"))
-                   .forward(request, response);
+            if (cityFrom != null && cityTo != null && departure != null) {
+                TripService tripService = getFactory().getTripService();
+                List<Trip> trips = tripService
+                        .findTripsByValues(cityFrom, cityTo, departure);
+                request.setAttribute("trips", trips);
+                LOGGER.debug("Trip list was successfully loaded");
+                request.getServletContext().getRequestDispatcher(
+                        ConfigurationManager.getProperty("path.page.find.list"))
+                       .forward(request, response);
+            } else {
+                request.getServletContext().getRequestDispatcher(
+                        ConfigurationManager.getProperty("path.page.find.trip"))
+                       .forward(request, response);
+            }
         } catch (ServiceException e) {
             String message = e.getErrorCode().getMessage();
             LOGGER.warn(message);

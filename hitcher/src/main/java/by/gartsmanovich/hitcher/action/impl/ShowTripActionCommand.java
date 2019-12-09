@@ -48,14 +48,21 @@ public class ShowTripActionCommand extends AuthorizedActionCommand {
         User user = (User) request.getSession().getAttribute("authorizedUser");
 
         try {
-            TripService tripService = getFactory().getTripService();
-            Trip trip = tripService.findTripById(user.getId(), tripId);
-            request.setAttribute("trip", trip);
-            LOGGER.debug("Trip was found by id");
-            request.getServletContext()
-                   .getRequestDispatcher(ConfigurationManager.getProperty(
-                           "path.page.my.trip.show"))
-                   .forward(request, response);
+            if (tripId != null) {
+                TripService tripService = getFactory().getTripService();
+                Trip trip = tripService.findTripById(user.getId(), tripId);
+                request.setAttribute("trip", trip);
+                LOGGER.debug("Trip was found by id");
+                request.getServletContext().getRequestDispatcher(
+                        ConfigurationManager.getProperty(
+                                "path.page.my.trip.show"))
+                       .forward(request, response);
+            } else {
+                request.getServletContext().getRequestDispatcher(
+                        ConfigurationManager.getProperty(
+                                "path.page.my.trips.action"))
+                       .forward(request, response);
+            }
         } catch (ServiceException e) {
             String message = e.getErrorCode().getMessage();
             LOGGER.warn(message);
