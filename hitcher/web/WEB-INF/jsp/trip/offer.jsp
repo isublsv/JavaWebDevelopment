@@ -25,7 +25,7 @@
     <br/>
     <br/>
     <div class="container">
-        <form action="${pageContext.request.contextPath}/trip/offer.do" class="needs-validation" novalidate>
+        <form method="post" action="${pageContext.request.contextPath}/trip/offer.do" class="needs-validation" novalidate>
             <div class="group-wrapper" id="from">
                 <div class="row">
                     <div class="col-lg-3 py-2"><fmt:message key="from"/></div>
