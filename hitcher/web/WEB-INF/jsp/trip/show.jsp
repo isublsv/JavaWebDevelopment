@@ -31,7 +31,7 @@
                 </div>
                 <ul class="list-group list-group-flush text-center">
                     <li class="list-group-item">
-                        <a href="<c:url value="/profile/show.do?id=${requestScope.trip.id}"/>" class="card-link">
+                        <a href="<c:url value="/profile/show.do?id=${requestScope.trip.driver.id}"/>" class="card-link">
                             <div class="row row-cols-2">
                                 <div class="col"><fmt:message key="show.driver"/></div>
                                 <div class="col">${requestScope.trip.driver.name}</div>
