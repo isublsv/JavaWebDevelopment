@@ -3,6 +3,7 @@
 <!-- Bootstrap core CSS -->
 <link href="<c:url value="/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
 <link href="<c:url value="/css/all.css"/>" rel="stylesheet">
+<link href="<c:url value="/css/index.css"/>" rel="stylesheet">
 <!-- Bootstrap core JavaScript -->
 <script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
 <script src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
