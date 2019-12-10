@@ -126,4 +126,13 @@ public interface UserService {
     User findByLoginAndPassword(String login, String password) throws
             ServiceException;
 
+    /**
+     * Finds user entity by provided id in the data source.
+     *
+     * @param id the provided user ID.
+     * @return the user entity.
+     * @throws ServiceException if failed to find user entity in the data
+     *                          source.
+     */
+    User findUserProfileByID(String id) throws ServiceException;
 }

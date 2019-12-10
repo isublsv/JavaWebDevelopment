@@ -26,6 +26,7 @@ import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVAL
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PHONE_NUMBER;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PREFERENCES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_SURNAME;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_DOES_NOT_EXIST;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_EXISTS;
@@ -426,6 +427,24 @@ public class UserServiceImpl implements UserService {
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
+    }
+
+    /**
+     * Finds user entity by provided id in the data source.
+     *
+     * @param id the provided user ID.
+     * @return the user entity.
+     * @throws ServiceException if failed to find user entity in the data
+     *                          source.
+     */
+    @Override
+    public User findUserProfileByID(final String id) throws ServiceException {
+
+        if (!validator.isValidNumbers(id)) {
+            throw new ServiceException(INVALID_VALUES);
+        }
+
+        return findByID(Long.parseLong(id));
     }
 
     /**
