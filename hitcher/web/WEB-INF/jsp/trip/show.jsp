@@ -52,13 +52,15 @@
                     </li>
                     <jsp:useBean id="now" class="java.util.Date"/>
                     <fmt:formatDate var="currentDate" value="${now}" pattern="yyyy-MM-dd"/>
-                    
+
                     <li class="list-group-item">
                         <div class="row row-cols-2">
                             <div class="col"><fmt:message key="departure.datetime"/></div>
                             <input type="date" class="form-control col text-center" id="departure" name="departure"
                                    value="${requestScope.trip.departureDatetime}" required
-                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate || 
+                                   sessionScope.authorizedUser.id != requestScope.trip.driver.id}">disabled
+                            </c:if>>
                             <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                         </div>
                     </li>
@@ -67,7 +69,8 @@
                             <div class="col"><fmt:message key="arrival.datetime"/></div>
                             <input type="date" class="form-control col text-center" id="arrival" name="arrival"
                                    value="${requestScope.trip.arrivalDatetime}" required
-                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate ||
+                                   sessionScope.authorizedUser.id != requestScope.trip.driver.id}">disabled</c:if>>
                             <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                         </div>
                     </li>
@@ -76,7 +79,8 @@
                             <div class="col"><fmt:message key="free.seat"/></div>
                             <input type="number" class="form-control col text-center" id="seats" min="1" name="seats"
                                    value="${requestScope.trip.freeSeats}" required
-                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate ||
+                                   sessionScope.authorizedUser.id != requestScope.trip.driver.id}">disabled</c:if>>
                             <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                         </div>
                     </li>
@@ -85,7 +89,8 @@
                             <div class="col"><fmt:message key="show.price"/></div>
                             <input type="number" class="form-control col text-center" id="price" min="1" name="price"
                                    value="${requestScope.trip.price}" required
-                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                   <c:if test="${requestScope.trip.arrivalDatetime le currentDate ||
+                                   sessionScope.authorizedUser.id != requestScope.trip.driver.id}">disabled</c:if>>
                             <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                         </div>
                     </li>
@@ -95,13 +100,17 @@
                                 <input type="checkbox" class="custom-control-input" id="smoking" value="true"
                                        name="smoking"
                                        <c:if test="${requestScope.trip.smokingAllowed eq 'true'}">checked</c:if>
-                                       <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                       <c:if test="${requestScope.trip.arrivalDatetime le currentDate ||
+                                       sessionScope.authorizedUser.id != requestScope.trip.driver.id}">disabled
+                                </c:if>>
                                 <label class="custom-control-label" for="smoking"><fmt:message key="smoking"/></label>
                             </div>
                             <div class="custom-control custom-switch col">
                                 <input type="checkbox" class="custom-control-input" id="pets" value="true" name="pets"
                                        <c:if test="${requestScope.trip.petsAllowed eq 'true'}">checked</c:if>
-                                       <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                       <c:if test="${requestScope.trip.arrivalDatetime le currentDate ||
+                                       sessionScope.authorizedUser.id != requestScope.trip.driver.id}">disabled
+                                </c:if>>
                                 <label class="custom-control-label" for="pets"><fmt:message key="pets"/></label>
                             </div>
                         </div>
@@ -111,12 +120,22 @@
                             <div class="col border-right text-right">
                                 <input class="btn btn-danger" type="submit" value="<fmt:message key="delete"/>"
                                        formaction="${pageContext.request.contextPath}/trip/delete.do"
-                                       <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                <c:choose>
+                                       <c:when test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:when>
+                                       <c:when test="${sessionScope.authorizedUser.id != requestScope.trip.driver.id &&
+                                       sessionScope.authorizedUser.role == 'USER'}">hidden</c:when>
+                                </c:choose>
+                                >
                             </div>
                             <div class="col text-left">
                                 <input class="btn btn-primary" type="submit" value="<fmt:message key="edit"/>"
                                        formaction="${pageContext.request.contextPath}/trip/edit.do"
-                                       <c:if test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:if>>
+                                <c:choose>
+                                       <c:when test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:when>
+                                       <c:when test="${sessionScope.authorizedUser.id != requestScope.trip.driver.id &&
+                                       sessionScope.authorizedUser.role == 'USER'}">hidden</c:when>
+                                </c:choose>
+                                >
                             </div>
                         </div>
                     </li>
