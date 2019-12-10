@@ -188,25 +188,22 @@ public class TripServiceImpl implements TripService {
                     .findById(Long.parseLong(tripId));
             if (optionalTrip.isPresent()) {
                 Trip trip = optionalTrip.get();
+                DestinationDao destinationDao =
+                        transaction.getDestinationDao();
+                Optional<City> from = destinationDao.findCityById(
+                        trip.getFrom().getId());
+                Optional<City> to = destinationDao.findCityById(
+                        trip.getTo().getId());
 
-                if (trip.getDriver().getId() != userId) {
-                    throw new ServiceException(INVALID_VALUES);
-                } else {
-                    DestinationDao destinationDao = transaction
-                            .getDestinationDao();
-                    Optional<City> from = destinationDao.findCityById(
-                            trip.getFrom().getId());
-                    Optional<City> to = destinationDao.findCityById(
-                            trip.getTo().getId());
+                from.ifPresent(trip::setFrom);
+                to.ifPresent(trip::setTo);
 
-                    from.ifPresent(trip::setFrom);
-                    to.ifPresent(trip::setTo);
+                UserDao userDao = transaction.getUserDao();
+                Optional<User> optionalUser = userDao.findById(trip.getDriver()
+                                                                   .getId());
 
-                    UserDao userDao = transaction.getUserDao();
-                    Optional<User> optionalUser = userDao.findById(userId);
+                optionalUser.ifPresent(trip::setDriver);
 
-                    optionalUser.ifPresent(trip::setDriver);
-                }
                 return trip;
             } else {
                 throw new ServiceException(TRIP_NOT_FOUND);
