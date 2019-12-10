@@ -50,10 +50,24 @@ public class CookieLocaleFilter implements Filter {
 
         String locale = req.getParameter("locale");
         if (locale != null) {
-            Cookie cookie = new Cookie("lang", locale);
-            cookie.setMaxAge(MAX_AGE);
-            cookie.setHttpOnly(true);
-            resp.addCookie(cookie);
+            Cookie[] cookies = req.getCookies();
+            boolean isLangFound = false;
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    String name = cookie.getName();
+                    if ("lang".equals(name)) {
+                        cookie.setValue(locale);
+                        resp.addCookie(cookie);
+                        isLangFound = true;
+                    }
+                }
+            }
+            if (!isLangFound) {
+                Cookie cookie = new Cookie("lang", locale);
+                cookie.setMaxAge(MAX_AGE);
+                cookie.setHttpOnly(true);
+                resp.addCookie(cookie);
+            }
         }
 
         chain.doFilter(request, response);
