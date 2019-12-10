@@ -42,7 +42,8 @@
                     </div>
                 </div>
                 <c:forEach var="user" items="${requestScope.users}">
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="<c:url value="/profile/show.do?id=${user.id}"/>"
+                       class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-md-3 text-center">${user.id}</div>
                             <div class="col-md-3 text-center">${user.login}</div>
