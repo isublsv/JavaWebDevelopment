@@ -15,6 +15,7 @@ import by.gartsmanovich.hitcher.action.impl.MyTripsActionCommand;
 import by.gartsmanovich.hitcher.action.impl.OfferTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
+import by.gartsmanovich.hitcher.action.impl.ShowProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ShowTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.TripListActionCommand;
 import by.gartsmanovich.hitcher.action.impl.UserListActionCommand;
@@ -58,6 +59,8 @@ public enum ActionCommandProvider {
                 return new LogoutActionCommand();
             case "/profile":
                 return new ProfileActionCommand();
+            case "/profile/show":
+                return new ShowProfileActionCommand();
             case "/profile/edit/personal_data":
                 return new EditPersonalDataActionCommand();
             case "/profile/edit/preferences":
