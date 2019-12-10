@@ -71,7 +71,7 @@ public enum ActionCommandProvider {
                 return new EditPasswordActionCommand();
             case "/profile/edit/driver_info":
                 return new EditDriverInfoActionCommand();
-            case "/ban":
+            case "/admin/ban":
                 return new BanActionCommand();
             case "/admin/user_list":
                 return new UserListActionCommand();
