@@ -1,11 +1,18 @@
 package by.gartsmanovich.hitcher.action.impl;
 
+import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
+import by.gartsmanovich.hitcher.bean.Role;
+import by.gartsmanovich.hitcher.bean.User;
+import by.gartsmanovich.hitcher.service.TripService;
+import by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes;
+import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -39,5 +46,35 @@ public class DeleteTripActionCommand extends AuthorizedActionCommand {
             final HttpServletResponse response) throws IOException,
             ServletException {
 
+        String tripId = request.getParameter("id");
+        HttpSession session = request.getSession();
+
+        User user = (User) session.getAttribute("authorizedUser");
+
+        try {
+            if (tripId != null) {
+                TripService tripService = getFactory().getTripService();
+                tripService.deleteTripById(tripId);
+                LOGGER.debug("Trip was deleted successfully");
+                if (user.getRole() == Role.ADMIN) {
+                    response.sendRedirect(request.getContextPath()
+                                          + ConfigurationManager.getProperty(
+                            "path.page.find.trip.action"));
+                } else {
+                    response.sendRedirect(request.getContextPath()
+                                          + ConfigurationManager.getProperty(
+                            "path.page.my.trips.action"));
+                }
+            } else {
+                throw new ServiceException(ServiceErrorCodes.INVALID_VALUES);
+            }
+        } catch (ServiceException e) {
+            String message = e.getErrorCode().getMessage();
+            LOGGER.warn(message);
+            request.setAttribute("errorMessage", message);
+            request.getRequestDispatcher(
+                    ConfigurationManager.getProperty("path.page.error"))
+                   .forward(request, response);
+        }
     }
 }
