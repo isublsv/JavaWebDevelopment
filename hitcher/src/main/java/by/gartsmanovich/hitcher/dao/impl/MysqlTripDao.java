@@ -92,6 +92,12 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                                               + "WHERE trips.id = ?;";
 
     /**
+     * Query to delete selected trip information from the database.
+     */
+    private static final String DELETE_TRIP_INFO = "DELETE FROM trip_options"
+                                                   + " WHERE trip_id=?";
+
+    /**
      * Connection from a pool to MySQL database.
      */
     private Connection connection;
@@ -238,6 +244,27 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Failed to delete trip", e);
+        }
+    }
+
+
+    /**
+     * Deletes trip additional information by id from the database.
+     *
+     * @param id the provided trip ID.
+     * @throws DaoException if failed to delete additional info by ID
+     *                      from the database.
+     */
+    @Override
+    public void deleteTripInfo(final long id) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(
+                DELETE_TRIP_INFO)) {
+
+            statement.setLong(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Failed to delete trip info", e);
         }
     }
 

@@ -45,4 +45,13 @@ public interface TripDao extends AbstractDao<Trip> {
      *                      trip in the data source.
      */
     void addTripInfo(Trip trip) throws DaoException;
+
+    /**
+     * Deletes trip additional information by id from the data source.
+     *
+     * @param id the provided trip ID.
+     * @throws DaoException if failed to delete additional info by ID
+     *                      from the data source.
+     */
+    void deleteTripInfo(long id) throws DaoException;
 }
