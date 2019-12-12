@@ -1,6 +1,7 @@
 package by.gartsmanovich.hitcher.bean;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Class represents Trip entity. Each trip describes by ID, driver's ID,
@@ -55,6 +56,11 @@ public class Trip extends Entity {
      * The pets permission. Default is false.
      */
     private boolean isPetsAllowed;
+
+    /**
+     * The list of passengers.
+     */
+    private List<User> passengers;
 
     /**
      * Default constructor.
@@ -234,6 +240,24 @@ public class Trip extends Entity {
     }
 
     /**
+     * Gets passengers.
+     *
+     * @return value of passengers.
+     */
+    public List<User> getPassengers() {
+        return passengers;
+    }
+
+    /**
+     * Sets passengers.
+     *
+     * @param passengersValue value of passengers.
+     */
+    public void setPassengers(final List<User> passengersValue) {
+        passengers = passengersValue;
+    }
+
+    /**
      * Returns a hash code value for the object.
      *
      * @return a hash code value for this object.
@@ -250,6 +274,7 @@ public class Trip extends Entity {
         result = PRIME * result + freeSeats;
         temp = Double.doubleToLongBits(price);
         result = PRIME * result + (int) (temp ^ (temp >>> SHIFT));
+        result = PRIME * result + passengers.hashCode();
         if (isSmokingAllowed) {
             result = PRIME * result + 1;
         } else {
@@ -303,6 +328,9 @@ public class Trip extends Entity {
             return false;
         }
         if (!to.equals(trip.to)) {
+            return false;
+        }
+        if (!passengers.equals(trip.passengers)) {
             return false;
         }
         if (!departureDatetime.equals(trip.departureDatetime)) {
