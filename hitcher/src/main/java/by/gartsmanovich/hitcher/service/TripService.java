@@ -48,6 +48,15 @@ public interface TripService {
     void save(long id, Map<String, String[]> map) throws ServiceException;
 
     /**
+     * Updates a trip information in the data source.
+     *
+     * @param map the parameters map.
+     * @throws ServiceException if failed to update a trip information in the
+     *                          data source.
+     */
+    void update(Map<String, String[]> map) throws ServiceException;
+
+    /**
      * Finds trip and user IDs in the data source.
      *
      * @param userId the provided user ID

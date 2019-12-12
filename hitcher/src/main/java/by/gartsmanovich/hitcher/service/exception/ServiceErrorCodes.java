@@ -111,7 +111,7 @@ public enum ServiceErrorCodes {
      * The singleton instance for the "invalid values" code.
      * This has the numeric value of {@code 17}.
      */
-    INVALID_VALUES("Values are not valid"),
+    INVALID_PARAMETER_VALUE("Parameter values are not valid"),
 
     /**
      * The singleton instance for the "sql error" code.

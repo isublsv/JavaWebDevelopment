@@ -4,7 +4,6 @@ import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.bean.Role;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.TripService;
-import by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 
 /**
  * Class describes delete trip action command that used to delete trip for
@@ -66,7 +67,7 @@ public class DeleteTripActionCommand extends AuthorizedActionCommand {
                             "path.page.my.trips.action"));
                 }
             } else {
-                throw new ServiceException(ServiceErrorCodes.INVALID_VALUES);
+                throw new ServiceException(INVALID_PARAMETER_VALUE);
             }
         } catch (ServiceException e) {
             String message = e.getErrorCode().getMessage();

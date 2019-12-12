@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_VALUES;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 
 /**
  * Class describes show user profile action command that used to show
@@ -63,7 +63,7 @@ public class ShowProfileActionCommand extends ActionCommand {
                                 "path.page.profile.show")).forward(request,
                                                                    response);
             } else {
-                throw new ServiceException(INVALID_VALUES);
+                throw new ServiceException(INVALID_PARAMETER_VALUE);
             }
         } catch (ServiceException e) {
             String message = e.getMessage();

@@ -21,7 +21,7 @@ import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.DRIVE
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_CITY_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_DATE_FORMAT;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETERS_NUMBER;
-import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_VALUES;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.TRIP_NOT_FOUND;
 
@@ -157,9 +157,43 @@ public class TripServiceImpl implements TripService {
                     throw new ServiceException(DRIVER_EXIST);
                 }
             }
-            Trip trip = buildTrip(id, map);
+            Trip trip = buildTrip(map);
+            User driver = new User(id);
+            trip.setDriver(driver);
+
             Trip tripWithId = tripDao.create(trip);
             tripDao.addTripInfo(tripWithId);
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Updates a trip information in the data source.
+     *
+     * @param map the parameters map.
+     * @throws ServiceException if failed to update a trip information in the
+     *                          data source.
+     */
+    @Override
+    public void update(final Map<String, String[]> map) throws
+            ServiceException {
+        Trip trip = buildTrip(map);
+        TripDao tripDao = transaction.getTripDao();
+        try {
+            Optional<Trip> optionalTrip = tripDao.findById(trip.getId());
+            if (optionalTrip.isPresent()) {
+                Trip tripToUpdate = optionalTrip.get();
+
+                tripToUpdate.setDepartureDatetime(trip.getDepartureDatetime());
+                tripToUpdate.setArrivalDatetime(trip.getArrivalDatetime());
+                tripToUpdate.setFreeSeats(trip.getFreeSeats());
+                tripToUpdate.setPrice(trip.getPrice());
+                tripToUpdate.setSmokingAllowed(trip.isSmokingAllowed());
+                tripToUpdate.setPetsAllowed(trip.isPetsAllowed());
+
+                tripDao.update(tripToUpdate);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
@@ -181,7 +215,7 @@ public class TripServiceImpl implements TripService {
         TripDao tripDao = transaction.getTripDao();
         try {
             if (!validator.isValidNumbers(tripId)) {
-                throw new ServiceException(INVALID_VALUES);
+                throw new ServiceException(INVALID_PARAMETER_VALUE);
             }
 
             Optional<Trip> optionalTrip = tripDao
@@ -240,22 +274,26 @@ public class TripServiceImpl implements TripService {
     /**
      * Builds and validates trip entity from provided request parameters.
      *
-     * @param id  the provided driver ID.
      * @param map the provided parameters map.
      * @return the trip entity.
      * @throws ServiceException if failed to build trip entity.
      */
-    private Trip buildTrip(final long id,
-            final Map<String, String[]> map) throws ServiceException {
+    private Trip buildTrip(final Map<String, String[]> map)
+            throws ServiceException {
 
         Trip trip = new Trip();
-        User driver = new User(id);
-        trip.setDriver(driver);
 
         for (final Map.Entry<String, String[]> entry : map.entrySet()) {
             final String key = entry.getKey();
             String[] value = entry.getValue();
             switch (key) {
+                case "id":
+                    if (!validator.isValidNumbers(value)) {
+                        throw new ServiceException(INVALID_PARAMETER_VALUE);
+                    } else {
+                        trip.setId(Long.parseLong(value[0]));
+                    }
+                    break;
                 case "from":
                     if (!validator.isValidNumbers(value)) {
                         throw new ServiceException(INVALID_CITY_VALUES);
@@ -290,34 +328,34 @@ public class TripServiceImpl implements TripService {
                     break;
                 case "seats":
                     if (!validator.isValidNumbers(value)) {
-                        throw new ServiceException(INVALID_VALUES);
+                        throw new ServiceException(INVALID_PARAMETER_VALUE);
                     } else {
                         trip.setFreeSeats(Integer.parseInt(value[0]));
                     }
                     break;
                 case "price":
                     if (!validator.isValidDecimal(value)) {
-                        throw new ServiceException(INVALID_VALUES);
+                        throw new ServiceException(INVALID_PARAMETER_VALUE);
                     } else {
                         trip.setPrice(Double.parseDouble(value[0]));
                     }
                     break;
                 case "smoking":
                     if (!validator.isValidValues(value)) {
-                        throw new ServiceException(INVALID_VALUES);
+                        throw new ServiceException(INVALID_PARAMETER_VALUE);
                     } else {
                         trip.setSmokingAllowed(Boolean.parseBoolean(value[0]));
                     }
                     break;
                 case "pets":
                     if (!validator.isValidValues(value)) {
-                        throw new ServiceException(INVALID_VALUES);
+                        throw new ServiceException(INVALID_PARAMETER_VALUE);
                     } else {
                         trip.setPetsAllowed(Boolean.parseBoolean(value[0]));
                     }
                     break;
                 default:
-                    throw new ServiceException(INVALID_PARAMETERS_NUMBER);
+                    throw new ServiceException(INVALID_PARAMETER_VALUE);
             }
         }
         return trip;

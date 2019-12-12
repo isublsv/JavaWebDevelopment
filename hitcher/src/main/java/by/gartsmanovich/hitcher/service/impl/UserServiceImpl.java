@@ -26,7 +26,7 @@ import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVAL
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PHONE_NUMBER;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PREFERENCES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_SURNAME;
-import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_VALUES;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_DOES_NOT_EXIST;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_EXISTS;
@@ -441,7 +441,7 @@ public class UserServiceImpl implements UserService {
     public User findUserProfileByID(final String id) throws ServiceException {
 
         if (!validator.isValidNumbers(id)) {
-            throw new ServiceException(INVALID_VALUES);
+            throw new ServiceException(INVALID_PARAMETER_VALUE);
         }
 
         return findByID(Long.parseLong(id));
