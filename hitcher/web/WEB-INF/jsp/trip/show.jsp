@@ -87,8 +87,8 @@
                     <li class="list-group-item">
                         <div class="row row-cols-2">
                             <div class="col"><fmt:message key="show.price"/></div>
-                            <input type="number" class="form-control col text-center" id="price" min="1" name="price"
-                                   value="${requestScope.trip.price}" required
+                            <input type="number" class="form-control col text-center" id="price" min="1" step="0.5" 
+                                   name="price" value="${requestScope.trip.price}" required
                                    <c:if test="${requestScope.trip.arrivalDatetime le currentDate ||
                                    sessionScope.authorizedUser.id != requestScope.trip.driver.id}">disabled</c:if>>
                             <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
