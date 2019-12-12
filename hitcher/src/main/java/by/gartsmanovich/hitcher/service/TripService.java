@@ -57,4 +57,13 @@ public interface TripService {
      *                          source.
      */
     Trip findTripById(long userId, String tripId) throws ServiceException;
+
+    /**
+     * Deletes trip by ID from the data source.
+     *
+     * @param tripId the provided trip ID.
+     * @throws ServiceException if failed to delete trip by ID from the data
+     *                          source.
+     */
+    void deleteTripById(String tripId) throws ServiceException;
 }

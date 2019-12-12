@@ -214,6 +214,30 @@ public class TripServiceImpl implements TripService {
     }
 
     /**
+     * Deletes trip by ID from the data source.
+     *
+     * @param tripId the provided trip ID.
+     * @throws ServiceException if failed to delete trip by ID from the data
+     *                          source.
+     */
+    @Override
+    public void deleteTripById(final String tripId) throws ServiceException {
+
+        if (!validator.isValidNumbers(tripId)) {
+            throw new ServiceException(INVALID_PARAMETERS_NUMBER);
+        }
+
+        TripDao tripDao = transaction.getTripDao();
+        try {
+            long id = Long.parseLong(tripId);
+            tripDao.deleteTripInfo(id);
+            tripDao.delete(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
      * Builds and validates trip entity from provided request parameters.
      *
      * @param id  the provided driver ID.
