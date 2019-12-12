@@ -98,6 +98,12 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                                                    + " WHERE trip_id=?";
 
     /**
+     * Query to register user to selected trip in the database.
+     */
+    private static final String ADD_PASSENGER =
+            "INSERT INTO trip_users (trip_id, passenger_id) VALUES (?, ?)";
+
+    /**
      * Connection from a pool to MySQL database.
      */
     private Connection connection;
@@ -267,6 +273,30 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Failed to delete trip info", e);
+        }
+    }
+
+    /**
+     * Register user to selected trip.
+     *
+     * @param userId the provided user ID.
+     * @param tripId the provided trip ID.
+     * @throws DaoException if failed to register user to selected trip.
+     */
+    @Override
+    public void addPassenger(final long userId, final long tripId) throws
+            DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(
+                ADD_PASSENGER)) {
+            int counter = 1;
+
+            statement.setLong(counter++, tripId);
+            statement.setLong(counter, userId);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Failed to register user to selected"
+                                   + " trip.", e);
         }
     }
 

@@ -54,4 +54,13 @@ public interface TripDao extends AbstractDao<Trip> {
      *                      from the data source.
      */
     void deleteTripInfo(long id) throws DaoException;
+
+    /**
+     * Register user to selected trip.
+     *
+     * @param userId the provided user ID.
+     * @param tripId the provided trip ID.
+     * @throws DaoException if failed to register user to selected trip.
+     */
+    void addPassenger(long userId, long tripId) throws DaoException;
 }
