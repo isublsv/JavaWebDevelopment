@@ -2,11 +2,13 @@ package by.gartsmanovich.hitcher.controller.util;
 
 import by.gartsmanovich.hitcher.action.ActionCommand;
 import by.gartsmanovich.hitcher.action.impl.BanActionCommand;
+import by.gartsmanovich.hitcher.action.impl.DeleteTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.EditDriverInfoActionCommand;
 import by.gartsmanovich.hitcher.action.impl.EditEmailActionCommand;
 import by.gartsmanovich.hitcher.action.impl.EditPasswordActionCommand;
 import by.gartsmanovich.hitcher.action.impl.EditPersonalDataActionCommand;
 import by.gartsmanovich.hitcher.action.impl.EditPreferencesActionCommand;
+import by.gartsmanovich.hitcher.action.impl.EditTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LoadTripInfoActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LoginActionCommand;
 import by.gartsmanovich.hitcher.action.impl.LogoutActionCommand;
@@ -15,6 +17,7 @@ import by.gartsmanovich.hitcher.action.impl.MyTripsActionCommand;
 import by.gartsmanovich.hitcher.action.impl.OfferTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.RegisterActionCommand;
+import by.gartsmanovich.hitcher.action.impl.RegisterToTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ShowProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ShowTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.TripListActionCommand;
@@ -55,6 +58,12 @@ public enum ActionCommandProvider {
                 return new OfferTripActionCommand();
             case "/trip/show":
                 return new ShowTripActionCommand();
+            case "/trip/delete":
+                return new DeleteTripActionCommand();
+            case "/trip/edit":
+                return new EditTripActionCommand();
+            case "/trip/register_to":
+                return new RegisterToTripActionCommand();
             case "/logout":
                 return new LogoutActionCommand();
             case "/profile":
