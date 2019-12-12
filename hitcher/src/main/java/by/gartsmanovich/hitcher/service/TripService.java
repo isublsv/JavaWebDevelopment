@@ -75,4 +75,13 @@ public interface TripService {
      *                          source.
      */
     void deleteTripById(String tripId) throws ServiceException;
+
+    /**
+     * Register user to selected trip.
+     *
+     * @param userId the provided user ID.
+     * @param tripId the provided trip ID.
+     * @throws ServiceException if failed to register user to trip by ID.
+     */
+    void addPassenger(long userId, String tripId) throws ServiceException;
 }
