@@ -81,9 +81,9 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to update data of the trip in the database.
      */
     private static final String UPDATE_TRIP =
-            "UPDATE trips AS t SET t.`from_city_id`=?, "
-            + "t.`to_city_id`=?, t.departure_datetime=?, t.arrival_datetime=?"
-            + " WHERE t.id=?;";
+            "UPDATE trips AS t INNER JOIN trip_options AS o ON t.id = o.trip_id"
+            + " SET t.departure_datetime=?, t.arrival_datetime=?,"
+            + " o.free_seats=?, o.price=?, o.smoking=?, o.pets=? WHERE t.id=?;";
 
     /**
      * Query to delete selected trip from the database.
@@ -213,12 +213,14 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
                 UPDATE_TRIP)) {
             int counter = 1;
 
-            statement.setLong(counter++, entity.getFrom().getId());
-            statement.setLong(counter++, entity.getTo().getId());
             statement.setDate(counter++,
                               Date.valueOf(entity.getDepartureDatetime()));
             statement.setDate(counter++,
                               Date.valueOf(entity.getArrivalDatetime()));
+            statement.setInt(counter++, entity.getFreeSeats());
+            statement.setDouble(counter++, entity.getPrice());
+            statement.setBoolean(counter++, entity.isSmokingAllowed());
+            statement.setBoolean(counter, entity.isPetsAllowed());
 
             statement.setLong(counter, entity.getId());
 
