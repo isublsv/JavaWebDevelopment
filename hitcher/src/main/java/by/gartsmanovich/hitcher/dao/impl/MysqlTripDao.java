@@ -220,7 +220,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
             statement.setInt(counter++, entity.getFreeSeats());
             statement.setDouble(counter++, entity.getPrice());
             statement.setBoolean(counter++, entity.isSmokingAllowed());
-            statement.setBoolean(counter, entity.isPetsAllowed());
+            statement.setBoolean(counter++, entity.isPetsAllowed());
 
             statement.setLong(counter, entity.getId());
 
