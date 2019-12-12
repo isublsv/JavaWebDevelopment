@@ -20,7 +20,6 @@ import java.util.Optional;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.DRIVER_EXIST;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_CITY_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_DATE_FORMAT;
-import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETERS_NUMBER;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.TRIP_NOT_FOUND;
@@ -258,7 +257,7 @@ public class TripServiceImpl implements TripService {
     public void deleteTripById(final String tripId) throws ServiceException {
 
         if (!validator.isValidNumbers(tripId)) {
-            throw new ServiceException(INVALID_PARAMETERS_NUMBER);
+            throw new ServiceException(INVALID_PARAMETER_VALUE);
         }
 
         TripDao tripDao = transaction.getTripDao();
@@ -266,6 +265,29 @@ public class TripServiceImpl implements TripService {
             long id = Long.parseLong(tripId);
             tripDao.deleteTripInfo(id);
             tripDao.delete(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Register user to selected trip.
+     *
+     * @param userId the provided user ID.
+     * @param tripId the provided trip ID.
+     * @throws ServiceException if failed to register user to trip by ID.
+     */
+    @Override
+    public void addPassenger(final long userId, final String tripId) throws
+            ServiceException {
+
+        if (!validator.isValidNumbers(tripId)) {
+            throw new ServiceException(INVALID_PARAMETER_VALUE);
+        }
+
+        TripDao tripDao = transaction.getTripDao();
+        try {
+            tripDao.addPassenger(userId, Long.parseLong(tripId));
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
