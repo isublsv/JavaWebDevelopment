@@ -101,7 +101,19 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to register user to selected trip in the database.
      */
     private static final String ADD_PASSENGER =
-            "INSERT INTO trip_users (trip_id, passenger_id) VALUES (?, ?)";
+            "INSERT INTO trip_users (trip_id, passenger_id) VALUES (?, ?);";
+
+    /**
+     * Query to find all users of selected trip in the database.
+     */
+    private static final String FIND_PASSENGERS =
+            "SELECT passenger_id FROM trip_users WHERE trip_id=?;";
+
+    /**
+     * Query to unregister user from selected trip in the database.
+     */
+    private static final String DELETE_PASSENGER =
+            "DELETE FROM trip_users WHERE trip_id=? AND passenger_id=?;";
 
     /**
      * Connection from a pool to MySQL database.
@@ -295,8 +307,62 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Failed to register user to selected"
-                                   + " trip.", e);
+            throw new DaoException(
+                    "Failed to register user to selected trip.", e);
+        }
+    }
+
+    /**
+     * Finds all passengers of the trip in the database.
+     *
+     * @param id the provided tip ID.
+     * @return the list of passengers.
+     * @throws DaoException if failed to finds all passengers of selected trip
+     *                      in the database.
+     */
+    @Override
+    public List<User> findPassengers(final long id) throws DaoException {
+        List<User> passengers = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_PASSENGERS)) {
+            int counter = 1;
+
+            statement.setLong(counter, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    User user = new User();
+                    user.setId(resultSet.getLong(counter));
+                    passengers.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException(
+                    "Failed to find all passengers of selected trip.", e);
+        }
+        return passengers;
+    }
+
+    /**
+     * Unregister user from selected trip.
+     *
+     * @param userId the provided user ID.
+     * @param tripId the provided trip ID.
+     * @throws DaoException if failed to unregister user from selected trip.
+     */
+    @Override
+    public void deletePassenger(final long userId, final long tripId) throws
+            DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(
+                DELETE_PASSENGER)) {
+            int counter = 1;
+
+            statement.setLong(counter++, tripId);
+            statement.setLong(counter, userId);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(
+                    "Failed to unregister user to selected trip.", e);
         }
     }
 

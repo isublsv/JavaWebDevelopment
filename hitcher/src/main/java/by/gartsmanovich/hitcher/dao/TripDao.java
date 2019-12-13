@@ -1,6 +1,7 @@
 package by.gartsmanovich.hitcher.dao;
 
 import by.gartsmanovich.hitcher.bean.Trip;
+import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
 
 import java.time.LocalDate;
@@ -63,4 +64,23 @@ public interface TripDao extends AbstractDao<Trip> {
      * @throws DaoException if failed to register user to selected trip.
      */
     void addPassenger(long userId, long tripId) throws DaoException;
+
+    /**
+     * Finds all passengers of the trip in the data source.
+     *
+     * @param id the provided tip ID.
+     * @return the list of passengers.
+     * @throws DaoException if failed to finds all passengers of selected trip
+     *                      in the data source.
+     */
+    List<User> findPassengers(long id) throws DaoException;
+
+    /**
+     * Unregister user from selected trip.
+     *
+     * @param userId the provided user ID.
+     * @param tripId the provided trip ID.
+     * @throws DaoException if failed to unregister user from selected trip.
+     */
+    void deletePassenger(long userId, long tripId) throws DaoException;
 }
