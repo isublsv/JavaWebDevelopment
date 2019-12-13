@@ -48,7 +48,7 @@
                 <fmt:formatDate var="currentDate" value="${now}" pattern="yyyy-MM-dd"/>
                 <c:forEach var="trip" items="${requestScope.trips}">
                     <c:choose>
-                        <c:when test="${trip.arrivalDatetime le currentDate}">
+                        <c:when test="${trip.arrivalDatetime lt currentDate}">
                         <c:set var="dis" value="disabled"/>
                         <a href="<c:url value="/trip/show.do?id=${trip.id}"/>" class="list-group-item list-group-item-action">
                             <div class="row">
