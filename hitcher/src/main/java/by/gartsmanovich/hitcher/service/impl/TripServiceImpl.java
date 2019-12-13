@@ -98,6 +98,8 @@ public class TripServiceImpl implements TripService {
 
                 cityFromEntity.ifPresent(trip::setFrom);
                 cityToEntity.ifPresent(trip::setTo);
+
+                trip.setPassengers(findPassengers(trip));
             }
             return trips;
         } catch (DaoException e) {
@@ -134,29 +136,6 @@ public class TripServiceImpl implements TripService {
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
-    }
-
-    /**
-     * Finds passengers of selected trip.
-     *
-     * @param trip the provided trip entity.
-     * @return the list of passengers.
-     * @throws DaoException if failed to find passengers of selected trip.
-     */
-    private List<User> findPassengers(final Trip trip) throws DaoException {
-        TripDao tripDao = transaction.getTripDao();
-        UserDao userDao = transaction.getUserDao();
-
-        List<User> passengers = tripDao.findPassengers(trip.getId());
-        for (int i = 0; i < passengers.size(); i++) {
-            User user = passengers.get(i);
-            Optional<User> optionalUser = userDao.findById(user.getId());
-
-            if (optionalUser.isPresent()) {
-                passengers.set(i, optionalUser.get());
-            }
-        }
-        return passengers;
     }
 
     /**
@@ -224,19 +203,19 @@ public class TripServiceImpl implements TripService {
     }
 
     /**
-     * Finds trip and user IDs in the data source.
+     * Finds trip by ID in the data source.
      *
-     * @param userId the provided user ID
      * @param tripId the provided trip ID.
      * @return the trip entity.
-     * @throws ServiceException if failed to find trip and user IDs in the data
+     * @throws ServiceException if failed to find trip by ID in the data
      *                          source.
      */
     @Override
-    public Trip findTripById(final long userId, final String tripId)
-            throws ServiceException {
+    public Trip findTripById(final String tripId) throws ServiceException {
 
         TripDao tripDao = transaction.getTripDao();
+        DestinationDao destinationDao = transaction.getDestinationDao();
+        UserDao userDao = transaction.getUserDao();
         try {
             if (!validator.isValidNumbers(tripId)) {
                 throw new ServiceException(INVALID_PARAMETER_VALUE);
@@ -246,8 +225,7 @@ public class TripServiceImpl implements TripService {
                     .findById(Long.parseLong(tripId));
             if (optionalTrip.isPresent()) {
                 Trip trip = optionalTrip.get();
-                DestinationDao destinationDao =
-                        transaction.getDestinationDao();
+
                 Optional<City> from = destinationDao.findCityById(
                         trip.getFrom().getId());
                 Optional<City> to = destinationDao.findCityById(
@@ -256,11 +234,12 @@ public class TripServiceImpl implements TripService {
                 from.ifPresent(trip::setFrom);
                 to.ifPresent(trip::setTo);
 
-                UserDao userDao = transaction.getUserDao();
                 Optional<User> optionalUser = userDao.findById(trip.getDriver()
                                                                    .getId());
 
                 optionalUser.ifPresent(trip::setDriver);
+
+                trip.setPassengers(findPassengers(trip));
 
                 return trip;
             } else {
@@ -339,6 +318,29 @@ public class TripServiceImpl implements TripService {
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
+    }
+
+    /**
+     * Finds passengers of selected trip.
+     *
+     * @param trip the provided trip entity.
+     * @return the list of passengers.
+     * @throws DaoException if failed to find passengers of selected trip.
+     */
+    private List<User> findPassengers(final Trip trip) throws DaoException {
+        TripDao tripDao = transaction.getTripDao();
+        UserDao userDao = transaction.getUserDao();
+
+        List<User> passengers = tripDao.findPassengers(trip.getId());
+        for (int i = 0; i < passengers.size(); i++) {
+            User user = passengers.get(i);
+            Optional<User> optionalUser = userDao.findById(user.getId());
+
+            if (optionalUser.isPresent()) {
+                passengers.set(i, optionalUser.get());
+            }
+        }
+        return passengers;
     }
 
     /**

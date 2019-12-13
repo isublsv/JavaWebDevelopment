@@ -57,15 +57,14 @@ public interface TripService {
     void update(Map<String, String[]> map) throws ServiceException;
 
     /**
-     * Finds trip and user IDs in the data source.
+     * Finds trip by ID in the data source.
      *
-     * @param userId the provided user ID
      * @param tripId the provided trip ID.
      * @return the trip entity.
-     * @throws ServiceException if failed to find trip and user IDs in the data
+     * @throws ServiceException if failed to find trip by ID in the data
      *                          source.
      */
-    Trip findTripById(long userId, String tripId) throws ServiceException;
+    Trip findTripById(String tripId) throws ServiceException;
 
     /**
      * Deletes trip by ID from the data source.
