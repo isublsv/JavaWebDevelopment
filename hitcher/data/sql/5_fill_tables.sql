@@ -165,44 +165,36 @@ INSERT INTO trips (id, driver_id, from_city_id, to_city_id, departure_datetime, 
 INSERT INTO trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (19, 3, 2, 8, '2019-12-17 23:00:00', '2019-12-18 23:00:00');
 INSERT INTO trips (id, driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) VALUES (20, 3, 2, 8, '2019-12-18 23:00:00', '2019-12-22 23:00:00');
 
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (1, 1);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (1, 3);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (1, 5);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (2, 2);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (2, 5);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (2, 7);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (3, 10);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (3, 2);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (3, 3);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (4, 1);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (4, 5);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (5, 3);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (5, 8);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (6, 6);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (7, 4);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (8, 1);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (9, 9);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (9, 10);
-INSERT INTO trip_users (trip_id, passenger_id)
-VALUES (10, 3);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (1, 1);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (1, 3);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (1, 5);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (2, 2);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (2, 5);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (2, 7);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (3, 10);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (3, 2);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (3, 3);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (4, 1);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (4, 5);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (5, 3);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (5, 8);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (6, 6);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (7, 4);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (8, 1);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (9, 9);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (9, 10);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (10, 3);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (18, 1);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (18, 5);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (18, 6);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (19, 8);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (19, 9);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (20, 4);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (20, 5);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (20, 6);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (22, 1);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (22, 4);
+INSERT INTO trip_users (trip_id, passenger_id) VALUES (22, 7);
 
 INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (1, 3, 50.00, 1, 1);
 INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (2, 3, 70.00, 0, 1);
