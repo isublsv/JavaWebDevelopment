@@ -127,11 +127,36 @@ public class TripServiceImpl implements TripService {
 
                 from.ifPresent(trip::setFrom);
                 to.ifPresent(trip::setTo);
+
+                trip.setPassengers(findPassengers(trip));
             }
             return trips;
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
+    }
+
+    /**
+     * Finds passengers of selected trip.
+     *
+     * @param trip the provided trip entity.
+     * @return the list of passengers.
+     * @throws DaoException if failed to find passengers of selected trip.
+     */
+    private List<User> findPassengers(final Trip trip) throws DaoException {
+        TripDao tripDao = transaction.getTripDao();
+        UserDao userDao = transaction.getUserDao();
+
+        List<User> passengers = tripDao.findPassengers(trip.getId());
+        for (int i = 0; i < passengers.size(); i++) {
+            User user = passengers.get(i);
+            Optional<User> optionalUser = userDao.findById(user.getId());
+
+            if (optionalUser.isPresent()) {
+                passengers.set(i, optionalUser.get());
+            }
+        }
+        return passengers;
     }
 
     /**
@@ -288,6 +313,29 @@ public class TripServiceImpl implements TripService {
         TripDao tripDao = transaction.getTripDao();
         try {
             tripDao.addPassenger(userId, Long.parseLong(tripId));
+        } catch (DaoException e) {
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Unregister user from selected trip.
+     *
+     * @param userId the provided user ID.
+     * @param tripId the provided trip ID.
+     * @throws ServiceException if failed to unregister user from trip by ID.
+     */
+    @Override
+    public void deletePassenger(final long userId, final String tripId) throws
+            ServiceException {
+
+        if (!validator.isValidNumbers(tripId)) {
+            throw new ServiceException(INVALID_PARAMETER_VALUE);
+        }
+
+        TripDao tripDao = transaction.getTripDao();
+        try {
+            tripDao.deletePassenger(userId, Long.parseLong(tripId));
         } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
