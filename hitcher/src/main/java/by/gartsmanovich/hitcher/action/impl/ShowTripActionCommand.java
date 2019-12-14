@@ -2,7 +2,6 @@ package by.gartsmanovich.hitcher.action.impl;
 
 import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.bean.Trip;
-import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.TripService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -45,12 +44,11 @@ public class ShowTripActionCommand extends AuthorizedActionCommand {
             ServletException {
 
         String tripId = request.getParameter("id");
-        User user = (User) request.getSession().getAttribute("authorizedUser");
 
         try {
             if (tripId != null) {
                 TripService tripService = getFactory().getTripService();
-                Trip trip = tripService.findTripById(user.getId(), tripId);
+                Trip trip = tripService.findTripById(tripId);
                 request.setAttribute("trip", trip);
                 LOGGER.debug("Trip was found by id");
                 request.getServletContext().getRequestDispatcher(
