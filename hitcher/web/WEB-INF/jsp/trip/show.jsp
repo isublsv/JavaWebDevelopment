@@ -38,6 +38,22 @@
                             </div>
                         </a>
                     </li>
+                    <c:if test="${not empty requestScope.trip.passengers}">
+                        <li class="list-group-item" id="passengers-parent">
+                            <a data-toggle="collapse" href="#passengers" class="card-link">
+                                <div class="col-md-12 text-center"><fmt:message key="show.passengers"/></div>
+                            </a>
+                            <div id="passengers" class="collapse" data-parent="#passengers-parent">
+                                <c:forEach var="passenger" items="${requestScope.trip.passengers}">
+                                    <a class="card-link" href="<c:url value="/profile/show.do?id=${passenger.id}"/>">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">${passenger.name}</div>
+                                        </div>
+                                    </a>
+                                </c:forEach>
+                            </div>
+                        </li>
+                    </c:if>
                     <li class="list-group-item">
                         <div class="row row-cols-2">
                             <div class="col"><fmt:message key="from"/></div>
@@ -116,7 +132,7 @@
                         </div>
                     </li>
                     <li class="list-group-item">
-                        <div class="row row-cols-2">
+                        <div class="row row-cols-4">
                             <div class="col border-right text-right">
                                 <input class="btn btn-danger" type="submit" value="<fmt:message key="delete"/>"
                                        formaction="${pageContext.request.contextPath}/trip/delete.do"
@@ -134,6 +150,32 @@
                                        <c:when test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:when>
                                        <c:when test="${sessionScope.authorizedUser.id != requestScope.trip.driver.id &&
                                        sessionScope.authorizedUser.role == 'USER'}">hidden</c:when>
+                                </c:choose>
+                                >
+                            </div>
+                            <c:set var="contains" value="false"/>
+                            <c:forEach var="item" items="${requestScope.trip.passengers}">
+                                <c:if test="${item.id eq sessionScope.authorizedUser.id}">
+                                    <c:set var="contains" value="true"/>
+                                </c:if>
+                            </c:forEach>
+                            <div class="col text-right">
+                                <input class="btn btn-primary" type="submit" value="<fmt:message key="register"/>"
+                                       formaction="${pageContext.request.contextPath}/trip/register.do"
+                                <c:choose>
+                                       <c:when test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:when>
+                                       <c:when test="${sessionScope.authorizedUser.id == requestScope.trip.driver.id 
+                                       || contains eq 'true'}">hidden</c:when>
+                                </c:choose>
+                                >
+                            </div>
+                            <div class="col text-left">
+                                <input class="btn btn-danger" type="submit" value="<fmt:message key="unregister"/>"
+                                       formaction="${pageContext.request.contextPath}/trip/unregister.do"
+                                <c:choose>
+                                       <c:when test="${requestScope.trip.arrivalDatetime le currentDate}">disabled</c:when>
+                                       <c:when test="${sessionScope.authorizedUser.id == requestScope.trip.driver.id 
+                                       || contains ne 'true'}">hidden</c:when>
                                 </c:choose>
                                 >
                             </div>
