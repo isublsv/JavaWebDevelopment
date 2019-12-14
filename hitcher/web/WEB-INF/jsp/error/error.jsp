@@ -15,12 +15,13 @@
     <jsp:include page="../template/navbar.jsp"/>
     <br/><br/><br/><br/>
     <div class="container">
-        <div class="row">
+        <div class="row text-center">
             <div class="col-md-12">
                     ${requestScope.errorMessage}
             </div>
         </div>
     </div>
+    <br/><br/><br/><br/>
     <jsp:include page="../template/footer.jsp"/>
     </body>
     </html>
