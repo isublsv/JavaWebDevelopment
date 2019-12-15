@@ -5,8 +5,6 @@ import by.gartsmanovich.hitcher.dao.pool.ConnectionPool;
 import by.gartsmanovich.hitcher.dao.pool.exception.PoolException;
 import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.dao.transaction.TransactionImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,12 +15,6 @@ import java.sql.SQLException;
  * @author Dmitry Gartsmanovich
  */
 public class TransactionFactoryImpl implements TransactionFactory {
-
-    /**
-     * The logger for TransactionImpl class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(
-            TransactionFactoryImpl.class);
 
     /**
      * Represents connection to the database.
@@ -44,7 +36,6 @@ public class TransactionFactoryImpl implements TransactionFactory {
             String message =
                     "It is impossible to turn off auto-committing for database"
                     + " connection";
-            LOGGER.error(message, e);
             throw new DaoException(message, e);
         } catch (PoolException e) {
             throw new DaoException(e);
@@ -72,7 +63,6 @@ public class TransactionFactoryImpl implements TransactionFactory {
             connection.close();
         } catch (SQLException e) {
             String message = "It is impossible to release connection.";
-            LOGGER.error(message, e);
             throw new DaoException(message, e);
         }
     }
