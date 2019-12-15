@@ -7,7 +7,7 @@
 <fmt:setBundle basename="pagecontent"/>
 <!DOCTYPE html>
 <html lang="${language}">
-
+ns
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +32,7 @@
     <header class="bg-primary text-white">
         <div class="container text-center">
             <a class="btn btn-lg btn-info btn-block btn-find-trip text-uppercase font-weight-bold mb-2"
-                    href="<c:url value="/trip/load.do?action=find&isTripNavbar=true"/>"><fmt:message key="trip.find"/>
+                    href="<c:url value="/trip/load.do?action=find"/>"><fmt:message key="trip.find"/>
             </a>
         </div>
     </header>

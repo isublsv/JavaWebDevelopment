@@ -36,6 +36,7 @@
                             <label class="input-group-text" for="countryFrom"><fmt:message key="country"/></label>
                         </div>
                         <select class="custom-select" id="countryFrom" required>
+                            <option></option>
                             <c:forEach var="item" items="${requestScope.dest}">
                                 <option value="${item.id}">${item.countryName}</option>
                             </c:forEach>
@@ -78,6 +79,7 @@
                             <label class="input-group-text" for="countryTo"><fmt:message key="country"/></label>
                         </div>
                         <select class="custom-select" id="countryTo" required>
+                            <option></option>
                             <c:forEach var="item" items="${requestScope.dest}">
                                 <option value="${item.id}">${item.countryName}</option>
                             </c:forEach>

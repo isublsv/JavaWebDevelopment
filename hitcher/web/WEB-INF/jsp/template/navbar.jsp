@@ -125,7 +125,7 @@
                                 <%--find trip--%>
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                       href="<c:url value="/trip/load.do?action=find&isTripNavbar=true"/>">
+                                       href="<c:url value="/trip/load.do?action=find"/>">
                                         <fmt:message key="trip.find"/></a>
                                 </li>
                                 <%--login--%>
@@ -145,13 +145,13 @@
                         <%--find trip--%>
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="<c:url value="/trip/load.do?action=find&isTripNavbar=true"/>">
+                               href="<c:url value="/trip/load.do?action=find"/>">
                                 <fmt:message key="trip.find"/></a>
                         </li>
                         <%--create trip--%>
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="<c:url value="/trip/load.do?action=offer&isTripNavbar=true"/>">
+                               href="<c:url value="/trip/load.do?action=offer"/>">
                                 <fmt:message key="trip.offer"/></a>
                         </li>
                         <%--hello, user dropdown--%>

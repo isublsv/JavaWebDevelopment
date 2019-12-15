@@ -4,9 +4,9 @@
 <c:set var="language" value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="pagecontent" prefix="footer.">
-    <footer class="py-5 bg-dark">
+    <footer class="navbar-expand-sm bg-dark justify-content-end navbar-dark fixed-bottom text-center">
         <div class="container">
-            <p class="m-0 text-center text-white"><fmt:message key="copyright"/></p>
+            <p class="m-0 text-white"><fmt:message key="copyright"/></p>
         </div>
     </footer>
 </fmt:bundle>
