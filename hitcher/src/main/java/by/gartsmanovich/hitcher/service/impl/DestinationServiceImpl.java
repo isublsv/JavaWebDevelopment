@@ -50,8 +50,10 @@ public class DestinationServiceImpl implements DestinationService {
                 List<City> cities = dao.findAllCitiesById(destination.getId());
                 destination.setCities(cities);
             }
+            transaction.commit();
             return destinations;
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, ServiceErrorCodes.SQL_ERROR);
         }
     }

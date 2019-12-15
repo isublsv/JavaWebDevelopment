@@ -58,7 +58,9 @@ public class ReviewServiceImpl implements ReviewService {
                 Optional<User> user = userDao.findById(review.getAboutId());
                 user.ifPresent(value -> reviewUserMap.put(review, value));
             }
+            transaction.commit();
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
 
@@ -84,7 +86,9 @@ public class ReviewServiceImpl implements ReviewService {
                 Optional<User> user = userDao.findById(review.getWhoId());
                 user.ifPresent(value -> reviewUserMap.put(review, value));
             }
+            transaction.commit();
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
 

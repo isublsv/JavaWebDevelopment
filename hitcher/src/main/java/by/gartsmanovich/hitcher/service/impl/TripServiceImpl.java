@@ -101,8 +101,10 @@ public class TripServiceImpl implements TripService {
 
                 trip.setPassengers(findPassengers(trip));
             }
+            transaction.commit();
             return trips;
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -132,8 +134,10 @@ public class TripServiceImpl implements TripService {
 
                 trip.setPassengers(findPassengers(trip));
             }
+            transaction.commit();
             return trips;
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -166,7 +170,9 @@ public class TripServiceImpl implements TripService {
 
             Trip tripWithId = tripDao.create(trip);
             tripDao.addTripInfo(tripWithId);
+            transaction.commit();
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -196,8 +202,10 @@ public class TripServiceImpl implements TripService {
                 tripToUpdate.setPetsAllowed(trip.isPetsAllowed());
 
                 tripDao.update(tripToUpdate);
+                transaction.commit();
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -241,11 +249,13 @@ public class TripServiceImpl implements TripService {
 
                 trip.setPassengers(findPassengers(trip));
 
+                transaction.commit();
                 return trip;
             } else {
                 throw new ServiceException(TRIP_NOT_FOUND);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -269,7 +279,9 @@ public class TripServiceImpl implements TripService {
             long id = Long.parseLong(tripId);
             tripDao.deleteTripInfo(id);
             tripDao.delete(id);
+            transaction.commit();
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -292,7 +304,9 @@ public class TripServiceImpl implements TripService {
         TripDao tripDao = transaction.getTripDao();
         try {
             tripDao.addPassenger(userId, Long.parseLong(tripId));
+            transaction.commit();
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -315,7 +329,9 @@ public class TripServiceImpl implements TripService {
         TripDao tripDao = transaction.getTripDao();
         try {
             tripDao.deletePassenger(userId, Long.parseLong(tripId));
+            transaction.commit();
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }

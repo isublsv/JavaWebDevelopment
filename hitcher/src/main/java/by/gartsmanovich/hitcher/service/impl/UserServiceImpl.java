@@ -21,12 +21,12 @@ import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVAL
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_EMAIL;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_LOGIN;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_NAME;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PASS;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PATRONYMIC;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PHONE_NUMBER;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PREFERENCES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_SURNAME;
-import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_DOES_NOT_EXIST;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_EXISTS;
@@ -111,8 +111,10 @@ public class UserServiceImpl implements UserService {
             user.setStatus(Status.ACTIVE);
             user.setRegistrationDate(LocalDate.now());
 
+            transaction.commit();
             return clearPassword(dao.create(user));
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -158,11 +160,13 @@ public class UserServiceImpl implements UserService {
 
                 dao.update(userToUpdate);
 
+                transaction.commit();
                 return userToUpdate;
             } else {
                 throw new ServiceException(USER_NOT_FOUND);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -198,11 +202,13 @@ public class UserServiceImpl implements UserService {
 
                 dao.update(userToUpdate);
 
+                transaction.commit();
                 return userToUpdate;
             } else {
                 throw new ServiceException(USER_NOT_FOUND);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -234,11 +240,13 @@ public class UserServiceImpl implements UserService {
 
                 dao.update(userToUpdate);
 
+                transaction.commit();
                 return userToUpdate;
             } else {
                 throw new ServiceException(USER_NOT_FOUND);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -284,11 +292,13 @@ public class UserServiceImpl implements UserService {
                     throw new ServiceException(INVALID_CURRENT_PASS);
                 }
 
+                transaction.commit();
                 return clearPassword(userToUpdate);
             } else {
                 throw new ServiceException(SQL_ERROR);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -332,11 +342,14 @@ public class UserServiceImpl implements UserService {
                 } else {
                     dao.addDriverInfo(userToUpdate);
                 }
+
+                transaction.commit();
                 return userToUpdate;
             } else {
                 throw new ServiceException(USER_NOT_FOUND);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -354,11 +367,13 @@ public class UserServiceImpl implements UserService {
         try {
             Optional<User> user = dao.findById(id);
             if (user.isPresent()) {
+                transaction.commit();
                 return user.get();
             } else {
                 throw new ServiceException(USER_NOT_FOUND);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -374,8 +389,10 @@ public class UserServiceImpl implements UserService {
     public void delete(final long id) throws ServiceException {
         UserDao dao = transaction.getUserDao();
         try {
+            transaction.commit();
             dao.delete(id);
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -390,8 +407,10 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() throws ServiceException {
         UserDao dao = transaction.getUserDao();
         try {
+            transaction.commit();
             return dao.findAll();
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
@@ -417,6 +436,7 @@ public class UserServiceImpl implements UserService {
                 String salt = user.getSalt();
                 if (verifyUserPassword(
                         password, savedPassword, salt)) {
+                    transaction.commit();
                     return clearPassword(user);
                 } else {
                     throw new ServiceException(WRONG_LOGIN_OR_PASS);
@@ -425,6 +445,7 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException(USER_DOES_NOT_EXIST);
             }
         } catch (DaoException e) {
+            transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
     }
