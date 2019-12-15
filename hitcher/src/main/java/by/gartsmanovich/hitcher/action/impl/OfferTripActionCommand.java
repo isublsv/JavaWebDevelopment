@@ -58,12 +58,7 @@ public class OfferTripActionCommand extends AuthorizedActionCommand {
                     + ConfigurationManager.getProperty(
                             "path.page.my.trips.action"));
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

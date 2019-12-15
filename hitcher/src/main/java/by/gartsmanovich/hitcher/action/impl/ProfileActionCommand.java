@@ -31,6 +31,16 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
             ProfileActionCommand.class);
 
     /**
+     * Contains active tab attribute value.
+     */
+    private static final String ACTIVE_TAB = "activeTab";
+
+    /**
+     * Contains authorized user attribute value.
+     */
+    private static final String AUTHORIZED_USER = "authorizedUser";
+
+    /**
      * Handles the request and response and invoke appropriate method in the
      * Service Layer.
      *
@@ -47,12 +57,18 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
             final HttpServletResponse response) throws IOException,
             ServletException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("authorizedUser");
+        User user = (User) session.getAttribute(AUTHORIZED_USER);
+        String tab = (String) session.getAttribute(ACTIVE_TAB);
 
         try {
             UserService userService = getFactory().getUserService();
             user = userService.findByID(user.getId());
-            request.setAttribute("authorizedUser", user);
+            request.setAttribute(AUTHORIZED_USER, user);
+
+            if (tab != null) {
+                request.setAttribute(ACTIVE_TAB, tab);
+                session.removeAttribute(ACTIVE_TAB);
+            }
 
             ReviewService reviewService = getFactory().getReviewService();
             Map<Review, User> aboutIdMap = reviewService.findReviewsByAboutID(
@@ -72,12 +88,7 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
                            "path.page.profile"))
                    .forward(request, response);
         } catch (ServiceException e) {
-            String message = e.getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
 
     }

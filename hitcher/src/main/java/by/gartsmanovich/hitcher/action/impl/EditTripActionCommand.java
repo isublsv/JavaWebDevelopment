@@ -1,6 +1,5 @@
 package by.gartsmanovich.hitcher.action.impl;
 
-import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.service.TripService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -52,12 +51,7 @@ public class EditTripActionCommand extends AuthorizedActionCommand {
             String redirect = request.getHeader("referer");
             response.sendRedirect(redirect);
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

@@ -66,12 +66,7 @@ public class ShowProfileActionCommand extends ActionCommand {
                 throw new ServiceException(INVALID_PARAMETER_VALUE);
             }
         } catch (ServiceException e) {
-            String message = e.getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

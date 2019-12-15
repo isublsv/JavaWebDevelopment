@@ -65,12 +65,7 @@ public class TripListActionCommand extends ActionCommand {
                        .forward(request, response);
             }
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

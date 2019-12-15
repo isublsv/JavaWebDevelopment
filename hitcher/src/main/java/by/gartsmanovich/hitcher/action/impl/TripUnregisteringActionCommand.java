@@ -1,6 +1,5 @@
 package by.gartsmanovich.hitcher.action.impl;
 
-import by.gartsmanovich.hitcher.action.manager.ConfigurationManager;
 import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.TripService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
@@ -13,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes
-        .INVALID_PARAMETER_VALUE;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
 
 /**
  * Class describes unregister from a trip action command.
@@ -63,12 +61,7 @@ public class TripUnregisteringActionCommand extends AuthorizedActionCommand {
                 throw new ServiceException(INVALID_PARAMETER_VALUE);
             }
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

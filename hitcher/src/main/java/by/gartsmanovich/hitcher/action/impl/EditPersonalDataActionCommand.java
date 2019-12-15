@@ -29,6 +29,11 @@ public class EditPersonalDataActionCommand extends AuthorizedActionCommand {
             EditPersonalDataActionCommand.class);
 
     /**
+     * Contains authorized user attribute value.
+     */
+    private static final String AUTHORIZED_USER = "authorizedUser";
+
+    /**
      * Handles the request and response and invoke appropriate method in the
      * Service Layer.
      *
@@ -47,26 +52,21 @@ public class EditPersonalDataActionCommand extends AuthorizedActionCommand {
 
         HttpSession session = request.getSession();
 
-        User authorizedUser = (User) session.getAttribute("authorizedUser");
+        User authorizedUser = (User) session.getAttribute(AUTHORIZED_USER);
 
         User editedUser = getEditedUser(request);
         editedUser.setId(authorizedUser.getId());
         try {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService.updatePersonalData(editedUser);
-            request.setAttribute("authorizedUser", updatedUser);
-            request.setAttribute("activeTab", "personalDataTab");
+            request.setAttribute(AUTHORIZED_USER, updatedUser);
+            session.setAttribute("activeTab", "personalDataTab");
             LOGGER.debug("Personal user information was updated successfully");
             response.sendRedirect(
                     request.getContextPath() + ConfigurationManager
                             .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 

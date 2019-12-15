@@ -56,12 +56,7 @@ public class UserListActionCommand extends AdminActionCommand {
                            "path.page.user.list"))
                    .forward(request, response);
         } catch (ServiceException e) {
-            String message = e.getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

@@ -28,6 +28,11 @@ public class EditDriverInfoActionCommand extends AuthorizedActionCommand {
             EditDriverInfoActionCommand.class);
 
     /**
+     * Contains authorized user attribute value.
+     */
+    private static final String AUTHORIZED_USER = "authorizedUser";
+
+    /**
      * Handles the request and response and invoke appropriate method in the
      * Service Layer.
      *
@@ -48,26 +53,21 @@ public class EditDriverInfoActionCommand extends AuthorizedActionCommand {
         String license = request.getParameter("number");
         String carModel = request.getParameter("model");
         String carColor = request.getParameter("color");
-        User authorizedUser = (User) session.getAttribute("authorizedUser");
+        User authorizedUser = (User) session.getAttribute(AUTHORIZED_USER);
 
         try {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService
                     .updateDriverInfo(authorizedUser.getId(),
                                     license, carModel, carColor);
-            request.setAttribute("authorizedUser", updatedUser);
-            request.setAttribute("activeTab", "driverInfoTab");
+            request.setAttribute(AUTHORIZED_USER, updatedUser);
+            session.setAttribute("activeTab", "driverInfoTab");
             LOGGER.debug("Personal user driver info were updated successfully");
             response.sendRedirect(
                     request.getContextPath() + ConfigurationManager
                             .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

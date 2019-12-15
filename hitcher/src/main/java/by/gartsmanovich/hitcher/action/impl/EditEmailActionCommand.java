@@ -27,6 +27,11 @@ public class EditEmailActionCommand extends AuthorizedActionCommand {
             EditEmailActionCommand.class);
 
     /**
+     * Contains authorized user attribute value.
+     */
+    private static final String AUTHORIZED_USER = "authorizedUser";
+
+    /**
      * Handles the request and response and invoke appropriate method in the
      * Service Layer.
      *
@@ -45,25 +50,19 @@ public class EditEmailActionCommand extends AuthorizedActionCommand {
 
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
-        User authorizedUser = (User) session.getAttribute("authorizedUser");
-
+        User authorizedUser = (User) session.getAttribute(AUTHORIZED_USER);
         try {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService.updateEmail(authorizedUser.getId(),
                                                        email);
-            request.setAttribute("authorizedUser", updatedUser);
-            request.setAttribute("activeTab", "emailTab");
+            request.setAttribute(AUTHORIZED_USER, updatedUser);
+            session.setAttribute("activeTab", "emailTab");
             LOGGER.debug("Personal user email were updated successfully");
             response.sendRedirect(
                     request.getContextPath() + ConfigurationManager
                             .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }

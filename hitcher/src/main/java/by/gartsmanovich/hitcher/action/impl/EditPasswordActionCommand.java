@@ -27,6 +27,11 @@ public class EditPasswordActionCommand extends AuthorizedActionCommand {
             EditPasswordActionCommand.class);
 
     /**
+     * Contains authorized user attribute value.
+     */
+    private static final String AUTHORIZED_USER = "authorizedUser";
+
+    /**
      * Handles the request and response and invoke appropriate method in the
      * Service Layer.
      *
@@ -46,26 +51,21 @@ public class EditPasswordActionCommand extends AuthorizedActionCommand {
         HttpSession session = request.getSession();
         String currentPass = request.getParameter("currentpass");
         String newPass = request.getParameter("newpass");
-        User authorizedUser = (User) session.getAttribute("authorizedUser");
+        User authorizedUser = (User) session.getAttribute(AUTHORIZED_USER);
 
         try {
             UserService userService = getFactory().getUserService();
             User updatedUser = userService
                     .updatePassword(authorizedUser.getId(),
                                     currentPass, newPass);
-            request.setAttribute("authorizedUser", updatedUser);
-            request.setAttribute("activeTab", "passwordTab");
+            request.setAttribute(AUTHORIZED_USER, updatedUser);
+            session.setAttribute("activeTab", "passwordTab");
             LOGGER.debug("Personal user password were updated successfully");
             response.sendRedirect(
                     request.getContextPath() + ConfigurationManager
                             .getProperty("path.page.profile.action"));
         } catch (ServiceException e) {
-            String message = e.getErrorCode().getMessage();
-            LOGGER.warn(message);
-            request.setAttribute("errorMessage", message);
-            request.getRequestDispatcher(
-                    ConfigurationManager.getProperty("path.page.error"))
-                   .forward(request, response);
+            processError(request, response, e);
         }
     }
 }
