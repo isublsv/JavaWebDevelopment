@@ -1,6 +1,7 @@
 package by.gartsmanovich.hitcher.dao.impl;
 
 import by.gartsmanovich.hitcher.bean.Review;
+import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.dao.ReviewDao;
 import by.gartsmanovich.hitcher.dao.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -97,8 +98,8 @@ public class MysqlReviewDao implements ReviewDao {
 
             int counter = 1;
 
-            statement.setLong(counter++, entity.getAboutId());
-            statement.setLong(counter++, entity.getWhoId());
+            statement.setLong(counter++, entity.getAbout().getId());
+            statement.setLong(counter++, entity.getWho().getId());
             statement.setString(counter++, entity.getText());
             statement.setInt(counter, entity.getRating());
 
@@ -212,8 +213,8 @@ public class MysqlReviewDao implements ReviewDao {
                 UPDATE_REVIEW)) {
             int counter = 1;
 
-            statement.setLong(counter++, entity.getAboutId());
-            statement.setLong(counter++, entity.getWhoId());
+            statement.setLong(counter++, entity.getAbout().getId());
+            statement.setLong(counter++, entity.getWho().getId());
             statement.setString(counter++, entity.getText());
             statement.setInt(counter++, entity.getRating());
 
@@ -256,8 +257,13 @@ public class MysqlReviewDao implements ReviewDao {
         int counter = 1;
 
         review.setId(resultSet.getInt(counter++));
-        review.setAboutId(resultSet.getInt(counter++));
-        review.setWhoId(resultSet.getInt(counter++));
+
+        User about = new User(resultSet.getInt(counter++));
+        review.setAbout(about);
+
+        User who = new User(resultSet.getInt(counter++));
+        review.setWho(who);
+
         review.setText(resultSet.getString(counter++));
         review.setRating(resultSet.getInt(counter));
 

@@ -9,9 +9,7 @@ import by.gartsmanovich.hitcher.dao.transaction.Transaction;
 import by.gartsmanovich.hitcher.service.ReviewService;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
@@ -47,24 +45,22 @@ public class ReviewServiceImpl implements ReviewService {
      * @throws ServiceException if failed to find reviews by user ID.
      */
     @Override
-    public Map<Review, User> findReviewsByWhoID(final long id) throws
+    public List<Review> findReviewsByWhoID(final long id) throws
             ServiceException {
         ReviewDao reviewDao = transaction.getReviewDao();
-        Map<Review, User> reviewUserMap = new LinkedHashMap<>();
         try {
-            List<Review> reviewList = reviewDao.findAllReviewsByWhoId(id);
+            List<Review> reviews = reviewDao.findAllReviewsByWhoId(id);
             UserDao userDao = transaction.getUserDao();
-            for (Review review : reviewList) {
-                Optional<User> user = userDao.findById(review.getWhoId());
-                user.ifPresent(value -> reviewUserMap.put(review, value));
+            for (Review review : reviews) {
+                Optional<User> user = userDao.findById(review.getWho().getId());
+                user.ifPresent(review::setWho);
             }
             transaction.commit();
+            return reviews;
         } catch (DaoException e) {
             transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
-
-        return reviewUserMap;
     }
 
     /**
@@ -75,23 +71,22 @@ public class ReviewServiceImpl implements ReviewService {
      * @throws ServiceException if failed to find reviews by user ID.
      */
     @Override
-    public Map<Review, User> findReviewsByAboutID(final long id) throws
+    public List<Review> findReviewsByAboutID(final long id) throws
             ServiceException {
         ReviewDao reviewDao = transaction.getReviewDao();
-        Map<Review, User> reviewUserMap = new LinkedHashMap<>();
         try {
-            List<Review> reviewList = reviewDao.findAllReviewsByAboutId(id);
+            List<Review> reviews = reviewDao.findAllReviewsByAboutId(id);
             UserDao userDao = transaction.getUserDao();
-            for (Review review : reviewList) {
-                Optional<User> user = userDao.findById(review.getAboutId());
-                user.ifPresent(value -> reviewUserMap.put(review, value));
+            for (Review review : reviews) {
+                Optional<User> user = userDao.findById(review.getAbout()
+                                                             .getId());
+                user.ifPresent(review::setAbout);
             }
             transaction.commit();
+            return reviews;
         } catch (DaoException e) {
             transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
         }
-
-        return reviewUserMap;
     }
 }

@@ -1,22 +1,22 @@
 package by.gartsmanovich.hitcher.bean;
 
 /**
- * Class represents the Review entity. Each review describes by user ID about,
- * user owner ID, text and rating.
+ * Class represents the Review entity. Each review describes by user about,
+ * user author, text and rating.
  *
  * @author Dmitry Gartsmanovich
  */
 public class Review extends Entity {
 
     /**
-     * The user ID which this review about.
+     * The user which this review about.
      */
-    private long aboutId;
+    private User about;
 
     /**
-     * The ID of the review author.
+     * The review author.
      */
-    private long whoId;
+    private User who;
 
     /**
      * The text of review.
@@ -35,21 +35,21 @@ public class Review extends Entity {
     }
 
     /**
-     * Constructs the review instance with ID value, user ID is review about,
-     * ID value of the review author, text and rating value.
+     * Constructs the review instance with ID value, user is review about,
+     * the review author, text and rating value.
      *
-     * @param idValue      the ID value.
-     * @param aboutIdValue the user ID value which this review about.
-     * @param whoIdValue   the user ID value of the review author.
-     * @param textValue    the text value.
-     * @param ratingValue  the rating value.
+     * @param idValue     the ID value.
+     * @param aboutValue  the user is this review about.
+     * @param whoValue    the review author.
+     * @param textValue   the text value.
+     * @param ratingValue the rating value.
      */
-    public Review(final long idValue, final long aboutIdValue,
-            final long whoIdValue, final String textValue,
+    public Review(final long idValue, final User aboutValue,
+            final User whoValue, final String textValue,
             final int ratingValue) {
         super(idValue);
-        aboutId = whoIdValue;
-        whoId = aboutIdValue;
+        about = whoValue;
+        who = aboutValue;
         text = textValue;
         rating = ratingValue;
     }
@@ -59,17 +59,17 @@ public class Review extends Entity {
      *
      * @return value of about.
      */
-    public long getAboutId() {
-        return aboutId;
+    public User getAbout() {
+        return about;
     }
 
     /**
      * Sets about.
      *
-     * @param aboutIdValue value of about.
+     * @param aboutValue value of about.
      */
-    public void setAboutId(final long aboutIdValue) {
-        aboutId = aboutIdValue;
+    public void setAbout(final User aboutValue) {
+        about = aboutValue;
     }
 
     /**
@@ -77,17 +77,17 @@ public class Review extends Entity {
      *
      * @return value of who.
      */
-    public long getWhoId() {
-        return whoId;
+    public User getWho() {
+        return who;
     }
 
     /**
      * Sets who.
      *
-     * @param whoIdValue value of who.
+     * @param whoValue value of who.
      */
-    public void setWhoId(final long whoIdValue) {
-        whoId = whoIdValue;
+    public void setWho(final User whoValue) {
+        who = whoValue;
     }
 
     /**
@@ -134,8 +134,8 @@ public class Review extends Entity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = PRIME * result + (int) (aboutId ^ (aboutId >>> SHIFT));
-        result = PRIME * result + (int) (whoId ^ (whoId >>> SHIFT));
+        result = PRIME * result + about.hashCode();
+        result = PRIME * result + who.hashCode();
         result = PRIME * result + text.hashCode();
         result = PRIME * result + rating;
         return result;
@@ -162,10 +162,10 @@ public class Review extends Entity {
 
         Review review = (Review) o;
 
-        if (aboutId != review.aboutId) {
+        if (about != review.about) {
             return false;
         }
-        if (whoId != review.whoId) {
+        if (who != review.who) {
             return false;
         }
         if (rating != review.rating) {

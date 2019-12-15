@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Class describes profile action command that used to display full information
@@ -71,13 +71,13 @@ public class ProfileActionCommand extends AuthorizedActionCommand {
             }
 
             ReviewService reviewService = getFactory().getReviewService();
-            Map<Review, User> aboutIdMap = reviewService.findReviewsByAboutID(
+            List<Review> reviewAbout = reviewService.findReviewsByAboutID(
                     user.getId());
-            request.setAttribute("received", aboutIdMap);
+            request.setAttribute("received", reviewAbout);
 
-            Map<Review, User> byWhoID = reviewService.findReviewsByWhoID(
+            List<Review> reviewAuthors = reviewService.findReviewsByWhoID(
                     user.getId());
-            request.setAttribute("left", byWhoID);
+            request.setAttribute("left", reviewAuthors);
 
             String message = String.format(
                     "Full data for user \"%s\" was loaded successfully",

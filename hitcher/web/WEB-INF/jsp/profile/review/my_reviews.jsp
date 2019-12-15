@@ -23,13 +23,13 @@
                         <div class="col-sm-2 text-left">Rating</div>
                     </div>
                 </div>
-                <c:forEach var="reviews" items="${requestScope.left}">
+                <c:forEach var="review" items="${requestScope.left}">
                     <a href="#" class="list-group-item list-group-item-action">
                         <div class="row">
-                            <div class="col-sm-2 text-center">${reviews.value.name}</div>
-                            <div class="col-sm-8 text-center">${reviews.key.text}</div>
+                            <div class="col-sm-2 text-center">${review.about.name}</div>
+                            <div class="col-sm-8 text-center">${review.text}</div>
                             <div class="col-sm-2 text-center">
-                                <span class="badge badge-primary badge-pill">${reviews.key.rating}</span>
+                                <span class="badge badge-primary badge-pill">${review.rating}</span>
                             </div>
                         </div>
                     </a>

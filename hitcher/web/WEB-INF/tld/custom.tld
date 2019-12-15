@@ -13,7 +13,7 @@
         <tag-class>by.gartsmanovich.hitcher.view.RatingTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
-            <name>map</name>
+            <name>list</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -1,10 +1,9 @@
 package by.gartsmanovich.hitcher.service;
 
 import by.gartsmanovich.hitcher.bean.Review;
-import by.gartsmanovich.hitcher.bean.User;
 import by.gartsmanovich.hitcher.service.exception.ServiceException;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * The interface is used to determine the common structure of Review Service
@@ -21,7 +20,7 @@ public interface ReviewService {
      * @return the review list.
      * @throws ServiceException if failed to find reviews by author ID.
      */
-    Map<Review, User> findReviewsByWhoID(long id) throws ServiceException;
+    List<Review> findReviewsByWhoID(long id) throws ServiceException;
 
     /**
      * Finds all reviews about provided user ID.
@@ -30,5 +29,5 @@ public interface ReviewService {
      * @return the review list.
      * @throws ServiceException if failed to find reviews by user ID.
      */
-    Map<Review, User> findReviewsByAboutID(long id) throws ServiceException;
+    List<Review> findReviewsByAboutID(long id) throws ServiceException;
 }

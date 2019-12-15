@@ -1,14 +1,11 @@
 package by.gartsmanovich.hitcher.view;
 
 import by.gartsmanovich.hitcher.bean.Review;
-import by.gartsmanovich.hitcher.bean.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.SkipPageException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Class tag used to calculates total user rating in the application.
@@ -18,22 +15,17 @@ import java.util.Map;
 public class RatingTag extends SimpleTagSupport {
 
     /**
-     * The logger for RatingTag class.
+     * The list contains reviews.
      */
-    private static final Logger LOGGER = LogManager.getLogger(RatingTag.class);
+    private List<Review> reviews;
 
     /**
-     * The map contains review and users.
-     */
-    private Map<Review, User> reviewUserMap;
-
-    /**
-     * Sets reviewUserMap.
+     * Sets reviewsValue.
      *
-     * @param reviewUserMapValue value of reviewUserMap.
+     * @param reviewsValue value of reviewsValue.
      */
-    public void setMap(final Map<Review, User> reviewUserMapValue) {
-        reviewUserMap = reviewUserMapValue;
+    public void setList(final List<Review> reviewsValue) {
+        reviews = reviewsValue;
     }
 
     /**
@@ -49,15 +41,13 @@ public class RatingTag extends SimpleTagSupport {
     public void doTag() throws JspException {
         try {
             int rating = 0;
-            if (!reviewUserMap.isEmpty()) {
-                int sum = reviewUserMap.keySet().stream().mapToInt(
-                        Review::getRating).sum();
-                rating = sum / reviewUserMap.size();
+            if (!reviews.isEmpty()) {
+                int sum = reviews.stream().mapToInt(Review::getRating).sum();
+                rating = sum / reviews.size();
             }
             getJspContext().getOut().write(String.valueOf(rating));
         } catch (Exception e) {
             String message = "Cannot execute tag body";
-            LOGGER.error(message, e);
             throw new SkipPageException(message, e);
         }
     }

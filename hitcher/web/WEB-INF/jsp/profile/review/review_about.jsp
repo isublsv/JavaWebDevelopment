@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-sm-3"><fmt:message key="rating"/></div>
             <div class="col-sm-3">
-                <span class="badge badge-warning badge-pill"><rt:ratingTag map="${requestScope.received}"/></span>
+                <span class="badge badge-warning badge-pill"><rt:ratingTag list="${requestScope.received}"/></span>
             </div>
         </div>
     </div>
@@ -33,13 +33,13 @@
                         <div class="col-sm-2 text-left">Rating</div>
                     </div>
                 </div>
-                <c:forEach var="reviews" items="${requestScope.received}">
+                <c:forEach var="review" items="${requestScope.received}">
                     <a href="#" class="list-group-item list-group-item-action">
                         <div class="row">
-                            <div class="col-sm-2 text-center">${reviews.value.name}</div>
-                            <div class="col-sm-8 text-center">${reviews.key.text}</div>
+                            <div class="col-sm-2 text-center">${review.who.name}</div>
+                            <div class="col-sm-8 text-center">${review.text}</div>
                             <div class="col-sm-2 text-center">
-                                <span class="badge badge-primary badge-pill">${reviews.key.rating}</span>
+                                <span class="badge badge-primary badge-pill">${review.rating}</span>
                             </div>
                         </div>
                     </a>
