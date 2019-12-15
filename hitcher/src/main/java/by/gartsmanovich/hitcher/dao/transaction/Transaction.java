@@ -4,7 +4,6 @@ import by.gartsmanovich.hitcher.dao.DestinationDao;
 import by.gartsmanovich.hitcher.dao.ReviewDao;
 import by.gartsmanovich.hitcher.dao.TripDao;
 import by.gartsmanovich.hitcher.dao.UserDao;
-import by.gartsmanovich.hitcher.dao.exception.DaoException;
 
 /**
  * The interface used to provided the low coupling between Service Application
@@ -49,16 +48,12 @@ public interface Transaction {
     /**
      * Makes all changes made since the previous commit/rollback permanent and
      * releases any database locks currently held by this Connection object.
-     *
-     * @throws DaoException if something went wrong during execution
      */
-    void commit() throws DaoException;
+    void commit();
 
     /**
      * Undoes all changes made in the current transaction and releases any
      * database locks currently held by this Connection object.
-     *
-     * @throws DaoException if something went wrong during execution
      */
-    void rollback() throws DaoException;
+    void rollback();
 }
