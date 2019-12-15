@@ -21,6 +21,7 @@ import by.gartsmanovich.hitcher.action.impl.TripRegistrationActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ShowProfileActionCommand;
 import by.gartsmanovich.hitcher.action.impl.ShowTripActionCommand;
 import by.gartsmanovich.hitcher.action.impl.TripListActionCommand;
+import by.gartsmanovich.hitcher.action.impl.TripUnregisteringActionCommand;
 import by.gartsmanovich.hitcher.action.impl.UserListActionCommand;
 
 /**
@@ -64,6 +65,8 @@ public enum ActionCommandProvider {
                 return new EditTripActionCommand();
             case "/trip/register":
                 return new TripRegistrationActionCommand();
+            case "/trip/unregister":
+                return new TripUnregisteringActionCommand();
             case "/logout":
                 return new LogoutActionCommand();
             case "/profile":
