@@ -4,7 +4,6 @@ import by.gartsmanovich.hitcher.dao.DestinationDao;
 import by.gartsmanovich.hitcher.dao.ReviewDao;
 import by.gartsmanovich.hitcher.dao.TripDao;
 import by.gartsmanovich.hitcher.dao.UserDao;
-import by.gartsmanovich.hitcher.dao.exception.DaoException;
 import by.gartsmanovich.hitcher.dao.impl.MysqlDestinationDao;
 import by.gartsmanovich.hitcher.dao.impl.MysqlReviewDao;
 import by.gartsmanovich.hitcher.dao.impl.MysqlTripDao;
@@ -90,17 +89,15 @@ public class TransactionImpl implements Transaction {
      * Makes all changes made since the previous commit/rollback permanent and
      * releases any database locks currently held by this Connection object.
      *
-     * @throws DaoException if it is impossible to commit transaction.
      * @see Connection#rollback() for more information.
      */
     @Override
-    public void commit() throws DaoException {
+    public void commit() {
         try {
             connection.commit();
         } catch (SQLException e) {
             String message = "It is impossible to commit transaction.";
             LOGGER.error(message, e);
-            throw new DaoException(message, e);
         }
     }
 
@@ -108,17 +105,15 @@ public class TransactionImpl implements Transaction {
      * Undoes all changes made in the current transaction and releases any
      * database locks currently held by this Connection object.
      *
-     * @throws DaoException if it is impossible to rollback transaction.
      * @see Connection#rollback() for more information.
      */
     @Override
-    public void rollback() throws DaoException {
+    public void rollback() {
         try {
             connection.rollback();
         } catch (SQLException e) {
             String message = "It is impossible to rollback transaction.";
             LOGGER.error(message, e);
-            throw new DaoException(message, e);
         }
     }
 }
