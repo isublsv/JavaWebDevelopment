@@ -55,7 +55,7 @@ public class ReviewServiceImpl implements ReviewService {
             List<Review> reviewList = reviewDao.findAllReviewsByWhoId(id);
             UserDao userDao = transaction.getUserDao();
             for (Review review : reviewList) {
-                Optional<User> user = userDao.findById(review.getAboutId());
+                Optional<User> user = userDao.findById(review.getWhoId());
                 user.ifPresent(value -> reviewUserMap.put(review, value));
             }
             transaction.commit();
@@ -83,7 +83,7 @@ public class ReviewServiceImpl implements ReviewService {
             List<Review> reviewList = reviewDao.findAllReviewsByAboutId(id);
             UserDao userDao = transaction.getUserDao();
             for (Review review : reviewList) {
-                Optional<User> user = userDao.findById(review.getWhoId());
+                Optional<User> user = userDao.findById(review.getAboutId());
                 user.ifPresent(value -> reviewUserMap.put(review, value));
             }
             transaction.commit();
