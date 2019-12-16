@@ -1,6 +1,9 @@
 package by.gartsmanovich.hitcher.service.exception;
 
 /**
+ * Class contains the list of error codes that exist in web-app. Each code has
+ * numeric value and text message.
+ *
  * @author Dmitry Gartsmanovich
  */
 public enum ServiceErrorCodes {
@@ -148,6 +151,7 @@ public enum ServiceErrorCodes {
      * This has the numeric value of {@code 23}.
      */
     TRIP_NOT_FOUND("Trip not found");
+
     /**
      * Contains the message value.
      */
