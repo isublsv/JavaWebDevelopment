@@ -192,9 +192,6 @@ INSERT INTO trip_users (trip_id, passenger_id) VALUES (19, 9);
 INSERT INTO trip_users (trip_id, passenger_id) VALUES (20, 4);
 INSERT INTO trip_users (trip_id, passenger_id) VALUES (20, 5);
 INSERT INTO trip_users (trip_id, passenger_id) VALUES (20, 6);
-INSERT INTO trip_users (trip_id, passenger_id) VALUES (22, 1);
-INSERT INTO trip_users (trip_id, passenger_id) VALUES (22, 4);
-INSERT INTO trip_users (trip_id, passenger_id) VALUES (22, 7);
 
 INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (1, 3, 50.00, 1, 1);
 INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (2, 3, 70.00, 0, 1);
