@@ -21,6 +21,7 @@ import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.DRIVE
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_CITY_VALUES;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_DATE_FORMAT;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVALID_PARAMETER_VALUE;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.PASSENGER_LIST_NOT_EMPTY;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.TRIP_NOT_FOUND;
 
@@ -277,6 +278,12 @@ public class TripServiceImpl implements TripService {
         TripDao tripDao = transaction.getTripDao();
         try {
             long id = Long.parseLong(tripId);
+
+            List<User> passengers = findPassengers(new Trip(id));
+            if (!passengers.isEmpty()) {
+                throw new ServiceException(PASSENGER_LIST_NOT_EMPTY);
+            }
+
             tripDao.deleteTripInfo(id);
             tripDao.delete(id);
             transaction.commit();

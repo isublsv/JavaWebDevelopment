@@ -150,7 +150,13 @@ public enum ServiceErrorCodes {
      * The singleton instance for the "trip not found" code.
      * This has the numeric value of {@code 23}.
      */
-    TRIP_NOT_FOUND("Trip not found");
+    TRIP_NOT_FOUND("Trip not found"),
+
+    /**
+     * The singleton instance for the "passenger list" code.
+     * This has the numeric value of {@code 24}.
+     */
+    PASSENGER_LIST_NOT_EMPTY("Passenger list is not empty");
 
     /**
      * Contains the message value.
