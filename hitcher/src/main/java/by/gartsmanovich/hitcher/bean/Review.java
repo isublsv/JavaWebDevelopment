@@ -156,9 +156,6 @@ public class Review extends Entity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
 
         Review review = (Review) o;
 
@@ -183,7 +180,8 @@ public class Review extends Entity {
      */
     @Override
     public String toString() {
-        return String.format("Review{about=%s, who=%s, text='%s', rating=%d}",
-                             about, who, text, rating);
+        return String.format("Review{id=%d, about=%s, who=%s, text='%s',"
+                             + " rating=%d}",
+                             getId(), about, who, text, rating);
     }
 }

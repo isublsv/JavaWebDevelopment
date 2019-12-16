@@ -2,6 +2,7 @@ package by.gartsmanovich.hitcher.service.validator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class ServiceValidator {
      * Describes a pattern that validates user email value.
      */
     private static final Pattern EMAIL_REGEX = Pattern.compile(
-            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+            "^[A-Z0-9._%+\\-]+@[A-Z0-9.\\-]+\\.[A-Z]{2,6}$",
             Pattern.CASE_INSENSITIVE);
 
     /**
@@ -101,8 +102,11 @@ public class ServiceValidator {
      * @return true if email value is valid, false - otherwise.
      */
     public boolean isValidEmail(final String email) {
-        Matcher matcher = EMAIL_REGEX.matcher(email);
-        return matcher.find();
+        if (Objects.nonNull(email)) {
+            Matcher matcher = EMAIL_REGEX.matcher(email);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -112,8 +116,11 @@ public class ServiceValidator {
      * @return true if login value is valid, false - otherwise.
      */
     public boolean isValidLogin(final String login) {
-        Matcher matcher = LOGIN_REGEX.matcher(login);
-        return matcher.find();
+        if (Objects.nonNull(login)) {
+            Matcher matcher = LOGIN_REGEX.matcher(login);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -123,8 +130,11 @@ public class ServiceValidator {
      * @return true if name value is valid, false - otherwise.
      */
     public boolean isValidName(final String name) {
-        Matcher matcher = NAME_REGEX.matcher(name);
-        return matcher.find();
+        if (Objects.nonNull(name)) {
+            Matcher matcher = NAME_REGEX.matcher(name);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -134,8 +144,11 @@ public class ServiceValidator {
      * @return true if surname value is valid, false - otherwise.
      */
     public boolean isValidSurname(final String surname) {
-        Matcher matcher = SURNAME_PATRONYMIC_REGEX.matcher(surname);
-        return matcher.find();
+        if (Objects.nonNull(surname)) {
+            Matcher matcher = SURNAME_PATRONYMIC_REGEX.matcher(surname);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -145,8 +158,11 @@ public class ServiceValidator {
      * @return true if patronymic value is valid, false - otherwise.
      */
     public boolean isValidPatronymic(final String patronymic) {
-        Matcher matcher = SURNAME_PATRONYMIC_REGEX.matcher(patronymic);
-        return matcher.find();
+        if (Objects.nonNull(patronymic)) {
+            Matcher matcher = SURNAME_PATRONYMIC_REGEX.matcher(patronymic);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -156,8 +172,11 @@ public class ServiceValidator {
      * @return true if phoneNumber value is valid, false - otherwise.
      */
     public boolean isValidPhone(final String phoneNumber) {
-        Matcher matcher = PHONE_REGEX.matcher(phoneNumber);
-        return matcher.find();
+        if (Objects.nonNull(phoneNumber)) {
+            Matcher matcher = PHONE_REGEX.matcher(phoneNumber);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -167,8 +186,11 @@ public class ServiceValidator {
      * @return true if address value is valid, false - otherwise.
      */
     public boolean isValidAddress(final String address) {
-        Matcher matcher = ADDRESS_REGEX.matcher(address);
-        return matcher.find();
+        if (Objects.nonNull(address)) {
+            Matcher matcher = ADDRESS_REGEX.matcher(address);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -178,8 +200,11 @@ public class ServiceValidator {
      * @return true if preferences values is valid, false - otherwise.
      */
     public boolean isValidPreferences(final String preferences) {
-        Matcher matcher = PREFERENCES_REGEX.matcher(preferences);
+        if (Objects.nonNull(preferences)) {
+            Matcher matcher = PREFERENCES_REGEX.matcher(preferences);
             return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -189,8 +214,11 @@ public class ServiceValidator {
      * @return true if password values is valid, false - otherwise.
      */
     public boolean isValidPassword(final String pass) {
-        Matcher matcher = PASS_REGEX.matcher(pass);
-        return matcher.find();
+        if (Objects.nonNull(pass)) {
+            Matcher matcher = PASS_REGEX.matcher(pass);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -200,8 +228,11 @@ public class ServiceValidator {
      * @return true if driver license values is valid, false - otherwise.
      */
     public boolean isValidLicense(final String license) {
-        Matcher matcher = DRIVER_LICENSE_REGEX.matcher(license);
-        return matcher.find();
+        if (Objects.nonNull(license)) {
+            Matcher matcher = DRIVER_LICENSE_REGEX.matcher(license);
+            return matcher.find();
+        }
+        return false;
     }
 
     /**
@@ -212,8 +243,12 @@ public class ServiceValidator {
      */
     public boolean isValidValues(final String... param) {
         for (String value : param) {
-            Matcher matcher = OTHER_VALUES_REGEX.matcher(value);
-            if (!matcher.find()) {
+            if (Objects.nonNull(value)) {
+                Matcher matcher = OTHER_VALUES_REGEX.matcher(value);
+                if (!matcher.find()) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         }
@@ -228,8 +263,12 @@ public class ServiceValidator {
      */
     public boolean isValidNumbers(final String... numbers) {
         for (String value : numbers) {
-            Matcher matcher = NUMBERS_REGEX.matcher(value);
-            if (!matcher.find()) {
+            if (Objects.nonNull(value)) {
+                Matcher matcher = NUMBERS_REGEX.matcher(value);
+                if (!matcher.find()) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         }
@@ -244,8 +283,12 @@ public class ServiceValidator {
      */
     public boolean isValidDate(final String value) {
         try {
-            LocalDate date = LocalDate.parse(value);
-            if (date.isBefore(LocalDate.now())) {
+            if (Objects.nonNull(value)) {
+                LocalDate date = LocalDate.parse(value);
+                if (date.isBefore(LocalDate.now())) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         } catch (DateTimeParseException e) {
@@ -262,8 +305,12 @@ public class ServiceValidator {
      */
     public boolean isValidDecimal(final String... decimals) {
         for (String value : decimals) {
-            Matcher matcher = DECIMAL_REGEX.matcher(value);
-            if (!matcher.find()) {
+            if (Objects.nonNull(value)) {
+                Matcher matcher = DECIMAL_REGEX.matcher(value);
+                if (!matcher.find()) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         }

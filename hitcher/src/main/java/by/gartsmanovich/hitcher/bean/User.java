@@ -435,39 +435,32 @@ public class User extends Entity {
         result = PRIME * result + registrationDate.hashCode();
         result = PRIME * result + surname.hashCode();
         result = PRIME * result + name.hashCode();
-        if (patronymic != null) {
-            result = PRIME * result + patronymic.hashCode();
-        } else {
-            result = PRIME * result;
-        }
-        if (phoneNumber != null) {
-            result = PRIME * result + phoneNumber.hashCode();
-        } else {
-            result = PRIME * result;
-        }
-        if (address != null) {
-            result = PRIME * result + address.hashCode();
-        } else {
-            result = PRIME * result;
-        }
+        result = getResultHash(result, patronymic);
+        result = getResultHash(result, phoneNumber);
+        result = getResultHash(result, address);
         result = PRIME * result + music;
         result = PRIME * result + communication;
-        if (driverLicenseNumber != null) {
-            result = PRIME * result + driverLicenseNumber.hashCode();
-        } else {
-            result = PRIME * result;
-        }
-        if (carModel != null) {
-            result = PRIME * result + carModel.hashCode();
-        } else {
-            result = PRIME * result;
-        }
-        if (carColor != null) {
-            result = PRIME * result + carColor.hashCode();
-        } else {
-            result = PRIME * result;
-        }
+        result = getResultHash(result, driverLicenseNumber);
+        result = getResultHash(result, carModel);
+        result = getResultHash(result, carColor);
         return result;
+    }
+
+    /**
+     * Gets result hashcode value from provided value.
+     *
+     * @param result the current hashcode value.
+     * @param value the parameter used to calculate a new hashcode.
+     * @return a new hashcode value.
+     */
+    private int getResultHash(final int result, final String value) {
+        int hash = result;
+        if (value != null) {
+            hash = PRIME * hash + value.hashCode();
+        } else {
+            hash = PRIME * hash;
+        }
+        return hash;
     }
 
     /**
@@ -486,9 +479,6 @@ public class User extends Entity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
 
         User user = (User) o;
 
@@ -504,10 +494,10 @@ public class User extends Entity {
         if (!email.equals(user.email)) {
             return false;
         }
-        if (!password.equals(user.password)) {
+        if (!Objects.equals(password, user.password)) {
             return false;
         }
-        if (!salt.equals(user.salt)) {
+        if (!Objects.equals(salt, user.salt)) {
             return false;
         }
         if (role != user.role) {
@@ -516,13 +506,13 @@ public class User extends Entity {
         if (status != user.status) {
             return false;
         }
-        if (!registrationDate.equals(user.registrationDate)) {
+        if (!Objects.equals(registrationDate, user.registrationDate)) {
             return false;
         }
-        if (!surname.equals(user.surname)) {
+        if (!Objects.equals(surname, user.surname)) {
             return false;
         }
-        if (!name.equals(user.name)) {
+        if (!Objects.equals(name, user.name)) {
             return false;
         }
         if (!Objects.equals(patronymic, user.patronymic)) {
@@ -553,13 +543,14 @@ public class User extends Entity {
     @Override
     public String toString() {
         return String.format(
-                "User{login='%s', email='%s', password='%s', salt='%s', "
+                "User{id=%d, login='%s', email='%s', password='%s', salt='%s', "
                 + "role=%s, status=%s, registrationDate=%s, surname='%s', "
                 + "name='%s', patronymic='%s', phoneNumber='%s', "
                 + "address='%s', music=%d, communication=%d, "
                 + "driverLicenseNumber='%s', carModel='%s', carColor='%s'}",
-                login, email, password, salt, role, status, registrationDate,
-                surname, name, patronymic, phoneNumber, address, music,
-                communication, driverLicenseNumber, carModel, carColor);
+                getId(), login, email, password, salt, role, status,
+                registrationDate, surname, name, patronymic, phoneNumber,
+                address, music, communication, driverLicenseNumber, carModel,
+                carColor);
     }
 }

@@ -303,9 +303,6 @@ public class Trip extends Entity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
 
         Trip trip = (Trip) o;
 
@@ -349,10 +346,10 @@ public class Trip extends Entity {
     @Override
     public String toString() {
         return String.format(
-                "Trip{driver=%s, from=%s, to=%s, departureDatetime=%s, "
+                "Trip{id=%d, driver=%s, from=%s, to=%s, departureDatetime=%s, "
                 + "arrivalDatetime=%s, freeSeats=%d, price=%s, "
                 + "isSmokingAllowed=%s, isPetsAllowed=%s, passengers=%s}",
-                driver, from, to, departureDatetime, arrivalDatetime,
+                getId(), driver, from, to, departureDatetime, arrivalDatetime,
                 freeSeats, price, isSmokingAllowed, isPetsAllowed, passengers);
     }
 }

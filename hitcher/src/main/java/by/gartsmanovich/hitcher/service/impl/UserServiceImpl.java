@@ -12,6 +12,7 @@ import by.gartsmanovich.hitcher.service.validator.ServiceValidator;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.EMAIL_EXISTS;
@@ -87,6 +88,9 @@ public class UserServiceImpl implements UserService {
             }
             if (!validator.isValidEmail(email)) {
                 throw new ServiceException(INVALID_EMAIL);
+            }
+            if (!validator.isValidPassword(pass)) {
+                throw new ServiceException(INVALID_PASS);
             }
 
             UserDao dao = transaction.getUserDao();
@@ -267,7 +271,8 @@ public class UserServiceImpl implements UserService {
             ServiceException {
 
         try {
-            if (!validator.isValidPassword(newPass)) {
+            if (Objects.isNull(currentPass)
+                || !validator.isValidPassword(newPass)) {
                 throw new ServiceException(INVALID_PASS);
             }
 
@@ -389,8 +394,8 @@ public class UserServiceImpl implements UserService {
     public void delete(final long id) throws ServiceException {
         UserDao dao = transaction.getUserDao();
         try {
-            transaction.commit();
             dao.delete(id);
+            transaction.commit();
         } catch (DaoException e) {
             transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
@@ -407,8 +412,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() throws ServiceException {
         UserDao dao = transaction.getUserDao();
         try {
+            List<User> users = dao.findAll();
             transaction.commit();
-            return dao.findAll();
+            return users;
         } catch (DaoException e) {
             transaction.rollback();
             throw new ServiceException(e, SQL_ERROR);
@@ -434,7 +440,7 @@ public class UserServiceImpl implements UserService {
                 User user = optionalUser.get();
                 String savedPassword = user.getPassword();
                 String salt = user.getSalt();
-                if (verifyUserPassword(
+                if (Objects.nonNull(password) && verifyUserPassword(
                         password, savedPassword, salt)) {
                     transaction.commit();
                     return clearPassword(user);
