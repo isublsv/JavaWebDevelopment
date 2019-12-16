@@ -32,7 +32,7 @@ public class DestinationServiceImplTest {
         factory.close();
     }
 
-    @Test
+    @Test(description = "Positive scenario of Find All Destinations")
     public void testFindAll() throws Exception {
         DestinationService destinationService =
                 factory.getDestinationService();
