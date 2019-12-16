@@ -54,8 +54,7 @@ public class ReviewServiceImplTest {
             long id) throws Exception {
         List<Review> actual = reviewService.findReviewsByWhoID(id);
 
-        //content are identical but assertEquals(actual, expected) is failed
-        assertEquals(actual.toString(), reviews.toString());
+        assertEquals(actual, reviews);
     }
 
     @Test(dataProvider = "NegativeDataForFindReviewsByWhoID", description = 
@@ -75,7 +74,9 @@ public class ReviewServiceImplTest {
 
     @DataProvider(name = "NegativeDataForFindReviewsByAboutID")
     private Object[][] getNegativeDataForFindReviewsBAboutID() {
-        return new Object[][]{{fillExpectedList(), 3},};
+        return new Object[][]{
+                {fillExpectedList(), 3}
+        };
     }
 
     @Test(dataProvider = "PositiveDataForFindReviewsByAboutID", description 
@@ -85,15 +86,14 @@ public class ReviewServiceImplTest {
 
         List<Review> actual = reviewService.findReviewsByAboutID(id);
 
-        //same as testPositiveFindReviewsByWhoID test
-        assertEquals(actual.toString(), reviews.toString());
+        assertEquals(actual, reviews);
     }
 
     @Test(dataProvider = "NegativeDataForFindReviewsByAboutID", description 
             = "Negative scenario of Find Reviews By 'About' ID")
     public void testNegativeFindReviewsByAboutID(List<Review> reviews,
             long id) throws Exception {
-        List<Review> actual = reviewService.findReviewsByWhoID(id);
+        List<Review> actual = reviewService.findReviewsByAboutID(id);
 
         assertNotEquals(actual, reviews);
     }

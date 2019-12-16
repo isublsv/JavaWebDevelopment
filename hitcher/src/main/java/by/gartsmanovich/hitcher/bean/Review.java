@@ -159,10 +159,10 @@ public class Review extends Entity {
 
         Review review = (Review) o;
 
-        if (about != review.about) {
+        if (!about.equals(review.about)) {
             return false;
         }
-        if (who != review.who) {
+        if (!who.equals(review.who)) {
             return false;
         }
         if (rating != review.rating) {
