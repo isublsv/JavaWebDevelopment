@@ -542,4 +542,24 @@ public class User extends Entity {
         }
         return Objects.equals(carColor, user.carColor);
     }
+
+    /**
+     * Returns a string representation of the object. In general, the
+     * {@code toString} method returns a string that
+     * "textually represents" this object.
+     *
+     * @return a string representation of the object.
+     */
+    @Override
+    public String toString() {
+        return String.format(
+                "User{login='%s', email='%s', password='%s', salt='%s', "
+                + "role=%s, status=%s, registrationDate=%s, surname='%s', "
+                + "name='%s', patronymic='%s', phoneNumber='%s', "
+                + "address='%s', music=%d, communication=%d, "
+                + "driverLicenseNumber='%s', carModel='%s', carColor='%s'}",
+                login, email, password, salt, role, status, registrationDate,
+                surname, name, patronymic, phoneNumber, address, music,
+                communication, driverLicenseNumber, carModel, carColor);
+    }
 }

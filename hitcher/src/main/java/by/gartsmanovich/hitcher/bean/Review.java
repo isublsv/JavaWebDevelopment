@@ -173,4 +173,17 @@ public class Review extends Entity {
         }
         return text.equals(review.text);
     }
+
+    /**
+     * Returns a string representation of the object. In general, the
+     * {@code toString} method returns a string that
+     * "textually represents" this object.
+     *
+     * @return a string representation of the object.
+     */
+    @Override
+    public String toString() {
+        return String.format("Review{about=%s, who=%s, text='%s', rating=%d}",
+                             about, who, text, rating);
+    }
 }

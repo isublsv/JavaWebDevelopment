@@ -338,4 +338,21 @@ public class Trip extends Entity {
         }
         return arrivalDatetime.equals(trip.arrivalDatetime);
     }
+
+    /**
+     * Returns a string representation of the object. In general, the
+     * {@code toString} method returns a string that
+     * "textually represents" this object.
+     *
+     * @return a string representation of the object.
+     */
+    @Override
+    public String toString() {
+        return String.format(
+                "Trip{driver=%s, from=%s, to=%s, departureDatetime=%s, "
+                + "arrivalDatetime=%s, freeSeats=%d, price=%s, "
+                + "isSmokingAllowed=%s, isPetsAllowed=%s, passengers=%s}",
+                driver, from, to, departureDatetime, arrivalDatetime,
+                freeSeats, price, isSmokingAllowed, isPetsAllowed, passengers);
+    }
 }
