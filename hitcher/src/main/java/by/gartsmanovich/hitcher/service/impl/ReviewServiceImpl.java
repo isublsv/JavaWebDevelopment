@@ -50,11 +50,7 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewDao reviewDao = transaction.getReviewDao();
         try {
             List<Review> reviews = reviewDao.findAllReviewsByWhoId(id);
-            UserDao userDao = transaction.getUserDao();
-            for (Review review : reviews) {
-                Optional<User> user = userDao.findById(review.getWho().getId());
-                user.ifPresent(review::setWho);
-            }
+            fillReviewUsers(reviews);
             transaction.commit();
             return reviews;
         } catch (DaoException e) {
@@ -76,16 +72,33 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewDao reviewDao = transaction.getReviewDao();
         try {
             List<Review> reviews = reviewDao.findAllReviewsByAboutId(id);
-            UserDao userDao = transaction.getUserDao();
-            for (Review review : reviews) {
-                Optional<User> user = userDao.findById(review.getAbout()
-                                                             .getId());
-                user.ifPresent(review::setAbout);
-            }
+            fillReviewUsers(reviews);
             transaction.commit();
             return reviews;
         } catch (DaoException e) {
             transaction.rollback();
+            throw new ServiceException(e, SQL_ERROR);
+        }
+    }
+
+    /**
+     * Gets users data from data source.
+     *
+     * @param reviews the provided review list.
+     * @throws ServiceException if failed to find users by user ID.
+     */
+    private void fillReviewUsers(final List<Review> reviews) throws
+            ServiceException {
+        UserDao userDao = transaction.getUserDao();
+        try {
+            for (Review review : reviews) {
+                Optional<User> who = userDao.findById(review.getWho().getId());
+                Optional<User> about = userDao.findById(
+                        review.getAbout().getId());
+                who.ifPresent(review::setWho);
+                about.ifPresent(review::setAbout);
+            }
+        } catch (DaoException e) {
             throw new ServiceException(e, SQL_ERROR);
         }
     }
