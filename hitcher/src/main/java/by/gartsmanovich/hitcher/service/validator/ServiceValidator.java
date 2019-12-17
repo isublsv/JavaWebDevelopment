@@ -316,4 +316,17 @@ public class ServiceValidator {
         }
         return true;
     }
+
+    /**
+     * Checks if provided date of departure is before the date of arrival.
+     *
+     * @param departure the provided date of trip departure.
+     * @param arrival   the provided date of trip arrival.
+     * @return true if date of departure is before the date of arrival, false
+     * otherwise.
+     */
+    public boolean isValidDates(final LocalDate departure,
+            final LocalDate arrival) {
+        return departure.isBefore(arrival);
+    }
 }

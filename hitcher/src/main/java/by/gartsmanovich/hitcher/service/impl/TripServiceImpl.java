@@ -24,6 +24,7 @@ import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.INVAL
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.PASSENGER_LIST_NOT_EMPTY;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.SQL_ERROR;
 import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.TRIP_NOT_FOUND;
+import static by.gartsmanovich.hitcher.service.exception.ServiceErrorCodes.USER_NOT_FOUND;
 
 /**
  * The realisation of Trip Service interface is used to describe of application
@@ -121,19 +122,26 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<Trip> findTripsByUserId(final long id) throws ServiceException {
         TripDao tripDao = transaction.getTripDao();
+        UserDao userDao = transaction.getUserDao();
         DestinationDao destinationDao = transaction.getDestinationDao();
         try {
             List<Trip> trips = tripDao.findByUserId(id);
-            for (Trip trip : trips) {
-                Optional<City> from = destinationDao.findCityById(
-                        trip.getFrom().getId());
-                Optional<City> to = destinationDao.findCityById(
-                        trip.getTo().getId());
+            Optional<User> optionalUser = userDao.findById(id);
+            if (optionalUser.isPresent()) {
+                for (Trip trip : trips) {
+                    trip.setDriver(optionalUser.get());
+                    Optional<City> from = destinationDao.findCityById(
+                            trip.getFrom().getId());
+                    Optional<City> to = destinationDao.findCityById(
+                            trip.getTo().getId());
 
-                from.ifPresent(trip::setFrom);
-                to.ifPresent(trip::setTo);
+                    from.ifPresent(trip::setFrom);
+                    to.ifPresent(trip::setTo);
 
-                trip.setPassengers(findPassengers(trip));
+                    trip.setPassengers(findPassengers(trip));
+                }
+            } else {
+                throw new ServiceException(USER_NOT_FOUND);
             }
             transaction.commit();
             return trips;
@@ -166,6 +174,12 @@ public class TripServiceImpl implements TripService {
                 }
             }
             Trip trip = buildTrip(map);
+
+            if (!validator.isValidDates(trip.getDepartureDatetime(),
+                                        trip.getArrivalDatetime())) {
+                throw new ServiceException(INVALID_DATE_FORMAT);
+            }
+
             User driver = new User(id);
             trip.setDriver(driver);
 
@@ -194,6 +208,11 @@ public class TripServiceImpl implements TripService {
             Optional<Trip> optionalTrip = tripDao.findById(trip.getId());
             if (optionalTrip.isPresent()) {
                 Trip tripToUpdate = optionalTrip.get();
+
+                if (!validator.isValidDates(trip.getDepartureDatetime(),
+                                            trip.getArrivalDatetime())) {
+                    throw new ServiceException(INVALID_DATE_FORMAT);
+                }
 
                 tripToUpdate.setDepartureDatetime(trip.getDepartureDatetime());
                 tripToUpdate.setArrivalDatetime(trip.getArrivalDatetime());

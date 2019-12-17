@@ -37,17 +37,10 @@ INSERT INTO city (id, name, country_id) VALUES (1, 'Moscow', 1);
 INSERT INTO city (id, name, country_id) VALUES (2, 'Saint Petersburg', 1);
 
 INSERT INTO trips (driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) 
-VALUES (3, 1, 2, '2019-12-21 17:00:00', '2019-12-22 05:00:00');
-INSERT INTO trips (driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) 
-VALUES (3, 1, 2, '2019-12-22 17:00:00', '2019-12-23 05:00:00');
-INSERT INTO trips (driver_id, from_city_id, to_city_id, departure_datetime, arrival_datetime) 
 VALUES (3, 1, 2, '2019-12-23 17:00:00', '2019-12-24 05:00:00');
 
 INSERT INTO trip_users (trip_id, passenger_id) VALUES (1, 2);
-INSERT INTO trip_users (trip_id, passenger_id) VALUES (1, 4);
 
 INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (1, 3, 50.00, 1, 1);
-INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (2, 2, 70.00, 0, 0);
-INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (3, 4, 60.00, 0, 1);
 
 
