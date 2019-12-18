@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "Hitcher web-app suite" parallel = "false">
+    <test name = "UserService test">
+        <classes>
+            <class name="by.gartsmanovich.hitcher.service.impl.UserServiceImplTest"/>
+        </classes>
+    </test>
+    <test name = "TripService test">
+        <classes>
+            <class name="by.gartsmanovich.hitcher.service.impl.TripServiceImplTest"/>
+        </classes>
+    </test>
+    <test name = "ReviewService test">
+        <classes>
+            <class name="by.gartsmanovich.hitcher.service.impl.ReviewServiceImplTest"/>
+        </classes>
+    </test>
+    <test name = "DestinationService test">
+        <classes>
+            <class name="by.gartsmanovich.hitcher.service.impl.DestinationServiceImplTest"/>
+        </classes>
+    </test>
+</suite>
