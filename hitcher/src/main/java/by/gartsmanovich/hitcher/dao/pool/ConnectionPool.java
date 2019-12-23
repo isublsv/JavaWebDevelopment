@@ -14,9 +14,6 @@ import java.util.Properties;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static by.gartsmanovich.hitcher.dao.pool.DatabaseManager.DB_POOL_SIZE;
 import static by.gartsmanovich.hitcher.dao.pool.DatabaseManager.DB_TIMEOUT;
@@ -50,19 +47,9 @@ public final class ConnectionPool {
     private int poolTimeout;
 
     /**
-     * Lazy initialisation of class instance.
+     * Initialisation of class instance.
      */
-    private static ConnectionPool instance;
-
-    /**
-     * Used to synchronize pool connections creation.
-     */
-    private static Lock lock = new ReentrantLock();
-
-    /**
-     * Checks if an instance was created.
-     */
-    private static AtomicBoolean isCreated = new AtomicBoolean(false);
+    private static final ConnectionPool INSTANCE = new ConnectionPool();
 
     /**
      * Deque for available connections.
@@ -97,18 +84,7 @@ public final class ConnectionPool {
      * @return threadsafe connection pool instance.
      */
     public static ConnectionPool getInstance() {
-        if (!isCreated.get()) {
-            try {
-                lock.lock();
-                if (instance == null) {
-                    instance = new ConnectionPool();
-                    isCreated.set(true);
-                }
-            } finally {
-                lock.unlock();
-            }
-        }
-        return instance;
+        return INSTANCE;
     }
 
     /**
