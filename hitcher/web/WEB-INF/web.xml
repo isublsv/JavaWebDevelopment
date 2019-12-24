@@ -50,8 +50,8 @@
     
     <jsp-config>
         <taglib>
-            <taglib-uri>http://epam.gartsmanovich.com/isublsv/tag/hitTag</taglib-uri>
-            <taglib-location>/WEB-INF/tld/custom.tld</taglib-location>
+            <taglib-uri>http://epam.gartsmanovich.com/isublsv/tag/rating</taglib-uri>
+            <taglib-location>/WEB-INF/tld/rating.tld</taglib-location>
         </taglib>
     </jsp-config>
 </web-app>

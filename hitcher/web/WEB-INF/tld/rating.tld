@@ -7,7 +7,7 @@
 
     <tlib-version>2.1</tlib-version>
     <short-name>rating</short-name>
-    <uri>http://epam.gartsmanovich.com/isublsv/tag/hitTag</uri>
+    <uri>http://epam.gartsmanovich.com/isublsv/tag/rating</uri>
     <tag>
         <name>ratingTag</name>
         <tag-class>by.gartsmanovich.hitcher.view.RatingTag</tag-class>
