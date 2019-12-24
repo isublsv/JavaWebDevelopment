@@ -69,7 +69,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      */
     private static final String FIND_BY_PARAMS =
             FIND_TRIP + " WHERE t.from_city_id=? AND t.to_city_id=?"
-            + " AND t.departure_datetime > ? AND top.free_seats > 0"
+            + " AND t.departure_datetime >= ? AND top.free_seats > 0"
             + " ORDER BY t.departure_datetime;";
 
     /**
