@@ -36,26 +36,27 @@ public class MysqlReviewDao implements ReviewDao {
     /**
      * Common part of the find review query.
      */
-    private static final String FIND_BY =
+    private static final String COMMON_QUERY_PART =
             "SELECT r.id, r.about_id, r.who_id, r.text, r.rating "
             + "FROM reviews AS r ";
 
     /**
      * Query to find a review by ID in the database.
      */
-    private static final String FIND_BY_ID = FIND_BY + " WHERE r.id=?;";
+    private static final String FIND_BY_ID = COMMON_QUERY_PART
+                                             + " WHERE r.id=?;";
 
     /**
      * Query to find all reviews by "who_id" (an author) in the database.
      */
-    private static final String FIND_ALL_BY_WHO_ID =
-            FIND_BY + " WHERE r.who_id=?;";
+    private static final String FIND_ALL_BY_WHO_ID = COMMON_QUERY_PART
+                                                     + " WHERE r.who_id=?;";
 
     /**
      * Query to find all reviews by "about_id" (a subject) in the database.
      */
-    private static final String FIND_ALL_BY_ABOUT_ID =
-            FIND_BY + " WHERE r.about_id=?;";
+    private static final String FIND_ALL_BY_ABOUT_ID = COMMON_QUERY_PART
+                                                       + " WHERE r.about_id=?;";
 
     /**
      * Query to update data of selected review in the database.
@@ -123,7 +124,7 @@ public class MysqlReviewDao implements ReviewDao {
     /**
      * Finds review entity in the database by provided ID if present.
      *
-     * @param id the provided ID.
+     * @param id the provided review ID.
      * @return the review entity if present.
      * @throws DaoException if failed to find review entity by ID.
      */
@@ -148,29 +149,29 @@ public class MysqlReviewDao implements ReviewDao {
     /**
      * Finds all reviews by author ID in the database.
      *
-     * @param id the of the author of the review.
+     * @param whoId the of the author of the review.
      * @return the list of reviews.
      * @throws DaoException if failed to find all reviews entity in the
      *                      database.
      */
     @Override
-    public List<Review> findAllReviewsByWhoId(final long id) throws
+    public List<Review> findAllReviewsByWhoId(final long whoId) throws
             DaoException {
-        return getReviews(id, FIND_ALL_BY_WHO_ID);
+        return getReviews(whoId, FIND_ALL_BY_WHO_ID);
     }
 
     /**
      * Finds all reviews by subject ID in the database.
      *
-     * @param id the of the subject of the review.
+     * @param aboutId the of the subject of the review.
      * @return the list of reviews.
      * @throws DaoException if failed to find all reviews entity in the
      *                      database.
      */
     @Override
-    public List<Review> findAllReviewsByAboutId(final long id) throws
+    public List<Review> findAllReviewsByAboutId(final long aboutId) throws
             DaoException {
-        return getReviews(id, FIND_ALL_BY_ABOUT_ID);
+        return getReviews(aboutId, FIND_ALL_BY_ABOUT_ID);
     }
 
     /**

@@ -53,7 +53,7 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
     /**
      * Common part of the find trip query.
      */
-    private static final String FIND_TRIP =
+    private static final String COMMON_QUERY_PART =
             "SELECT t.id, t.driver_id, t.from_city_id, t.to_city_id,"
             + " t.departure_datetime, t.arrival_datetime, top.free_seats,"
             + " top.price, top.smoking, top.pets FROM trips AS t"
@@ -62,13 +62,14 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
     /**
      * Query to find a trip by ID value in the database.
      */
-    private static final String FIND_BY_ID = FIND_TRIP + " WHERE t.id=?;";
+    private static final String FIND_BY_ID = COMMON_QUERY_PART
+                                             + " WHERE t.id=?;";
 
     /**
      * Query to find a trips by values in the database.
      */
     private static final String FIND_BY_PARAMS =
-            FIND_TRIP + " WHERE t.from_city_id=? AND t.to_city_id=?"
+            COMMON_QUERY_PART + " WHERE t.from_city_id=? AND t.to_city_id=?"
             + " AND t.departure_datetime >= ? AND top.free_seats > 0"
             + " ORDER BY t.departure_datetime;";
 
@@ -76,7 +77,8 @@ public class MysqlTripDao implements AbstractDao<Trip>, TripDao {
      * Query to find a trips by user ID in the database.
      */
     private static final String FIND_TRIP_BY_USER_ID =
-            FIND_TRIP + " WHERE t.driver_id=? ORDER BY t.departure_datetime;";
+            COMMON_QUERY_PART
+            + " WHERE t.driver_id=? ORDER BY t.departure_datetime;";
 
     /**
      * Query to update data of the trip in the database.

@@ -31,19 +31,20 @@ public class MysqlDestinationDao implements DestinationDao {
     /**
      * Common part of query to find city in the database.
      */
-    private static final String FIND_BY =
+    private static final String COMMON_QUERY_PART =
             "SELECT id, name, country_id FROM city";
 
     /**
      * Query to find city in the database by ID.
      */
-    private static final String FIND_CITY_BY_ID = FIND_BY + " WHERE id=?;";
+    private static final String FIND_CITY_BY_ID = COMMON_QUERY_PART
+                                                  + " WHERE id=?;";
 
     /**
-     * Query to find all cities in the database by destination ID.
+     * Query to find all cities in the database by country ID.
      */
-    private static final String FIND_ALL_CITY_BY_ID = FIND_BY
-                                                      + " WHERE country_id=?";
+    private static final String FIND_ALL_CITIES_BY_ID = COMMON_QUERY_PART
+                                                        + " WHERE country_id=?";
 
     /**
      * Connection from a pool to MySQL database.
@@ -89,19 +90,20 @@ public class MysqlDestinationDao implements DestinationDao {
     }
 
     /**
-     * Finds all cities by destination ID in the database.
+     * Finds all cities by country ID in the database.
      *
-     * @param id the provided ID.
+     * @param countryId the provided country ID.
      * @return the list of destinations.
-     * @throws DaoException if failed to find all city entities by destination
+     * @throws DaoException if failed to find all city entities by country
      *                      ID in the database.
      */
     @Override
-    public List<City> findAllCitiesById(final long id) throws DaoException {
+    public List<City> findAllCitiesById(final long countryId)
+            throws DaoException {
         List<City> cities = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(
-                FIND_ALL_CITY_BY_ID)) {
-            statement.setLong(1, id);
+                FIND_ALL_CITIES_BY_ID)) {
+            statement.setLong(1, countryId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -118,17 +120,17 @@ public class MysqlDestinationDao implements DestinationDao {
     /**
      * Finds city by ID in the data source if present.
      *
-     * @param id the provided city ID.
+     * @param cityId the provided city ID.
      * @return the city entity if present.
      * @throws DaoException if failed to find city entity by ID in the
      *                      data source.
      */
     @Override
-    public Optional<City> findCityById(final long id) throws DaoException {
+    public Optional<City> findCityById(final long cityId) throws DaoException {
         City city = null;
         try (PreparedStatement statement = connection.prepareStatement(
                 FIND_CITY_BY_ID)) {
-            statement.setLong(1, id);
+            statement.setLong(1, cityId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {

@@ -43,7 +43,7 @@ public class MysqlUserDao implements UserDao {
     /**
      * Common part of the find User query with full data.
      */
-    private static final String FIND_FULL_DATA_USER =
+    private static final String COMMON_QUERY_PART_FULL_DATA_USER =
             "SELECT u.id, u.login, u.email, u.password, u.salt, u.role,"
             + " u.status, u.registration_date, h.surname, h.name, h.patronymic,"
             + " h.phone, h.address, h.music_id, h.communication_id,"
@@ -54,14 +54,14 @@ public class MysqlUserDao implements UserDao {
     /**
      * Common part of the find User query with compact data.
      */
-    private static final String FIND_COMPACT_DATA_USER =
+    private static final String COMMON_QUERY_PART_COMPACT_DATA_USER =
             "SELECT u.id, u.login, u.email, u.password, u.salt, u.role,"
             + " u.status FROM users AS u";
 
     /**
      * Query to find a user by ID value in the database.
      */
-    private static final String FIND_BY_ID = FIND_FULL_DATA_USER
+    private static final String FIND_BY_ID = COMMON_QUERY_PART_FULL_DATA_USER
                                              + " WHERE u.id=?;";
 
     /**
@@ -76,6 +76,7 @@ public class MysqlUserDao implements UserDao {
     /**
      * Query to update user password and salt in the database.
      */
+    @SuppressWarnings({"squid:S2068"})
     private static final String UPDATE_USER_PASSWORD =
             "UPDATE users AS u SET u.password=?, u.salt=? WHERE u.id=?";
 
@@ -104,20 +105,20 @@ public class MysqlUserDao implements UserDao {
     /**
      * Query to find all users in the database.
      */
-    private static final String FIND_ALL_USERS = FIND_COMPACT_DATA_USER
-                                                 + " WHERE u.role != 0;";
+    private static final String FIND_ALL_USERS =
+            COMMON_QUERY_PART_COMPACT_DATA_USER + " WHERE u.role != 0;";
 
     /**
      * Query to find user by login.
      */
     private static final String FIND_USER_BY_LOGIN =
-            FIND_COMPACT_DATA_USER + " WHERE u.login=?;";
+            COMMON_QUERY_PART_COMPACT_DATA_USER + " WHERE u.login=?;";
 
     /**
      * Query to find user by email.
      */
     private static final String FIND_USER_BY_EMAIL =
-            FIND_COMPACT_DATA_USER + " WHERE u.email=?;";
+            COMMON_QUERY_PART_COMPACT_DATA_USER + " WHERE u.email=?;";
 
     /**
      * Connection from a pool to MySQL database.
