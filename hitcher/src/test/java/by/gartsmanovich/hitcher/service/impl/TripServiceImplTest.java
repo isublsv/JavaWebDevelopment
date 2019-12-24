@@ -44,7 +44,7 @@ public class TripServiceImplTest {
             priority = 1)
     public void testPositiveFindTripsByValues() throws Exception {
         List<Trip> actual = tripService.findTripsByValues("1", "2",
-                                                          "2019-12-23");
+                                                          "2019-12-30");
         List<Trip> expected = getExpectedTripList();
 
         assertEquals(actual, expected);
@@ -151,8 +151,8 @@ public class TripServiceImplTest {
         to.setCityName("Saint Petersburg");
         trip.setTo(to);
 
-        trip.setDepartureDatetime(LocalDate.of(2019, 12, 23));
-        trip.setArrivalDatetime(LocalDate.of(2019, 12, 24));
+        trip.setDepartureDatetime(LocalDate.of(2019, 12, 30));
+        trip.setArrivalDatetime(LocalDate.of(2019, 12, 31));
         trip.setFreeSeats(4);
         trip.setPrice(50);
         trip.setSmokingAllowed(true);
