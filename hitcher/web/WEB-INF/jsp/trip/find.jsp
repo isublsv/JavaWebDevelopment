@@ -118,7 +118,7 @@
                         <label for="departure" class="col-sm-5"><fmt:message key="departure.datetime"/></label>
                     </div>
                     <div class="col-sm-7">
-                        <input type="date" class="form-control" id="departure" name="departure" max="2021-12-31"
+                        <input type="date" class="form-control" id="departure" name="departure" max="2020-12-31"
                                required>
                         <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>

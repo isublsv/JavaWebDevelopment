@@ -149,7 +149,7 @@
                         <label class="col-md-5" for="price"><fmt:message key="show.price"/></label>
                     </div>
                     <div class="col-md-7">
-                        <input type="number" class="form-control" id="price" min="0" step="0.5" name="price" required>
+                        <input type="number" class="form-control" id="price" min="1" step="0.5" name="price" required>
                         <div class="invalid-feedback"><fmt:message key="invalid.feedback"/></div>
                     </div>
                 </div>
