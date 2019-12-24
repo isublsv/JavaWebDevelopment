@@ -114,19 +114,20 @@ public class TripServiceImpl implements TripService {
     /**
      * Returns user trip list from the data source.
      *
-     * @param id the provided user ID.
+     * @param userId the provided user ID.
      * @return the trip list.
      * @throws ServiceException if failed to find trip list by ID from the data
      *                          source.
      */
     @Override
-    public List<Trip> findTripsByUserId(final long id) throws ServiceException {
+    public List<Trip> findTripsByUserId(final long userId)
+            throws ServiceException {
         TripDao tripDao = transaction.getTripDao();
         UserDao userDao = transaction.getUserDao();
         DestinationDao destinationDao = transaction.getDestinationDao();
         try {
-            List<Trip> trips = tripDao.findByUserId(id);
-            Optional<User> optionalUser = userDao.findById(id);
+            List<Trip> trips = tripDao.findByUserId(userId);
+            Optional<User> optionalUser = userDao.findById(userId);
             if (optionalUser.isPresent()) {
                 for (Trip trip : trips) {
                     trip.setDriver(optionalUser.get());
@@ -154,19 +155,19 @@ public class TripServiceImpl implements TripService {
     /**
      * Saves a new user trip in the data source.
      *
-     * @param id  the provided user ID.
+     * @param userId  the provided user ID.
      * @param map the parameters map.
      * @throws ServiceException if failed to save a new user trip in the data
      *                          source.
      */
     @Override
-    public void save(final long id, final Map<String, String[]> map) throws
+    public void save(final long userId, final Map<String, String[]> map) throws
             ServiceException {
 
         UserDao userDao = transaction.getUserDao();
         TripDao tripDao = transaction.getTripDao();
         try {
-            Optional<User> optionalUser = userDao.findById(id);
+            Optional<User> optionalUser = userDao.findById(userId);
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
                 if (user.getDriverLicenseNumber() == null) {
@@ -180,7 +181,7 @@ public class TripServiceImpl implements TripService {
                 throw new ServiceException(INVALID_DATE_FORMAT);
             }
 
-            User driver = new User(id);
+            User driver = new User(userId);
             trip.setDriver(driver);
 
             Trip tripWithId = tripDao.create(trip);

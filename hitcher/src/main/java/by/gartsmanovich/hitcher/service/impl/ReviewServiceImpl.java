@@ -40,16 +40,16 @@ public class ReviewServiceImpl implements ReviewService {
     /**
      * Finds all reviews about user by ID.
      *
-     * @param id the provided user ID.
+     * @param whoId the provided user ID.
      * @return the review list.
      * @throws ServiceException if failed to find reviews by user ID.
      */
     @Override
-    public List<Review> findReviewsByWhoID(final long id) throws
+    public List<Review> findReviewsByWhoID(final long whoId) throws
             ServiceException {
         ReviewDao reviewDao = transaction.getReviewDao();
         try {
-            List<Review> reviews = reviewDao.findAllReviewsByWhoId(id);
+            List<Review> reviews = reviewDao.findAllReviewsByWhoId(whoId);
             fillReviewUsers(reviews);
             transaction.commit();
             return reviews;
@@ -62,16 +62,16 @@ public class ReviewServiceImpl implements ReviewService {
     /**
      * Finds all reviews about provided user ID.
      *
-     * @param id the provided user ID.
+     * @param aboutId the provided user ID.
      * @return the review list.
      * @throws ServiceException if failed to find reviews by user ID.
      */
     @Override
-    public List<Review> findReviewsByAboutID(final long id) throws
+    public List<Review> findReviewsByAboutID(final long aboutId) throws
             ServiceException {
         ReviewDao reviewDao = transaction.getReviewDao();
         try {
-            List<Review> reviews = reviewDao.findAllReviewsByAboutId(id);
+            List<Review> reviews = reviewDao.findAllReviewsByAboutId(aboutId);
             fillReviewUsers(reviews);
             transaction.commit();
             return reviews;
