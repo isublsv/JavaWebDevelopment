@@ -41,6 +41,6 @@ VALUES (3, 1, 2, '2019-12-30 17:00:00', '2019-12-31 05:00:00');
 
 INSERT INTO trip_users (trip_id, passenger_id) VALUES (1, 2);
 
-INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (1, 3, 50.00, 1, 1);
+INSERT INTO trip_options (trip_id, free_seats, price, smoking, pets) VALUES (1, 4, 50.00, 1, 1);
 
 
